@@ -1,0 +1,27 @@
+{
+  "name": "autohaus-catalogo-cms",
+  "version": "1.0.0",
+  "description": "Catálogo Digital y Panel de Administración de Vehículos Autohaus",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "autohaus",
+    "catalogo",
+    "cms",
+    "dashboard",
+    "vehiculos"
+  ],
+  "author": "Autohaus",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "puppeteer-core": "^25.9.0"
+  }
+}

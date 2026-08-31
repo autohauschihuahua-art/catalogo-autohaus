@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autohaus | Seminuevos Certificados y Compra - Venta - Consignación</title>
+  <meta name="description" content="Catálogo e inventario en vivo de autos seminuevos certificados en Chihuahua, Chih. Planes de financiamiento desde 20% de enganche y garantía mecánica.">
+  
+  <!-- Google Fonts: Poppins & Comfortaa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css?v=20250829_pdf_download_v5">
+  <link rel="icon" href="assets/svg/autohaus-tag.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- ==========================================
+       1. NAVIGATION HEADER
+       ========================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header-container">
+      
+      <!-- Official Brand Logo (Exact Tag on 'S') -->
+      <a href="#" class="brand-logo-group">
+        <img src="assets/svg/autohaus-logo-official-inline.svg?v=20250831_master_logo" alt="Autohaus Logo" style="height: 44px; width: auto;" />
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#inventario" class="nav-link">Inventario</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#catalogo-pdf" class="nav-link">Catálogo PDF</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        
+        <!-- Download PDF Catalog Button -->
+        <button class="action-btn btn-pdf-nav" id="navDownloadPdfBtn" title="Descargar catálogo completo en PDF">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Descargar Catálogo</span>
+        </button>
+
+        <!-- WhatsApp Direct -->
+        <a href="https://wa.me/526143653015?text=Hola%20Autohaus,%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20su%20inventario%20disponible." target="_blank" class="action-btn btn-whatsapp" title="Enviar WhatsApp a un asesor">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Admin Access -->
+        <a href="/admin" class="action-btn btn-admin-nav" title="Panel de Administración">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Admin</span>
+        </a>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================
+       2. HERO SECTION
+       ========================================== -->
+  <section class="hero-section" id="inicio">
+    <div class="hero-backdrop-glow"></div>
+    
+    <div class="hero-container">
+      
+      <div class="hero-badge-tag">
+        <span class="dot-live"></span>
+        <span>INVENTARIO ACTUALIZADO EN TIEMPO REAL</span>
+      </div>
+
+      <h1 class="hero-title-main">
+        Tu Próximo Seminuevo con <br />
+        <span class="text-gradient-gold">Garantía y Confianza Total</span>
+      </h1>
+
+      <p class="hero-subtitle-lead">
+        Explora nuestra selección exclusiva de más de <strong>55 autos certificados</strong> listos para entrega inmediata en Chihuahua, Chih. Visítanos en nuestras sucursales San Felipe y Sur (Central de Abastos).
+      </p>
+
+      <!-- Main Action Buttons -->
+      <div class="hero-cta-group">
+        <a href="#inventario" class="btn-hero-primary">
+          <span>Ver Inventario Disponible</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <button class="btn-hero-secondary" id="heroDownloadPdfBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Descargar Catálogo PDF</span>
+        </button>
+
+        <button class="btn-hero-magazine" id="heroOpenFlipbookBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Modo Revista Digital</span>
+        </button>
+      </div>
+
+      <!-- Quick Trust Badges -->
+      <div class="hero-trust-bar">
+        <div class="trust-item">
+          <span class="trust-icon">✓</span>
+          <div class="trust-text">
+            <strong>Revisión 100 Puntos</strong>
+            <span>Garantía mecánica y legal</span>
+          </div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <span class="trust-icon">💳</span>
+          <div class="trust-text">
+            <strong>Crédito Automotriz</strong>
+            <span>Desde 20% de enganche</span>
+          </div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <span class="trust-icon">⚡</span>
+          <div class="trust-text">
+            <strong>Entrega Inmediata</strong>
+            <span>Papeles en regla y listos</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       3. INVENTORY SECTION (LIVE COMMERCIAL GRID)
+       ========================================== -->
+  <section class="inventory-section-main" id="inventario">
+    <div class="inventory-container">
+      
+      <!-- Section Header -->
+      <div class="section-header-block">
+        <div class="section-subtitle-tag">CATÁLOGO DE UNIDADES</div>
+        <h2 class="section-title">Inventario en Venta</h2>
+        <p class="section-description">
+          Filtra por categoría, busca por marca o modelo y cotiza tu vehículo favorito con atención personalizada vía WhatsApp.
+        </p>
+      </div>
+
+      <!-- Filter & Search Toolbar -->
+      <div class="inventory-filters-toolbar">
+        
+        <!-- Search Input -->
+        <div class="search-input-wrap">
+          <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="landingSearchInput" placeholder="Buscar por marca, modelo, año (ej. Mazda 3, Silverado, Tucson)..." />
+        </div>
+
+        <!-- Category Pills -->
+        <div class="category-filter-pills" id="categoryFilterPills">
+          <button class="cat-pill-btn active" data-category="all">Todos (<span id="countAll">59</span>)</button>
+          <button class="cat-pill-btn" data-category="SEDAN & HATCHBACK">Sedán & Hatchback (<span id="countSedan">19</span>)</button>
+          <button class="cat-pill-btn" data-category="SUV'S">SUV's (<span id="countSuv">22</span>)</button>
+          <button class="cat-pill-btn" data-category="PICK UPS">Pick Ups (<span id="countPickup">13</span>)</button>
+          <button class="cat-pill-btn" data-category="DEPORTIVOS">Deportivos (<span id="countSport">3</span>)</button>
+        </div>
+
+        <!-- Sort Select -->
+        <div class="sort-select-wrap">
+          <select id="landingSortSelect" class="landing-sort-dropdown">
+            <option value="default">Ordenar: Destacados</option>
+            <option value="price-asc">Precio: Menor a Mayor</option>
+            <option value="price-desc">Precio: Mayor a Menor</option>
+            <option value="year-desc">Año: Más Reciente</option>
+            <option value="year-asc">Año: Menos Reciente</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Active Count & Results Bar -->
+      <div class="results-info-bar">
+        <span>Mostrando <strong id="showingVehiclesCount">59</strong> vehículos certificados</span>
+      </div>
+
+      <!-- Vehicle Cards Grid -->
+      <div class="vehicles-showcase-grid" id="vehiclesGridContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4. FEATURED CATALOG DOWNLOAD BANNER
+       ========================================== -->
+  <section class="catalog-download-banner-section" id="catalogo-pdf">
+    <div class="catalog-banner-container">
+      
+      <div class="catalog-banner-card">
+        
+        <div class="catalog-banner-text-col">
+          <div class="banner-badge-gold">DOCUMENTO OFICIAL EDITORIAL</div>
+          <h2 class="banner-title">¿Prefieres ver todo el catálogo completo en PDF?</h2>
+          <p class="banner-description">
+            Descarga la edición digital completa con todas las fichas técnicas, fotografías del lote y precios de contado y financiamiento listos para imprimir o compartir.
+          </p>
+          
+          <div class="banner-buttons-group">
+            <!-- Direct PDF Download -->
+            <button class="btn-banner-download-pdf" id="bannerDownloadPdfBtn" title="Descarga directa del catálogo oficial en PDF">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Descargar Catálogo PDF</span>
+            </button>
+
+            <!-- Direct Print -->
+            <button class="btn-banner-print" id="bannerPrintBtn" title="Imprimir catálogo en papel">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <span>Imprimir Catálogo</span>
+            </button>
+
+            <!-- Interactive Flipbook -->
+            <button class="btn-banner-flipbook" id="bannerOpenFlipbookBtn" title="Ver revista digital interactiva">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span>Ver en Modo Revista</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="catalog-banner-preview-col">
+          <div class="magazine-mockup-card">
+            <img src="assets/cars/page_4_img_2.jpeg" alt="Catálogo Autohaus" class="mockup-img" />
+            <div class="mockup-overlay-badge">
+              <span>EDICIÓN 2025</span>
+              <strong>59 VEHÍCULOS</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. SERVICES SECTION
+       ========================================== -->
+  <section class="services-section-main" id="servicios">
+    <div class="services-container">
+      
+      <div class="section-header-block">
+        <div class="section-subtitle-tag">NUESTROS SERVICIOS</div>
+        <h2 class="section-title">Soluciones Automotrices Integrales</h2>
+        <p class="section-description">
+          Facilitamos la compra, venta y financiamiento de tu vehículo con la mayor seguridad y transparencia del mercado.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        
+        <!-- Servicio 1 -->
+        <div class="service-card">
+          <div class="service-icon-box icon-gold">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="service-card-title">Compramos Tu Auto</h3>
+          <p class="service-card-text">
+            Valuación justa, segura y pago inmediato el mismo día. Olvídate de riesgos y trámites complicados.
+          </p>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="service-card">
+          <div class="service-icon-box icon-blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 class="service-card-title">Consignación Segura</h3>
+          <p class="service-card-text">
+            Promocionamos tu unidad en nuestro catálogo digital, redes sociales y piso de venta físico para obtener el mejor precio por él.
+          </p>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="service-card">
+          <div class="service-icon-box icon-green">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3 class="service-card-title">Crédito Automotriz</h3>
+          <p class="service-card-text">
+            Planes de financiamiento con enganche desde 20% y plazos flexibles de 12 hasta 48 meses con respuesta en 24 horas.
+          </p>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="service-card">
+          <div class="service-icon-box icon-purple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="service-card-title">Garantía Mecánica</h3>
+          <p class="service-card-text">
+            Cada vehículo cuenta con un diagnóstico riguroso de motor, transmisión, suspensión e historial legal libre de adeudos.
+          </p>
+        </div>
+
+        <!-- Servicio 5: BANNER HORIZONTAL A LO LARGO (Financiamiento entre Particulares) -->
+        <div class="service-banner-wide">
+          <div class="service-banner-wide-content">
+            <div class="service-banner-badge-row">
+              <span class="service-badge-exclusive">SERVICIO EXCLUSIVO AUTOHAUS</span>
+              <span class="service-badge-safe">🛡️ OPERACIÓN 100% SEGURA</span>
+            </div>
+            <h3 class="service-banner-wide-title">Financiamiento entre Particulares</h3>
+            <p class="service-banner-wide-text">
+              ¿Vas a comprar o vender un auto a un amigo, familiar o particular? En <strong>Autohaus</strong> te otorgamos el crédito bancario, diagnosticamos la unidad mecánica y legalmente, redactamos los contratos oficiales y garantizamos el pago sin riesgos para comprador ni vendedor.
+            </p>
+            <div class="service-banner-checkpoints">
+              <span class="checkpoint-item">✓ Crédito desde 20% de enganche</span>
+              <span class="checkpoint-item">✓ Peritaje físico y legal certificado</span>
+              <span class="checkpoint-item">✓ Pago seguro el mismo día</span>
+            </div>
+          </div>
+          <div class="service-banner-wide-action">
+            <button class="btn-banner-service-cta" onclick="window.appOpenQuoteModal(null, 'Financiamiento entre Particulares', 'Trámite Seguro', 'Desde 20% de enganche')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+              <span>Solicitar Financiamiento Particular</span>
+            </button>
+            <span style="font-size: 0.72rem; color: #94a3b8; text-align: center; display: block; margin-top: 0.4rem;">Atención inmediata por WhatsApp</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       6. CONTACT & LOCATION SECTION (2 SUCURSALES EN CHIHUAHUA)
+       ========================================== -->
+  <section class="contact-section-main" id="contacto">
+    <div class="contact-container">
+      
+      <div class="section-header-block">
+        <div class="section-subtitle-tag">VISÍTANOS EN NUESTRAS 2 SUCURSALES</div>
+        <h2 class="section-title">Encuéntranos en Chihuahua, Chih.</h2>
+        <p class="section-description">
+          Contamos con dos ubicaciones estratégicas para atenderte, realizar tu prueba de manejo o cotizar tu financiamiento de inmediato.
+        </p>
+      </div>
+
+      <!-- 2 Branches Grid -->
+      <div class="branches-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        
+        <!-- Sucursal 1: San Felipe -->
+        <div class="branch-card" style="background: var(--app-card-bg); border: 1.5px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 2.2rem 1.8rem; text-align: left; box-shadow: 0 12px 30px rgba(0,0,0,0.25);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <span style="background: var(--brand-yellow); color: var(--brand-black); font-size: 0.72rem; font-weight: 900; padding: 0.25rem 0.75rem; border-radius: 20px; letter-spacing: 0.10em;">SEDE SAN FELIPE</span>
+            <span style="font-size: 1.4rem;">🏢</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.6rem;">Matriz San Felipe</h3>
+          <p style="font-size: 0.90rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.4rem;">
+            📍 <strong>Fernando de Borja 907</strong>, San Felipe IV Etapa, C.P. 31203, Chihuahua, Chih.
+          </p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Fernando+de+Borja+907+San+Felipe+IV+Etapa+31203+Chihuahua+Chih" target="_blank" class="btn-hero-secondary" style="width: 100%; justify-content: center; padding: 0.70rem; font-size: 0.86rem; border-color: var(--brand-yellow); color: var(--brand-yellow);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <!-- Sucursal 2: Sur (Central de Abastos) -->
+        <div class="branch-card" style="background: var(--app-card-bg); border: 1.5px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 2.2rem 1.8rem; text-align: left; box-shadow: 0 12px 30px rgba(0,0,0,0.25);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <span style="background: var(--brand-yellow); color: var(--brand-black); font-size: 0.72rem; font-weight: 900; padding: 0.25rem 0.75rem; border-radius: 20px; letter-spacing: 0.10em;">SUCURSAL SUR</span>
+            <span style="font-size: 1.4rem;">🚗</span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.6rem;">Central de Abastos</h3>
+          <p style="font-size: 0.90rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.4rem;">
+            📍 <strong>Calle Industrial 8 #7407</strong>, Col. Central de Abastos (Sucursal Sur), Chihuahua, Chih.
+          </p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Calle+Industrial+8+7407+Central+de+Abastos+Chihuahua" target="_blank" class="btn-hero-secondary" style="width: 100%; justify-content: center; padding: 0.70rem; font-size: 0.86rem; border-color: var(--brand-yellow); color: var(--brand-yellow);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Abrir en Google Maps
+          </a>
+        </div>
+
+      </div>
+
+      <!-- WhatsApp & Social Contact Banner -->
+      <div class="contact-card-box" style="padding: 2.5rem 2rem;">
+        <div class="contact-details-list" style="margin-bottom: 1.8rem;">
+          <div class="contact-item">
+            <span class="contact-icon">📱</span>
+            <div>
+              <strong>WhatsApp & Teléfono</strong>
+              <a href="https://wa.me/526143653015" target="_blank" class="contact-link">614 365 3015</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">📸</span>
+            <div>
+              <strong>Instagram</strong>
+              <a href="https://instagram.com/autohausautohaus" target="_blank" class="contact-link">@autohausautohaus</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/526143653015?text=Hola%20Autohaus,%20quiero%20informaci%C3%B3n%20sobre%20los%20autos%20disponibles." target="_blank" class="btn-whatsapp-large">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+          <span>Chatear por WhatsApp con un Asesor (614 365 3015)</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       7. FOOTER
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-brand-side">
+        <div style="margin-bottom: 0.8rem;">
+          <img src="assets/svg/autohaus-logo-official-inline.svg?v=20250831_master_logo" alt="Autohaus Logo" style="height: 44px; width: auto;" />
+        </div>
+        <p class="footer-copy">
+          Compra, Venta y Consignación de Autos Seminuevos en Chihuahua, Chih. Todos los derechos reservados &copy; 2025.
+        </p>
+      </div>
+
+      <div class="footer-links-side">
+        <a href="#inicio">Inicio</a>
+        <a href="#inventario">Inventario</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#catalogo-pdf">Descargar PDF</a>
+        <a href="/admin">Acceso Administrativo</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       8. MODAL: DETALLES Y GALERÍA DE VEHÍCULO
+       ========================================== -->
+  <div class="modal-backdrop" id="vehicleDetailModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Cerrar ventana">&times;</button>
+      
+      <!-- Left: Real Lot Photo Gallery -->
+      <div class="modal-gallery-side">
+        <div class="modal-main-img-wrap">
+          <img id="modalMainImg" src="" alt="Vehículo" />
+          <div class="modal-badge-real-photo">📸 FOTOGRAFÍA REAL DEL LOTE</div>
+        </div>
+        <div class="modal-gallery-thumbs" id="modalThumbsList"></div>
+      </div>
+
+      <!-- Right: Technical Details & Loan Calculator -->
+      <div class="modal-info-side">
+        <div>
+          <div class="modal-header-brand" id="modalBrand">MARCA</div>
+          <div class="modal-header-model" id="modalModel">MODELO Y VERSIÓN</div>
+          <div class="modal-header-year" id="modalYear">AÑO 2024</div>
+
+          <!-- Pricing Row -->
+          <div class="modal-prices-row">
+            <div class="contado-box-wrapper" style="background: rgba(255,255,255,0.08); padding: 0.6rem 1rem; border-radius: 8px;">
+              <span class="contado-label">Precio Contado</span>
+              <span class="contado-amount" id="modalPriceContado">$0</span>
+            </div>
+            <div class="financiado-box-wrapper" style="background: rgba(255,255,255,0.08); padding: 0.6rem 1rem; border-radius: 8px;">
+              <span class="financiado-label">Financiado Desde</span>
+              <div class="financiado-card-yellow">
+                <span class="financiado-amount" id="modalPriceFinanciado">$0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specs List -->
+          <div class="modal-specs-list" id="modalSpecsList"></div>
+
+          <!-- Loan Calculator -->
+          <div class="calculator-box">
+            <div class="calculator-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <span>Calculadora Estimada de Crédito (35% Enganche)</span>
+            </div>
+            <div class="calc-row">
+              <span>Enganche sugerido:</span>
+              <strong id="modalCalcDownpayment">$0</strong>
+            </div>
+            <div class="calc-row">
+              <span>Mensualidad estimada (48 meses):</span>
+              <strong id="modalCalcMonthly" style="color: var(--color-brand-yellow);">$0 / mes</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" target="_blank" class="action-btn btn-whatsapp" id="modalWhatsAppBtn" style="flex: 1; justify-content: center; padding: 0.75rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+            Apartar / Cotizar por WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       9. MODAL: VISOR FLIPBOOK REVISTA DIGITAL
+       ========================================== -->
+  <div class="modal-backdrop" id="flipbookMagazineModal">
+    <div class="modal-card" style="max-width: 1080px; display: flex; flex-direction: column; align-items: center; padding: 1.5rem; background: #0b1120;">
+      <button class="modal-close-btn" id="flipbookModalCloseBtn">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 0.8rem;">
+        <h3 style="font-size: 1.2rem; color: var(--color-brand-yellow); font-family: var(--font-display);">CATÁLOGO EDITORIAL AUTOHAUS</h3>
+        <p style="font-size: 0.78rem; color: #94a3b8;">Navega por las páginas del catálogo o descárgalo en PDF</p>
+      </div>
+
+      <div id="flipbookViewerContainer" style="display: flex; justify-content: center; width: 100%;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE COTIZACIÓN RÁPIDA / EMBUDO AUTOHAUS
+       ========================================== -->
+  <div class="quote-modal-overlay" id="quoteModalOverlay">
+    <div class="quote-modal-card">
+      <button class="quote-modal-close" id="quoteModalCloseBtn" title="Cerrar">&times;</button>
+      
+      <div class="quote-modal-header">
+        <img src="assets/svg/autohaus-logo-official-inline.svg?v=20250831_master_logo" alt="Autohaus Logo" class="quote-modal-logo" />
+        <div class="quote-modal-badge">COTIZACIÓN DIRECTA & ATENCIÓN INMEDIATA</div>
+        <h3 class="quote-modal-title" id="quoteModalVehicleTitle">Cotizar Vehículo</h3>
+        <div class="quote-modal-pricing-row">
+          <div>
+            <span class="quote-lbl">Precio Contado:</span>
+            <span class="quote-modal-price" id="quoteModalVehiclePrice">$0</span>
+          </div>
+          <div id="quoteModalFinanciadoWrap">
+            <span class="quote-lbl">Financiado desde:</span>
+            <span class="quote-modal-fin" id="quoteModalVehicleFin">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="quoteLeadForm" class="quote-modal-form">
+        <input type="hidden" id="quoteVehiclePage" value="" />
+        <input type="hidden" id="quoteVehicleName" value="" />
+
+        <div class="form-field-wrap">
+          <label for="quoteClientName">Nombre Completo *</label>
+          <input type="text" id="quoteClientName" class="quote-input" placeholder="Ej. Juan Pérez" required />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="quoteClientPhone">Teléfono / WhatsApp *</label>
+          <input type="tel" id="quoteClientPhone" class="quote-input" placeholder="Ej. 614 123 4567" required />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="quotePlanSelect">Plan de interés</label>
+          <select id="quotePlanSelect" class="quote-select">
+            <option value="Pago de Contado">Pago de Contado</option>
+            <option value="Financiamiento / Crédito (desde 20% enganche)">Financiamiento Bancario (desde 20% enganche)</option>
+            <option value="Financiamiento entre Particulares">Financiamiento entre Particulares</option>
+            <option value="Toma de Unidad a Cuenta">Toma de Unidad a Cuenta (Auto a cuenta)</option>
+          </select>
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="quoteClientNotes">¿Alguna duda o mensaje adicional? (Opcional)</label>
+          <textarea id="quoteClientNotes" class="quote-textarea" rows="2" placeholder="Ej. ¿En qué sucursal se encuentra disponible?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-quote" id="btnSubmitQuote">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+          <span>Continuar y Enviar a WhatsApp</span>
+        </button>
+
+        <p class="quote-modal-disclaimer">
+          🔒 Se te asignará un asesor en turno de Autohaus para enviarte fotos, video y planes de financiamiento de inmediato.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hidden Print Container for PDF Export -->
+  <div id="printExportHiddenContainer" style="display: none;"></div>
+
+  <!-- Scripts -->
+  <script src="scripts/data.js?v=20250831_master_v6"></script>
+  <script src="scripts/app.js?v=20250831_master_v6"></script>
+</body>
+</html>

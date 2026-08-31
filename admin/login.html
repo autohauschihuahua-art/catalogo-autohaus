@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión | Panel Administrativo Autohaus</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" href="../assets/svg/autohaus-tag.svg" type="image/svg+xml">
+</head>
+<body class="login-body">
+
+  <div class="login-container">
+    
+    <!-- Login Card -->
+    <div class="login-card">
+      
+      <!-- Brand Logo Header (Official Brand DNA) -->
+      <div class="login-brand-header">
+        <img src="../assets/svg/autohaus-logo-official-inline.svg?v=20250831_master_logo" alt="Autohaus Logo" class="login-official-logo" style="width: 280px; height: auto; margin-bottom: 0.5rem;" />
+        <div class="login-subtitle">PANEL DE CONTROL & CMS</div>
+      </div>
+
+      <!-- Alert Message -->
+      <div id="loginAlert" class="alert-box" style="display: none;"></div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="emailInput">Correo Electrónico</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="emailInput" required placeholder="admin@autohaus.mx" value="admin@autohaus.mx" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordInput">Contraseña</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="passwordInput" required placeholder="••••••••••••" value="autohaus2025" autocomplete="current-password" />
+          </div>
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn-primary-login">
+          <span>Ingresar al Panel</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <a href="/" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+          Volver al Catálogo Público
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Check if already logged in
+    const token = localStorage.getItem('autohaus_admin_token');
+    if (token) {
+      fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/admin';
+        }
+      })
+      .catch(() => localStorage.removeItem('autohaus_admin_token'));
+    }
+
+    const loginForm = document.getElementById('loginForm');
+    const loginAlert = document.getElementById('loginAlert');
+    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+      
+      loginAlert.style.display = 'none';
+      loginSubmitBtn.disabled = true;
+      loginSubmitBtn.innerHTML = '<span>Verificando...</span>';
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.token) {
+          localStorage.setItem('autohaus_admin_token', data.token);
+          localStorage.setItem('autohaus_admin_user', JSON.stringify(data.user));
+          
+          loginAlert.className = 'alert-box alert-success';
+          loginAlert.innerHTML = '✓ ¡Acceso correcto! Redirigiendo al panel...';
+          loginAlert.style.display = 'block';
+          
+          setTimeout(() => {
+            window.location.href = '/admin';
+          }, 600);
+        } else {
+          loginAlert.className = 'alert-box alert-danger';
+          loginAlert.innerHTML = `⚠️ ${data.message || 'Error al iniciar sesión'}`;
+          loginAlert.style.display = 'block';
+          loginSubmitBtn.disabled = false;
+          loginSubmitBtn.innerHTML = '<span>Ingresar al Panel</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        }
+      } catch (err) {
+        loginAlert.className = 'alert-box alert-danger';
+        loginAlert.innerHTML = '⚠️ Error de conexión con el servidor.';
+        loginAlert.style.display = 'block';
+        loginSubmitBtn.disabled = false;
+        loginSubmitBtn.innerHTML = '<span>Ingresar al Panel</span>';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Administrador Autohaus",
+    "email": "admin@autohaus.mx",
+    "password": "$2a$10$ngIk24LW6ivXsk0cwGb.EOpI9D9jPnPjqfm6mDKa0.6pEJpStCEqu",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "name": "Alice (Secretaria)",
+    "email": "alice@autohaus.mx",
+    "password": "$2a$10$mZ5i.nWyHknZzTA0fdjdy.H0gRyzHwJprTjt/JE6UC2qYx229xbou",
+    "role": "secretary"
+  },
+  {
+    "id": 3,
+    "name": "Napo (Vendedor)",
+    "email": "napo@autohaus.mx",
+    "password": "$2a$10$Iq.YUgE8r5blBict06CumeWuxoCDklYZQi4bG/aCEYPHd76gcJ1C.",
+    "role": "sales"
+  },
+  {
+    "id": 4,
+    "name": "Javier (Vendedor)",
+    "email": "javier@autohaus.mx",
+    "password": "$2a$10$Jy9TjB7coVmsILD2Sd.hZOfkUWl64Ur1uMDcEKzFVIYFFvnup4/Y6",
+    "role": "sales"
+  },
+  {
+    "id": 5,
+    "name": "Fernanda (Vendedora)",
+    "email": "fernanda@autohaus.mx",
+    "password": "$2a$10$5ciqzfkhd4mO0kENIRk.z.mCkYXWsViomBtfo5.T/31KtVNbSoZgS",
+    "role": "sales"
+  },
+  {
+    "id": 6,
+    "name": "Raúl (Vendedor)",
+    "email": "raul@autohaus.mx",
+    "password": "$2a$10$jaINYg6PHPdEyiwMyJTiP.TSSdc6NgZXkqW3mGFkLnKTVfml1FppO",
+    "role": "sales"
+  }
+]
