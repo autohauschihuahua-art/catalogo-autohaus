@@ -1,5 +1,6 @@
 /**
  * Autohaus - Landing Page & Catálogo Comercial Interactivo
+ * Incluye: Sistema de Favoritos (Likes ❤️), Perfil de Clientes y Embudo de Ventas WhatsApp
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,7 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     searchQuery: '',
     sortBy: 'default',
     currentModalVehicle: null,
-    flipbookPage: 1
+    flipbookPage: 1,
+    currentUser: null,
+    clientToken: localStorage.getItem('autohaus_client_token') || null,
+    favorites: JSON.parse(localStorage.getItem('autohaus_client_favs') || '[]')
   };
 
   // DOM Elements
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const countSuv = document.getElementById('countSuv');
   const countPickup = document.getElementById('countPickup');
   const countSport = document.getElementById('countSport');
+  const countFavorites = document.getElementById('countFavorites');
 
   // PDF Export Buttons
   const navDownloadPdfBtn = document.getElementById('navDownloadPdfBtn');
@@ -55,11 +60,202 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalCalcMonthly = document.getElementById('modalCalcMonthly');
   const modalWhatsAppBtn = document.getElementById('modalWhatsAppBtn');
 
+  // Client Auth Modal Elements
+  const clientAuthModalOverlay = document.getElementById('clientAuthModalOverlay');
+  const clientAuthModalCloseBtn = document.getElementById('clientAuthModalCloseBtn');
+  const authTabLoginBtn = document.getElementById('authTabLoginBtn');
+  const authTabRegisterBtn = document.getElementById('authTabRegisterBtn');
+  const clientLoginForm = document.getElementById('clientLoginForm');
+  const clientRegisterForm = document.getElementById('clientRegisterForm');
+  const authAlertMessage = document.getElementById('authAlertMessage');
+  const linkSwitchToRegister = document.getElementById('linkSwitchToRegister');
+  const linkSwitchToLogin = document.getElementById('linkSwitchToLogin');
+  const navUserContainer = document.getElementById('navUserContainer');
+
   // Initialize
   async function init() {
+    await checkAuthSession();
     await loadVehicles();
     setupEventListeners();
+    setupAuthEventListeners();
+    updateFavoritesCounter();
+    updateNavbarUserUI();
   }
+
+  // ==========================================
+  // AUTHENTICATION & USER SESSION (CLIENTS & STAFF)
+  // ==========================================
+  async function checkAuthSession() {
+    const adminToken = localStorage.getItem('autohaus_admin_token');
+    const clientToken = localStorage.getItem('autohaus_client_token');
+    const token = clientToken || adminToken;
+
+    if (!token) return;
+
+    try {
+      const res = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        state.currentUser = data.user;
+        if (data.user.role === 'client') {
+          state.clientToken = token;
+          // Merge favorites
+          if (Array.isArray(data.user.favorites) && data.user.favorites.length) {
+            const merged = Array.from(new Set([...state.favorites, ...data.user.favorites]));
+            state.favorites = merged;
+            localStorage.setItem('autohaus_client_favs', JSON.stringify(state.favorites));
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Session check error:', e);
+    }
+  }
+
+  function updateNavbarUserUI() {
+    if (!navUserContainer) return;
+
+    if (!state.currentUser) {
+      navUserContainer.innerHTML = `
+        <button id="navLoginBtn" class="action-btn btn-admin-nav" onclick="window.appOpenClientAuthModal()" title="Iniciar sesión o crear cuenta para guardar favoritos">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span id="navLoginBtnText">Iniciar Sesión</span>
+        </button>
+      `;
+    } else if (state.currentUser.role === 'client') {
+      const firstName = (state.currentUser.name || 'Cliente').split(' ')[0];
+      navUserContainer.innerHTML = `
+        <div class="client-profile-nav-wrap">
+          <button class="action-btn btn-client-profile" onclick="window.appToggleUserDropdown(event)" title="Mi perfil de cliente">
+            <span class="client-avatar-mini">${firstName.charAt(0).toUpperCase()}</span>
+            <span>${firstName}</span>
+            <span class="favs-pill-count">❤️ ${state.favorites.length}</span>
+          </button>
+          
+          <div class="client-dropdown-menu" id="clientDropdownMenu">
+            <div class="dropdown-header-user">
+              <strong>${state.currentUser.name}</strong>
+              <span>${state.currentUser.email}</span>
+            </div>
+            <button class="dropdown-item-btn" onclick="window.appFilterByFavorites()">
+              <span>❤️ Mis Autos Favoritos (${state.favorites.length})</span>
+            </button>
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0.3rem 0;"></div>
+            <button class="dropdown-item-btn item-logout" onclick="window.appClientLogout()">
+              <span>Cerrar Sesión</span>
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      // Staff (Admin / Vendedor / Secretaria)
+      navUserContainer.innerHTML = `
+        <a href="/admin" class="action-btn btn-admin-nav" title="Panel de Control Autohaus">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Panel Admin</span>
+        </a>
+      `;
+    }
+  }
+
+  window.appToggleUserDropdown = (e) => {
+    e.stopPropagation();
+    const dropdown = document.getElementById('clientDropdownMenu');
+    if (dropdown) dropdown.classList.toggle('active');
+  };
+
+  document.addEventListener('click', () => {
+    const dropdown = document.getElementById('clientDropdownMenu');
+    if (dropdown) dropdown.classList.remove('active');
+  });
+
+  window.appClientLogout = () => {
+    localStorage.removeItem('autohaus_client_token');
+    localStorage.removeItem('autohaus_client_user');
+    state.currentUser = null;
+    state.clientToken = null;
+    updateNavbarUserUI();
+    applyFilters();
+  };
+
+  // ==========================================
+  // FAVORITES (LIKES ❤️) SYSTEM
+  // ==========================================
+  window.appToggleFavorite = async (pageNum) => {
+    const p = parseInt(pageNum);
+    const index = state.favorites.indexOf(p);
+    let isAdded = false;
+
+    if (index > -1) {
+      state.favorites.splice(index, 1);
+    } else {
+      state.favorites.push(p);
+      isAdded = true;
+    }
+
+    localStorage.setItem('autohaus_client_favs', JSON.stringify(state.favorites));
+    updateFavoritesCounter();
+    updateNavbarUserUI();
+
+    // Visual pulse & update on the clicked heart
+    const heartBtns = document.querySelectorAll(`.btn-fav-${p}`);
+    heartBtns.forEach(btn => {
+      if (isAdded) {
+        btn.classList.add('is-favorited');
+        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="#ef4444" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+      } else {
+        btn.classList.remove('is-favorited');
+        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(0,0,0,0.4)" stroke="#ffffff" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+      }
+    });
+
+    // If currently filtered by favorites and removed, re-render
+    if (state.selectedCategory === 'FAVORITOS') {
+      applyFilters();
+    }
+
+    // Sync with cloud if logged in
+    if (state.clientToken) {
+      try {
+        await fetch('/api/client/favorites', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${state.clientToken}`
+          },
+          body: JSON.stringify({ vehicle_page: p })
+        });
+      } catch (e) {
+        console.warn('Error syncing favorites:', e);
+      }
+    }
+  };
+
+  function updateFavoritesCounter() {
+    if (countFavorites) countFavorites.textContent = state.favorites.length;
+  }
+
+  window.appFilterByFavorites = () => {
+    document.querySelectorAll('.cat-pill-btn').forEach(b => b.classList.remove('active'));
+    const favPill = document.getElementById('catPillFavs');
+    if (favPill) favPill.classList.add('active');
+
+    state.selectedCategory = 'FAVORITOS';
+    applyFilters();
+
+    const invSection = document.getElementById('inventario');
+    if (invSection) invSection.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  window.appShowAllCars = () => {
+    document.querySelectorAll('.cat-pill-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.cat-pill-btn[data-category="all"]');
+    if (allBtn) allBtn.classList.add('active');
+    state.selectedCategory = 'all';
+    applyFilters();
+  };
 
   // Load Vehicles from API with fallback to static data
   async function loadVehicles() {
@@ -88,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (countSuv) countSuv.textContent = list.filter(v => v.category === "SUV'S").length;
     if (countPickup) countPickup.textContent = list.filter(v => v.category === 'PICK UPS').length;
     if (countSport) countSport.textContent = list.filter(v => v.category === 'DEPORTIVOS').length;
+    updateFavoritesCounter();
   }
 
   function setupEventListeners() {
@@ -149,6 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Escape') {
         closeVehicleModal();
         closeFlipbookModal();
+        closeQuoteModal();
+        closeClientAuthModal();
       }
     });
   }
@@ -156,8 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyFilters() {
     let list = [...state.vehicles];
 
-    // 1. Category Filter
-    if (state.selectedCategory !== 'all') {
+    // 1. Category / Favorites Filter
+    if (state.selectedCategory === 'FAVORITOS') {
+      list = list.filter(v => state.favorites.includes(v.page));
+    } else if (state.selectedCategory !== 'all') {
       list = list.filter(v => v.category === state.selectedCategory);
     }
 
@@ -182,28 +383,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     state.filteredVehicles = list;
-    if (showingVehiclesCount) showingVehiclesCount.textContent = list.length;
-    renderVehiclesGrid();
+    renderVehicles();
   }
 
-  // Render Commercial Vehicle Grid
-  function renderVehiclesGrid() {
-    if (!vehiclesGridContainer) return;
+  function renderVehicles() {
+    showingVehiclesCount.textContent = state.filteredVehicles.length;
 
     if (state.filteredVehicles.length === 0) {
-      vehiclesGridContainer.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: #94a3b8;">
-          <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🚗</div>
-          <h3 style="color: #ffffff; font-size: 1.2rem; margin-bottom: 0.4rem;">No encontramos vehículos con esos filtros</h3>
-          <p style="font-size: 0.88rem;">Intenta con otra búsqueda o selecciona "Todos" para ver el inventario completo.</p>
-        </div>
-      `;
+      if (state.selectedCategory === 'FAVORITOS') {
+        vehiclesGridContainer.innerHTML = `
+          <div class="empty-favs-state" style="grid-column: 1 / -1; text-align: center; padding: 4rem 1.5rem; background: rgba(19, 46, 96, 0.5); border: 1.5px dashed rgba(255, 222, 89, 0.4); border-radius: 20px;">
+            <div style="font-size: 3rem; margin-bottom: 0.8rem;">❤️</div>
+            <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: #ffffff; margin-bottom: 0.5rem;">Aún no tienes autos en tu lista de favoritos</h3>
+            <p style="color: #cbd5e1; font-size: 0.92rem; max-width: 480px; margin: 0 auto 1.5rem;">
+              Explora nuestro catálogo y toca el corazón ❤️ en cualquier vehículo para guardarlo aquí y cotizarlo cuando gustes.
+            </p>
+            <button class="btn-hero-primary" onclick="window.appShowAllCars()" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+              <span>Explorar Todo el Inventario</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        `;
+      } else {
+        vehiclesGridContainer.innerHTML = `
+          <div class="no-results-box" style="grid-column: 1 / -1;">
+            <div class="no-results-icon">🔍</div>
+            <h3>No encontramos vehículos con esos criterios</h3>
+            <p>Intenta con otra búsqueda o selecciona otra categoría.</p>
+          </div>
+        `;
+      }
       return;
     }
 
     vehiclesGridContainer.innerHTML = state.filteredVehicles.map(v => {
       const coverPhoto = v.cover_photo || `assets/cars/page_${v.page}_img_2.jpeg`;
       const specsPreview = (v.specs || []).slice(0, 4);
+      const isFav = state.favorites.includes(v.page);
 
       return `
         <div class="commercial-car-card" data-page="${v.page}">
@@ -213,6 +429,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${coverPhoto}" alt="${v.brand} ${v.model}" class="card-car-img" loading="lazy" onerror="this.src='assets/svg/autohaus-tag.svg'" />
             <span class="card-category-badge">${v.category}</span>
             <span class="card-year-badge">${v.year}</span>
+
+            <!-- Heart / Favorite Button -->
+            <button class="btn-card-favorite btn-fav-${v.page} ${isFav ? 'is-favorited' : ''}" onclick="event.stopPropagation(); window.appToggleFavorite(${v.page})" title="${isFav ? 'Quitar de favoritos' : 'Guardar en favoritos'}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : 'rgba(0,0,0,0.4)'}" stroke="${isFav ? '#ef4444' : '#ffffff'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
           </div>
 
           <!-- Card Body -->
@@ -244,8 +465,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <!-- Card Actions -->
             <div class="card-buttons-group">
               <button class="btn-card-details" onclick="window.appOpenDetailModal(${v.page})">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                Ver Detalles & Fotos
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                Detalles
               </button>
 
               <button class="btn-card-whatsapp" onclick="window.appOpenQuoteModal(${v.page})" title="Cotizar y contactar asesor de Autohaus">
@@ -301,10 +522,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const months = 48;
     const monthlyPayment = Math.round((loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months))) / (Math.pow(1 + monthlyRate, months) - 1));
 
-    modalCalcDownpayment.textContent = `$${downpayment.toLocaleString()} MXN`;
-    modalCalcMonthly.textContent = `$${monthlyPayment.toLocaleString()} MXN / mes`;
+    modalCalcDownpayment.textContent = `$${downpayment.toLocaleString('es-MX')} MXN`;
+    modalCalcMonthly.textContent = `$${monthlyPayment.toLocaleString('es-MX')} MXN`;
 
-    // WhatsApp CTA button opens Quote Funnel
     modalWhatsAppBtn.onclick = (e) => {
       e.preventDefault();
       closeVehicleModal();
@@ -312,308 +532,351 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     vehicleDetailModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   };
 
-  window.appSwitchModalPhoto = (src, thumbEl) => {
+  window.appSwitchModalPhoto = (src, thumbElem) => {
     modalMainImg.src = src;
     document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-    if (thumbEl) thumbEl.classList.add('active');
+    thumbElem.classList.add('active');
   };
 
   function closeVehicleModal() {
     vehicleDetailModal.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
-  // Open Flipbook Modal
-  function openFlipbookModal() {
-    state.flipbookPage = 1;
-    renderFlipbookInModal();
-    flipbookMagazineModal.classList.add('active');
-  }
-
-  function closeFlipbookModal() {
-    flipbookMagazineModal.classList.remove('active');
-  }
-
-  function renderFlipbookInModal() {
-    const v = state.vehicles[state.flipbookPage - 1];
-    if (!v) return;
-
-    const coverPhoto = v.cover_photo || `assets/cars/page_${v.page}_img_2.jpeg`;
-
-    flipbookViewerContainer.innerHTML = `
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-        
-        <!-- Controls -->
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="action-btn" id="flipPrevBtn" ${state.flipbookPage <= 1 ? 'disabled' : ''}>← Anterior</button>
-          <span style="font-weight: 700; color: #ffffff; font-size: 0.9rem;">Página ${state.flipbookPage} de ${state.vehicles.length}</span>
-          <button class="action-btn" id="flipNextBtn" ${state.flipbookPage >= state.vehicles.length ? 'disabled' : ''}>Siguiente →</button>
-        </div>
-
-        <!-- Editorial Page Render -->
-        <div class="catalog-page" style="transform: scale(0.85); transform-origin: top center; margin-bottom: -90px;">
-          
-          <div class="card-top-topo">
-            <div class="vehicle-brand-huge">${v.brand}</div>
-            <div class="vehicle-model-spaced">${v.model}</div>
-            <div class="vehicle-year-badge-center"><span>${v.year}</span></div>
-            <div class="car-real-photo-hero-wrapper">
-              <img class="car-real-hero-img" src="${coverPhoto}" alt="${v.brand} ${v.model}" />
-            </div>
-          </div>
-
-          <div class="card-bottom-solid-blue">
-            <div class="pricing-luxury-card">
-              <div class="contado-box-wrapper">
-                <span class="contado-label">Precio Contado</span>
-                <span class="contado-amount">${v.price_contado}</span>
-              </div>
-              <div class="pricing-vertical-line"></div>
-              <div class="financiado-box-wrapper">
-                <span class="financiado-label">Financiado</span>
-                <div class="financiado-card-yellow">
-                  <span class="financiado-amount">${v.price_financiado || '-'}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="specs-header-luxury">
-              <span class="specs-title-text">ESPECIFICACIONES</span>
-              <span class="specs-header-line"></span>
-            </div>
-
-            <div class="specs-luxury-grid">
-              ${(v.specs || []).map(s => `
-                <div class="spec-chip-item">
-                  <span class="dot-gold">✦</span>
-                  <span>${s}</span>
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="card-footer-luxury">
-              <span class="footer-decor-line"></span>
-              <a href="https://instagram.com/autohausautohaus" target="_blank" class="card-footer-handle-yellow">@autohausautohaus</a>
-              <span class="footer-decor-line"></span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    `;
-
-    document.getElementById('flipPrevBtn').addEventListener('click', () => {
-      if (state.flipbookPage > 1) {
-        state.flipbookPage--;
-        renderFlipbookInModal();
-      }
-    });
-
-    document.getElementById('flipNextBtn').addEventListener('click', () => {
-      if (state.flipbookPage < state.vehicles.length) {
-        state.flipbookPage++;
-        renderFlipbookInModal();
-      }
-    });
-  }
-
-  // 1. Direct PDF Catalog File Download
-  function downloadPDFCatalog() {
-    showToastNotification('📥 Descargando Catálogo Completo Autohaus (PDF Oficial)...');
-    
-    const a = document.createElement('a');
-    a.href = '/api/catalog/download-pdf';
-    a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-
-  // 2. Print Live Inventory Catalog
-  function printCatalog() {
-    showToastNotification('🖨️ Preparando vista de impresión del catálogo...');
-    const printContainer = document.getElementById('printExportHiddenContainer');
-    if (!printContainer) return;
-
-    printContainer.innerHTML = state.vehicles.map(v => {
-      const coverPhoto = v.cover_photo || `assets/cars/page_${v.page}_img_2.jpeg`;
-
-      return `
-        <div class="catalog-page">
-          <div class="card-top-topo">
-            <div class="vehicle-brand-huge">${v.brand}</div>
-            <div class="vehicle-model-spaced">${v.model}</div>
-            <div class="vehicle-year-badge-center"><span>${v.year}</span></div>
-            <div class="car-real-photo-hero-wrapper">
-              <img class="car-real-hero-img" src="${coverPhoto}" alt="${v.brand} ${v.model}" />
-            </div>
-          </div>
-
-          <div class="card-bottom-solid-blue">
-            <div class="pricing-luxury-card">
-              <div class="contado-box-wrapper">
-                <span class="contado-label">Precio Contado</span>
-                <span class="contado-amount">${v.price_contado}</span>
-              </div>
-              <div class="pricing-vertical-line"></div>
-              <div class="financiado-box-wrapper">
-                <span class="financiado-label">Financiado</span>
-                <div class="financiado-card-yellow">
-                  <span class="financiado-amount">${v.price_financiado || '-'}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="specs-header-luxury">
-              <span class="specs-title-text">ESPECIFICACIONES</span>
-              <span class="specs-header-line"></span>
-            </div>
-
-            <div class="specs-luxury-grid">
-              ${(v.specs || []).map(s => `
-                <div class="spec-chip-item">
-                  <span class="dot-gold">✦</span>
-                  <span>${s}</span>
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="card-footer-luxury">
-              <span class="footer-decor-line"></span>
-              <a href="https://instagram.com/autohausautohaus" target="_blank" class="card-footer-handle-yellow">@autohausautohaus</a>
-              <span class="footer-decor-line"></span>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    setTimeout(() => {
-      window.print();
-    }, 400);
-  }
-
-  // ========================================================
-  // MODAL DE COTIZACIÓN RÁPIDA & CAPTURA DE LEADS (EMBUDO)
-  // ========================================================
-  window.appOpenQuoteModal = (pageNum, customName, customPrice, customFin) => {
-    const v = state.vehicles.find(item => item.page === pageNum);
-    const vehicleTitle = v ? `${v.brand} ${v.model} (${v.year})` : (customName || 'Atención Personalizada Autohaus');
-    const priceContado = v ? v.price_contado : (customPrice || '$0 MXN');
-    const priceFin = v ? (v.price_financiado || 'Desde 20% enganche') : (customFin || 'Desde 20% enganche');
-
-    const quoteVehiclePage = document.getElementById('quoteVehiclePage');
-    const quoteVehicleName = document.getElementById('quoteVehicleName');
-    const quoteModalVehicleTitle = document.getElementById('quoteModalVehicleTitle');
-    const quoteModalVehiclePrice = document.getElementById('quoteModalVehiclePrice');
-    const quoteModalVehicleFin = document.getElementById('quoteModalVehicleFin');
-    const quoteModalOverlay = document.getElementById('quoteModalOverlay');
-
-    if (quoteVehiclePage) quoteVehiclePage.value = pageNum || '';
-    if (quoteVehicleName) quoteVehicleName.value = vehicleTitle;
-    if (quoteModalVehicleTitle) quoteModalVehicleTitle.textContent = vehicleTitle;
-    if (quoteModalVehiclePrice) quoteModalVehiclePrice.textContent = priceContado;
-    if (quoteModalVehicleFin) quoteModalVehicleFin.textContent = priceFin;
-
-    if (quoteModalOverlay) quoteModalOverlay.classList.add('active');
+  // ==========================================
+  // CLIENT AUTH MODAL (LOGIN & REGISTRO)
+  // ==========================================
+  window.appOpenClientAuthModal = () => {
+    if (clientAuthModalOverlay) {
+      authAlertMessage.style.display = 'none';
+      clientAuthModalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
   };
 
+  function closeClientAuthModal() {
+    if (clientAuthModalOverlay) {
+      clientAuthModalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function setupAuthEventListeners() {
+    if (clientAuthModalCloseBtn) clientAuthModalCloseBtn.addEventListener('click', closeClientAuthModal);
+    if (clientAuthModalOverlay) {
+      clientAuthModalOverlay.addEventListener('click', (e) => {
+        if (e.target === clientAuthModalOverlay) closeClientAuthModal();
+      });
+    }
+
+    // Switch to Register
+    const showRegister = () => {
+      authTabLoginBtn.classList.remove('active');
+      authTabRegisterBtn.classList.add('active');
+      clientLoginForm.classList.remove('active');
+      clientRegisterForm.classList.add('active');
+      authAlertMessage.style.display = 'none';
+    };
+
+    // Switch to Login
+    const showLogin = () => {
+      authTabRegisterBtn.classList.remove('active');
+      authTabLoginBtn.classList.add('active');
+      clientRegisterForm.classList.remove('active');
+      clientLoginForm.classList.add('active');
+      authAlertMessage.style.display = 'none';
+    };
+
+    if (authTabRegisterBtn) authTabRegisterBtn.addEventListener('click', showRegister);
+    if (linkSwitchToRegister) linkSwitchToRegister.addEventListener('click', (e) => { e.preventDefault(); showRegister(); });
+    if (authTabLoginBtn) authTabLoginBtn.addEventListener('click', showLogin);
+    if (linkSwitchToLogin) linkSwitchToLogin.addEventListener('click', (e) => { e.preventDefault(); showLogin(); });
+
+    // Client Login Handler
+    if (clientLoginForm) {
+      clientLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('clientLoginEmail').value.trim();
+        const password = document.getElementById('clientLoginPassword').value.trim();
+        const btn = document.getElementById('btnClientLogin');
+
+        authAlertMessage.style.display = 'none';
+        btn.disabled = true;
+        btn.innerHTML = '<span>Verificando...</span>';
+
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            // Check if Staff or Client
+            if (data.user.role !== 'client') {
+              localStorage.setItem('autohaus_admin_token', data.token);
+              localStorage.setItem('autohaus_admin_user', JSON.stringify(data.user));
+              window.location.href = '/admin';
+              return;
+            }
+
+            // Client Login Success
+            localStorage.setItem('autohaus_client_token', data.token);
+            localStorage.setItem('autohaus_client_user', JSON.stringify(data.user));
+            state.clientToken = data.token;
+            state.currentUser = data.user;
+
+            // Merge favorites
+            if (Array.isArray(data.user.favorites) && data.user.favorites.length) {
+              state.favorites = Array.from(new Set([...state.favorites, ...data.user.favorites]));
+              localStorage.setItem('autohaus_client_favs', JSON.stringify(state.favorites));
+            }
+
+            closeClientAuthModal();
+            updateFavoritesCounter();
+            updateNavbarUserUI();
+            renderVehicles();
+          } else {
+            authAlertMessage.textContent = data.message || 'Correo o contraseña incorrectos.';
+            authAlertMessage.style.display = 'block';
+          }
+        } catch (err) {
+          authAlertMessage.textContent = 'Error de conexión al iniciar sesión.';
+          authAlertMessage.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `
+            <span>Ingresar a Mi Cuenta</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          `;
+        }
+      });
+    }
+
+    // Client Registration Handler
+    if (clientRegisterForm) {
+      clientRegisterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('clientRegName').value.trim();
+        const email = document.getElementById('clientRegEmail').value.trim();
+        const phone = document.getElementById('clientRegPhone').value.trim();
+        const password = document.getElementById('clientRegPassword').value.trim();
+        const btn = document.getElementById('btnClientRegister');
+
+        authAlertMessage.style.display = 'none';
+        btn.disabled = true;
+        btn.innerHTML = '<span>Creando cuenta...</span>';
+
+        try {
+          const res = await fetch('/api/auth/register-client', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, password })
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            localStorage.setItem('autohaus_client_token', data.token);
+            localStorage.setItem('autohaus_client_user', JSON.stringify(data.user));
+            state.clientToken = data.token;
+            state.currentUser = data.user;
+
+            // Sync current favorites to new account
+            if (state.favorites.length) {
+              fetch('/api/client/favorites', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${data.token}`
+                },
+                body: JSON.stringify({ favorites: state.favorites })
+              }).catch(console.warn);
+            }
+
+            closeClientAuthModal();
+            updateFavoritesCounter();
+            updateNavbarUserUI();
+            renderVehicles();
+          } else {
+            authAlertMessage.textContent = data.message || 'Error al registrar la cuenta.';
+            authAlertMessage.style.display = 'block';
+          }
+        } catch (err) {
+          authAlertMessage.textContent = 'Error de conexión al crear cuenta.';
+          authAlertMessage.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `
+            <span>Crear Cuenta y Guardar Favoritos</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          `;
+        }
+      });
+    }
+  }
+
+  // ==========================================
+  // MODAL DE COTIZACIÓN RÁPIDA / EMBUDO AUTOHAUS (WHATSAPP + CRM LEADS)
+  // ==========================================
   const quoteModalOverlay = document.getElementById('quoteModalOverlay');
   const quoteModalCloseBtn = document.getElementById('quoteModalCloseBtn');
-  if (quoteModalCloseBtn && quoteModalOverlay) {
-    quoteModalCloseBtn.addEventListener('click', () => quoteModalOverlay.classList.remove('active'));
+  const quoteLeadForm = document.getElementById('quoteLeadForm');
+  const quoteVehiclePage = document.getElementById('quoteVehiclePage');
+  const quoteVehicleName = document.getElementById('quoteVehicleName');
+  const quoteModalVehicleTitle = document.getElementById('quoteModalVehicleTitle');
+  const quoteModalVehiclePrice = document.getElementById('quoteModalVehiclePrice');
+  const quoteModalVehicleFin = document.getElementById('quoteModalVehicleFin');
+  const quotePlanSelect = document.getElementById('quotePlanSelect');
+  const quoteClientName = document.getElementById('quoteClientName');
+  const quoteClientPhone = document.getElementById('quoteClientPhone');
+
+  window.appOpenQuoteModal = (pageNum, customTitle, customPrice, customFin) => {
+    let carTitle = 'Vehículo de Interés';
+    let carPrice = 'A consultar';
+    let carFin = 'Planes desde 20%';
+    let carPageVal = 0;
+
+    if (pageNum) {
+      const v = state.vehicles.find(item => item.page === pageNum);
+      if (v) {
+        carPageVal = v.page;
+        carTitle = `${v.brand} ${v.model} ${v.year}`;
+        carPrice = v.price_contado;
+        carFin = v.price_financiado || 'Desde 20% enganche';
+      }
+    } else if (customTitle) {
+      carTitle = customTitle;
+      carPrice = customPrice || '';
+      carFin = customFin || '';
+    }
+
+    if (quoteVehiclePage) quoteVehiclePage.value = carPageVal;
+    if (quoteVehicleName) quoteVehicleName.value = carTitle;
+    if (quoteModalVehicleTitle) quoteModalVehicleTitle.textContent = carTitle;
+    if (quoteModalVehiclePrice) quoteModalVehiclePrice.textContent = carPrice;
+    if (quoteModalVehicleFin) quoteModalVehicleFin.textContent = carFin;
+
+    // Autofill with logged client info if available
+    if (state.currentUser) {
+      if (quoteClientName && !quoteClientName.value) quoteClientName.value = state.currentUser.name || '';
+      if (quoteClientPhone && !quoteClientPhone.value) quoteClientPhone.value = state.currentUser.phone || '';
+    }
+
+    if (quoteModalOverlay) {
+      quoteModalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  function closeQuoteModal() {
+    if (quoteModalOverlay) {
+      quoteModalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   }
+
+  if (quoteModalCloseBtn) quoteModalCloseBtn.addEventListener('click', closeQuoteModal);
   if (quoteModalOverlay) {
     quoteModalOverlay.addEventListener('click', (e) => {
-      if (e.target === quoteModalOverlay) quoteModalOverlay.classList.remove('active');
+      if (e.target === quoteModalOverlay) closeQuoteModal();
     });
   }
 
-  // Submit Lead Form: Guardar en CRM (Round-Robin 1 a 1) y Redirigir a WhatsApp
-  const quoteLeadForm = document.getElementById('quoteLeadForm');
   if (quoteLeadForm) {
     quoteLeadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      const clientName = document.getElementById('quoteClientName').value.trim();
-      const clientPhone = document.getElementById('quoteClientPhone').value.trim();
-      const vehiclePage = document.getElementById('quoteVehiclePage').value;
-      const vehicleName = document.getElementById('quoteVehicleName').value;
-      const planSelect = document.getElementById('quotePlanSelect').value;
-      const clientNotes = document.getElementById('quoteClientNotes').value.trim();
 
-      const btnSubmit = document.getElementById('btnSubmitQuote');
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = 'Guardando y Conectando con Asesor...';
+      const pageNum = parseInt(quoteVehiclePage.value) || null;
+      const vName = quoteVehicleName.value || 'Vehículo Autohaus';
+      const cName = quoteClientName.value.trim();
+      const cPhone = quoteClientPhone.value.trim();
+      const planVal = quotePlanSelect.value;
+      const notesVal = document.getElementById('quoteClientNotes').value.trim();
+      const submitBtn = document.getElementById('btnSubmitQuote');
 
-      const fullNotes = `Plan: ${planSelect}${clientNotes ? ' | Mensaje: ' + clientNotes : ''}`;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Registrando solicitud...</span>';
 
       try {
-        // 1. Guardar Lead en Backend CRM (Asignación automática Round-Robin 1 a 1 a vendedores)
         await fetch('/api/leads/public', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            client_name: clientName,
-            client_phone: clientPhone,
-            vehicle_page: vehiclePage ? parseInt(vehiclePage) : null,
-            vehicle_name: vehicleName,
-            notes: fullNotes
+            client_name: cName,
+            client_phone: cPhone,
+            vehicle_page: pageNum,
+            vehicle_name: vName,
+            notes: `Plan: ${planVal}${notesVal ? ' | Mensaje: ' + notesVal : ''}`
           })
         });
       } catch (err) {
-        console.warn('Error al guardar lead en CRM:', err);
+        console.warn('Lead capture error:', err);
       }
 
-      // 2. Construir mensaje de WhatsApp al número oficial del embudo: 614 365 3015
-      const waNumber = '526143653015';
-      const waMsg = `¡Hola Autohaus! Mi nombre es *${clientName}* (WhatsApp: ${clientPhone}).
+      // WhatsApp Redirect
+      const officialPhone = '526143653015';
+      const messageText = `Hola Autohaus, me interesa cotizar una unidad:%0A%0A` +
+        `🚗 *Vehículo:* ${vName}%0A` +
+        `👤 *Nombre:* ${cName}%0A` +
+        `📱 *Teléfono:* ${cPhone}%0A` +
+        `💳 *Plan de interés:* ${planVal}%0A` +
+        (notesVal ? `📝 *Comentarios:* ${notesVal}%0A%0A` : `%0A`) +
+        `¿Me podrían brindar más detalles y fotos?`;
 
-Me interesa cotizar el vehículo:
-🚗 *${vehicleName}*
-💳 *Plan de interés:* ${planSelect}
-${clientNotes ? `💬 *Pregunta/Nota:* ${clientNotes}\n` : ''}
-📍 Sucursales en Chihuahua:
-• San Felipe: Fernando de Borja 907
-• Sur: Calle Industrial 8 #7407
+      const whatsappUrl = `https://wa.me/${officialPhone}?text=${messageText}`;
 
-¿Me podrían brindar información sobre disponibilidad, enganche y opciones de compra? ¡Muchas gracias!`;
-
-      if (quoteModalOverlay) quoteModalOverlay.classList.remove('active');
-      quoteLeadForm.reset();
-      btnSubmit.disabled = false;
-      btnSubmit.innerHTML = `
+      closeQuoteModal();
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
         <span>Continuar y Enviar a WhatsApp</span>
       `;
 
-      showToastNotification('✅ Lead registrado en CRM. Conectando por WhatsApp...');
-
-      // Redirigir a WhatsApp oficial de Autohaus
-      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`;
-      window.open(waUrl, '_blank');
+      window.open(whatsappUrl, '_blank');
     });
   }
 
-  // Floating Toast Notification
-  function showToastNotification(message) {
-    let toast = document.getElementById('appToastFloating');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'appToastFloating';
-      toast.style.cssText = 'position:fixed; bottom:25px; right:25px; background:#2252ab; color:#ffffff; border:2px solid #ffde59; border-radius:12px; padding:12px 20px; font-family:Poppins,sans-serif; font-size:0.88rem; font-weight:700; box-shadow:0 10px 30px rgba(0,0,0,0.4); z-index:9999; display:flex; align-items:center; gap:8px; transition:all 0.3s ease;';
-      document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(20px)';
-    }, 3500);
+  // ==========================================
+  // DIRECT PDF DOWNLOAD
+  // ==========================================
+  function downloadPDFCatalog() {
+    const pdfUrl = '/api/catalog/download-pdf';
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
+  // ==========================================
+  // FLIPBOOK VISOR MODAL
+  // ==========================================
+  function openFlipbookModal() {
+    if (!flipbookMagazineModal) return;
+    flipbookViewerContainer.innerHTML = `
+      <div style="text-align: center; color: #ffffff; padding: 2rem;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📖</div>
+        <p style="font-size: 1rem; font-weight: 700;">Cargando visor digital...</p>
+        <button class="btn-hero-primary" onclick="window.open('/assets/docs/Catalogo_Autohaus_Editorial_2025.pdf', '_blank')" style="margin-top: 1rem;">
+          Abrir Catálogo Completo en Nueva Pestaña
+        </button>
+      </div>
+    `;
+    flipbookMagazineModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFlipbookModal() {
+    if (!flipbookMagazineModal) return;
+    flipbookMagazineModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Run initialization
   init();
 });

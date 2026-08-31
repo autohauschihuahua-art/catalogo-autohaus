@@ -40,5 +40,18 @@
     "email": "raul@autohaus.mx",
     "password": "$2a$10$jaINYg6PHPdEyiwMyJTiP.TSSdc6NgZXkqW3mGFkLnKTVfml1FppO",
     "role": "sales"
+  },
+  {
+    "id": 1788220562093,
+    "name": "Carlos Mendoza",
+    "email": "cliente_test_1788220562010@ejemplo.com",
+    "phone": "6141234567",
+    "password": "$2a$10$JLvcBjZLknW3twLh.PFe.unAI5WPTQxIE3GOOXjyzzjGd/B7ox48K",
+    "role": "client",
+    "favorites": [
+      5,
+      12
+    ],
+    "created_at": "2026-08-31T23:56:02.093Z"
   }
 ]

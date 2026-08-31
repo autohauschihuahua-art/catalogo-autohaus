@@ -1877,6 +1877,363 @@ body {
 }
 
 /* ========================================================
+   FAVORITES (LIKES ❤️) & CLIENT AUTH STYLES
+   ======================================================== */
+.card-photo-box {
+  position: relative;
+}
+
+.btn-card-favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(10, 25, 55, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.btn-card-favorite:hover {
+  transform: scale(1.15);
+  border-color: #ef4444;
+  background: rgba(19, 46, 96, 0.9);
+}
+
+.btn-card-favorite.is-favorited {
+  background: rgba(239, 68, 68, 0.22);
+  border-color: #ef4444;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.4);
+}
+
+.btn-card-favorite.is-favorited:hover {
+  transform: scale(1.18);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+/* Category Favorites Pill */
+.cat-pill-favs {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.cat-pill-favs.active {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.favs-counter-badge {
+  background: rgba(239, 68, 68, 0.85);
+  color: #ffffff;
+  font-size: 0.70rem;
+  font-weight: 900;
+  padding: 0.1rem 0.45rem;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
+/* Client Profile Nav */
+.client-profile-nav-wrap {
+  position: relative;
+}
+
+.btn-client-profile {
+  background: rgba(255, 222, 89, 0.15);
+  border: 1px solid var(--brand-yellow);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.client-avatar-mini {
+  width: 22px;
+  height: 22px;
+  background: var(--brand-yellow);
+  color: var(--brand-black);
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favs-pill-count {
+  background: rgba(239, 68, 68, 0.9);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+}
+
+.client-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background: linear-gradient(145deg, #132e60 0%, #0d2044 100%);
+  border: 1px solid rgba(255, 222, 89, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  padding: 0.75rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 1000;
+}
+
+.client-dropdown-menu.active {
+  display: flex;
+  animation: modalScaleIn 0.2s ease;
+}
+
+.dropdown-header-user {
+  padding: 0.4rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dropdown-header-user strong {
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+.dropdown-header-user span {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.dropdown-item-btn {
+  background: transparent;
+  border: none;
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.dropdown-item-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--brand-yellow);
+}
+
+.dropdown-item-btn.item-logout {
+  color: #fca5a5;
+}
+
+.dropdown-item-btn.item-logout:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ffffff;
+}
+
+/* ========================================================
+   CLIENT AUTH MODAL (LOGIN & REGISTRO)
+   ======================================================== */
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 18, 38, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.auth-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.auth-modal-card {
+  background: linear-gradient(145deg, #132e60 0%, #0d2044 100%);
+  border: 1.5px solid rgba(255, 222, 89, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(34, 82, 171, 0.4);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  padding: 2.2rem;
+  position: relative;
+  animation: modalScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: rgba(255, 255, 255, 0.10);
+  border: none;
+  color: #ffffff;
+  font-size: 1.6rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-modal-close:hover {
+  background: #ef4444;
+  transform: rotate(90deg);
+}
+
+.auth-modal-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.auth-modal-logo {
+  height: 36px;
+  width: auto;
+  margin-bottom: 0.6rem;
+}
+
+.auth-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+}
+
+.auth-modal-subtitle {
+  font-size: 0.80rem;
+  color: #cbd5e1;
+}
+
+.auth-tabs-toggle {
+  display: flex;
+  background: rgba(10, 25, 55, 0.75);
+  border-radius: 12px;
+  padding: 0.3rem;
+  gap: 0.3rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.6rem;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-tab-btn.active {
+  background: var(--brand-yellow);
+  color: var(--brand-black);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.auth-alert-box {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #ffffff;
+  font-size: 0.80rem;
+  font-weight: 600;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-form {
+  display: none;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.auth-form.active {
+  display: flex;
+}
+
+.btn-auth-submit {
+  background: var(--brand-yellow);
+  color: var(--brand-black);
+  border: none;
+  border-radius: 12px;
+  padding: 0.90rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-top: 0.4rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-auth-submit:hover {
+  background: var(--brand-yellow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.btn-auth-register {
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+}
+
+.btn-auth-register:hover {
+  background: #20ba59;
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+}
+
+.auth-switch-text {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
+.auth-switch-text a {
+  color: var(--brand-yellow);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* ========================================================
    COMPREHENSIVE RESPONSIVE DESIGN SYSTEM (MOBILE & TABLET)
    ======================================================== */
 

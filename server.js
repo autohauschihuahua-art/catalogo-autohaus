@@ -262,7 +262,67 @@ function requireAdminOrSecretary(req, res, next) {
 // AUTHENTICATION API ROUTES
 // ==========================================
 
-// Login
+// 1. Client Registration (Public)
+app.post('/api/auth/register-client', (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: 'Nombre, correo y contraseña son obligatorios.' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ success: false, message: 'La contraseña debe tener al menos 6 caracteres.' });
+    }
+
+    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
+    const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
+
+    if (existing) {
+      return res.status(400).json({ success: false, message: 'Este correo electrónico ya está registrado. Inicia sesión.' });
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const newClient = {
+      id: Date.now(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: (phone || '').trim(),
+      password: hashedPassword,
+      role: 'client',
+      favorites: [],
+      created_at: new Date().toISOString()
+    };
+
+    users.push(newClient);
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+
+    const token = jwt.sign(
+      { id: newClient.id, email: newClient.email, name: newClient.name, role: 'client' },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    res.status(201).json({
+      success: true,
+      message: '¡Cuenta creada con éxito! Bienvenido a Autohaus.',
+      token,
+      user: {
+        id: newClient.id,
+        name: newClient.name,
+        email: newClient.email,
+        phone: newClient.phone,
+        role: 'client',
+        favorites: []
+      }
+    });
+  } catch (err) {
+    console.error('Error registering client:', err);
+    res.status(500).json({ success: false, message: 'Error interno al registrar cliente.' });
+  }
+});
+
+// 2. Login (Clients and Staff)
 app.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body;
   
@@ -271,7 +331,7 @@ app.post('/api/auth/login', (req, res) => {
   }
 
   const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
 
   if (!user || !bcrypt.compareSync(password, user.password)) {
     return res.status(401).json({ success: false, message: 'Correo o contraseña incorrectos.' });
@@ -280,23 +340,96 @@ app.post('/api/auth/login', (req, res) => {
   const token = jwt.sign(
     { id: user.id, email: user.email, name: user.name, role: user.role },
     JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: user.role === 'client' ? '30d' : '7d' }
   );
 
   res.json({
     success: true,
     message: 'Inicio de sesión exitoso.',
     token,
-    user: { id: user.id, name: user.name, email: user.email, role: user.role }
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone || '',
+      role: user.role,
+      favorites: user.favorites || []
+    }
   });
 });
 
-// Verify Me / Profile
+// 3. Verify Me / Profile
 app.get('/api/auth/me', authenticateToken, (req, res) => {
-  res.json({ success: true, user: req.user });
+  const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
+  const user = users.find(u => u.id === req.user.id);
+  if (user) {
+    res.json({
+      success: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || '',
+        role: user.role,
+        favorites: user.favorites || []
+      }
+    });
+  } else {
+    res.json({ success: true, user: req.user });
+  }
 });
 
-// Get List of Sales Reps (for Admin Lead Assignment)
+// 4. Client Favorites Endpoints
+app.get('/api/client/favorites', authenticateToken, (req, res) => {
+  try {
+    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
+    const user = users.find(u => u.id === req.user.id);
+    res.json({
+      success: true,
+      favorites: user ? (user.favorites || []) : []
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al consultar favoritos.' });
+  }
+});
+
+app.post('/api/client/favorites', authenticateToken, (req, res) => {
+  try {
+    const { vehicle_page, favorites } = req.body;
+    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
+    const userIndex = users.findIndex(u => u.id === req.user.id);
+
+    if (userIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+    }
+
+    if (Array.isArray(favorites)) {
+      users[userIndex].favorites = favorites.map(n => parseInt(n)).filter(n => !isNaN(n));
+    } else if (vehicle_page !== undefined) {
+      const pageNum = parseInt(vehicle_page);
+      if (!users[userIndex].favorites) users[userIndex].favorites = [];
+      const favIndex = users[userIndex].favorites.indexOf(pageNum);
+      if (favIndex > -1) {
+        users[userIndex].favorites.splice(favIndex, 1);
+      } else {
+        users[userIndex].favorites.push(pageNum);
+      }
+    }
+
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+
+    res.json({
+      success: true,
+      message: 'Favoritos actualizados con éxito.',
+      favorites: users[userIndex].favorites
+    });
+  } catch (err) {
+    console.error('Error saving favorites:', err);
+    res.status(500).json({ success: false, message: 'Error al guardar favoritos.' });
+  }
+});
+
+// 5. Get List of Sales Reps (for Admin Lead Assignment)
 app.get('/api/users/sales', authenticateToken, (req, res) => {
   try {
     const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));

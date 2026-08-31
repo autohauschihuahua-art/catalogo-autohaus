@@ -52,11 +52,13 @@
           <span>WhatsApp</span>
         </a>
 
-        <!-- Admin Access -->
-        <a href="/admin" class="action-btn btn-admin-nav" title="Panel de Administración">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Admin</span>
-        </a>
+        <!-- Client / Staff Auth Access Button -->
+        <div id="navUserContainer" class="nav-user-container">
+          <button id="navLoginBtn" class="action-btn btn-admin-nav" onclick="window.appOpenClientAuthModal()" title="Iniciar sesión o ver favoritos">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span id="navLoginBtnText">Iniciar Sesión</span>
+          </button>
+        </div>
 
       </div>
 
@@ -164,6 +166,10 @@
           <button class="cat-pill-btn" data-category="SUV'S">SUV's (<span id="countSuv">22</span>)</button>
           <button class="cat-pill-btn" data-category="PICK UPS">Pick Ups (<span id="countPickup">13</span>)</button>
           <button class="cat-pill-btn" data-category="DEPORTIVOS">Deportivos (<span id="countSport">3</span>)</button>
+          <button class="cat-pill-btn cat-pill-favs" data-category="FAVORITOS" id="catPillFavs" title="Ver solo mis autos guardados">
+            <span>❤️ Mis Favoritos</span>
+            <span class="favs-counter-badge" id="countFavorites">0</span>
+          </button>
         </div>
 
         <!-- Sort Select -->
@@ -588,11 +594,89 @@
     </div>
   </div>
 
+  <!-- ==========================================
+       MODAL: INICIO DE SESIÓN & REGISTRO DE CLIENTES
+       ========================================== -->
+  <div class="auth-modal-overlay" id="clientAuthModalOverlay">
+    <div class="auth-modal-card">
+      <button class="auth-modal-close" id="clientAuthModalCloseBtn" title="Cerrar">&times;</button>
+      
+      <div class="auth-modal-header">
+        <img src="assets/svg/autohaus-logo-official-inline.svg?v=20250831_master_logo" alt="Autohaus Logo" class="auth-modal-logo" />
+        <h3 class="auth-modal-title" id="authModalHeaderTitle">Acceso a Tu Cuenta</h3>
+        <p class="auth-modal-subtitle">Guarda tus autos favoritos con ❤️ y recibe asesoría exclusiva.</p>
+      </div>
+
+      <!-- Segment Tabs (Login / Register) -->
+      <div class="auth-tabs-toggle">
+        <button class="auth-tab-btn active" id="authTabLoginBtn">Iniciar Sesión</button>
+        <button class="auth-tab-btn" id="authTabRegisterBtn">Crear Cuenta</button>
+      </div>
+
+      <div id="authAlertMessage" class="auth-alert-box" style="display: none;"></div>
+
+      <!-- FORM 1: LOGIN -->
+      <form id="clientLoginForm" class="auth-form active">
+        <div class="form-field-wrap">
+          <label for="clientLoginEmail">Correo Electrónico</label>
+          <input type="email" id="clientLoginEmail" class="quote-input" placeholder="tu-correo@ejemplo.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="clientLoginPassword">Contraseña</label>
+          <input type="password" id="clientLoginPassword" class="quote-input" placeholder="••••••••••••" required autocomplete="current-password" />
+        </div>
+
+        <button type="submit" class="btn-auth-submit" id="btnClientLogin">
+          <span>Ingresar a Mi Cuenta</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <p class="auth-switch-text">
+          ¿Aún no tienes cuenta? <a href="#" id="linkSwitchToRegister">Crear cuenta gratis</a>
+        </p>
+      </form>
+
+      <!-- FORM 2: REGISTER -->
+      <form id="clientRegisterForm" class="auth-form">
+        <div class="form-field-wrap">
+          <label for="clientRegName">Nombre Completo *</label>
+          <input type="text" id="clientRegName" class="quote-input" placeholder="Ej. Carlos Mendoza" required autocomplete="name" />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="clientRegEmail">Correo Electrónico *</label>
+          <input type="email" id="clientRegEmail" class="quote-input" placeholder="tu-correo@ejemplo.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="clientRegPhone">Teléfono / WhatsApp *</label>
+          <input type="tel" id="clientRegPhone" class="quote-input" placeholder="Ej. 614 123 4567" required autocomplete="tel" />
+        </div>
+
+        <div class="form-field-wrap">
+          <label for="clientRegPassword">Contraseña (Mínimo 6 caracteres) *</label>
+          <input type="password" id="clientRegPassword" class="quote-input" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password" />
+        </div>
+
+        <button type="submit" class="btn-auth-submit btn-auth-register" id="btnClientRegister">
+          <span>Crear Cuenta y Guardar Favoritos</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </button>
+
+        <p class="auth-switch-text">
+          ¿Ya tienes cuenta? <a href="#" id="linkSwitchToLogin">Iniciar sesión</a>
+        </p>
+      </form>
+
+    </div>
+  </div>
+
   <!-- Hidden Print Container for PDF Export -->
   <div id="printExportHiddenContainer" style="display: none;"></div>
 
   <!-- Scripts -->
-  <script src="scripts/data.js?v=20250831_master_v6"></script>
-  <script src="scripts/app.js?v=20250831_master_v6"></script>
+  <script src="scripts/data.js?v=20250831_master_v7"></script>
+  <script src="scripts/app.js?v=20250831_master_v7"></script>
 </body>
 </html>
