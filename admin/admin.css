@@ -1293,3 +1293,333 @@ body {
     gap: 0.8rem;
   }
 }
+
+/* ========================================================
+   ADMIN MOBILE TOUCH CARDS SYSTEM (< 900px)
+   ======================================================== */
+.mobile-only-cards {
+  display: none;
+}
+
+.desktop-only-table {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .desktop-only-table {
+    display: none !important;
+  }
+
+  .mobile-only-cards {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  /* Admin Inventory Mobile Card */
+  .admin-mobile-card {
+    background: linear-gradient(145deg, #132e60 0%, #0d2044 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 1.1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .admin-mobile-card:active {
+    transform: scale(0.99);
+    border-color: var(--brand-yellow);
+  }
+
+  .mobile-card-top {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .mobile-car-thumb {
+    width: 78px;
+    height: 78px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+
+  .mobile-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-card-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .mobile-page-badge {
+    background: rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+  }
+
+  .mobile-car-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+
+  .mobile-car-year {
+    font-size: 0.78rem;
+    color: #94a3b8;
+  }
+
+  .mobile-card-prices-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 25, 55, 0.6);
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mobile-price-lbl {
+    font-size: 0.70rem;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .mobile-price-val {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--brand-yellow);
+  }
+
+  .mobile-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mobile-status-wrap {
+    flex: 1;
+  }
+
+  .mobile-card-actions {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .btn-mobile-edit {
+    background: var(--brand-yellow);
+    color: var(--brand-black);
+    border: none;
+    border-radius: 10px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+  }
+
+  .btn-mobile-delete {
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .btn-mobile-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* ========================================================
+     LEAD MOBILE TOUCH CARDS (< 900px)
+     ======================================================== */
+  .lead-mobile-card {
+    background: linear-gradient(145deg, #132e60 0%, #0d2044 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 1.1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.80rem;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .lead-mobile-card:active {
+    transform: scale(0.99);
+  }
+
+  .lead-mobile-card.is-new-lead-card {
+    border-left: 5px solid var(--brand-yellow);
+    background: linear-gradient(145deg, #193874 0%, #0d2044 100%);
+    box-shadow: 0 10px 28px rgba(255, 222, 89, 0.15);
+  }
+
+  .lead-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .lead-mobile-client-name {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+
+  .lead-mobile-date {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    margin-top: 0.2rem;
+  }
+
+  .lead-mobile-vehicle-row {
+    background: rgba(10, 25, 55, 0.6);
+    border: 1px solid rgba(255, 222, 89, 0.2);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lead-car-icon {
+    font-size: 1.1rem;
+  }
+
+  .lead-vehicle-title {
+    font-size: 0.88rem;
+    color: var(--brand-yellow);
+    font-weight: 800;
+  }
+
+  .lead-mobile-salesperson-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .lead-sales-badge {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid #3b82f6;
+    color: #93c5fd;
+    padding: 0.25rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .lead-mobile-notes-box {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    border-left: 3px solid #64748b;
+  }
+
+  .lead-notes-lbl {
+    font-size: 0.68rem;
+    color: #94a3b8;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .lead-notes-txt {
+    font-size: 0.78rem;
+    color: #cbd5e1;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .lead-mobile-touch-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+
+  .btn-lead-touch-whatsapp {
+    flex: 1.2;
+    background: #25d366;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 0.70rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-lead-touch-call {
+    flex: 1;
+    background: rgba(59, 130, 246, 0.25);
+    border: 1px solid #3b82f6;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 0.70rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .btn-lead-touch-edit {
+    flex: 1;
+    background: var(--brand-yellow);
+    color: var(--brand-black);
+    border: none;
+    border-radius: 12px;
+    padding: 0.70rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    cursor: pointer;
+  }
+}

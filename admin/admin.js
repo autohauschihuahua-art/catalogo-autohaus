@@ -509,6 +509,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderInventoryTable() {
     inventoryTableBody.innerHTML = '';
+    const inventoryMobileCards = document.getElementById('inventoryMobileCards');
+    if (inventoryMobileCards) inventoryMobileCards.innerHTML = '';
 
     if (state.filteredVehicles.length === 0) {
       inventoryTableBody.innerHTML = `
@@ -518,15 +520,25 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
         </tr>
       `;
+      if (inventoryMobileCards) {
+        inventoryMobileCards.innerHTML = `
+          <div class="mobile-empty-state" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8; background: rgba(15, 39, 82, 0.5); border-radius: 16px;">
+            No se encontraron vehículos que coincidan con la búsqueda.
+          </div>
+        `;
+      }
       return;
     }
 
     const isSales = state.user.role === 'sales';
     const canManage = state.user.role === 'admin' || state.user.role === 'secretary';
 
+    let mobileCardsHtml = '';
+
     state.filteredVehicles.forEach(car => {
       const tr = document.createElement('tr');
       const carStatus = car.status || 'disponible';
+      const coverPhoto = car.cover_photo || car.main_photo || 'assets/svg/autohaus-tag.svg';
 
       // Status selector or badge
       let statusHtml = '';
@@ -545,6 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Actions based on role
       let actionsHtml = '';
+      let mobileActionsHtml = '';
+
       if (canManage) {
         actionsHtml = `
           <div class="table-actions">
@@ -558,8 +572,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
           </div>
         `;
+        mobileActionsHtml = `
+          <div class="mobile-card-actions">
+            <button class="btn-mobile-edit" onclick="window.editVehicle(${car.page})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>Editar</span>
+            </button>
+            <button class="btn-mobile-delete" onclick="window.deleteVehicle(${car.page}, '${car.brand} ${car.model}')" title="Eliminar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        `;
       } else if (isSales) {
-        const shareText = encodeURIComponent(`Hola! Te comparto los detalles del ${car.brand} ${car.model} (${car.year}) en Autohaus Chihuahua. Precio de contado: ${car.price_contado}. Más info aquí: http://localhost:8080`);
+        const shareText = encodeURIComponent(`Hola! Te comparto los detalles del ${car.brand} ${car.model} (${car.year}) en Autohaus Chihuahua. Precio de contado: ${car.price_contado}.`);
         actionsHtml = `
           <div class="table-actions">
             <!-- Cotizar / Share WhatsApp -->
@@ -568,12 +593,21 @@ document.addEventListener('DOMContentLoaded', () => {
             </a>
           </div>
         `;
+        mobileActionsHtml = `
+          <div class="mobile-card-actions">
+            <a href="https://wa.me/?text=${shareText}" target="_blank" class="btn-mobile-whatsapp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+              <span>Compartir</span>
+            </a>
+          </div>
+        `;
       }
 
+      // Desktop Table Row
       tr.innerHTML = `
         <td style="font-weight: 800; color: #94a3b8;">${car.page}</td>
         <td>
-          <img src="../${car.cover_photo || car.main_photo || 'assets/svg/autohaus-tag.svg'}" alt="Foto" class="car-thumb-preview" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+          <img src="../${coverPhoto}" alt="Foto" class="car-thumb-preview" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
         </td>
         <td>
           <div class="car-brand-title">${car.brand}</div>
@@ -588,7 +622,46 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       inventoryTableBody.appendChild(tr);
+
+      // Mobile Touch Card
+      mobileCardsHtml += `
+        <div class="admin-mobile-card" onclick="window.editVehicle(${car.page})">
+          <div class="mobile-card-top">
+            <img src="../${coverPhoto}" alt="${car.brand}" class="mobile-car-thumb" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+            <div class="mobile-card-info">
+              <div class="mobile-card-badges-row">
+                <span class="mobile-page-badge">Pág. ${car.page}</span>
+                <span class="badge-category">${car.category}</span>
+              </div>
+              <h4 class="mobile-car-name">${car.brand} ${car.model}</h4>
+              <div class="mobile-car-year">Año: <strong>${car.year}</strong></div>
+            </div>
+          </div>
+
+          <div class="mobile-card-prices-row">
+            <div>
+              <span class="mobile-price-lbl">Contado</span>
+              <strong class="mobile-price-val">${car.price_contado || '$0'}</strong>
+            </div>
+            <div>
+              <span class="mobile-price-lbl">Financiado</span>
+              <span class="price-financiado-badge">${car.price_financiado || '-'}</span>
+            </div>
+          </div>
+
+          <div class="mobile-card-footer" onclick="event.stopPropagation()">
+            <div class="mobile-status-wrap">
+              ${statusHtml}
+            </div>
+            ${mobileActionsHtml}
+          </div>
+        </div>
+      `;
     });
+
+    if (inventoryMobileCards) {
+      inventoryMobileCards.innerHTML = mobileCardsHtml;
+    }
   }
 
   // Handle Quick Status Change
@@ -638,6 +711,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderLeadsTable() {
     leadsTableBody.innerHTML = '';
+    const leadsMobileCards = document.getElementById('leadsMobileCards');
+    if (leadsMobileCards) leadsMobileCards.innerHTML = '';
 
     if (state.filteredLeads.length === 0) {
       leadsTableBody.innerHTML = `
@@ -647,10 +722,18 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
         </tr>
       `;
+      if (leadsMobileCards) {
+        leadsMobileCards.innerHTML = `
+          <div class="mobile-empty-state" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8; background: rgba(15, 39, 82, 0.5); border-radius: 16px;">
+            No hay prospectos / leads registrados en esta sección.
+          </div>
+        `;
+      }
       return;
     }
 
     const isAdmin = state.user.role === 'admin';
+    let mobileLeadsHtml = '';
 
     state.filteredLeads.forEach(lead => {
       const tr = document.createElement('tr');
@@ -666,6 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const phoneFormatted = cleanPhone.length === 10 ? `52${cleanPhone}` : cleanPhone;
       const waMsg = encodeURIComponent(`Hola ${lead.client_name}, te saluda ${lead.assigned_name || 'tu asesor'} de Autohaus Chihuahua respecto a tu interés en el ${lead.vehicle_name || 'auto'}. ¿Cómo estás?`);
       const waUrl = `https://wa.me/${phoneFormatted}?text=${waMsg}`;
+      const telUrl = `tel:${cleanPhone}`;
 
       // Status selector for quick follow-up
       const statusSelector = `
@@ -701,6 +785,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       actionsHtml += `</div>`;
 
+      // Desktop Row
       tr.innerHTML = `
         <td>
           <div style="font-weight: 800; color: #ffffff;">${lead.client_name} ${leadStatus === 'nuevo' ? '<span class="notification-badge-pulse" style="display:inline-flex; position:static; font-size:0.6rem; vertical-align:middle; margin-left:4px;">NUEVO</span>' : ''}</div>
@@ -725,7 +810,63 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       leadsTableBody.appendChild(tr);
+
+      // Mobile Touch Card
+      mobileLeadsHtml += `
+        <div class="lead-mobile-card ${leadStatus === 'nuevo' ? 'is-new-lead-card' : ''}" onclick="window.editLead('${lead.id}')">
+          <div class="lead-mobile-header">
+            <div>
+              <div class="lead-mobile-client-name">
+                ${lead.client_name}
+                ${leadStatus === 'nuevo' ? '<span class="notification-badge-pulse" style="display:inline-flex; position:static; font-size:0.62rem; vertical-align:middle; margin-left:6px;">NUEVO</span>' : ''}
+              </div>
+              <div class="lead-mobile-date">
+                📱 ${lead.client_phone} • ${new Date(lead.created_at || Date.now()).toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })}
+              </div>
+            </div>
+            <div onclick="event.stopPropagation()">${statusSelector}</div>
+          </div>
+
+          <div class="lead-mobile-vehicle-row">
+            <span class="lead-car-icon">🚗</span>
+            <strong class="lead-vehicle-title">${lead.vehicle_name || 'Interés General'}</strong>
+          </div>
+
+          <div class="lead-mobile-salesperson-row">
+            <span class="lead-sales-badge">👤 Asesor: <strong>${lead.assigned_name || lead.assigned_to}</strong></span>
+          </div>
+
+          ${lead.notes ? `
+            <div class="lead-mobile-notes-box">
+              <span class="lead-notes-lbl">📝 Nota:</span>
+              <p class="lead-notes-txt">"${lead.notes}"</p>
+            </div>
+          ` : ''}
+
+          <!-- Quick Action Buttons Row -->
+          <div class="lead-mobile-touch-actions" onclick="event.stopPropagation()">
+            <a href="${waUrl}" target="_blank" class="btn-lead-touch-whatsapp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+
+            <a href="${telUrl}" class="btn-lead-touch-call">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Llamar</span>
+            </a>
+
+            <button class="btn-lead-touch-edit" onclick="window.editLead('${lead.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>Editar</span>
+            </button>
+          </div>
+        </div>
+      `;
     });
+
+    if (leadsMobileCards) {
+      leadsMobileCards.innerHTML = mobileLeadsHtml;
+    }
   }
 
   // Quick Update Lead Status
