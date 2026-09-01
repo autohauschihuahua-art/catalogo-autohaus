@@ -22,11 +22,14 @@
     "cover_photo": "assets/cars/page_4_img_2.jpeg",
     "main_photo": "assets/cars/page_4_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_4_img_1.jpeg",
       "assets/cars/page_4_img_2.jpeg",
       "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg",
-      "assets/cars/page_4_img_5.jpeg"
+      "assets/cars/page_4_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_4_img_2.jpeg",
+      "assets/cars/page_4_img_3.jpeg",
+      "assets/cars/page_4_img_4.jpeg"
     ]
   },
   {
@@ -52,11 +55,14 @@
     "cover_photo": "assets/cars/page_5_img_2.jpeg",
     "main_photo": "assets/cars/page_5_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_5_img_1.jpeg",
       "assets/cars/page_5_img_2.jpeg",
       "assets/cars/page_5_img_3.jpeg",
-      "assets/cars/page_5_img_4.jpeg",
-      "assets/cars/page_5_img_5.jpeg"
+      "assets/cars/page_5_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_5_img_2.jpeg",
+      "assets/cars/page_5_img_3.jpeg",
+      "assets/cars/page_5_img_4.jpeg"
     ]
   },
   {
@@ -82,11 +88,14 @@
     "cover_photo": "assets/cars/page_6_img_2.jpeg",
     "main_photo": "assets/cars/page_6_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_6_img_1.jpeg",
       "assets/cars/page_6_img_2.jpeg",
       "assets/cars/page_6_img_3.jpeg",
-      "assets/cars/page_6_img_4.jpeg",
-      "assets/cars/page_6_img_5.jpeg"
+      "assets/cars/page_6_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_6_img_2.jpeg",
+      "assets/cars/page_6_img_3.jpeg",
+      "assets/cars/page_6_img_4.jpeg"
     ]
   },
   {
@@ -112,11 +121,14 @@
     "cover_photo": "assets/cars/page_7_img_2.jpeg",
     "main_photo": "assets/cars/page_7_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_7_img_1.jpeg",
       "assets/cars/page_7_img_2.jpeg",
       "assets/cars/page_7_img_3.jpeg",
-      "assets/cars/page_7_img_4.jpeg",
-      "assets/cars/page_7_img_5.jpeg"
+      "assets/cars/page_7_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_7_img_2.jpeg",
+      "assets/cars/page_7_img_3.jpeg",
+      "assets/cars/page_7_img_4.jpeg"
     ]
   },
   {
@@ -142,11 +154,14 @@
     "cover_photo": "assets/cars/page_8_img_2.jpeg",
     "main_photo": "assets/cars/page_8_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_8_img_1.jpeg",
       "assets/cars/page_8_img_2.jpeg",
       "assets/cars/page_8_img_3.jpeg",
-      "assets/cars/page_8_img_4.jpeg",
-      "assets/cars/page_8_img_5.jpeg"
+      "assets/cars/page_8_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_8_img_2.jpeg",
+      "assets/cars/page_8_img_3.jpeg",
+      "assets/cars/page_8_img_4.jpeg"
     ]
   },
   {
@@ -170,11 +185,14 @@
     "cover_photo": "assets/cars/page_9_img_2.jpeg",
     "main_photo": "assets/cars/page_9_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_9_img_1.jpeg",
       "assets/cars/page_9_img_2.jpeg",
       "assets/cars/page_9_img_3.jpeg",
-      "assets/cars/page_9_img_4.jpeg",
-      "assets/cars/page_9_img_5.jpeg"
+      "assets/cars/page_9_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_9_img_2.jpeg",
+      "assets/cars/page_9_img_3.jpeg",
+      "assets/cars/page_9_img_4.jpeg"
     ]
   },
   {
@@ -200,11 +218,14 @@
     "cover_photo": "assets/cars/page_10_img_2.jpeg",
     "main_photo": "assets/cars/page_10_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_10_img_1.jpeg",
       "assets/cars/page_10_img_2.jpeg",
       "assets/cars/page_10_img_3.jpeg",
-      "assets/cars/page_10_img_4.jpeg",
-      "assets/cars/page_10_img_5.jpeg"
+      "assets/cars/page_10_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_10_img_2.jpeg",
+      "assets/cars/page_10_img_3.jpeg",
+      "assets/cars/page_10_img_4.jpeg"
     ]
   },
   {
@@ -230,11 +251,14 @@
     "cover_photo": "assets/cars/page_11_img_2.jpeg",
     "main_photo": "assets/cars/page_11_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_11_img_1.jpeg",
       "assets/cars/page_11_img_2.jpeg",
       "assets/cars/page_11_img_3.jpeg",
-      "assets/cars/page_11_img_4.jpeg",
-      "assets/cars/page_11_img_5.jpeg"
+      "assets/cars/page_11_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_11_img_2.jpeg",
+      "assets/cars/page_11_img_3.jpeg",
+      "assets/cars/page_11_img_4.jpeg"
     ]
   },
   {
@@ -260,11 +284,14 @@
     "cover_photo": "assets/cars/page_12_img_2.jpeg",
     "main_photo": "assets/cars/page_12_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_12_img_1.jpeg",
       "assets/cars/page_12_img_2.jpeg",
       "assets/cars/page_12_img_3.jpeg",
-      "assets/cars/page_12_img_4.jpeg",
-      "assets/cars/page_12_img_5.jpeg"
+      "assets/cars/page_12_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_12_img_2.jpeg",
+      "assets/cars/page_12_img_3.jpeg",
+      "assets/cars/page_12_img_4.jpeg"
     ]
   },
   {
@@ -289,11 +316,14 @@
     "cover_photo": "assets/cars/page_13_img_2.jpeg",
     "main_photo": "assets/cars/page_13_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_13_img_1.jpeg",
       "assets/cars/page_13_img_2.jpeg",
       "assets/cars/page_13_img_3.jpeg",
-      "assets/cars/page_13_img_4.jpeg",
-      "assets/cars/page_13_img_5.jpeg"
+      "assets/cars/page_13_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_13_img_2.jpeg",
+      "assets/cars/page_13_img_3.jpeg",
+      "assets/cars/page_13_img_4.jpeg"
     ]
   },
   {
@@ -319,11 +349,14 @@
     "cover_photo": "assets/cars/page_14_img_2.jpeg",
     "main_photo": "assets/cars/page_14_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_14_img_1.jpeg",
       "assets/cars/page_14_img_2.jpeg",
       "assets/cars/page_14_img_3.jpeg",
-      "assets/cars/page_14_img_4.jpeg",
-      "assets/cars/page_14_img_5.jpeg"
+      "assets/cars/page_14_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_14_img_2.jpeg",
+      "assets/cars/page_14_img_3.jpeg",
+      "assets/cars/page_14_img_4.jpeg"
     ]
   },
   {
@@ -349,11 +382,14 @@
     "cover_photo": "assets/cars/page_15_img_2.jpeg",
     "main_photo": "assets/cars/page_15_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_15_img_1.jpeg",
       "assets/cars/page_15_img_2.jpeg",
       "assets/cars/page_15_img_3.jpeg",
-      "assets/cars/page_15_img_4.jpeg",
-      "assets/cars/page_15_img_5.jpeg"
+      "assets/cars/page_15_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_15_img_2.jpeg",
+      "assets/cars/page_15_img_3.jpeg",
+      "assets/cars/page_15_img_4.jpeg"
     ]
   },
   {
@@ -379,11 +415,14 @@
     "cover_photo": "assets/cars/page_16_img_2.jpeg",
     "main_photo": "assets/cars/page_16_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_16_img_1.jpeg",
       "assets/cars/page_16_img_2.jpeg",
       "assets/cars/page_16_img_3.jpeg",
-      "assets/cars/page_16_img_4.jpeg",
-      "assets/cars/page_16_img_5.jpeg"
+      "assets/cars/page_16_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_16_img_2.jpeg",
+      "assets/cars/page_16_img_3.jpeg",
+      "assets/cars/page_16_img_4.jpeg"
     ]
   },
   {
@@ -409,11 +448,14 @@
     "cover_photo": "assets/cars/page_17_img_2.jpeg",
     "main_photo": "assets/cars/page_17_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_17_img_1.jpeg",
       "assets/cars/page_17_img_2.jpeg",
       "assets/cars/page_17_img_3.jpeg",
-      "assets/cars/page_17_img_4.jpeg",
-      "assets/cars/page_17_img_5.jpeg"
+      "assets/cars/page_17_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_17_img_2.jpeg",
+      "assets/cars/page_17_img_3.jpeg",
+      "assets/cars/page_17_img_4.jpeg"
     ]
   },
   {
@@ -439,11 +481,14 @@
     "cover_photo": "assets/cars/page_18_img_2.jpeg",
     "main_photo": "assets/cars/page_18_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_18_img_1.jpeg",
       "assets/cars/page_18_img_2.jpeg",
       "assets/cars/page_18_img_3.jpeg",
-      "assets/cars/page_18_img_4.jpeg",
-      "assets/cars/page_18_img_5.jpeg"
+      "assets/cars/page_18_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_18_img_2.jpeg",
+      "assets/cars/page_18_img_3.jpeg",
+      "assets/cars/page_18_img_4.jpeg"
     ]
   },
   {
@@ -469,11 +514,14 @@
     "cover_photo": "assets/cars/page_19_img_2.jpeg",
     "main_photo": "assets/cars/page_19_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_19_img_1.jpeg",
       "assets/cars/page_19_img_2.jpeg",
       "assets/cars/page_19_img_3.jpeg",
-      "assets/cars/page_19_img_4.jpeg",
-      "assets/cars/page_19_img_5.jpeg"
+      "assets/cars/page_19_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_19_img_2.jpeg",
+      "assets/cars/page_19_img_3.jpeg",
+      "assets/cars/page_19_img_4.jpeg"
     ]
   },
   {
@@ -498,11 +546,14 @@
     "cover_photo": "assets/cars/page_20_img_2.jpeg",
     "main_photo": "assets/cars/page_20_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_20_img_1.jpeg",
       "assets/cars/page_20_img_2.jpeg",
       "assets/cars/page_20_img_3.jpeg",
-      "assets/cars/page_20_img_4.jpeg",
-      "assets/cars/page_20_img_5.jpeg"
+      "assets/cars/page_20_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_20_img_2.jpeg",
+      "assets/cars/page_20_img_3.jpeg",
+      "assets/cars/page_20_img_4.jpeg"
     ]
   },
   {
@@ -528,11 +579,14 @@
     "cover_photo": "assets/cars/page_21_img_2.jpeg",
     "main_photo": "assets/cars/page_21_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_21_img_1.jpeg",
       "assets/cars/page_21_img_2.jpeg",
       "assets/cars/page_21_img_3.jpeg",
-      "assets/cars/page_21_img_4.jpeg",
-      "assets/cars/page_21_img_5.jpeg"
+      "assets/cars/page_21_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_21_img_2.jpeg",
+      "assets/cars/page_21_img_3.jpeg",
+      "assets/cars/page_21_img_4.jpeg"
     ]
   },
   {
@@ -557,11 +611,14 @@
     "cover_photo": "assets/cars/page_22_img_2.jpeg",
     "main_photo": "assets/cars/page_22_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_22_img_1.jpeg",
       "assets/cars/page_22_img_2.jpeg",
       "assets/cars/page_22_img_3.jpeg",
-      "assets/cars/page_22_img_4.jpeg",
-      "assets/cars/page_22_img_5.jpeg"
+      "assets/cars/page_22_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_22_img_2.jpeg",
+      "assets/cars/page_22_img_3.jpeg",
+      "assets/cars/page_22_img_4.jpeg"
     ]
   },
   {
@@ -587,15 +644,18 @@
     "cover_photo": "assets/cars/page_23_img_2.jpeg",
     "main_photo": "assets/cars/page_23_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_23_img_1.jpeg",
       "assets/cars/page_23_img_2.jpeg",
       "assets/cars/page_23_img_3.jpeg",
-      "assets/cars/page_23_img_4.jpeg",
-      "assets/cars/page_23_img_5.jpeg"
+      "assets/cars/page_23_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_23_img_2.jpeg",
+      "assets/cars/page_23_img_3.jpeg",
+      "assets/cars/page_23_img_4.jpeg"
     ]
   },
   {
-    "page": 25,
+    "page": 24,
     "brand": "MERCEDES-BENZ",
     "model": "GLE 450",
     "year": 2020,
@@ -614,18 +674,21 @@
       "152,000km",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_25_img_2.jpeg",
-    "main_photo": "assets/cars/page_25_img_2.jpeg",
+    "cover_photo": "assets/cars/page_24_img_2.jpeg",
+    "main_photo": "assets/cars/page_24_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_25_img_1.jpeg",
-      "assets/cars/page_25_img_2.jpeg",
-      "assets/cars/page_25_img_3.jpeg",
-      "assets/cars/page_25_img_4.jpeg",
-      "assets/cars/page_25_img_5.jpeg"
+      "assets/cars/page_24_img_2.jpeg",
+      "assets/cars/page_24_img_3.jpeg",
+      "assets/cars/page_24_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_24_img_2.jpeg",
+      "assets/cars/page_24_img_3.jpeg",
+      "assets/cars/page_24_img_4.jpeg"
     ]
   },
   {
-    "page": 26,
+    "page": 25,
     "brand": "HYUNDAI",
     "model": "CRETA GRAND LIMITED",
     "year": 2022,
@@ -644,18 +707,21 @@
       "Factura de seminuevos de",
       "agencia Hyundai"
     ],
-    "cover_photo": "assets/cars/page_26_img_2.jpeg",
-    "main_photo": "assets/cars/page_26_img_2.jpeg",
+    "cover_photo": "assets/cars/page_25_img_2.jpeg",
+    "main_photo": "assets/cars/page_25_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_26_img_1.jpeg",
-      "assets/cars/page_26_img_2.jpeg",
-      "assets/cars/page_26_img_3.jpeg",
-      "assets/cars/page_26_img_4.jpeg",
-      "assets/cars/page_26_img_5.jpeg"
+      "assets/cars/page_25_img_2.jpeg",
+      "assets/cars/page_25_img_3.jpeg",
+      "assets/cars/page_25_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_25_img_2.jpeg",
+      "assets/cars/page_25_img_3.jpeg",
+      "assets/cars/page_25_img_4.jpeg"
     ]
   },
   {
-    "page": 27,
+    "page": 26,
     "brand": "MAZDA",
     "model": "CX-9 GRAND TOURING",
     "year": 2020,
@@ -674,18 +740,21 @@
       "Cámara de reversa",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_27_img_2.jpeg",
-    "main_photo": "assets/cars/page_27_img_2.jpeg",
+    "cover_photo": "assets/cars/page_26_img_2.jpeg",
+    "main_photo": "assets/cars/page_26_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_27_img_1.jpeg",
-      "assets/cars/page_27_img_2.jpeg",
-      "assets/cars/page_27_img_3.jpeg",
-      "assets/cars/page_27_img_4.jpeg",
-      "assets/cars/page_27_img_5.jpeg"
+      "assets/cars/page_26_img_2.jpeg",
+      "assets/cars/page_26_img_3.jpeg",
+      "assets/cars/page_26_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_26_img_2.jpeg",
+      "assets/cars/page_26_img_3.jpeg",
+      "assets/cars/page_26_img_4.jpeg"
     ]
   },
   {
-    "page": 28,
+    "page": 27,
     "brand": "HYUNDAI",
     "model": "TUCSON LIMITED TECH HYBRID",
     "year": 2025,
@@ -704,18 +773,21 @@
       "Techo panorámico",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_28_img_2.jpeg",
-    "main_photo": "assets/cars/page_28_img_2.jpeg",
+    "cover_photo": "assets/cars/page_27_img_2.jpeg",
+    "main_photo": "assets/cars/page_27_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_28_img_1.jpeg",
-      "assets/cars/page_28_img_2.jpeg",
-      "assets/cars/page_28_img_3.jpeg",
-      "assets/cars/page_28_img_4.jpeg",
-      "assets/cars/page_28_img_5.jpeg"
+      "assets/cars/page_27_img_2.jpeg",
+      "assets/cars/page_27_img_3.jpeg",
+      "assets/cars/page_27_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_27_img_2.jpeg",
+      "assets/cars/page_27_img_3.jpeg",
+      "assets/cars/page_27_img_4.jpeg"
     ]
   },
   {
-    "page": 29,
+    "page": 28,
     "brand": "VOLKSWAGEN",
     "model": "TERAMONT CROSS SPORT R-LINE",
     "year": 2024,
@@ -734,18 +806,21 @@
       "Cámara de reversa",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_29_img_2.jpeg",
-    "main_photo": "assets/cars/page_29_img_2.jpeg",
+    "cover_photo": "assets/cars/page_28_img_2.jpeg",
+    "main_photo": "assets/cars/page_28_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_29_img_1.jpeg",
-      "assets/cars/page_29_img_2.jpeg",
-      "assets/cars/page_29_img_3.jpeg",
-      "assets/cars/page_29_img_4.jpeg",
-      "assets/cars/page_29_img_5.jpeg"
+      "assets/cars/page_28_img_2.jpeg",
+      "assets/cars/page_28_img_3.jpeg",
+      "assets/cars/page_28_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_28_img_2.jpeg",
+      "assets/cars/page_28_img_3.jpeg",
+      "assets/cars/page_28_img_4.jpeg"
     ]
   },
   {
-    "page": 30,
+    "page": 29,
     "brand": "HYUNDAI",
     "model": "TUCSON GLS",
     "year": 2024,
@@ -764,18 +839,21 @@
       "40,000km",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_30_img_2.jpeg",
-    "main_photo": "assets/cars/page_30_img_2.jpeg",
+    "cover_photo": "assets/cars/page_29_img_2.jpeg",
+    "main_photo": "assets/cars/page_29_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_30_img_1.jpeg",
-      "assets/cars/page_30_img_2.jpeg",
-      "assets/cars/page_30_img_3.jpeg",
-      "assets/cars/page_30_img_4.jpeg",
-      "assets/cars/page_30_img_5.jpeg"
+      "assets/cars/page_29_img_2.jpeg",
+      "assets/cars/page_29_img_3.jpeg",
+      "assets/cars/page_29_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_29_img_2.jpeg",
+      "assets/cars/page_29_img_3.jpeg",
+      "assets/cars/page_29_img_4.jpeg"
     ]
   },
   {
-    "page": 31,
+    "page": 30,
     "brand": "PORSCHE",
     "model": "CAYENNE COUPE TURBO GT",
     "year": 2024,
@@ -794,18 +872,21 @@
       "a/c doble zona",
       "factura de empresa"
     ],
-    "cover_photo": "assets/cars/page_31_img_2.jpeg",
-    "main_photo": "assets/cars/page_31_img_2.jpeg",
+    "cover_photo": "assets/cars/page_30_img_2.jpeg",
+    "main_photo": "assets/cars/page_30_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_31_img_1.jpeg",
-      "assets/cars/page_31_img_2.jpeg",
-      "assets/cars/page_31_img_3.jpeg",
-      "assets/cars/page_31_img_4.jpeg",
-      "assets/cars/page_31_img_5.jpeg"
+      "assets/cars/page_30_img_2.jpeg",
+      "assets/cars/page_30_img_3.jpeg",
+      "assets/cars/page_30_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_30_img_2.jpeg",
+      "assets/cars/page_30_img_3.jpeg",
+      "assets/cars/page_30_img_4.jpeg"
     ]
   },
   {
-    "page": 32,
+    "page": 31,
     "brand": "MERCEDES-BENZ",
     "model": "GLE 43 AMG",
     "year": 2019,
@@ -824,18 +905,21 @@
       "traccion formatic",
       "camara de reversa"
     ],
-    "cover_photo": "assets/cars/page_32_img_2.jpeg",
-    "main_photo": "assets/cars/page_32_img_2.jpeg",
+    "cover_photo": "assets/cars/page_31_img_2.jpeg",
+    "main_photo": "assets/cars/page_31_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_32_img_1.jpeg",
-      "assets/cars/page_32_img_2.jpeg",
-      "assets/cars/page_32_img_3.jpeg",
-      "assets/cars/page_32_img_4.jpeg",
-      "assets/cars/page_32_img_5.jpeg"
+      "assets/cars/page_31_img_2.jpeg",
+      "assets/cars/page_31_img_3.jpeg",
+      "assets/cars/page_31_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_31_img_2.jpeg",
+      "assets/cars/page_31_img_3.jpeg",
+      "assets/cars/page_31_img_4.jpeg"
     ]
   },
   {
-    "page": 33,
+    "page": 32,
     "brand": "AUDI",
     "model": "Q3 ELITE",
     "year": 2018,
@@ -854,18 +938,21 @@
       "quemacocos",
       "2 llaves"
     ],
-    "cover_photo": "assets/cars/page_33_img_2.jpeg",
-    "main_photo": "assets/cars/page_33_img_2.jpeg",
+    "cover_photo": "assets/cars/page_32_img_2.jpeg",
+    "main_photo": "assets/cars/page_32_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_33_img_1.jpeg",
-      "assets/cars/page_33_img_2.jpeg",
-      "assets/cars/page_33_img_3.jpeg",
-      "assets/cars/page_33_img_4.jpeg",
-      "assets/cars/page_33_img_5.jpeg"
+      "assets/cars/page_32_img_2.jpeg",
+      "assets/cars/page_32_img_3.jpeg",
+      "assets/cars/page_32_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_32_img_2.jpeg",
+      "assets/cars/page_32_img_3.jpeg",
+      "assets/cars/page_32_img_4.jpeg"
     ]
   },
   {
-    "page": 34,
+    "page": 33,
     "brand": "AUDI",
     "model": "Q5 ELITE",
     "year": 2020,
@@ -884,18 +971,21 @@
       "56,000km",
       "Motor 2.0 Turbo"
     ],
-    "cover_photo": "assets/cars/page_34_img_2.jpeg",
-    "main_photo": "assets/cars/page_34_img_2.jpeg",
+    "cover_photo": "assets/cars/page_33_img_2.jpeg",
+    "main_photo": "assets/cars/page_33_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_34_img_1.jpeg",
-      "assets/cars/page_34_img_2.jpeg",
-      "assets/cars/page_34_img_3.jpeg",
-      "assets/cars/page_34_img_4.jpeg",
-      "assets/cars/page_34_img_5.jpeg"
+      "assets/cars/page_33_img_2.jpeg",
+      "assets/cars/page_33_img_3.jpeg",
+      "assets/cars/page_33_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_33_img_2.jpeg",
+      "assets/cars/page_33_img_3.jpeg",
+      "assets/cars/page_33_img_4.jpeg"
     ]
   },
   {
-    "page": 35,
+    "page": 34,
     "brand": "KIA",
     "model": "SORENTO SLX",
     "year": 2018,
@@ -914,18 +1004,21 @@
       "2 llaves 🔑",
       "156,000km"
     ],
-    "cover_photo": "assets/cars/page_35_img_2.jpeg",
-    "main_photo": "assets/cars/page_35_img_2.jpeg",
+    "cover_photo": "assets/cars/page_34_img_2.jpeg",
+    "main_photo": "assets/cars/page_34_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_35_img_1.jpeg",
-      "assets/cars/page_35_img_2.jpeg",
-      "assets/cars/page_35_img_3.jpeg",
-      "assets/cars/page_35_img_4.jpeg",
-      "assets/cars/page_35_img_5.jpeg"
+      "assets/cars/page_34_img_2.jpeg",
+      "assets/cars/page_34_img_3.jpeg",
+      "assets/cars/page_34_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_34_img_2.jpeg",
+      "assets/cars/page_34_img_3.jpeg",
+      "assets/cars/page_34_img_4.jpeg"
     ]
   },
   {
-    "page": 36,
+    "page": 35,
     "brand": "BMW",
     "model": "X6 SPORT",
     "year": 2020,
@@ -944,18 +1037,21 @@
       "6cil twin power",
       "turbo"
     ],
-    "cover_photo": "assets/cars/page_36_img_2.jpeg",
-    "main_photo": "assets/cars/page_36_img_2.jpeg",
+    "cover_photo": "assets/cars/page_35_img_2.jpeg",
+    "main_photo": "assets/cars/page_35_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_36_img_1.jpeg",
-      "assets/cars/page_36_img_2.jpeg",
-      "assets/cars/page_36_img_3.jpeg",
-      "assets/cars/page_36_img_4.jpeg",
-      "assets/cars/page_36_img_5.jpeg"
+      "assets/cars/page_35_img_2.jpeg",
+      "assets/cars/page_35_img_3.jpeg",
+      "assets/cars/page_35_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_35_img_2.jpeg",
+      "assets/cars/page_35_img_3.jpeg",
+      "assets/cars/page_35_img_4.jpeg"
     ]
   },
   {
-    "page": 37,
+    "page": 36,
     "brand": "MERCEDES-BENZ",
     "model": "GLC 300",
     "year": 2024,
@@ -974,18 +1070,21 @@
       "reversa",
       "33,000km"
     ],
-    "cover_photo": "assets/cars/page_37_img_2.jpeg",
-    "main_photo": "assets/cars/page_37_img_2.jpeg",
+    "cover_photo": "assets/cars/page_36_img_2.jpeg",
+    "main_photo": "assets/cars/page_36_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_37_img_1.jpeg",
-      "assets/cars/page_37_img_2.jpeg",
-      "assets/cars/page_37_img_3.jpeg",
-      "assets/cars/page_37_img_4.jpeg",
-      "assets/cars/page_37_img_5.jpeg"
+      "assets/cars/page_36_img_2.jpeg",
+      "assets/cars/page_36_img_3.jpeg",
+      "assets/cars/page_36_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_36_img_2.jpeg",
+      "assets/cars/page_36_img_3.jpeg",
+      "assets/cars/page_36_img_4.jpeg"
     ]
   },
   {
-    "page": 38,
+    "page": 37,
     "brand": "FORD",
     "model": "TERRITORY TITANIUM",
     "year": 2023,
@@ -1004,18 +1103,21 @@
       "agencia",
       "78,000km"
     ],
-    "cover_photo": "assets/cars/page_38_img_2.jpeg",
-    "main_photo": "assets/cars/page_38_img_2.jpeg",
+    "cover_photo": "assets/cars/page_37_img_2.jpeg",
+    "main_photo": "assets/cars/page_37_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_38_img_1.jpeg",
-      "assets/cars/page_38_img_2.jpeg",
-      "assets/cars/page_38_img_3.jpeg",
-      "assets/cars/page_38_img_4.jpeg",
-      "assets/cars/page_38_img_5.jpeg"
+      "assets/cars/page_37_img_2.jpeg",
+      "assets/cars/page_37_img_3.jpeg",
+      "assets/cars/page_37_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_37_img_2.jpeg",
+      "assets/cars/page_37_img_3.jpeg",
+      "assets/cars/page_37_img_4.jpeg"
     ]
   },
   {
-    "page": 39,
+    "page": 38,
     "brand": "PEUGEOT",
     "model": "3008 ACTIVE",
     "year": 2019,
@@ -1034,18 +1136,21 @@
       "Factura de",
       "empresa"
     ],
-    "cover_photo": "assets/cars/page_39_img_2.jpeg",
-    "main_photo": "assets/cars/page_39_img_2.jpeg",
+    "cover_photo": "assets/cars/page_38_img_2.jpeg",
+    "main_photo": "assets/cars/page_38_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_39_img_1.jpeg",
-      "assets/cars/page_39_img_2.jpeg",
-      "assets/cars/page_39_img_3.jpeg",
-      "assets/cars/page_39_img_4.jpeg",
-      "assets/cars/page_39_img_5.jpeg"
+      "assets/cars/page_38_img_2.jpeg",
+      "assets/cars/page_38_img_3.jpeg",
+      "assets/cars/page_38_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_38_img_2.jpeg",
+      "assets/cars/page_38_img_3.jpeg",
+      "assets/cars/page_38_img_4.jpeg"
     ]
   },
   {
-    "page": 40,
+    "page": 39,
     "brand": "JEEP",
     "model": "GRAND CHEROKEE TRACKHAWK",
     "year": 2018,
@@ -1064,18 +1169,21 @@
       "Motor 8cil 6.2L",
       "Súper cargado"
     ],
-    "cover_photo": "assets/cars/page_40_img_2.jpeg",
-    "main_photo": "assets/cars/page_40_img_2.jpeg",
+    "cover_photo": "assets/cars/page_39_img_2.jpeg",
+    "main_photo": "assets/cars/page_39_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_40_img_1.jpeg",
-      "assets/cars/page_40_img_2.jpeg",
-      "assets/cars/page_40_img_3.jpeg",
-      "assets/cars/page_40_img_4.jpeg",
-      "assets/cars/page_40_img_5.jpeg"
+      "assets/cars/page_39_img_2.jpeg",
+      "assets/cars/page_39_img_3.jpeg",
+      "assets/cars/page_39_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_39_img_2.jpeg",
+      "assets/cars/page_39_img_3.jpeg",
+      "assets/cars/page_39_img_4.jpeg"
     ]
   },
   {
-    "page": 41,
+    "page": 40,
     "brand": "KIA",
     "model": "SORENTO SXL",
     "year": 2018,
@@ -1094,18 +1202,21 @@
       "asientos",
       "2 llaves"
     ],
-    "cover_photo": "assets/cars/page_41_img_2.jpeg",
-    "main_photo": "assets/cars/page_41_img_2.jpeg",
+    "cover_photo": "assets/cars/page_40_img_2.jpeg",
+    "main_photo": "assets/cars/page_40_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_41_img_1.jpeg",
-      "assets/cars/page_41_img_2.jpeg",
-      "assets/cars/page_41_img_3.jpeg",
-      "assets/cars/page_41_img_4.jpeg",
-      "assets/cars/page_41_img_5.jpeg"
+      "assets/cars/page_40_img_2.jpeg",
+      "assets/cars/page_40_img_3.jpeg",
+      "assets/cars/page_40_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_40_img_2.jpeg",
+      "assets/cars/page_40_img_3.jpeg",
+      "assets/cars/page_40_img_4.jpeg"
     ]
   },
   {
-    "page": 42,
+    "page": 41,
     "brand": "MITSUBISHI",
     "model": "L200",
     "year": 2022,
@@ -1124,18 +1235,21 @@
       "empresa",
       "Único dueño"
     ],
-    "cover_photo": "assets/cars/page_42_img_2.jpeg",
-    "main_photo": "assets/cars/page_42_img_2.jpeg",
+    "cover_photo": "assets/cars/page_41_img_2.jpeg",
+    "main_photo": "assets/cars/page_41_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_42_img_1.jpeg",
-      "assets/cars/page_42_img_2.jpeg",
-      "assets/cars/page_42_img_3.jpeg",
-      "assets/cars/page_42_img_4.jpeg",
-      "assets/cars/page_42_img_5.jpeg"
+      "assets/cars/page_41_img_2.jpeg",
+      "assets/cars/page_41_img_3.jpeg",
+      "assets/cars/page_41_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_41_img_2.jpeg",
+      "assets/cars/page_41_img_3.jpeg",
+      "assets/cars/page_41_img_4.jpeg"
     ]
   },
   {
-    "page": 43,
+    "page": 42,
     "brand": "PEUGEOT",
     "model": "PARTNER MAXI",
     "year": 2018,
@@ -1154,18 +1268,21 @@
       "A/C",
       "Capacidad de carga 2"
     ],
-    "cover_photo": "assets/cars/page_43_img_2.jpeg",
-    "main_photo": "assets/cars/page_43_img_2.jpeg",
+    "cover_photo": "assets/cars/page_42_img_2.jpeg",
+    "main_photo": "assets/cars/page_42_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_43_img_1.jpeg",
-      "assets/cars/page_43_img_2.jpeg",
-      "assets/cars/page_43_img_3.jpeg",
-      "assets/cars/page_43_img_4.jpeg",
-      "assets/cars/page_43_img_5.jpeg"
+      "assets/cars/page_42_img_2.jpeg",
+      "assets/cars/page_42_img_3.jpeg",
+      "assets/cars/page_42_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_42_img_2.jpeg",
+      "assets/cars/page_42_img_3.jpeg",
+      "assets/cars/page_42_img_4.jpeg"
     ]
   },
   {
-    "page": 44,
+    "page": 43,
     "brand": "PEUGEOT",
     "model": "PARTNER MAXI PACK",
     "year": 2021,
@@ -1184,18 +1301,21 @@
       "Estéreo",
       "Modos de manejo"
     ],
-    "cover_photo": "assets/cars/page_44_img_2.jpeg",
-    "main_photo": "assets/cars/page_44_img_2.jpeg",
+    "cover_photo": "assets/cars/page_43_img_2.jpeg",
+    "main_photo": "assets/cars/page_43_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_44_img_1.jpeg",
-      "assets/cars/page_44_img_2.jpeg",
-      "assets/cars/page_44_img_3.jpeg",
-      "assets/cars/page_44_img_4.jpeg",
-      "assets/cars/page_44_img_5.jpeg"
+      "assets/cars/page_43_img_2.jpeg",
+      "assets/cars/page_43_img_3.jpeg",
+      "assets/cars/page_43_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_43_img_2.jpeg",
+      "assets/cars/page_43_img_3.jpeg",
+      "assets/cars/page_43_img_4.jpeg"
     ]
   },
   {
-    "page": 45,
+    "page": 44,
     "brand": "CHEVROLET",
     "model": "TRAVERSE LT",
     "year": 2021,
@@ -1214,18 +1334,21 @@
       "Cámara de reversa",
       "Cámara 360•"
     ],
-    "cover_photo": "assets/cars/page_45_img_2.jpeg",
-    "main_photo": "assets/cars/page_45_img_2.jpeg",
+    "cover_photo": "assets/cars/page_44_img_2.jpeg",
+    "main_photo": "assets/cars/page_44_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_45_img_1.jpeg",
-      "assets/cars/page_45_img_2.jpeg",
-      "assets/cars/page_45_img_3.jpeg",
-      "assets/cars/page_45_img_4.jpeg",
-      "assets/cars/page_45_img_5.jpeg"
+      "assets/cars/page_44_img_2.jpeg",
+      "assets/cars/page_44_img_3.jpeg",
+      "assets/cars/page_44_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_44_img_2.jpeg",
+      "assets/cars/page_44_img_3.jpeg",
+      "assets/cars/page_44_img_4.jpeg"
     ]
   },
   {
-    "page": 46,
+    "page": 45,
     "brand": "GMC",
     "model": "TERRAIN DENALI",
     "year": 2020,
@@ -1244,18 +1367,21 @@
       "Quemacocos",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_46_img_2.jpeg",
-    "main_photo": "assets/cars/page_46_img_2.jpeg",
+    "cover_photo": "assets/cars/page_45_img_2.jpeg",
+    "main_photo": "assets/cars/page_45_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_46_img_1.jpeg",
-      "assets/cars/page_46_img_2.jpeg",
-      "assets/cars/page_46_img_3.jpeg",
-      "assets/cars/page_46_img_4.jpeg",
-      "assets/cars/page_46_img_5.jpeg"
+      "assets/cars/page_45_img_2.jpeg",
+      "assets/cars/page_45_img_3.jpeg",
+      "assets/cars/page_45_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_45_img_2.jpeg",
+      "assets/cars/page_45_img_3.jpeg",
+      "assets/cars/page_45_img_4.jpeg"
     ]
   },
   {
-    "page": 47,
+    "page": 46,
     "brand": "JEEP",
     "model": "GRAND CHEROKEE LIMITED LUJO",
     "year": 2015,
@@ -1274,18 +1400,21 @@
       "Navegador",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_47_img_2.jpeg",
-    "main_photo": "assets/cars/page_47_img_2.jpeg",
+    "cover_photo": "assets/cars/page_46_img_2.jpeg",
+    "main_photo": "assets/cars/page_46_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_47_img_1.jpeg",
-      "assets/cars/page_47_img_2.jpeg",
-      "assets/cars/page_47_img_3.jpeg",
-      "assets/cars/page_47_img_4.jpeg",
-      "assets/cars/page_47_img_5.jpeg"
+      "assets/cars/page_46_img_2.jpeg",
+      "assets/cars/page_46_img_3.jpeg",
+      "assets/cars/page_46_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_46_img_2.jpeg",
+      "assets/cars/page_46_img_3.jpeg",
+      "assets/cars/page_46_img_4.jpeg"
     ]
   },
   {
-    "page": 48,
+    "page": 47,
     "brand": "AUDI",
     "model": "Q5 ELITE QUATTRO",
     "year": 2013,
@@ -1304,18 +1433,21 @@
       "Panorámico",
       "Botón de encendido"
     ],
-    "cover_photo": "assets/cars/page_48_img_2.jpeg",
-    "main_photo": "assets/cars/page_48_img_2.jpeg",
+    "cover_photo": "assets/cars/page_47_img_2.jpeg",
+    "main_photo": "assets/cars/page_47_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_48_img_1.jpeg",
-      "assets/cars/page_48_img_2.jpeg",
-      "assets/cars/page_48_img_3.jpeg",
-      "assets/cars/page_48_img_4.jpeg",
-      "assets/cars/page_48_img_5.jpeg"
+      "assets/cars/page_47_img_2.jpeg",
+      "assets/cars/page_47_img_3.jpeg",
+      "assets/cars/page_47_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_47_img_2.jpeg",
+      "assets/cars/page_47_img_3.jpeg",
+      "assets/cars/page_47_img_4.jpeg"
     ]
   },
   {
-    "page": 49,
+    "page": 48,
     "brand": "FORD",
     "model": "ECOSPORT TITANIUM",
     "year": 2019,
@@ -1334,18 +1466,21 @@
       "Eléctrica",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_49_img_2.jpeg",
-    "main_photo": "assets/cars/page_49_img_2.jpeg",
+    "cover_photo": "assets/cars/page_48_img_2.jpeg",
+    "main_photo": "assets/cars/page_48_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_49_img_1.jpeg",
-      "assets/cars/page_49_img_2.jpeg",
-      "assets/cars/page_49_img_3.jpeg",
-      "assets/cars/page_49_img_4.jpeg",
-      "assets/cars/page_49_img_5.jpeg"
+      "assets/cars/page_48_img_2.jpeg",
+      "assets/cars/page_48_img_3.jpeg",
+      "assets/cars/page_48_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_48_img_2.jpeg",
+      "assets/cars/page_48_img_3.jpeg",
+      "assets/cars/page_48_img_4.jpeg"
     ]
   },
   {
-    "page": 50,
+    "page": 49,
     "brand": "NISSAN",
     "model": "KICKS EXCLUSIVE",
     "year": 2018,
@@ -1364,18 +1499,21 @@
       "Visión panorámica",
       "Tacómetro digital"
     ],
-    "cover_photo": "assets/cars/page_50_img_2.jpeg",
-    "main_photo": "assets/cars/page_50_img_2.jpeg",
+    "cover_photo": "assets/cars/page_49_img_2.jpeg",
+    "main_photo": "assets/cars/page_49_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_50_img_1.jpeg",
-      "assets/cars/page_50_img_2.jpeg",
-      "assets/cars/page_50_img_3.jpeg",
-      "assets/cars/page_50_img_4.jpeg",
-      "assets/cars/page_50_img_5.jpeg"
+      "assets/cars/page_49_img_2.jpeg",
+      "assets/cars/page_49_img_3.jpeg",
+      "assets/cars/page_49_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_49_img_2.jpeg",
+      "assets/cars/page_49_img_3.jpeg",
+      "assets/cars/page_49_img_4.jpeg"
     ]
   },
   {
-    "page": 51,
+    "page": 50,
     "brand": "MAZDA",
     "model": "CX-9 SIGNATURE",
     "year": 2019,
@@ -1394,18 +1532,21 @@
       "7 pasajeros",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_51_img_2.jpeg",
-    "main_photo": "assets/cars/page_51_img_2.jpeg",
+    "cover_photo": "assets/cars/page_50_img_2.jpeg",
+    "main_photo": "assets/cars/page_50_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_51_img_1.jpeg",
-      "assets/cars/page_51_img_2.jpeg",
-      "assets/cars/page_51_img_3.jpeg",
-      "assets/cars/page_51_img_4.jpeg",
-      "assets/cars/page_51_img_5.jpeg"
+      "assets/cars/page_50_img_2.jpeg",
+      "assets/cars/page_50_img_3.jpeg",
+      "assets/cars/page_50_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_50_img_2.jpeg",
+      "assets/cars/page_50_img_3.jpeg",
+      "assets/cars/page_50_img_4.jpeg"
     ]
   },
   {
-    "page": 53,
+    "page": 51,
     "brand": "GMC",
     "model": "SIERRA SLT 2500 HD",
     "year": 2021,
@@ -1424,18 +1565,21 @@
       "4x4",
       "104,000 millas"
     ],
-    "cover_photo": "assets/cars/page_53_img_2.jpeg",
-    "main_photo": "assets/cars/page_53_img_2.jpeg",
+    "cover_photo": "assets/cars/page_51_img_2.jpeg",
+    "main_photo": "assets/cars/page_51_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_53_img_1.jpeg",
-      "assets/cars/page_53_img_2.jpeg",
-      "assets/cars/page_53_img_3.jpeg",
-      "assets/cars/page_53_img_4.jpeg",
-      "assets/cars/page_53_img_5.jpeg"
+      "assets/cars/page_51_img_2.jpeg",
+      "assets/cars/page_51_img_3.jpeg",
+      "assets/cars/page_51_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_51_img_2.jpeg",
+      "assets/cars/page_51_img_3.jpeg",
+      "assets/cars/page_51_img_4.jpeg"
     ]
   },
   {
-    "page": 54,
+    "page": 52,
     "brand": "CHEVROLET",
     "model": "SILVERADO CUSTOM",
     "year": 2022,
@@ -1454,18 +1598,21 @@
       "4x4",
       "83,000km"
     ],
-    "cover_photo": "assets/cars/page_54_img_2.jpeg",
-    "main_photo": "assets/cars/page_54_img_2.jpeg",
+    "cover_photo": "assets/cars/page_52_img_2.jpeg",
+    "main_photo": "assets/cars/page_52_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_54_img_1.jpeg",
-      "assets/cars/page_54_img_2.jpeg",
-      "assets/cars/page_54_img_3.jpeg",
-      "assets/cars/page_54_img_4.jpeg",
-      "assets/cars/page_54_img_5.jpeg"
+      "assets/cars/page_52_img_2.jpeg",
+      "assets/cars/page_52_img_3.jpeg",
+      "assets/cars/page_52_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_52_img_2.jpeg",
+      "assets/cars/page_52_img_3.jpeg",
+      "assets/cars/page_52_img_4.jpeg"
     ]
   },
   {
-    "page": 55,
+    "page": 53,
     "brand": "CHEVROLET",
     "model": "CHEYENNE RST",
     "year": 2019,
@@ -1484,18 +1631,21 @@
       "Asientos en tela",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_55_img_2.jpeg",
-    "main_photo": "assets/cars/page_55_img_2.jpeg",
+    "cover_photo": "assets/cars/page_53_img_2.jpeg",
+    "main_photo": "assets/cars/page_53_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_55_img_1.jpeg",
-      "assets/cars/page_55_img_2.jpeg",
-      "assets/cars/page_55_img_3.jpeg",
-      "assets/cars/page_55_img_4.jpeg",
-      "assets/cars/page_55_img_5.jpeg"
+      "assets/cars/page_53_img_2.jpeg",
+      "assets/cars/page_53_img_3.jpeg",
+      "assets/cars/page_53_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_53_img_2.jpeg",
+      "assets/cars/page_53_img_3.jpeg",
+      "assets/cars/page_53_img_4.jpeg"
     ]
   },
   {
-    "page": 56,
+    "page": 54,
     "brand": "JEEP",
     "model": "RUBICON GLADIATOR JT",
     "year": 2023,
@@ -1514,18 +1664,21 @@
       "4x4",
       "Automático"
     ],
-    "cover_photo": "assets/cars/page_56_img_2.jpeg",
-    "main_photo": "assets/cars/page_56_img_2.jpeg",
+    "cover_photo": "assets/cars/page_54_img_2.jpeg",
+    "main_photo": "assets/cars/page_54_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_56_img_1.jpeg",
-      "assets/cars/page_56_img_2.jpeg",
-      "assets/cars/page_56_img_3.jpeg",
-      "assets/cars/page_56_img_4.jpeg",
-      "assets/cars/page_56_img_5.jpeg"
+      "assets/cars/page_54_img_2.jpeg",
+      "assets/cars/page_54_img_3.jpeg",
+      "assets/cars/page_54_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_54_img_2.jpeg",
+      "assets/cars/page_54_img_3.jpeg",
+      "assets/cars/page_54_img_4.jpeg"
     ]
   },
   {
-    "page": 57,
+    "page": 55,
     "brand": "RENAULT",
     "model": "OROCH INTENSE",
     "year": 2019,
@@ -1544,18 +1697,21 @@
       "unica dueña",
       "1 llave"
     ],
-    "cover_photo": "assets/cars/page_57_img_2.jpeg",
-    "main_photo": "assets/cars/page_57_img_2.jpeg",
+    "cover_photo": "assets/cars/page_55_img_2.jpeg",
+    "main_photo": "assets/cars/page_55_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_57_img_1.jpeg",
-      "assets/cars/page_57_img_2.jpeg",
-      "assets/cars/page_57_img_3.jpeg",
-      "assets/cars/page_57_img_4.jpeg",
-      "assets/cars/page_57_img_5.jpeg"
+      "assets/cars/page_55_img_2.jpeg",
+      "assets/cars/page_55_img_3.jpeg",
+      "assets/cars/page_55_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_55_img_2.jpeg",
+      "assets/cars/page_55_img_3.jpeg",
+      "assets/cars/page_55_img_4.jpeg"
     ]
   },
   {
-    "page": 58,
+    "page": 56,
     "brand": "RAM",
     "model": "1500 LARAMIE SPORT MILD HYBRID",
     "year": 2020,
@@ -1574,18 +1730,21 @@
       "4x4",
       "8cil 5.7L"
     ],
-    "cover_photo": "assets/cars/page_58_img_2.jpeg",
-    "main_photo": "assets/cars/page_58_img_2.jpeg",
+    "cover_photo": "assets/cars/page_56_img_2.jpeg",
+    "main_photo": "assets/cars/page_56_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_58_img_1.jpeg",
-      "assets/cars/page_58_img_2.jpeg",
-      "assets/cars/page_58_img_3.jpeg",
-      "assets/cars/page_58_img_4.jpeg",
-      "assets/cars/page_58_img_5.jpeg"
+      "assets/cars/page_56_img_2.jpeg",
+      "assets/cars/page_56_img_3.jpeg",
+      "assets/cars/page_56_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_56_img_2.jpeg",
+      "assets/cars/page_56_img_3.jpeg",
+      "assets/cars/page_56_img_4.jpeg"
     ]
   },
   {
-    "page": 59,
+    "page": 57,
     "brand": "CHEVROLET",
     "model": "CHEYENNE LT",
     "year": 2023,
@@ -1604,18 +1763,21 @@
       "4x4",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_59_img_2.jpeg",
-    "main_photo": "assets/cars/page_59_img_2.jpeg",
+    "cover_photo": "assets/cars/page_57_img_2.jpeg",
+    "main_photo": "assets/cars/page_57_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_59_img_1.jpeg",
-      "assets/cars/page_59_img_2.jpeg",
-      "assets/cars/page_59_img_3.jpeg",
-      "assets/cars/page_59_img_4.jpeg",
-      "assets/cars/page_59_img_5.jpeg"
+      "assets/cars/page_57_img_2.jpeg",
+      "assets/cars/page_57_img_3.jpeg",
+      "assets/cars/page_57_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_57_img_2.jpeg",
+      "assets/cars/page_57_img_3.jpeg",
+      "assets/cars/page_57_img_4.jpeg"
     ]
   },
   {
-    "page": 60,
+    "page": 58,
     "brand": "RAM",
     "model": "1500 BIGHORN 4X4",
     "year": 2022,
@@ -1634,18 +1796,21 @@
       "3.6L 305hp",
       "Interiores en tela"
     ],
-    "cover_photo": "assets/cars/page_60_img_2.jpeg",
-    "main_photo": "assets/cars/page_60_img_2.jpeg",
+    "cover_photo": "assets/cars/page_58_img_2.jpeg",
+    "main_photo": "assets/cars/page_58_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_60_img_1.jpeg",
-      "assets/cars/page_60_img_2.jpeg",
-      "assets/cars/page_60_img_3.jpeg",
-      "assets/cars/page_60_img_4.jpeg",
-      "assets/cars/page_60_img_5.jpeg"
+      "assets/cars/page_58_img_2.jpeg",
+      "assets/cars/page_58_img_3.jpeg",
+      "assets/cars/page_58_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_58_img_2.jpeg",
+      "assets/cars/page_58_img_3.jpeg",
+      "assets/cars/page_58_img_4.jpeg"
     ]
   },
   {
-    "page": 61,
+    "page": 59,
     "brand": "RAM",
     "model": "1500 LIMITED",
     "year": 2021,
@@ -1664,18 +1829,21 @@
       "Quemacocos",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_61_img_2.jpeg",
-    "main_photo": "assets/cars/page_61_img_2.jpeg",
+    "cover_photo": "assets/cars/page_59_img_2.jpeg",
+    "main_photo": "assets/cars/page_59_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_61_img_1.jpeg",
-      "assets/cars/page_61_img_2.jpeg",
-      "assets/cars/page_61_img_3.jpeg",
-      "assets/cars/page_61_img_4.jpeg",
-      "assets/cars/page_61_img_5.jpeg"
+      "assets/cars/page_59_img_2.jpeg",
+      "assets/cars/page_59_img_3.jpeg",
+      "assets/cars/page_59_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_59_img_2.jpeg",
+      "assets/cars/page_59_img_3.jpeg",
+      "assets/cars/page_59_img_4.jpeg"
     ]
   },
   {
-    "page": 62,
+    "page": 60,
     "brand": "RAM",
     "model": "1500 BIGHORN ETORQUE",
     "year": 2022,
@@ -1694,18 +1862,21 @@
       "Interiores en tela",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_62_img_2.jpeg",
-    "main_photo": "assets/cars/page_62_img_2.jpeg",
+    "cover_photo": "assets/cars/page_60_img_2.jpeg",
+    "main_photo": "assets/cars/page_60_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_62_img_1.jpeg",
-      "assets/cars/page_62_img_2.jpeg",
-      "assets/cars/page_62_img_3.jpeg",
-      "assets/cars/page_62_img_4.jpeg",
-      "assets/cars/page_62_img_5.jpeg"
+      "assets/cars/page_60_img_2.jpeg",
+      "assets/cars/page_60_img_3.jpeg",
+      "assets/cars/page_60_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_60_img_2.jpeg",
+      "assets/cars/page_60_img_3.jpeg",
+      "assets/cars/page_60_img_4.jpeg"
     ]
   },
   {
-    "page": 63,
+    "page": 61,
     "brand": "CHEVROLET",
     "model": "CHEYENNE CLÁSICA VORTEC",
     "year": 1990,
@@ -1724,18 +1895,21 @@
       "Headers",
       "Llantas nuevas"
     ],
-    "cover_photo": "assets/cars/page_63_img_2.jpeg",
-    "main_photo": "assets/cars/page_63_img_2.jpeg",
+    "cover_photo": "assets/cars/page_61_img_2.jpeg",
+    "main_photo": "assets/cars/page_61_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_63_img_1.jpeg",
-      "assets/cars/page_63_img_2.jpeg",
-      "assets/cars/page_63_img_3.jpeg",
-      "assets/cars/page_63_img_4.jpeg",
-      "assets/cars/page_63_img_5.jpeg"
+      "assets/cars/page_61_img_2.jpeg",
+      "assets/cars/page_61_img_3.jpeg",
+      "assets/cars/page_61_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_61_img_2.jpeg",
+      "assets/cars/page_61_img_3.jpeg",
+      "assets/cars/page_61_img_4.jpeg"
     ]
   },
   {
-    "page": 64,
+    "page": 62,
     "brand": "RAM",
     "model": "1500 TRX / REBEL",
     "year": 2025,
@@ -1754,18 +1928,21 @@
       "Motor v8 5.2L",
       "Extras:"
     ],
-    "cover_photo": "assets/cars/page_64_img_2.jpeg",
-    "main_photo": "assets/cars/page_64_img_2.jpeg",
+    "cover_photo": "assets/cars/page_62_img_2.jpeg",
+    "main_photo": "assets/cars/page_62_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_64_img_1.jpeg",
-      "assets/cars/page_64_img_2.jpeg",
-      "assets/cars/page_64_img_3.jpeg",
-      "assets/cars/page_64_img_4.jpeg",
-      "assets/cars/page_64_img_5.jpeg"
+      "assets/cars/page_62_img_2.jpeg",
+      "assets/cars/page_62_img_3.jpeg",
+      "assets/cars/page_62_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_62_img_2.jpeg",
+      "assets/cars/page_62_img_3.jpeg",
+      "assets/cars/page_62_img_4.jpeg"
     ]
   },
   {
-    "page": 65,
+    "page": 63,
     "brand": "FORD",
     "model": "F-150 / LOBO XLT",
     "year": 2015,
@@ -1782,18 +1959,21 @@
       "VOLKSWAGEN",
       "AMAROK HIGHLINE"
     ],
-    "cover_photo": "assets/cars/page_65_img_2.jpeg",
-    "main_photo": "assets/cars/page_65_img_2.jpeg",
+    "cover_photo": "assets/cars/page_63_img_2.jpeg",
+    "main_photo": "assets/cars/page_63_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_65_img_1.jpeg",
-      "assets/cars/page_65_img_2.jpeg",
-      "assets/cars/page_65_img_3.jpeg",
-      "assets/cars/page_65_img_4.jpeg",
-      "assets/cars/page_65_img_5.jpeg"
+      "assets/cars/page_63_img_2.jpeg",
+      "assets/cars/page_63_img_3.jpeg",
+      "assets/cars/page_63_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_63_img_2.jpeg",
+      "assets/cars/page_63_img_3.jpeg",
+      "assets/cars/page_63_img_4.jpeg"
     ]
   },
   {
-    "page": 67,
+    "page": 64,
     "brand": "MERCEDES-BENZ",
     "model": "S500 WALD BLACK EDITION",
     "year": 2018,
@@ -1812,18 +1992,21 @@
       "55,000km",
       "Techo panorámico"
     ],
-    "cover_photo": "assets/cars/page_67_img_2.jpeg",
-    "main_photo": "assets/cars/page_67_img_2.jpeg",
+    "cover_photo": "assets/cars/page_64_img_2.jpeg",
+    "main_photo": "assets/cars/page_64_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_67_img_1.jpeg",
-      "assets/cars/page_67_img_2.jpeg",
-      "assets/cars/page_67_img_3.jpeg",
-      "assets/cars/page_67_img_4.jpeg",
-      "assets/cars/page_67_img_5.jpeg"
+      "assets/cars/page_64_img_2.jpeg",
+      "assets/cars/page_64_img_3.jpeg",
+      "assets/cars/page_64_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_64_img_2.jpeg",
+      "assets/cars/page_64_img_3.jpeg",
+      "assets/cars/page_64_img_4.jpeg"
     ]
   },
   {
-    "page": 68,
+    "page": 65,
     "brand": "AUDI",
     "model": "RS5 SPORTBACK",
     "year": 2021,
@@ -1842,18 +2025,21 @@
       "Quemacocos",
       "Transmisión Quattro"
     ],
-    "cover_photo": "assets/cars/page_68_img_2.jpeg",
-    "main_photo": "assets/cars/page_68_img_2.jpeg",
+    "cover_photo": "assets/cars/page_65_img_2.jpeg",
+    "main_photo": "assets/cars/page_65_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_68_img_1.jpeg",
-      "assets/cars/page_68_img_2.jpeg",
-      "assets/cars/page_68_img_3.jpeg",
-      "assets/cars/page_68_img_4.jpeg",
-      "assets/cars/page_68_img_5.jpeg"
+      "assets/cars/page_65_img_2.jpeg",
+      "assets/cars/page_65_img_3.jpeg",
+      "assets/cars/page_65_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_65_img_2.jpeg",
+      "assets/cars/page_65_img_3.jpeg",
+      "assets/cars/page_65_img_4.jpeg"
     ]
   },
   {
-    "page": 69,
+    "page": 66,
     "brand": "MCLAREN",
     "model": "540C V8 TWIN TURBO",
     "year": 2017,
@@ -1868,14 +2054,9 @@
       "21,000km",
       "Motor v8 3.8L biturbo"
     ],
-    "cover_photo": "assets/cars/page_69_img_2.jpeg",
-    "main_photo": "assets/cars/page_69_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_69_img_1.jpeg",
-      "assets/cars/page_69_img_2.jpeg",
-      "assets/cars/page_69_img_3.jpeg",
-      "assets/cars/page_69_img_4.jpeg",
-      "assets/cars/page_69_img_5.jpeg"
-    ]
+    "cover_photo": "assets/svg/autohaus-tag.svg",
+    "main_photo": "assets/svg/autohaus-tag.svg",
+    "real_photos": [],
+    "photos": []
   }
 ]

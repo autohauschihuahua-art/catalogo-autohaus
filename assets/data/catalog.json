@@ -22,11 +22,14 @@
     "cover_photo": "assets/cars/page_4_img_2.jpeg",
     "main_photo": "assets/cars/page_4_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_4_img_1.jpeg",
       "assets/cars/page_4_img_2.jpeg",
       "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg",
-      "assets/cars/page_4_img_5.jpeg"
+      "assets/cars/page_4_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_4_img_2.jpeg",
+      "assets/cars/page_4_img_3.jpeg",
+      "assets/cars/page_4_img_4.jpeg"
     ]
   },
   {
@@ -52,11 +55,14 @@
     "cover_photo": "assets/cars/page_5_img_2.jpeg",
     "main_photo": "assets/cars/page_5_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_5_img_1.jpeg",
       "assets/cars/page_5_img_2.jpeg",
       "assets/cars/page_5_img_3.jpeg",
-      "assets/cars/page_5_img_4.jpeg",
-      "assets/cars/page_5_img_5.jpeg"
+      "assets/cars/page_5_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_5_img_2.jpeg",
+      "assets/cars/page_5_img_3.jpeg",
+      "assets/cars/page_5_img_4.jpeg"
     ]
   },
   {
@@ -82,11 +88,14 @@
     "cover_photo": "assets/cars/page_6_img_2.jpeg",
     "main_photo": "assets/cars/page_6_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_6_img_1.jpeg",
       "assets/cars/page_6_img_2.jpeg",
       "assets/cars/page_6_img_3.jpeg",
-      "assets/cars/page_6_img_4.jpeg",
-      "assets/cars/page_6_img_5.jpeg"
+      "assets/cars/page_6_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_6_img_2.jpeg",
+      "assets/cars/page_6_img_3.jpeg",
+      "assets/cars/page_6_img_4.jpeg"
     ]
   },
   {
@@ -112,11 +121,14 @@
     "cover_photo": "assets/cars/page_7_img_2.jpeg",
     "main_photo": "assets/cars/page_7_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_7_img_1.jpeg",
       "assets/cars/page_7_img_2.jpeg",
       "assets/cars/page_7_img_3.jpeg",
-      "assets/cars/page_7_img_4.jpeg",
-      "assets/cars/page_7_img_5.jpeg"
+      "assets/cars/page_7_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_7_img_2.jpeg",
+      "assets/cars/page_7_img_3.jpeg",
+      "assets/cars/page_7_img_4.jpeg"
     ]
   },
   {
@@ -142,11 +154,14 @@
     "cover_photo": "assets/cars/page_8_img_2.jpeg",
     "main_photo": "assets/cars/page_8_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_8_img_1.jpeg",
       "assets/cars/page_8_img_2.jpeg",
       "assets/cars/page_8_img_3.jpeg",
-      "assets/cars/page_8_img_4.jpeg",
-      "assets/cars/page_8_img_5.jpeg"
+      "assets/cars/page_8_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_8_img_2.jpeg",
+      "assets/cars/page_8_img_3.jpeg",
+      "assets/cars/page_8_img_4.jpeg"
     ]
   },
   {
@@ -170,11 +185,14 @@
     "cover_photo": "assets/cars/page_9_img_2.jpeg",
     "main_photo": "assets/cars/page_9_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_9_img_1.jpeg",
       "assets/cars/page_9_img_2.jpeg",
       "assets/cars/page_9_img_3.jpeg",
-      "assets/cars/page_9_img_4.jpeg",
-      "assets/cars/page_9_img_5.jpeg"
+      "assets/cars/page_9_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_9_img_2.jpeg",
+      "assets/cars/page_9_img_3.jpeg",
+      "assets/cars/page_9_img_4.jpeg"
     ]
   },
   {
@@ -200,11 +218,14 @@
     "cover_photo": "assets/cars/page_10_img_2.jpeg",
     "main_photo": "assets/cars/page_10_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_10_img_1.jpeg",
       "assets/cars/page_10_img_2.jpeg",
       "assets/cars/page_10_img_3.jpeg",
-      "assets/cars/page_10_img_4.jpeg",
-      "assets/cars/page_10_img_5.jpeg"
+      "assets/cars/page_10_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_10_img_2.jpeg",
+      "assets/cars/page_10_img_3.jpeg",
+      "assets/cars/page_10_img_4.jpeg"
     ]
   },
   {
@@ -230,11 +251,14 @@
     "cover_photo": "assets/cars/page_11_img_2.jpeg",
     "main_photo": "assets/cars/page_11_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_11_img_1.jpeg",
       "assets/cars/page_11_img_2.jpeg",
       "assets/cars/page_11_img_3.jpeg",
-      "assets/cars/page_11_img_4.jpeg",
-      "assets/cars/page_11_img_5.jpeg"
+      "assets/cars/page_11_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_11_img_2.jpeg",
+      "assets/cars/page_11_img_3.jpeg",
+      "assets/cars/page_11_img_4.jpeg"
     ]
   },
   {
@@ -260,11 +284,14 @@
     "cover_photo": "assets/cars/page_12_img_2.jpeg",
     "main_photo": "assets/cars/page_12_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_12_img_1.jpeg",
       "assets/cars/page_12_img_2.jpeg",
       "assets/cars/page_12_img_3.jpeg",
-      "assets/cars/page_12_img_4.jpeg",
-      "assets/cars/page_12_img_5.jpeg"
+      "assets/cars/page_12_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_12_img_2.jpeg",
+      "assets/cars/page_12_img_3.jpeg",
+      "assets/cars/page_12_img_4.jpeg"
     ]
   },
   {
@@ -289,11 +316,14 @@
     "cover_photo": "assets/cars/page_13_img_2.jpeg",
     "main_photo": "assets/cars/page_13_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_13_img_1.jpeg",
       "assets/cars/page_13_img_2.jpeg",
       "assets/cars/page_13_img_3.jpeg",
-      "assets/cars/page_13_img_4.jpeg",
-      "assets/cars/page_13_img_5.jpeg"
+      "assets/cars/page_13_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_13_img_2.jpeg",
+      "assets/cars/page_13_img_3.jpeg",
+      "assets/cars/page_13_img_4.jpeg"
     ]
   },
   {
@@ -319,11 +349,14 @@
     "cover_photo": "assets/cars/page_14_img_2.jpeg",
     "main_photo": "assets/cars/page_14_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_14_img_1.jpeg",
       "assets/cars/page_14_img_2.jpeg",
       "assets/cars/page_14_img_3.jpeg",
-      "assets/cars/page_14_img_4.jpeg",
-      "assets/cars/page_14_img_5.jpeg"
+      "assets/cars/page_14_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_14_img_2.jpeg",
+      "assets/cars/page_14_img_3.jpeg",
+      "assets/cars/page_14_img_4.jpeg"
     ]
   },
   {
@@ -349,11 +382,14 @@
     "cover_photo": "assets/cars/page_15_img_2.jpeg",
     "main_photo": "assets/cars/page_15_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_15_img_1.jpeg",
       "assets/cars/page_15_img_2.jpeg",
       "assets/cars/page_15_img_3.jpeg",
-      "assets/cars/page_15_img_4.jpeg",
-      "assets/cars/page_15_img_5.jpeg"
+      "assets/cars/page_15_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_15_img_2.jpeg",
+      "assets/cars/page_15_img_3.jpeg",
+      "assets/cars/page_15_img_4.jpeg"
     ]
   },
   {
@@ -379,11 +415,14 @@
     "cover_photo": "assets/cars/page_16_img_2.jpeg",
     "main_photo": "assets/cars/page_16_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_16_img_1.jpeg",
       "assets/cars/page_16_img_2.jpeg",
       "assets/cars/page_16_img_3.jpeg",
-      "assets/cars/page_16_img_4.jpeg",
-      "assets/cars/page_16_img_5.jpeg"
+      "assets/cars/page_16_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_16_img_2.jpeg",
+      "assets/cars/page_16_img_3.jpeg",
+      "assets/cars/page_16_img_4.jpeg"
     ]
   },
   {
@@ -409,11 +448,14 @@
     "cover_photo": "assets/cars/page_17_img_2.jpeg",
     "main_photo": "assets/cars/page_17_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_17_img_1.jpeg",
       "assets/cars/page_17_img_2.jpeg",
       "assets/cars/page_17_img_3.jpeg",
-      "assets/cars/page_17_img_4.jpeg",
-      "assets/cars/page_17_img_5.jpeg"
+      "assets/cars/page_17_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_17_img_2.jpeg",
+      "assets/cars/page_17_img_3.jpeg",
+      "assets/cars/page_17_img_4.jpeg"
     ]
   },
   {
@@ -439,11 +481,14 @@
     "cover_photo": "assets/cars/page_18_img_2.jpeg",
     "main_photo": "assets/cars/page_18_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_18_img_1.jpeg",
       "assets/cars/page_18_img_2.jpeg",
       "assets/cars/page_18_img_3.jpeg",
-      "assets/cars/page_18_img_4.jpeg",
-      "assets/cars/page_18_img_5.jpeg"
+      "assets/cars/page_18_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_18_img_2.jpeg",
+      "assets/cars/page_18_img_3.jpeg",
+      "assets/cars/page_18_img_4.jpeg"
     ]
   },
   {
@@ -469,11 +514,14 @@
     "cover_photo": "assets/cars/page_19_img_2.jpeg",
     "main_photo": "assets/cars/page_19_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_19_img_1.jpeg",
       "assets/cars/page_19_img_2.jpeg",
       "assets/cars/page_19_img_3.jpeg",
-      "assets/cars/page_19_img_4.jpeg",
-      "assets/cars/page_19_img_5.jpeg"
+      "assets/cars/page_19_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_19_img_2.jpeg",
+      "assets/cars/page_19_img_3.jpeg",
+      "assets/cars/page_19_img_4.jpeg"
     ]
   },
   {
@@ -498,11 +546,14 @@
     "cover_photo": "assets/cars/page_20_img_2.jpeg",
     "main_photo": "assets/cars/page_20_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_20_img_1.jpeg",
       "assets/cars/page_20_img_2.jpeg",
       "assets/cars/page_20_img_3.jpeg",
-      "assets/cars/page_20_img_4.jpeg",
-      "assets/cars/page_20_img_5.jpeg"
+      "assets/cars/page_20_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_20_img_2.jpeg",
+      "assets/cars/page_20_img_3.jpeg",
+      "assets/cars/page_20_img_4.jpeg"
     ]
   },
   {
@@ -528,11 +579,14 @@
     "cover_photo": "assets/cars/page_21_img_2.jpeg",
     "main_photo": "assets/cars/page_21_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_21_img_1.jpeg",
       "assets/cars/page_21_img_2.jpeg",
       "assets/cars/page_21_img_3.jpeg",
-      "assets/cars/page_21_img_4.jpeg",
-      "assets/cars/page_21_img_5.jpeg"
+      "assets/cars/page_21_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_21_img_2.jpeg",
+      "assets/cars/page_21_img_3.jpeg",
+      "assets/cars/page_21_img_4.jpeg"
     ]
   },
   {
@@ -557,11 +611,14 @@
     "cover_photo": "assets/cars/page_22_img_2.jpeg",
     "main_photo": "assets/cars/page_22_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_22_img_1.jpeg",
       "assets/cars/page_22_img_2.jpeg",
       "assets/cars/page_22_img_3.jpeg",
-      "assets/cars/page_22_img_4.jpeg",
-      "assets/cars/page_22_img_5.jpeg"
+      "assets/cars/page_22_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_22_img_2.jpeg",
+      "assets/cars/page_22_img_3.jpeg",
+      "assets/cars/page_22_img_4.jpeg"
     ]
   },
   {
@@ -587,11 +644,14 @@
     "cover_photo": "assets/cars/page_23_img_2.jpeg",
     "main_photo": "assets/cars/page_23_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_23_img_1.jpeg",
       "assets/cars/page_23_img_2.jpeg",
       "assets/cars/page_23_img_3.jpeg",
-      "assets/cars/page_23_img_4.jpeg",
-      "assets/cars/page_23_img_5.jpeg"
+      "assets/cars/page_23_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_23_img_2.jpeg",
+      "assets/cars/page_23_img_3.jpeg",
+      "assets/cars/page_23_img_4.jpeg"
     ]
   },
   {
@@ -614,14 +674,17 @@
       "152,000km",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_25_img_2.jpeg",
-    "main_photo": "assets/cars/page_25_img_2.jpeg",
+    "cover_photo": "assets/cars/page_24_img_2.jpeg",
+    "main_photo": "assets/cars/page_24_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_25_img_1.jpeg",
-      "assets/cars/page_25_img_2.jpeg",
-      "assets/cars/page_25_img_3.jpeg",
-      "assets/cars/page_25_img_4.jpeg",
-      "assets/cars/page_25_img_5.jpeg"
+      "assets/cars/page_24_img_2.jpeg",
+      "assets/cars/page_24_img_3.jpeg",
+      "assets/cars/page_24_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_24_img_2.jpeg",
+      "assets/cars/page_24_img_3.jpeg",
+      "assets/cars/page_24_img_4.jpeg"
     ]
   },
   {
@@ -644,14 +707,17 @@
       "Factura de seminuevos de",
       "agencia Hyundai"
     ],
-    "cover_photo": "assets/cars/page_26_img_2.jpeg",
-    "main_photo": "assets/cars/page_26_img_2.jpeg",
+    "cover_photo": "assets/cars/page_25_img_2.jpeg",
+    "main_photo": "assets/cars/page_25_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_26_img_1.jpeg",
-      "assets/cars/page_26_img_2.jpeg",
-      "assets/cars/page_26_img_3.jpeg",
-      "assets/cars/page_26_img_4.jpeg",
-      "assets/cars/page_26_img_5.jpeg"
+      "assets/cars/page_25_img_2.jpeg",
+      "assets/cars/page_25_img_3.jpeg",
+      "assets/cars/page_25_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_25_img_2.jpeg",
+      "assets/cars/page_25_img_3.jpeg",
+      "assets/cars/page_25_img_4.jpeg"
     ]
   },
   {
@@ -674,14 +740,17 @@
       "Cámara de reversa",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_27_img_2.jpeg",
-    "main_photo": "assets/cars/page_27_img_2.jpeg",
+    "cover_photo": "assets/cars/page_26_img_2.jpeg",
+    "main_photo": "assets/cars/page_26_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_27_img_1.jpeg",
-      "assets/cars/page_27_img_2.jpeg",
-      "assets/cars/page_27_img_3.jpeg",
-      "assets/cars/page_27_img_4.jpeg",
-      "assets/cars/page_27_img_5.jpeg"
+      "assets/cars/page_26_img_2.jpeg",
+      "assets/cars/page_26_img_3.jpeg",
+      "assets/cars/page_26_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_26_img_2.jpeg",
+      "assets/cars/page_26_img_3.jpeg",
+      "assets/cars/page_26_img_4.jpeg"
     ]
   },
   {
@@ -704,14 +773,17 @@
       "Techo panorámico",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_28_img_2.jpeg",
-    "main_photo": "assets/cars/page_28_img_2.jpeg",
+    "cover_photo": "assets/cars/page_27_img_2.jpeg",
+    "main_photo": "assets/cars/page_27_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_28_img_1.jpeg",
-      "assets/cars/page_28_img_2.jpeg",
-      "assets/cars/page_28_img_3.jpeg",
-      "assets/cars/page_28_img_4.jpeg",
-      "assets/cars/page_28_img_5.jpeg"
+      "assets/cars/page_27_img_2.jpeg",
+      "assets/cars/page_27_img_3.jpeg",
+      "assets/cars/page_27_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_27_img_2.jpeg",
+      "assets/cars/page_27_img_3.jpeg",
+      "assets/cars/page_27_img_4.jpeg"
     ]
   },
   {
@@ -734,14 +806,17 @@
       "Cámara de reversa",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_29_img_2.jpeg",
-    "main_photo": "assets/cars/page_29_img_2.jpeg",
+    "cover_photo": "assets/cars/page_28_img_2.jpeg",
+    "main_photo": "assets/cars/page_28_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_29_img_1.jpeg",
-      "assets/cars/page_29_img_2.jpeg",
-      "assets/cars/page_29_img_3.jpeg",
-      "assets/cars/page_29_img_4.jpeg",
-      "assets/cars/page_29_img_5.jpeg"
+      "assets/cars/page_28_img_2.jpeg",
+      "assets/cars/page_28_img_3.jpeg",
+      "assets/cars/page_28_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_28_img_2.jpeg",
+      "assets/cars/page_28_img_3.jpeg",
+      "assets/cars/page_28_img_4.jpeg"
     ]
   },
   {
@@ -764,14 +839,17 @@
       "40,000km",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_30_img_2.jpeg",
-    "main_photo": "assets/cars/page_30_img_2.jpeg",
+    "cover_photo": "assets/cars/page_29_img_2.jpeg",
+    "main_photo": "assets/cars/page_29_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_30_img_1.jpeg",
-      "assets/cars/page_30_img_2.jpeg",
-      "assets/cars/page_30_img_3.jpeg",
-      "assets/cars/page_30_img_4.jpeg",
-      "assets/cars/page_30_img_5.jpeg"
+      "assets/cars/page_29_img_2.jpeg",
+      "assets/cars/page_29_img_3.jpeg",
+      "assets/cars/page_29_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_29_img_2.jpeg",
+      "assets/cars/page_29_img_3.jpeg",
+      "assets/cars/page_29_img_4.jpeg"
     ]
   },
   {
@@ -794,14 +872,17 @@
       "a/c doble zona",
       "factura de empresa"
     ],
-    "cover_photo": "assets/cars/page_31_img_2.jpeg",
-    "main_photo": "assets/cars/page_31_img_2.jpeg",
+    "cover_photo": "assets/cars/page_30_img_2.jpeg",
+    "main_photo": "assets/cars/page_30_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_31_img_1.jpeg",
-      "assets/cars/page_31_img_2.jpeg",
-      "assets/cars/page_31_img_3.jpeg",
-      "assets/cars/page_31_img_4.jpeg",
-      "assets/cars/page_31_img_5.jpeg"
+      "assets/cars/page_30_img_2.jpeg",
+      "assets/cars/page_30_img_3.jpeg",
+      "assets/cars/page_30_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_30_img_2.jpeg",
+      "assets/cars/page_30_img_3.jpeg",
+      "assets/cars/page_30_img_4.jpeg"
     ]
   },
   {
@@ -824,14 +905,17 @@
       "traccion formatic",
       "camara de reversa"
     ],
-    "cover_photo": "assets/cars/page_32_img_2.jpeg",
-    "main_photo": "assets/cars/page_32_img_2.jpeg",
+    "cover_photo": "assets/cars/page_31_img_2.jpeg",
+    "main_photo": "assets/cars/page_31_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_32_img_1.jpeg",
-      "assets/cars/page_32_img_2.jpeg",
-      "assets/cars/page_32_img_3.jpeg",
-      "assets/cars/page_32_img_4.jpeg",
-      "assets/cars/page_32_img_5.jpeg"
+      "assets/cars/page_31_img_2.jpeg",
+      "assets/cars/page_31_img_3.jpeg",
+      "assets/cars/page_31_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_31_img_2.jpeg",
+      "assets/cars/page_31_img_3.jpeg",
+      "assets/cars/page_31_img_4.jpeg"
     ]
   },
   {
@@ -854,14 +938,17 @@
       "quemacocos",
       "2 llaves"
     ],
-    "cover_photo": "assets/cars/page_33_img_2.jpeg",
-    "main_photo": "assets/cars/page_33_img_2.jpeg",
+    "cover_photo": "assets/cars/page_32_img_2.jpeg",
+    "main_photo": "assets/cars/page_32_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_33_img_1.jpeg",
-      "assets/cars/page_33_img_2.jpeg",
-      "assets/cars/page_33_img_3.jpeg",
-      "assets/cars/page_33_img_4.jpeg",
-      "assets/cars/page_33_img_5.jpeg"
+      "assets/cars/page_32_img_2.jpeg",
+      "assets/cars/page_32_img_3.jpeg",
+      "assets/cars/page_32_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_32_img_2.jpeg",
+      "assets/cars/page_32_img_3.jpeg",
+      "assets/cars/page_32_img_4.jpeg"
     ]
   },
   {
@@ -884,14 +971,17 @@
       "56,000km",
       "Motor 2.0 Turbo"
     ],
-    "cover_photo": "assets/cars/page_34_img_2.jpeg",
-    "main_photo": "assets/cars/page_34_img_2.jpeg",
+    "cover_photo": "assets/cars/page_33_img_2.jpeg",
+    "main_photo": "assets/cars/page_33_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_34_img_1.jpeg",
-      "assets/cars/page_34_img_2.jpeg",
-      "assets/cars/page_34_img_3.jpeg",
-      "assets/cars/page_34_img_4.jpeg",
-      "assets/cars/page_34_img_5.jpeg"
+      "assets/cars/page_33_img_2.jpeg",
+      "assets/cars/page_33_img_3.jpeg",
+      "assets/cars/page_33_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_33_img_2.jpeg",
+      "assets/cars/page_33_img_3.jpeg",
+      "assets/cars/page_33_img_4.jpeg"
     ]
   },
   {
@@ -914,14 +1004,17 @@
       "2 llaves 🔑",
       "156,000km"
     ],
-    "cover_photo": "assets/cars/page_35_img_2.jpeg",
-    "main_photo": "assets/cars/page_35_img_2.jpeg",
+    "cover_photo": "assets/cars/page_34_img_2.jpeg",
+    "main_photo": "assets/cars/page_34_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_35_img_1.jpeg",
-      "assets/cars/page_35_img_2.jpeg",
-      "assets/cars/page_35_img_3.jpeg",
-      "assets/cars/page_35_img_4.jpeg",
-      "assets/cars/page_35_img_5.jpeg"
+      "assets/cars/page_34_img_2.jpeg",
+      "assets/cars/page_34_img_3.jpeg",
+      "assets/cars/page_34_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_34_img_2.jpeg",
+      "assets/cars/page_34_img_3.jpeg",
+      "assets/cars/page_34_img_4.jpeg"
     ]
   },
   {
@@ -944,14 +1037,17 @@
       "6cil twin power",
       "turbo"
     ],
-    "cover_photo": "assets/cars/page_36_img_2.jpeg",
-    "main_photo": "assets/cars/page_36_img_2.jpeg",
+    "cover_photo": "assets/cars/page_35_img_2.jpeg",
+    "main_photo": "assets/cars/page_35_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_36_img_1.jpeg",
-      "assets/cars/page_36_img_2.jpeg",
-      "assets/cars/page_36_img_3.jpeg",
-      "assets/cars/page_36_img_4.jpeg",
-      "assets/cars/page_36_img_5.jpeg"
+      "assets/cars/page_35_img_2.jpeg",
+      "assets/cars/page_35_img_3.jpeg",
+      "assets/cars/page_35_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_35_img_2.jpeg",
+      "assets/cars/page_35_img_3.jpeg",
+      "assets/cars/page_35_img_4.jpeg"
     ]
   },
   {
@@ -974,14 +1070,17 @@
       "reversa",
       "33,000km"
     ],
-    "cover_photo": "assets/cars/page_37_img_2.jpeg",
-    "main_photo": "assets/cars/page_37_img_2.jpeg",
+    "cover_photo": "assets/cars/page_36_img_2.jpeg",
+    "main_photo": "assets/cars/page_36_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_37_img_1.jpeg",
-      "assets/cars/page_37_img_2.jpeg",
-      "assets/cars/page_37_img_3.jpeg",
-      "assets/cars/page_37_img_4.jpeg",
-      "assets/cars/page_37_img_5.jpeg"
+      "assets/cars/page_36_img_2.jpeg",
+      "assets/cars/page_36_img_3.jpeg",
+      "assets/cars/page_36_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_36_img_2.jpeg",
+      "assets/cars/page_36_img_3.jpeg",
+      "assets/cars/page_36_img_4.jpeg"
     ]
   },
   {
@@ -1004,14 +1103,17 @@
       "agencia",
       "78,000km"
     ],
-    "cover_photo": "assets/cars/page_38_img_2.jpeg",
-    "main_photo": "assets/cars/page_38_img_2.jpeg",
+    "cover_photo": "assets/cars/page_37_img_2.jpeg",
+    "main_photo": "assets/cars/page_37_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_38_img_1.jpeg",
-      "assets/cars/page_38_img_2.jpeg",
-      "assets/cars/page_38_img_3.jpeg",
-      "assets/cars/page_38_img_4.jpeg",
-      "assets/cars/page_38_img_5.jpeg"
+      "assets/cars/page_37_img_2.jpeg",
+      "assets/cars/page_37_img_3.jpeg",
+      "assets/cars/page_37_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_37_img_2.jpeg",
+      "assets/cars/page_37_img_3.jpeg",
+      "assets/cars/page_37_img_4.jpeg"
     ]
   },
   {
@@ -1034,14 +1136,17 @@
       "Factura de",
       "empresa"
     ],
-    "cover_photo": "assets/cars/page_39_img_2.jpeg",
-    "main_photo": "assets/cars/page_39_img_2.jpeg",
+    "cover_photo": "assets/cars/page_38_img_2.jpeg",
+    "main_photo": "assets/cars/page_38_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_39_img_1.jpeg",
-      "assets/cars/page_39_img_2.jpeg",
-      "assets/cars/page_39_img_3.jpeg",
-      "assets/cars/page_39_img_4.jpeg",
-      "assets/cars/page_39_img_5.jpeg"
+      "assets/cars/page_38_img_2.jpeg",
+      "assets/cars/page_38_img_3.jpeg",
+      "assets/cars/page_38_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_38_img_2.jpeg",
+      "assets/cars/page_38_img_3.jpeg",
+      "assets/cars/page_38_img_4.jpeg"
     ]
   },
   {
@@ -1064,14 +1169,17 @@
       "Motor 8cil 6.2L",
       "Súper cargado"
     ],
-    "cover_photo": "assets/cars/page_40_img_2.jpeg",
-    "main_photo": "assets/cars/page_40_img_2.jpeg",
+    "cover_photo": "assets/cars/page_39_img_2.jpeg",
+    "main_photo": "assets/cars/page_39_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_40_img_1.jpeg",
-      "assets/cars/page_40_img_2.jpeg",
-      "assets/cars/page_40_img_3.jpeg",
-      "assets/cars/page_40_img_4.jpeg",
-      "assets/cars/page_40_img_5.jpeg"
+      "assets/cars/page_39_img_2.jpeg",
+      "assets/cars/page_39_img_3.jpeg",
+      "assets/cars/page_39_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_39_img_2.jpeg",
+      "assets/cars/page_39_img_3.jpeg",
+      "assets/cars/page_39_img_4.jpeg"
     ]
   },
   {
@@ -1094,14 +1202,17 @@
       "asientos",
       "2 llaves"
     ],
-    "cover_photo": "assets/cars/page_41_img_2.jpeg",
-    "main_photo": "assets/cars/page_41_img_2.jpeg",
+    "cover_photo": "assets/cars/page_40_img_2.jpeg",
+    "main_photo": "assets/cars/page_40_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_41_img_1.jpeg",
-      "assets/cars/page_41_img_2.jpeg",
-      "assets/cars/page_41_img_3.jpeg",
-      "assets/cars/page_41_img_4.jpeg",
-      "assets/cars/page_41_img_5.jpeg"
+      "assets/cars/page_40_img_2.jpeg",
+      "assets/cars/page_40_img_3.jpeg",
+      "assets/cars/page_40_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_40_img_2.jpeg",
+      "assets/cars/page_40_img_3.jpeg",
+      "assets/cars/page_40_img_4.jpeg"
     ]
   },
   {
@@ -1124,14 +1235,17 @@
       "empresa",
       "Único dueño"
     ],
-    "cover_photo": "assets/cars/page_42_img_2.jpeg",
-    "main_photo": "assets/cars/page_42_img_2.jpeg",
+    "cover_photo": "assets/cars/page_41_img_2.jpeg",
+    "main_photo": "assets/cars/page_41_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_42_img_1.jpeg",
-      "assets/cars/page_42_img_2.jpeg",
-      "assets/cars/page_42_img_3.jpeg",
-      "assets/cars/page_42_img_4.jpeg",
-      "assets/cars/page_42_img_5.jpeg"
+      "assets/cars/page_41_img_2.jpeg",
+      "assets/cars/page_41_img_3.jpeg",
+      "assets/cars/page_41_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_41_img_2.jpeg",
+      "assets/cars/page_41_img_3.jpeg",
+      "assets/cars/page_41_img_4.jpeg"
     ]
   },
   {
@@ -1154,14 +1268,17 @@
       "A/C",
       "Capacidad de carga 2"
     ],
-    "cover_photo": "assets/cars/page_43_img_2.jpeg",
-    "main_photo": "assets/cars/page_43_img_2.jpeg",
+    "cover_photo": "assets/cars/page_42_img_2.jpeg",
+    "main_photo": "assets/cars/page_42_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_43_img_1.jpeg",
-      "assets/cars/page_43_img_2.jpeg",
-      "assets/cars/page_43_img_3.jpeg",
-      "assets/cars/page_43_img_4.jpeg",
-      "assets/cars/page_43_img_5.jpeg"
+      "assets/cars/page_42_img_2.jpeg",
+      "assets/cars/page_42_img_3.jpeg",
+      "assets/cars/page_42_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_42_img_2.jpeg",
+      "assets/cars/page_42_img_3.jpeg",
+      "assets/cars/page_42_img_4.jpeg"
     ]
   },
   {
@@ -1184,14 +1301,17 @@
       "Estéreo",
       "Modos de manejo"
     ],
-    "cover_photo": "assets/cars/page_44_img_2.jpeg",
-    "main_photo": "assets/cars/page_44_img_2.jpeg",
+    "cover_photo": "assets/cars/page_43_img_2.jpeg",
+    "main_photo": "assets/cars/page_43_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_44_img_1.jpeg",
-      "assets/cars/page_44_img_2.jpeg",
-      "assets/cars/page_44_img_3.jpeg",
-      "assets/cars/page_44_img_4.jpeg",
-      "assets/cars/page_44_img_5.jpeg"
+      "assets/cars/page_43_img_2.jpeg",
+      "assets/cars/page_43_img_3.jpeg",
+      "assets/cars/page_43_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_43_img_2.jpeg",
+      "assets/cars/page_43_img_3.jpeg",
+      "assets/cars/page_43_img_4.jpeg"
     ]
   },
   {
@@ -1214,14 +1334,17 @@
       "Cámara de reversa",
       "Cámara 360•"
     ],
-    "cover_photo": "assets/cars/page_45_img_2.jpeg",
-    "main_photo": "assets/cars/page_45_img_2.jpeg",
+    "cover_photo": "assets/cars/page_44_img_2.jpeg",
+    "main_photo": "assets/cars/page_44_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_45_img_1.jpeg",
-      "assets/cars/page_45_img_2.jpeg",
-      "assets/cars/page_45_img_3.jpeg",
-      "assets/cars/page_45_img_4.jpeg",
-      "assets/cars/page_45_img_5.jpeg"
+      "assets/cars/page_44_img_2.jpeg",
+      "assets/cars/page_44_img_3.jpeg",
+      "assets/cars/page_44_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_44_img_2.jpeg",
+      "assets/cars/page_44_img_3.jpeg",
+      "assets/cars/page_44_img_4.jpeg"
     ]
   },
   {
@@ -1244,14 +1367,17 @@
       "Quemacocos",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_46_img_2.jpeg",
-    "main_photo": "assets/cars/page_46_img_2.jpeg",
+    "cover_photo": "assets/cars/page_45_img_2.jpeg",
+    "main_photo": "assets/cars/page_45_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_46_img_1.jpeg",
-      "assets/cars/page_46_img_2.jpeg",
-      "assets/cars/page_46_img_3.jpeg",
-      "assets/cars/page_46_img_4.jpeg",
-      "assets/cars/page_46_img_5.jpeg"
+      "assets/cars/page_45_img_2.jpeg",
+      "assets/cars/page_45_img_3.jpeg",
+      "assets/cars/page_45_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_45_img_2.jpeg",
+      "assets/cars/page_45_img_3.jpeg",
+      "assets/cars/page_45_img_4.jpeg"
     ]
   },
   {
@@ -1274,14 +1400,17 @@
       "Navegador",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_47_img_2.jpeg",
-    "main_photo": "assets/cars/page_47_img_2.jpeg",
+    "cover_photo": "assets/cars/page_46_img_2.jpeg",
+    "main_photo": "assets/cars/page_46_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_47_img_1.jpeg",
-      "assets/cars/page_47_img_2.jpeg",
-      "assets/cars/page_47_img_3.jpeg",
-      "assets/cars/page_47_img_4.jpeg",
-      "assets/cars/page_47_img_5.jpeg"
+      "assets/cars/page_46_img_2.jpeg",
+      "assets/cars/page_46_img_3.jpeg",
+      "assets/cars/page_46_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_46_img_2.jpeg",
+      "assets/cars/page_46_img_3.jpeg",
+      "assets/cars/page_46_img_4.jpeg"
     ]
   },
   {
@@ -1304,14 +1433,17 @@
       "Panorámico",
       "Botón de encendido"
     ],
-    "cover_photo": "assets/cars/page_48_img_2.jpeg",
-    "main_photo": "assets/cars/page_48_img_2.jpeg",
+    "cover_photo": "assets/cars/page_47_img_2.jpeg",
+    "main_photo": "assets/cars/page_47_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_48_img_1.jpeg",
-      "assets/cars/page_48_img_2.jpeg",
-      "assets/cars/page_48_img_3.jpeg",
-      "assets/cars/page_48_img_4.jpeg",
-      "assets/cars/page_48_img_5.jpeg"
+      "assets/cars/page_47_img_2.jpeg",
+      "assets/cars/page_47_img_3.jpeg",
+      "assets/cars/page_47_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_47_img_2.jpeg",
+      "assets/cars/page_47_img_3.jpeg",
+      "assets/cars/page_47_img_4.jpeg"
     ]
   },
   {
@@ -1334,14 +1466,17 @@
       "Eléctrica",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_49_img_2.jpeg",
-    "main_photo": "assets/cars/page_49_img_2.jpeg",
+    "cover_photo": "assets/cars/page_48_img_2.jpeg",
+    "main_photo": "assets/cars/page_48_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_49_img_1.jpeg",
-      "assets/cars/page_49_img_2.jpeg",
-      "assets/cars/page_49_img_3.jpeg",
-      "assets/cars/page_49_img_4.jpeg",
-      "assets/cars/page_49_img_5.jpeg"
+      "assets/cars/page_48_img_2.jpeg",
+      "assets/cars/page_48_img_3.jpeg",
+      "assets/cars/page_48_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_48_img_2.jpeg",
+      "assets/cars/page_48_img_3.jpeg",
+      "assets/cars/page_48_img_4.jpeg"
     ]
   },
   {
@@ -1364,14 +1499,17 @@
       "Visión panorámica",
       "Tacómetro digital"
     ],
-    "cover_photo": "assets/cars/page_50_img_2.jpeg",
-    "main_photo": "assets/cars/page_50_img_2.jpeg",
+    "cover_photo": "assets/cars/page_49_img_2.jpeg",
+    "main_photo": "assets/cars/page_49_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_50_img_1.jpeg",
-      "assets/cars/page_50_img_2.jpeg",
-      "assets/cars/page_50_img_3.jpeg",
-      "assets/cars/page_50_img_4.jpeg",
-      "assets/cars/page_50_img_5.jpeg"
+      "assets/cars/page_49_img_2.jpeg",
+      "assets/cars/page_49_img_3.jpeg",
+      "assets/cars/page_49_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_49_img_2.jpeg",
+      "assets/cars/page_49_img_3.jpeg",
+      "assets/cars/page_49_img_4.jpeg"
     ]
   },
   {
@@ -1394,14 +1532,17 @@
       "7 pasajeros",
       "Quemacocos"
     ],
-    "cover_photo": "assets/cars/page_51_img_2.jpeg",
-    "main_photo": "assets/cars/page_51_img_2.jpeg",
+    "cover_photo": "assets/cars/page_50_img_2.jpeg",
+    "main_photo": "assets/cars/page_50_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_51_img_1.jpeg",
-      "assets/cars/page_51_img_2.jpeg",
-      "assets/cars/page_51_img_3.jpeg",
-      "assets/cars/page_51_img_4.jpeg",
-      "assets/cars/page_51_img_5.jpeg"
+      "assets/cars/page_50_img_2.jpeg",
+      "assets/cars/page_50_img_3.jpeg",
+      "assets/cars/page_50_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_50_img_2.jpeg",
+      "assets/cars/page_50_img_3.jpeg",
+      "assets/cars/page_50_img_4.jpeg"
     ]
   },
   {
@@ -1424,14 +1565,17 @@
       "4x4",
       "104,000 millas"
     ],
-    "cover_photo": "assets/cars/page_53_img_2.jpeg",
-    "main_photo": "assets/cars/page_53_img_2.jpeg",
+    "cover_photo": "assets/cars/page_51_img_2.jpeg",
+    "main_photo": "assets/cars/page_51_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_53_img_1.jpeg",
-      "assets/cars/page_53_img_2.jpeg",
-      "assets/cars/page_53_img_3.jpeg",
-      "assets/cars/page_53_img_4.jpeg",
-      "assets/cars/page_53_img_5.jpeg"
+      "assets/cars/page_51_img_2.jpeg",
+      "assets/cars/page_51_img_3.jpeg",
+      "assets/cars/page_51_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_51_img_2.jpeg",
+      "assets/cars/page_51_img_3.jpeg",
+      "assets/cars/page_51_img_4.jpeg"
     ]
   },
   {
@@ -1454,14 +1598,17 @@
       "4x4",
       "83,000km"
     ],
-    "cover_photo": "assets/cars/page_54_img_2.jpeg",
-    "main_photo": "assets/cars/page_54_img_2.jpeg",
+    "cover_photo": "assets/cars/page_52_img_2.jpeg",
+    "main_photo": "assets/cars/page_52_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_54_img_1.jpeg",
-      "assets/cars/page_54_img_2.jpeg",
-      "assets/cars/page_54_img_3.jpeg",
-      "assets/cars/page_54_img_4.jpeg",
-      "assets/cars/page_54_img_5.jpeg"
+      "assets/cars/page_52_img_2.jpeg",
+      "assets/cars/page_52_img_3.jpeg",
+      "assets/cars/page_52_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_52_img_2.jpeg",
+      "assets/cars/page_52_img_3.jpeg",
+      "assets/cars/page_52_img_4.jpeg"
     ]
   },
   {
@@ -1484,14 +1631,17 @@
       "Asientos en tela",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_55_img_2.jpeg",
-    "main_photo": "assets/cars/page_55_img_2.jpeg",
+    "cover_photo": "assets/cars/page_53_img_2.jpeg",
+    "main_photo": "assets/cars/page_53_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_55_img_1.jpeg",
-      "assets/cars/page_55_img_2.jpeg",
-      "assets/cars/page_55_img_3.jpeg",
-      "assets/cars/page_55_img_4.jpeg",
-      "assets/cars/page_55_img_5.jpeg"
+      "assets/cars/page_53_img_2.jpeg",
+      "assets/cars/page_53_img_3.jpeg",
+      "assets/cars/page_53_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_53_img_2.jpeg",
+      "assets/cars/page_53_img_3.jpeg",
+      "assets/cars/page_53_img_4.jpeg"
     ]
   },
   {
@@ -1514,14 +1664,17 @@
       "4x4",
       "Automático"
     ],
-    "cover_photo": "assets/cars/page_56_img_2.jpeg",
-    "main_photo": "assets/cars/page_56_img_2.jpeg",
+    "cover_photo": "assets/cars/page_54_img_2.jpeg",
+    "main_photo": "assets/cars/page_54_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_56_img_1.jpeg",
-      "assets/cars/page_56_img_2.jpeg",
-      "assets/cars/page_56_img_3.jpeg",
-      "assets/cars/page_56_img_4.jpeg",
-      "assets/cars/page_56_img_5.jpeg"
+      "assets/cars/page_54_img_2.jpeg",
+      "assets/cars/page_54_img_3.jpeg",
+      "assets/cars/page_54_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_54_img_2.jpeg",
+      "assets/cars/page_54_img_3.jpeg",
+      "assets/cars/page_54_img_4.jpeg"
     ]
   },
   {
@@ -1544,14 +1697,17 @@
       "unica dueña",
       "1 llave"
     ],
-    "cover_photo": "assets/cars/page_57_img_2.jpeg",
-    "main_photo": "assets/cars/page_57_img_2.jpeg",
+    "cover_photo": "assets/cars/page_55_img_2.jpeg",
+    "main_photo": "assets/cars/page_55_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_57_img_1.jpeg",
-      "assets/cars/page_57_img_2.jpeg",
-      "assets/cars/page_57_img_3.jpeg",
-      "assets/cars/page_57_img_4.jpeg",
-      "assets/cars/page_57_img_5.jpeg"
+      "assets/cars/page_55_img_2.jpeg",
+      "assets/cars/page_55_img_3.jpeg",
+      "assets/cars/page_55_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_55_img_2.jpeg",
+      "assets/cars/page_55_img_3.jpeg",
+      "assets/cars/page_55_img_4.jpeg"
     ]
   },
   {
@@ -1574,14 +1730,17 @@
       "4x4",
       "8cil 5.7L"
     ],
-    "cover_photo": "assets/cars/page_58_img_2.jpeg",
-    "main_photo": "assets/cars/page_58_img_2.jpeg",
+    "cover_photo": "assets/cars/page_56_img_2.jpeg",
+    "main_photo": "assets/cars/page_56_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_58_img_1.jpeg",
-      "assets/cars/page_58_img_2.jpeg",
-      "assets/cars/page_58_img_3.jpeg",
-      "assets/cars/page_58_img_4.jpeg",
-      "assets/cars/page_58_img_5.jpeg"
+      "assets/cars/page_56_img_2.jpeg",
+      "assets/cars/page_56_img_3.jpeg",
+      "assets/cars/page_56_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_56_img_2.jpeg",
+      "assets/cars/page_56_img_3.jpeg",
+      "assets/cars/page_56_img_4.jpeg"
     ]
   },
   {
@@ -1604,14 +1763,17 @@
       "4x4",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_59_img_2.jpeg",
-    "main_photo": "assets/cars/page_59_img_2.jpeg",
+    "cover_photo": "assets/cars/page_57_img_2.jpeg",
+    "main_photo": "assets/cars/page_57_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_59_img_1.jpeg",
-      "assets/cars/page_59_img_2.jpeg",
-      "assets/cars/page_59_img_3.jpeg",
-      "assets/cars/page_59_img_4.jpeg",
-      "assets/cars/page_59_img_5.jpeg"
+      "assets/cars/page_57_img_2.jpeg",
+      "assets/cars/page_57_img_3.jpeg",
+      "assets/cars/page_57_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_57_img_2.jpeg",
+      "assets/cars/page_57_img_3.jpeg",
+      "assets/cars/page_57_img_4.jpeg"
     ]
   },
   {
@@ -1634,14 +1796,17 @@
       "3.6L 305hp",
       "Interiores en tela"
     ],
-    "cover_photo": "assets/cars/page_60_img_2.jpeg",
-    "main_photo": "assets/cars/page_60_img_2.jpeg",
+    "cover_photo": "assets/cars/page_58_img_2.jpeg",
+    "main_photo": "assets/cars/page_58_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_60_img_1.jpeg",
-      "assets/cars/page_60_img_2.jpeg",
-      "assets/cars/page_60_img_3.jpeg",
-      "assets/cars/page_60_img_4.jpeg",
-      "assets/cars/page_60_img_5.jpeg"
+      "assets/cars/page_58_img_2.jpeg",
+      "assets/cars/page_58_img_3.jpeg",
+      "assets/cars/page_58_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_58_img_2.jpeg",
+      "assets/cars/page_58_img_3.jpeg",
+      "assets/cars/page_58_img_4.jpeg"
     ]
   },
   {
@@ -1664,14 +1829,17 @@
       "Quemacocos",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_61_img_2.jpeg",
-    "main_photo": "assets/cars/page_61_img_2.jpeg",
+    "cover_photo": "assets/cars/page_59_img_2.jpeg",
+    "main_photo": "assets/cars/page_59_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_61_img_1.jpeg",
-      "assets/cars/page_61_img_2.jpeg",
-      "assets/cars/page_61_img_3.jpeg",
-      "assets/cars/page_61_img_4.jpeg",
-      "assets/cars/page_61_img_5.jpeg"
+      "assets/cars/page_59_img_2.jpeg",
+      "assets/cars/page_59_img_3.jpeg",
+      "assets/cars/page_59_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_59_img_2.jpeg",
+      "assets/cars/page_59_img_3.jpeg",
+      "assets/cars/page_59_img_4.jpeg"
     ]
   },
   {
@@ -1694,14 +1862,17 @@
       "Interiores en tela",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_62_img_2.jpeg",
-    "main_photo": "assets/cars/page_62_img_2.jpeg",
+    "cover_photo": "assets/cars/page_60_img_2.jpeg",
+    "main_photo": "assets/cars/page_60_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_62_img_1.jpeg",
-      "assets/cars/page_62_img_2.jpeg",
-      "assets/cars/page_62_img_3.jpeg",
-      "assets/cars/page_62_img_4.jpeg",
-      "assets/cars/page_62_img_5.jpeg"
+      "assets/cars/page_60_img_2.jpeg",
+      "assets/cars/page_60_img_3.jpeg",
+      "assets/cars/page_60_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_60_img_2.jpeg",
+      "assets/cars/page_60_img_3.jpeg",
+      "assets/cars/page_60_img_4.jpeg"
     ]
   },
   {
@@ -1724,14 +1895,17 @@
       "Headers",
       "Llantas nuevas"
     ],
-    "cover_photo": "assets/cars/page_63_img_2.jpeg",
-    "main_photo": "assets/cars/page_63_img_2.jpeg",
+    "cover_photo": "assets/cars/page_61_img_2.jpeg",
+    "main_photo": "assets/cars/page_61_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_63_img_1.jpeg",
-      "assets/cars/page_63_img_2.jpeg",
-      "assets/cars/page_63_img_3.jpeg",
-      "assets/cars/page_63_img_4.jpeg",
-      "assets/cars/page_63_img_5.jpeg"
+      "assets/cars/page_61_img_2.jpeg",
+      "assets/cars/page_61_img_3.jpeg",
+      "assets/cars/page_61_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_61_img_2.jpeg",
+      "assets/cars/page_61_img_3.jpeg",
+      "assets/cars/page_61_img_4.jpeg"
     ]
   },
   {
@@ -1754,14 +1928,17 @@
       "Motor v8 5.2L",
       "Extras:"
     ],
-    "cover_photo": "assets/cars/page_64_img_2.jpeg",
-    "main_photo": "assets/cars/page_64_img_2.jpeg",
+    "cover_photo": "assets/cars/page_62_img_2.jpeg",
+    "main_photo": "assets/cars/page_62_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_64_img_1.jpeg",
-      "assets/cars/page_64_img_2.jpeg",
-      "assets/cars/page_64_img_3.jpeg",
-      "assets/cars/page_64_img_4.jpeg",
-      "assets/cars/page_64_img_5.jpeg"
+      "assets/cars/page_62_img_2.jpeg",
+      "assets/cars/page_62_img_3.jpeg",
+      "assets/cars/page_62_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_62_img_2.jpeg",
+      "assets/cars/page_62_img_3.jpeg",
+      "assets/cars/page_62_img_4.jpeg"
     ]
   },
   {
@@ -1782,14 +1959,17 @@
       "VOLKSWAGEN",
       "AMAROK HIGHLINE"
     ],
-    "cover_photo": "assets/cars/page_65_img_2.jpeg",
-    "main_photo": "assets/cars/page_65_img_2.jpeg",
+    "cover_photo": "assets/cars/page_63_img_2.jpeg",
+    "main_photo": "assets/cars/page_63_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_65_img_1.jpeg",
-      "assets/cars/page_65_img_2.jpeg",
-      "assets/cars/page_65_img_3.jpeg",
-      "assets/cars/page_65_img_4.jpeg",
-      "assets/cars/page_65_img_5.jpeg"
+      "assets/cars/page_63_img_2.jpeg",
+      "assets/cars/page_63_img_3.jpeg",
+      "assets/cars/page_63_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_63_img_2.jpeg",
+      "assets/cars/page_63_img_3.jpeg",
+      "assets/cars/page_63_img_4.jpeg"
     ]
   },
   {
@@ -1812,14 +1992,17 @@
       "55,000km",
       "Techo panorámico"
     ],
-    "cover_photo": "assets/cars/page_67_img_2.jpeg",
-    "main_photo": "assets/cars/page_67_img_2.jpeg",
+    "cover_photo": "assets/cars/page_64_img_2.jpeg",
+    "main_photo": "assets/cars/page_64_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_67_img_1.jpeg",
-      "assets/cars/page_67_img_2.jpeg",
-      "assets/cars/page_67_img_3.jpeg",
-      "assets/cars/page_67_img_4.jpeg",
-      "assets/cars/page_67_img_5.jpeg"
+      "assets/cars/page_64_img_2.jpeg",
+      "assets/cars/page_64_img_3.jpeg",
+      "assets/cars/page_64_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_64_img_2.jpeg",
+      "assets/cars/page_64_img_3.jpeg",
+      "assets/cars/page_64_img_4.jpeg"
     ]
   },
   {
@@ -1842,14 +2025,17 @@
       "Quemacocos",
       "Transmisión Quattro"
     ],
-    "cover_photo": "assets/cars/page_68_img_2.jpeg",
-    "main_photo": "assets/cars/page_68_img_2.jpeg",
+    "cover_photo": "assets/cars/page_65_img_2.jpeg",
+    "main_photo": "assets/cars/page_65_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_68_img_1.jpeg",
-      "assets/cars/page_68_img_2.jpeg",
-      "assets/cars/page_68_img_3.jpeg",
-      "assets/cars/page_68_img_4.jpeg",
-      "assets/cars/page_68_img_5.jpeg"
+      "assets/cars/page_65_img_2.jpeg",
+      "assets/cars/page_65_img_3.jpeg",
+      "assets/cars/page_65_img_4.jpeg"
+    ],
+    "photos": [
+      "assets/cars/page_65_img_2.jpeg",
+      "assets/cars/page_65_img_3.jpeg",
+      "assets/cars/page_65_img_4.jpeg"
     ]
   },
   {
@@ -1868,14 +2054,9 @@
       "21,000km",
       "Motor v8 3.8L biturbo"
     ],
-    "cover_photo": "assets/cars/page_69_img_2.jpeg",
-    "main_photo": "assets/cars/page_69_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_69_img_1.jpeg",
-      "assets/cars/page_69_img_2.jpeg",
-      "assets/cars/page_69_img_3.jpeg",
-      "assets/cars/page_69_img_4.jpeg",
-      "assets/cars/page_69_img_5.jpeg"
-    ]
+    "cover_photo": "assets/svg/autohaus-tag.svg",
+    "main_photo": "assets/svg/autohaus-tag.svg",
+    "real_photos": [],
+    "photos": []
   }
 ]
