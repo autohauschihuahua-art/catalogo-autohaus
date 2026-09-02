@@ -920,6 +920,14 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `;
       }
+
+      if (carData.real_photos && carData.real_photos.length > 0) {
+        galleryPhotosPreview.innerHTML = carData.real_photos.map(p => `
+          <div class="upload-preview-item">
+            <img src="../${p}" />
+          </div>
+        `).join('');
+      }
     } else {
       modalFormTitle.textContent = 'Agregar Nuevo Vehículo al Catálogo';
       editPageNumInput.value = '';
@@ -945,16 +953,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const url = isEdit ? `/api/vehicles/${editPageNumInput.value}` : '/api/vehicles';
       const method = isEdit ? 'PUT' : 'POST';
 
-      formData.append('brand', document.getElementById('carBrandInput').value);
-      formData.append('model', document.getElementById('carModelInput').value);
-      formData.append('year', document.getElementById('carYearInput').value);
-      formData.append('category', document.getElementById('carCategoryInput').value);
-      formData.append('status', document.getElementById('carStatusInput').value);
-      formData.append('price_contado', document.getElementById('carPriceContadoInput').value);
-      formData.append('price_financiado', document.getElementById('carPriceFinanciadoInput').value);
+      formData.set('brand', document.getElementById('carBrandInput').value);
+      formData.set('model', document.getElementById('carModelInput').value);
+      formData.set('year', document.getElementById('carYearInput').value);
+      formData.set('category', document.getElementById('carCategoryInput').value);
+      formData.set('status', document.getElementById('carStatusInput').value);
+      formData.set('price_contado', document.getElementById('carPriceContadoInput').value);
+      formData.set('price_financiado', document.getElementById('carPriceFinanciadoInput').value);
       
       const specsRaw = document.getElementById('carSpecsInput').value.split('\n').map(s => s.trim()).filter(Boolean);
-      formData.append('specs', JSON.stringify(specsRaw));
+      formData.set('specs', JSON.stringify(specsRaw));
+
+      const coverInput = document.getElementById('coverPhotoFile');
+      if (coverInput && coverInput.files && coverInput.files[0]) {
+        formData.set('cover_photo', coverInput.files[0]);
+      }
+
+      const galleryInput = document.getElementById('galleryPhotosFiles');
+      if (galleryInput && galleryInput.files && galleryInput.files.length > 0) {
+        formData.delete('gallery_photos');
+        Array.from(galleryInput.files).forEach(file => {
+          formData.append('gallery_photos', file);
+        });
+      }
 
       const res = await fetch(url, {
         method,

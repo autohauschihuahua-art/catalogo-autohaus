@@ -656,6 +656,30 @@
   },
   {
     "page": 24,
+    "brand": "MAZDA",
+    "model": "MAZDA 3 GRAND TOURING",
+    "year": 2017,
+    "category": "SEDAN & HATCHBACK",
+    "price_contado": "$245,000",
+    "price_financiado": "$255,000",
+    "price_num": 245000,
+    "status": "disponible",
+    "specs": [
+      "Quemacocos",
+      "Piel",
+      "Automático",
+      "Factura de Agencia"
+    ],
+    "cover_photo": "assets/cars/car_1788307666717_3718.jpeg",
+    "real_photos": [
+      "assets/cars/car_1788307666717_3718.jpeg",
+      "assets/cars/car_1788307666717_7400.jpeg"
+    ],
+    "cutout_photo": "assets/cars/car_1788307666717_3718.jpeg",
+    "main_photo": "assets/cars/car_1788307666717_3718.jpeg"
+  },
+  {
+    "page": 25,
     "brand": "MERCEDES-BENZ",
     "model": "GLE 450",
     "year": 2020,
@@ -688,7 +712,7 @@
     ]
   },
   {
-    "page": 25,
+    "page": 26,
     "brand": "HYUNDAI",
     "model": "CRETA GRAND LIMITED",
     "year": 2022,
@@ -721,7 +745,7 @@
     ]
   },
   {
-    "page": 26,
+    "page": 27,
     "brand": "MAZDA",
     "model": "CX-9 GRAND TOURING",
     "year": 2020,
@@ -754,7 +778,7 @@
     ]
   },
   {
-    "page": 27,
+    "page": 28,
     "brand": "HYUNDAI",
     "model": "TUCSON LIMITED TECH HYBRID",
     "year": 2025,
@@ -787,7 +811,7 @@
     ]
   },
   {
-    "page": 28,
+    "page": 29,
     "brand": "VOLKSWAGEN",
     "model": "TERAMONT CROSS SPORT R-LINE",
     "year": 2024,
@@ -820,7 +844,7 @@
     ]
   },
   {
-    "page": 29,
+    "page": 30,
     "brand": "HYUNDAI",
     "model": "TUCSON GLS",
     "year": 2024,
@@ -853,7 +877,7 @@
     ]
   },
   {
-    "page": 30,
+    "page": 31,
     "brand": "PORSCHE",
     "model": "CAYENNE COUPE TURBO GT",
     "year": 2024,
@@ -886,7 +910,7 @@
     ]
   },
   {
-    "page": 31,
+    "page": 32,
     "brand": "MERCEDES-BENZ",
     "model": "GLE 43 AMG",
     "year": 2019,
@@ -919,7 +943,7 @@
     ]
   },
   {
-    "page": 32,
+    "page": 33,
     "brand": "AUDI",
     "model": "Q3 ELITE",
     "year": 2018,
@@ -952,7 +976,7 @@
     ]
   },
   {
-    "page": 33,
+    "page": 34,
     "brand": "AUDI",
     "model": "Q5 ELITE",
     "year": 2020,
@@ -985,7 +1009,7 @@
     ]
   },
   {
-    "page": 34,
+    "page": 35,
     "brand": "KIA",
     "model": "SORENTO SLX",
     "year": 2018,
@@ -1018,7 +1042,7 @@
     ]
   },
   {
-    "page": 35,
+    "page": 36,
     "brand": "BMW",
     "model": "X6 SPORT",
     "year": 2020,
@@ -1051,7 +1075,7 @@
     ]
   },
   {
-    "page": 36,
+    "page": 37,
     "brand": "MERCEDES-BENZ",
     "model": "GLC 300",
     "year": 2024,
@@ -1084,7 +1108,7 @@
     ]
   },
   {
-    "page": 37,
+    "page": 38,
     "brand": "FORD",
     "model": "TERRITORY TITANIUM",
     "year": 2023,
@@ -1117,7 +1141,7 @@
     ]
   },
   {
-    "page": 38,
+    "page": 39,
     "brand": "PEUGEOT",
     "model": "3008 ACTIVE",
     "year": 2019,
@@ -1150,7 +1174,7 @@
     ]
   },
   {
-    "page": 39,
+    "page": 40,
     "brand": "JEEP",
     "model": "GRAND CHEROKEE TRACKHAWK",
     "year": 2018,
@@ -1183,7 +1207,7 @@
     ]
   },
   {
-    "page": 40,
+    "page": 41,
     "brand": "KIA",
     "model": "SORENTO SXL",
     "year": 2018,
@@ -1216,7 +1240,7 @@
     ]
   },
   {
-    "page": 41,
+    "page": 42,
     "brand": "MITSUBISHI",
     "model": "L200",
     "year": 2022,
@@ -1249,7 +1273,7 @@
     ]
   },
   {
-    "page": 42,
+    "page": 43,
     "brand": "PEUGEOT",
     "model": "PARTNER MAXI",
     "year": 2018,
@@ -1282,7 +1306,7 @@
     ]
   },
   {
-    "page": 43,
+    "page": 44,
     "brand": "PEUGEOT",
     "model": "PARTNER MAXI PACK",
     "year": 2021,
@@ -1315,7 +1339,7 @@
     ]
   },
   {
-    "page": 44,
+    "page": 45,
     "brand": "CHEVROLET",
     "model": "TRAVERSE LT",
     "year": 2021,
@@ -1348,7 +1372,7 @@
     ]
   },
   {
-    "page": 45,
+    "page": 46,
     "brand": "GMC",
     "model": "TERRAIN DENALI",
     "year": 2020,
@@ -1381,7 +1405,7 @@
     ]
   },
   {
-    "page": 46,
+    "page": 47,
     "brand": "JEEP",
     "model": "GRAND CHEROKEE LIMITED LUJO",
     "year": 2015,
@@ -1414,7 +1438,7 @@
     ]
   },
   {
-    "page": 47,
+    "page": 48,
     "brand": "AUDI",
     "model": "Q5 ELITE QUATTRO",
     "year": 2013,
@@ -1447,7 +1471,7 @@
     ]
   },
   {
-    "page": 48,
+    "page": 49,
     "brand": "FORD",
     "model": "ECOSPORT TITANIUM",
     "year": 2019,
@@ -1480,7 +1504,7 @@
     ]
   },
   {
-    "page": 49,
+    "page": 50,
     "brand": "NISSAN",
     "model": "KICKS EXCLUSIVE",
     "year": 2018,
@@ -1513,7 +1537,7 @@
     ]
   },
   {
-    "page": 50,
+    "page": 51,
     "brand": "MAZDA",
     "model": "CX-9 SIGNATURE",
     "year": 2019,
@@ -1546,7 +1570,7 @@
     ]
   },
   {
-    "page": 51,
+    "page": 52,
     "brand": "GMC",
     "model": "SIERRA SLT 2500 HD",
     "year": 2021,
@@ -1579,7 +1603,7 @@
     ]
   },
   {
-    "page": 52,
+    "page": 53,
     "brand": "CHEVROLET",
     "model": "SILVERADO CUSTOM",
     "year": 2022,
@@ -1612,7 +1636,7 @@
     ]
   },
   {
-    "page": 53,
+    "page": 54,
     "brand": "CHEVROLET",
     "model": "CHEYENNE RST",
     "year": 2019,
@@ -1645,7 +1669,7 @@
     ]
   },
   {
-    "page": 54,
+    "page": 55,
     "brand": "JEEP",
     "model": "RUBICON GLADIATOR JT",
     "year": 2023,
@@ -1678,7 +1702,7 @@
     ]
   },
   {
-    "page": 55,
+    "page": 56,
     "brand": "RENAULT",
     "model": "OROCH INTENSE",
     "year": 2019,
@@ -1711,7 +1735,7 @@
     ]
   },
   {
-    "page": 56,
+    "page": 57,
     "brand": "RAM",
     "model": "1500 LARAMIE SPORT MILD HYBRID",
     "year": 2020,
@@ -1744,7 +1768,7 @@
     ]
   },
   {
-    "page": 57,
+    "page": 58,
     "brand": "CHEVROLET",
     "model": "CHEYENNE LT",
     "year": 2023,
@@ -1777,7 +1801,7 @@
     ]
   },
   {
-    "page": 58,
+    "page": 59,
     "brand": "RAM",
     "model": "1500 BIGHORN 4X4",
     "year": 2022,
@@ -1810,7 +1834,7 @@
     ]
   },
   {
-    "page": 59,
+    "page": 60,
     "brand": "RAM",
     "model": "1500 LIMITED",
     "year": 2021,
@@ -1843,7 +1867,7 @@
     ]
   },
   {
-    "page": 60,
+    "page": 61,
     "brand": "RAM",
     "model": "1500 BIGHORN ETORQUE",
     "year": 2022,
@@ -1876,7 +1900,7 @@
     ]
   },
   {
-    "page": 61,
+    "page": 62,
     "brand": "CHEVROLET",
     "model": "CHEYENNE CLÁSICA VORTEC",
     "year": 1990,
@@ -1909,7 +1933,7 @@
     ]
   },
   {
-    "page": 62,
+    "page": 63,
     "brand": "RAM",
     "model": "1500 TRX / REBEL",
     "year": 2025,
@@ -1942,7 +1966,7 @@
     ]
   },
   {
-    "page": 63,
+    "page": 64,
     "brand": "FORD",
     "model": "F-150 / LOBO XLT",
     "year": 2015,
@@ -1973,7 +1997,7 @@
     ]
   },
   {
-    "page": 64,
+    "page": 65,
     "brand": "MERCEDES-BENZ",
     "model": "S500 WALD BLACK EDITION",
     "year": 2018,
@@ -2006,7 +2030,7 @@
     ]
   },
   {
-    "page": 65,
+    "page": 66,
     "brand": "AUDI",
     "model": "RS5 SPORTBACK",
     "year": 2021,
@@ -2039,7 +2063,7 @@
     ]
   },
   {
-    "page": 66,
+    "page": 67,
     "brand": "MCLAREN",
     "model": "540C V8 TWIN TURBO",
     "year": 2017,

@@ -544,11 +544,20 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       coverPhotoPath = req.body.cover_photo_url;
     }
 
-    let realPhotos = [coverPhotoPath];
+    let realPhotos = [];
+    if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
+      realPhotos.push(coverPhotoPath);
+    }
     if (req.files && req.files['gallery_photos']) {
       req.files['gallery_photos'].forEach(f => {
         realPhotos.push(`assets/cars/${f.filename}`);
       });
+    }
+
+    if (coverPhotoPath === 'assets/svg/autohaus-tag.svg' && realPhotos.length > 0) {
+      coverPhotoPath = realPhotos[0];
+    } else if (realPhotos.length === 0) {
+      realPhotos = [coverPhotoPath];
     }
 
     const maxPage = vehicles.reduce((max, v) => Math.max(max, v.page || 0), 3);
@@ -567,6 +576,7 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       specs: specs.length ? specs : ['Garantía de agencia', 'Excelente estado'],
       cover_photo: coverPhotoPath,
       real_photos: realPhotos,
+      photos: realPhotos,
       cutout_photo: coverPhotoPath,
       main_photo: coverPhotoPath
     };
@@ -582,7 +592,7 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
 
     res.status(201).json({
       success: true,
-      message: 'Vehículo agregado exitosamente al final de su categoría y PDF actualizado.',
+      message: 'Vehículo agregado exitosamente al catálogo y PDF actualizado.',
       data: newVehicle
     });
   } catch (err) {
@@ -634,16 +644,22 @@ app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, uploa
       current.cover_photo = `assets/cars/${req.files['cover_photo'][0].filename}`;
       current.main_photo = current.cover_photo;
       current.cutout_photo = current.cover_photo;
-      if (!current.real_photos) current.real_photos = [];
-      current.real_photos[0] = current.cover_photo;
+      if (!current.real_photos || current.real_photos.length === 0) {
+        current.real_photos = [current.cover_photo];
+      } else {
+        current.real_photos[0] = current.cover_photo;
+      }
     }
 
-    if (req.files && req.files['gallery_photos']) {
-      if (!current.real_photos) current.real_photos = [current.cover_photo];
+    if (req.files && req.files['gallery_photos'] && req.files['gallery_photos'].length > 0) {
+      if (!current.real_photos || current.real_photos.length === 0) {
+        current.real_photos = [current.cover_photo];
+      }
       req.files['gallery_photos'].forEach(f => {
         current.real_photos.push(`assets/cars/${f.filename}`);
       });
     }
+    current.photos = current.real_photos;
 
     const sortedVehicles = sortCatalogByCategory(vehicles);
     saveVehicles(sortedVehicles);
