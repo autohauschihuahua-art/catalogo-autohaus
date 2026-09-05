@@ -5,11 +5,13 @@ const fs = require('fs');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const { sortCatalogByCategory, generateFullCatalogPDF, isGeneratingPDF } = require('./scripts/pdfGenerator');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const JWT_SECRET = process.env.JWT_SECRET || 'autohaus_super_secure_jwt_secret_2025';
+const JWT_SECRET = process.env.JWT_SECRET || 'autohaus_super_secure_jwt_secret_2026';
 
 // Paths
 const DATA_FILE = path.join(__dirname, 'assets', 'data', 'catalog.json');
@@ -76,20 +78,101 @@ if (!fs.existsSync(LEADS_FILE)) {
   fs.writeFileSync(LEADS_FILE, JSON.stringify([], null, 2), 'utf-8');
 }
 
+// ==========================================
+// SECURITY HEADERS (HELMET) & HARDENING
+// ==========================================
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "blob:", "https:", "http:"],
+      connectSrc: ["'self'", "https://api.whatsapp.com", "https://wa.me"],
+      frameSrc: ["'self'", "https://www.google.com"],
+      objectSrc: ["'none'"]
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// Hide server fingerprint
+app.disable('x-powered-by');
+
 // Middleware
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(express.json({ limit: '30mb' }));
+app.use(express.urlencoded({ extended: true, limit: '30mb' }));
 
-// Multer Storage Configuration for Car Images
+// ==========================================
+// RATE LIMITERS (ANTI-BRUTE FORCE & ANTI-BOTS)
+// ==========================================
+
+// Global API Limiter (300 requests per 15 min)
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 400,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Demasiadas solicitudes desde esta IP. Por favor intenta más tarde.' }
+});
+
+// Strict Auth Login Limiter (Max 8 attempts per 15 min)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 8,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Demasiados intentos fallidos de inicio de sesión. Tu IP ha sido bloqueada temporalmente durante 15 minutos por seguridad.' }
+});
+
+// Client Registration Limiter (Max 6 registrations per hour)
+const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 6,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Has alcanzado el límite de creación de cuentas por hoy.' }
+});
+
+// Public Lead Capture Limiter (Max 12 leads per 15 min per IP)
+const leadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 12,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Has alcanzado el límite de solicitudes. Un asesor de Autohaus te contactará enseguida.' }
+});
+
+// Apply API Limiter to /api
+app.use('/api/', apiLimiter);
+
+// Sanitization Helper (Anti-XSS & Injection)
+function sanitizeInput(str) {
+  if (typeof str !== 'string') return str;
+  return str
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/javascript:/gi, '')
+    .replace(/onload=/gi, '')
+    .replace(/onerror=/gi, '')
+    .trim();
+}
+
+// Multer Storage Configuration with Extension Whitelist
+const ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.webp'];
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, UPLOADS_DIR);
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname) || '.jpeg';
-    const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E4);
-    cb(null, `car_${uniqueSuffix}${ext.toLowerCase()}`);
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpeg';
+    const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : '.jpeg';
+    const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E6);
+    cb(null, `car_${uniqueSuffix}${safeExt}`);
   }
 });
 
@@ -97,10 +180,11 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (file.mimetype.startsWith('image/') && ALLOWED_EXTENSIONS.includes(ext)) {
       cb(null, true);
     } else {
-      cb(new Error('Solo se permiten archivos de imagen (JPEG, PNG, WebP)'));
+      cb(new Error('Solo se permiten archivos de imagen válidos (JPEG, PNG, WebP)'));
     }
   }
 });
@@ -262,10 +346,13 @@ function requireAdminOrSecretary(req, res, next) {
 // AUTHENTICATION API ROUTES
 // ==========================================
 
-// 1. Client Registration (Public)
-app.post('/api/auth/register-client', (req, res) => {
+// 1. Client Registration (Public) - Protected with Register Rate Limiter & Sanitization
+app.post('/api/auth/register-client', registerLimiter, (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const name = sanitizeInput(req.body.name);
+    const email = sanitizeInput(req.body.email);
+    const phone = sanitizeInput(req.body.phone);
+    const password = req.body.password;
 
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: 'Nombre, correo y contraseña son obligatorios.' });
@@ -322,9 +409,10 @@ app.post('/api/auth/register-client', (req, res) => {
   }
 });
 
-// 2. Login (Clients and Staff)
-app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body;
+// 2. Login (Clients and Staff) - Protected with Strict Anti-Brute-Force Rate Limiter
+app.post('/api/auth/login', authLimiter, (req, res) => {
+  const email = sanitizeInput(req.body.email);
+  const password = req.body.password;
   
   if (!email || !password) {
     return res.status(400).json({ success: false, message: 'Ingresa correo y contraseña.' });
@@ -867,10 +955,21 @@ app.post('/api/leads', authenticateToken, requireAdmin, (req, res) => {
   }
 });
 
-// 4. PUBLIC LEAD CREATION (From Landing Page - Automatic Round-Robin)
-app.post('/api/leads/public', (req, res) => {
+// 4. PUBLIC LEAD CREATION (From Landing Page - Rate Limited, Honeypot & Sanitized)
+app.post('/api/leads/public', leadLimiter, (req, res) => {
   try {
-    const { client_name, client_phone, client_email, vehicle_page, vehicle_name, notes } = req.body;
+    // Bot Honeypot check: If bot fills hidden honeypot fields, safely drop without error
+    if (req.body.website || req.body.company_hp || req.body.url_check) {
+      return res.status(200).json({ success: true, message: 'Solicitud recibida exitosamente.' });
+    }
+
+    const client_name = sanitizeInput(req.body.client_name);
+    const client_phone = sanitizeInput(req.body.client_phone);
+    const client_email = sanitizeInput(req.body.client_email);
+    const vehicle_page = req.body.vehicle_page ? parseInt(req.body.vehicle_page) : null;
+    const vehicle_name = sanitizeInput(req.body.vehicle_name);
+    const notes = sanitizeInput(req.body.notes);
+
     if (!client_name || !client_phone) {
       return res.status(400).json({ success: false, message: 'Nombre y teléfono son requeridos.' });
     }
@@ -883,7 +982,7 @@ app.post('/api/leads/public', (req, res) => {
       client_name: client_name.trim(),
       client_phone: client_phone.trim(),
       client_email: (client_email || '').trim(),
-      vehicle_page: vehicle_page ? parseInt(vehicle_page) : null,
+      vehicle_page: vehicle_page || null,
       vehicle_name: vehicle_name || 'Interés General / Catálogo Web',
       assigned_to: nextSales.email,
       assigned_name: nextSales.name,
