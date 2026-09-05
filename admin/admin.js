@@ -4,9 +4,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // State
+  let storedUser = null;
+  try {
+    storedUser = JSON.parse(localStorage.getItem('autohaus_admin_user') || 'null');
+  } catch (e) {
+    storedUser = null;
+  }
+
   const state = {
     token: localStorage.getItem('autohaus_admin_token'),
-    user: null,
+    user: storedUser,
     vehicles: [],
     filteredVehicles: [],
     leads: [],
@@ -555,14 +562,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const isSales = state.user.role === 'sales';
-    const canManage = state.user.role === 'admin' || state.user.role === 'secretary';
+    const userRole = (state.user && state.user.role) || (state.token ? 'admin' : 'sales');
+    const isSales = userRole === 'sales';
+    const canManage = userRole === 'admin' || userRole === 'secretary';
 
     let mobileCardsHtml = '';
 
     state.filteredVehicles.forEach(car => {
       const tr = document.createElement('tr');
-      const carStatus = car.status || 'disponible';
+      const rawStatus = (car.status || 'disponible').toLowerCase();
+      const carStatus = ['disponible', 'apartado', 'vendido'].includes(rawStatus) ? rawStatus : 'disponible';
       const coverPhoto = car.cover_photo || car.main_photo || 'assets/svg/autohaus-tag.svg';
 
       // Status selector or badge
@@ -768,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const isAdmin = state.user.role === 'admin';
+    const isAdmin = (state.user && state.user.role === 'admin') || (!state.user && !!state.token);
     let mobileLeadsHtml = '';
 
     state.filteredLeads.forEach(lead => {
@@ -1020,16 +1029,26 @@ document.addEventListener('DOMContentLoaded', () => {
     vehicleForm.reset();
 
     if (carData) {
-      modalFormTitle.textContent = `Editar Vehículo: ${carData.brand} ${carData.model}`;
+      modalFormTitle.textContent = `Editar Vehículo: ${carData.brand || ''} ${carData.model || ''}`;
       editPageNumInput.value = carData.page;
       document.getElementById('carBrandInput').value = carData.brand || '';
       document.getElementById('carModelInput').value = carData.model || '';
       document.getElementById('carYearInput').value = carData.year || new Date().getFullYear();
       document.getElementById('carCategoryInput').value = carData.category || 'SEDAN & HATCHBACK';
-      document.getElementById('carStatusInput').value = carData.status || 'disponible';
-      document.getElementById('carPriceContadoInput').value = carData.price_contado || '';
+      
+      const rawStatus = (carData.status || 'disponible').toLowerCase();
+      document.getElementById('carStatusInput').value = ['disponible', 'apartado', 'vendido'].includes(rawStatus) ? rawStatus : 'disponible';
+
+      document.getElementById('carPriceContadoInput').value = carData.price_contado || carData.price || '';
       document.getElementById('carPriceFinanciadoInput').value = carData.price_financiado || '';
-      document.getElementById('carSpecsInput').value = (carData.specs || []).join('\n');
+      
+      let specsText = '';
+      if (Array.isArray(carData.specs)) {
+        specsText = carData.specs.join('\n');
+      } else if (typeof carData.specs === 'string') {
+        specsText = carData.specs;
+      }
+      document.getElementById('carSpecsInput').value = specsText;
 
       modalCoverState.existingUrl = carData.cover_photo || carData.main_photo || null;
       modalCoverState.newFile = null;

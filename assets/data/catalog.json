@@ -1,39 +1,5 @@
 [
   {
-    "id": "autohaus-p4",
-    "page": 4,
-    "brand": "CHEVROLET",
-    "model": "BEAT LT",
-    "year": 2020,
-    "price": "$195,000",
-    "price_contado": "$195,000",
-    "price_financiado": "$205,000",
-    "category": "SEDAN & HATCHBACK",
-    "cover_photo": "assets/cars/page_4_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_4_img_2.jpeg",
-      "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg",
-      "assets/cars/page_4_img_5.jpeg"
-    ],
-    "specs": [
-      "Automático",
-      "Eléctrico",
-      "Asientos en tela",
-      "121,000 km",
-      "Factura de agencia",
-      "1 dueño",
-      "2 llaves 🔑"
-    ],
-    "status": "Disponible",
-    "photos": [
-      "assets/cars/page_4_img_2.jpeg",
-      "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg",
-      "assets/cars/page_4_img_5.jpeg"
-    ]
-  },
-  {
     "id": "autohaus-p5",
     "page": 5,
     "brand": "Mazda",
@@ -58,7 +24,7 @@
       "90,000 km",
       "CarPlay inalámbrico"
     ],
-    "status": "Disponible"
+    "status": "disponible"
   },
   {
     "id": "autohaus-p6",
