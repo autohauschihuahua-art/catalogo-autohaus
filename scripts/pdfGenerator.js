@@ -650,7 +650,6 @@ async function generateFullCatalogPDF(targetPath = null) {
       // Construir HTML
       const html = buildCatalogHtml(sortedCars);
 
-      // Generar PDF con Puppeteer
       const chromePath = getChromeExecutablePath();
       const launchOptions = {
         headless: 'new',
@@ -658,7 +657,12 @@ async function generateFullCatalogPDF(targetPath = null) {
           '--no-sandbox',
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
-          '--disable-gpu'
+          '--disable-gpu',
+          '--no-zygote',
+          '--single-process',
+          '--disable-extensions',
+          '--disable-software-rasterizer',
+          '--hide-scrollbars'
         ]
       };
       if (chromePath) {
