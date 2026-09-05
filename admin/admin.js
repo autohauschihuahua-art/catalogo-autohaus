@@ -588,22 +588,22 @@ document.addEventListener('DOMContentLoaded', () => {
         actionsHtml = `
           <div class="table-actions">
             <!-- Edit -->
-            <button class="btn-action-icon" title="Editar vehículo" onclick="window.editVehicle(${car.page})">
+            <button type="button" class="btn-action-icon" title="Editar vehículo" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
             <!-- Delete -->
-            <button class="btn-action-icon btn-delete" title="Quitar del catálogo" onclick="window.deleteVehicle(${car.page}, '${car.brand} ${car.model}')">
+            <button type="button" class="btn-action-icon btn-delete" title="Quitar del catálogo" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
             </button>
           </div>
         `;
         mobileActionsHtml = `
-          <div class="mobile-card-actions">
-            <button class="btn-mobile-edit" onclick="window.editVehicle(${car.page})">
+          <div class="mobile-card-actions" onclick="event.stopPropagation()">
+            <button type="button" class="btn-mobile-edit" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               <span>Editar</span>
             </button>
-            <button class="btn-mobile-delete" onclick="window.deleteVehicle(${car.page}, '${car.brand} ${car.model}')" title="Eliminar">
+            <button type="button" class="btn-mobile-delete" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})" title="Eliminar">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </button>
           </div>
@@ -692,7 +692,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Quick Status Change
   window.handleStatusChange = async function(page, newStatus) {
     try {
-      const res = await fetch(`/api/vehicles/${page}/status`, {
+      const pageNum = parseInt(page, 10);
+      const res = await fetch(`/api/vehicles/${pageNum}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -700,12 +701,22 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({ status: newStatus })
       });
+
+      if (res.status === 401 || res.status === 403) {
+        showToast('Tu sesión ha expirado o no tienes permisos.', 'error');
+        setTimeout(() => {
+          localStorage.removeItem('autohaus_admin_token');
+          window.location.href = '/admin/login';
+        }, 1500);
+        return;
+      }
+
       const data = await res.json();
       if (data.success) {
         showToast(data.message, 'success');
         await loadDashboardData();
       } else {
-        showToast(data.message, 'error');
+        showToast(data.message || 'Error al actualizar estado', 'error');
       }
     } catch (e) {
       showToast('Error al actualizar estado', 'error');
@@ -1107,19 +1118,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.editVehicle = function(page) {
-    const car = state.vehicles.find(v => v.page === page);
-    if (car) openVehicleModal(car);
+    const pageNum = parseInt(page, 10);
+    const car = state.vehicles.find(v => parseInt(v.page, 10) === pageNum);
+    if (car) {
+      openVehicleModal(car);
+    } else {
+      console.warn('Vehículo no encontrado con página:', page);
+      showToast('No se encontró la información del vehículo.', 'error');
+    }
   };
 
-  window.deleteVehicle = async function(page, name) {
+  window.deleteVehicle = async function(page) {
+    const pageNum = parseInt(page, 10);
+    const car = state.vehicles.find(v => parseInt(v.page, 10) === pageNum);
+    const name = car ? `${car.brand} ${car.model}` : `Vehículo Pág. ${pageNum}`;
+
     if (!confirm(`¿Estás seguro de eliminar "${name}" del catálogo? Esta acción no se puede deshacer.`)) {
       return;
     }
 
     try {
-      const res = await fetch(`/api/vehicles/${page}`, {
+      showToast(`⏳ Eliminando "${name}" del catálogo...`, 'info');
+      const res = await fetch(`/api/vehicles/${pageNum}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${state.token}` }
+        headers: { 
+          'Authorization': `Bearer ${state.token}`,
+          'Content-Type': 'application/json'
+        }
       });
 
       if (res.status === 401 || res.status === 403) {
@@ -1133,14 +1158,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       if (data.success) {
-        showToast(data.message, 'success');
-        state.vehicles = state.vehicles.filter(v => v.page !== page);
+        showToast(data.message || 'Vehículo eliminado con éxito.', 'success');
+        state.vehicles = state.vehicles.filter(v => parseInt(v.page, 10) !== pageNum);
         applyInventoryFilters();
         await loadDashboardData();
       } else {
         showToast(data.message || 'Error al eliminar vehículo', 'error');
       }
     } catch (e) {
+      console.error('Error deleting vehicle:', e);
       showToast('Error de conexión al eliminar vehículo', 'error');
     }
   };
