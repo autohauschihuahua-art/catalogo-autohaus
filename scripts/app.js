@@ -277,13 +277,23 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 
+  function normCat(cat) {
+    if (!cat) return '';
+    const u = cat.toUpperCase().trim();
+    if (u.includes('SEDAN') || u.includes('HATCH')) return 'SEDAN & HATCHBACK';
+    if (u.includes('SUV')) return "SUV'S";
+    if (u.includes('PICK') || u.includes('RAM') || u.includes('CHEYENNE') || u.includes('SIERRA')) return 'PICK UPS';
+    if (u.includes('DEPORT') || u.includes('SPORT')) return 'DEPORTIVOS';
+    return u;
+  }
+
   function updateCategoryCounts() {
     const list = state.vehicles;
     if (countAll) countAll.textContent = list.length;
-    if (countSedan) countSedan.textContent = list.filter(v => v.category === 'SEDAN & HATCHBACK').length;
-    if (countSuv) countSuv.textContent = list.filter(v => v.category === "SUV'S").length;
-    if (countPickup) countPickup.textContent = list.filter(v => v.category === 'PICK UPS').length;
-    if (countSport) countSport.textContent = list.filter(v => v.category === 'DEPORTIVOS').length;
+    if (countSedan) countSedan.textContent = list.filter(v => normCat(v.category) === 'SEDAN & HATCHBACK').length;
+    if (countSuv) countSuv.textContent = list.filter(v => normCat(v.category) === "SUV'S").length;
+    if (countPickup) countPickup.textContent = list.filter(v => normCat(v.category) === 'PICK UPS').length;
+    if (countSport) countSport.textContent = list.filter(v => normCat(v.category) === 'DEPORTIVOS').length;
     updateFavoritesCounter();
   }
 
@@ -359,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.selectedCategory === 'FAVORITOS') {
       list = list.filter(v => state.favorites.includes(v.page));
     } else if (state.selectedCategory !== 'all') {
-      list = list.filter(v => v.category === state.selectedCategory);
+      list = list.filter(v => normCat(v.category) === normCat(state.selectedCategory));
     }
 
     // 2. Search Query
@@ -840,17 +850,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Toast Helper
+  function showAppToast(message, type = 'info', duration = 4500) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span>${message}</span>`;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(100%)';
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+  }
+
   // ==========================================
-  // DIRECT PDF DOWNLOAD
+  // DIRECT PDF DOWNLOAD WITH DYNAMIC SYNC
   // ==========================================
-  function downloadPDFCatalog() {
-    const pdfUrl = '/api/catalog/download-pdf';
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  async function downloadPDFCatalog() {
+    showAppToast('⏳ Preparando catálogo oficial en PDF con los vehículos actualizados...', 'info', 6000);
+
+    try {
+      const res = await fetch('/api/catalog/download-pdf');
+      if (!res.ok) throw new Error('El servidor está compilando el archivo');
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      showAppToast('✓ ¡Catálogo PDF descargado exitosamente!', 'success');
+    } catch (e) {
+      console.warn('Fallback direct window open for PDF download', e);
+      window.open('/api/catalog/download-pdf', '_blank');
+    }
   }
 
   // ==========================================

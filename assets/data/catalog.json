@@ -1,2086 +1,1852 @@
 [
   {
+    "id": "autohaus-p4",
     "page": 4,
-    "brand": "CHEVROLET",
-    "model": "BEAT LT",
+    "brand": "Chevrolet",
+    "model": "Beat LT",
     "year": 2020,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$195,000",
     "price_contado": "$195,000",
     "price_financiado": "$205,000",
-    "price_num": 195000,
-    "specs": [
-      "CHEVROLET",
-      "BEAT LT",
-      "Automático",
-      "Eléctrico",
-      "Asientos en tela",
-      "121,000km",
-      "Factura de agencia",
-      "1 dueño"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_4_img_2.jpeg",
-    "main_photo": "assets/cars/page_4_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_4_img_2.jpeg",
       "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg"
+      "assets/cars/page_4_img_4.jpeg",
+      "assets/cars/page_4_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_4_img_2.jpeg",
-      "assets/cars/page_4_img_3.jpeg",
-      "assets/cars/page_4_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Eléctrico",
+      "Asientos en tela",
+      "121,000 km",
+      "Factura de agencia",
+      "1 dueño",
+      "2 llaves 🔑"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p5",
     "page": 5,
-    "brand": "MAZDA",
-    "model": "MAZDA 6 SIGNATURE",
+    "brand": "Mazda",
+    "model": "Mazda 6 Signature",
     "year": 2019,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$339,000",
     "price_contado": "$339,000",
     "price_financiado": "$349,000",
-    "price_num": 339000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_5_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_5_img_2.jpeg",
+      "assets/cars/page_5_img_3.jpeg",
+      "assets/cars/page_5_img_4.jpeg",
+      "assets/cars/page_5_img_5.jpeg"
+    ],
     "specs": [
-      "MAZDA 6",
-      "SIGNATURE",
       "Motor 2.5 turbo",
       "Factura de agencia",
       "Único dueño",
       "Dos llaves",
       "90,000 km",
-      "Car play inalámbrico"
+      "CarPlay inalámbrico"
     ],
-    "cover_photo": "assets/cars/page_5_img_2.jpeg",
-    "main_photo": "assets/cars/page_5_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_5_img_2.jpeg",
-      "assets/cars/page_5_img_3.jpeg",
-      "assets/cars/page_5_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_5_img_2.jpeg",
-      "assets/cars/page_5_img_3.jpeg",
-      "assets/cars/page_5_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p6",
     "page": 6,
-    "brand": "NISSAN",
-    "model": "VERSA ADVANCE",
+    "brand": "Nissan",
+    "model": "Versa Advance",
     "year": 2022,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$269,000",
     "price_contado": "$269,000",
     "price_financiado": "$279,000",
-    "price_num": 269000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_6_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_6_img_2.jpeg",
+      "assets/cars/page_6_img_3.jpeg",
+      "assets/cars/page_6_img_4.jpeg",
+      "assets/cars/page_6_img_5.jpeg"
+    ],
     "specs": [
-      "NISSAN VERSA",
-      "ADVANCE",
       "Automático",
       "Eléctrico",
       "Asientos en tela",
       "Cámara de reversa",
       "Pantalla touch",
-      "46,000km"
+      "46,000 km"
     ],
-    "cover_photo": "assets/cars/page_6_img_2.jpeg",
-    "main_photo": "assets/cars/page_6_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_6_img_2.jpeg",
-      "assets/cars/page_6_img_3.jpeg",
-      "assets/cars/page_6_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_6_img_2.jpeg",
-      "assets/cars/page_6_img_3.jpeg",
-      "assets/cars/page_6_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p7",
     "page": 7,
-    "brand": "NISSAN",
-    "model": "SENTRA SENSE",
+    "brand": "Nissan",
+    "model": "Sentra Sense",
     "year": 2018,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$185,000",
     "price_contado": "$185,000",
     "price_financiado": "$195,000",
-    "price_num": 185000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_7_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_7_img_2.jpeg",
+      "assets/cars/page_7_img_3.jpeg",
+      "assets/cars/page_7_img_4.jpeg",
+      "assets/cars/page_7_img_5.jpeg"
+    ],
     "specs": [
-      "NISSAN",
-      "SENTRA SENSE",
       "Automático",
       "Eléctrico",
       "Asientos en tela",
-      "76,000km",
-      "Factura de seminuevos",
-      "autotokio"
+      "76,000 km",
+      "Factura de seminuevos autotokio"
     ],
-    "cover_photo": "assets/cars/page_7_img_2.jpeg",
-    "main_photo": "assets/cars/page_7_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_7_img_2.jpeg",
-      "assets/cars/page_7_img_3.jpeg",
-      "assets/cars/page_7_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_7_img_2.jpeg",
-      "assets/cars/page_7_img_3.jpeg",
-      "assets/cars/page_7_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p8",
     "page": 8,
-    "brand": "CHEVROLET",
-    "model": "BEAT LT HATCHBACK",
+    "brand": "Chevrolet",
+    "model": "Beat LT Hatchback",
     "year": 2021,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$175,000",
     "price_contado": "$175,000",
     "price_financiado": "$185,000",
-    "price_num": 175000,
-    "specs": [
-      "CHEVROLET",
-      "BEAT LT",
-      "HATCHBACK",
-      "Transmisión manual",
-      "Vidrios delanteros eléctric",
-      "Vidrios traseros manuales",
-      "Asientos en tela",
-      "125,000km"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_8_img_2.jpeg",
-    "main_photo": "assets/cars/page_8_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_8_img_2.jpeg",
       "assets/cars/page_8_img_3.jpeg",
-      "assets/cars/page_8_img_4.jpeg"
+      "assets/cars/page_8_img_4.jpeg",
+      "assets/cars/page_8_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_8_img_2.jpeg",
-      "assets/cars/page_8_img_3.jpeg",
-      "assets/cars/page_8_img_4.jpeg"
-    ]
+    "specs": [
+      "Transmisión manual",
+      "Vidrios delanteros eléctricos",
+      "Vidrios traseros manuales",
+      "Asientos en tela",
+      "125,000 km",
+      "Factura de agencia",
+      "1 dueño",
+      "2 llaves"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p9",
     "page": 9,
-    "brand": "MAZDA",
-    "model": "MAZDA 3 GRAND TOURING",
+    "brand": "Mazda",
+    "model": "Mazda 3 Grand Touring",
     "year": 2023,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$360,000",
     "price_contado": "$360,000",
     "price_financiado": "$370,000",
-    "price_num": 360000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_9_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_9_img_2.jpeg",
+      "assets/cars/page_9_img_3.jpeg",
+      "assets/cars/page_9_img_4.jpeg",
+      "assets/cars/page_9_img_5.jpeg"
+    ],
     "specs": [
-      "MAZDA 3",
-      "GRAND",
-      "TOURING",
       "Factura de agencia",
       "Único dueño",
       "73,000 km"
     ],
-    "cover_photo": "assets/cars/page_9_img_2.jpeg",
-    "main_photo": "assets/cars/page_9_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_9_img_2.jpeg",
-      "assets/cars/page_9_img_3.jpeg",
-      "assets/cars/page_9_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_9_img_2.jpeg",
-      "assets/cars/page_9_img_3.jpeg",
-      "assets/cars/page_9_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p10",
     "page": 10,
-    "brand": "NISSAN",
-    "model": "SENTRA ADVANCE",
+    "brand": "Nissan",
+    "model": "Sentra Advance",
     "year": 2017,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$185,000",
     "price_contado": "$185,000",
     "price_financiado": "$195,000",
-    "price_num": 185000,
-    "specs": [
-      "NISSAN",
-      "SENTRA",
-      "ADVANCE",
-      "Automático",
-      "Eléctrico",
-      "Asientos en tela",
-      "Pantalla touch con",
-      "Apple Car play y"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_10_img_2.jpeg",
-    "main_photo": "assets/cars/page_10_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_10_img_2.jpeg",
       "assets/cars/page_10_img_3.jpeg",
-      "assets/cars/page_10_img_4.jpeg"
+      "assets/cars/page_10_img_4.jpeg",
+      "assets/cars/page_10_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_10_img_2.jpeg",
-      "assets/cars/page_10_img_3.jpeg",
-      "assets/cars/page_10_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Eléctrico",
+      "Asientos en tela",
+      "Pantalla touch con Apple CarPlay y Android Auto",
+      "Cámara de reversa",
+      "Factura de agencia",
+      "2 llaves",
+      "124,000 km"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p11",
     "page": 11,
-    "brand": "HYUNDAI",
-    "model": "GRAND I10 GLS",
+    "brand": "Hyundai",
+    "model": "Grand i10 GLS",
     "year": 2017,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$159,000",
     "price_contado": "$159,000",
     "price_financiado": "$169,000",
-    "price_num": 159000,
-    "specs": [
-      "HYUNDAI",
-      "GRAND I10 GLS",
-      "Automático",
-      "Asientos en tela",
-      "Eléctrico",
-      "Automático",
-      "A/c",
-      "Rines"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_11_img_2.jpeg",
-    "main_photo": "assets/cars/page_11_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_11_img_2.jpeg",
       "assets/cars/page_11_img_3.jpeg",
-      "assets/cars/page_11_img_4.jpeg"
+      "assets/cars/page_11_img_4.jpeg",
+      "assets/cars/page_11_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_11_img_2.jpeg",
-      "assets/cars/page_11_img_3.jpeg",
-      "assets/cars/page_11_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Asientos en tela",
+      "Eléctrico",
+      "A/C",
+      "Rines",
+      "Factura de seminuevos de agencia",
+      "1 llave 🔑",
+      "138,000 km"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p12",
     "page": 12,
-    "brand": "MERCEDES-BENZ",
+    "brand": "Mercedes-Benz",
     "model": "C280",
     "year": 2008,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$115,000",
     "price_contado": "$115,000",
-    "price_financiado": "$125,000",
-    "price_num": 115000,
+    "price_financiado": "$115,000",
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_12_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_12_img_2.jpeg",
+      "assets/cars/page_12_img_3.jpeg",
+      "assets/cars/page_12_img_4.jpeg",
+      "assets/cars/page_12_img_5.jpeg"
+    ],
     "specs": [
-      "MERCEDES BENZ",
-      "C280",
       "Factura de seminuevos",
       "100% mexicano",
       "Asientos en piel",
       "Automático",
       "Eléctrico",
-      "Quemacocos"
+      "Quemacocos",
+      "Motor V6",
+      "1 llave 🔑"
     ],
-    "cover_photo": "assets/cars/page_12_img_2.jpeg",
-    "main_photo": "assets/cars/page_12_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_12_img_2.jpeg",
-      "assets/cars/page_12_img_3.jpeg",
-      "assets/cars/page_12_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_12_img_2.jpeg",
-      "assets/cars/page_12_img_3.jpeg",
-      "assets/cars/page_12_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p13",
     "page": 13,
-    "brand": "AUDI",
-    "model": "A3 SELECT",
+    "brand": "Audi",
+    "model": "A3 Select",
     "year": 2018,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$275,000",
     "price_contado": "$275,000",
     "price_financiado": "$285,000",
-    "price_num": 275000,
-    "specs": [
-      "AUDI A3 SELECT",
-      "automatico",
-      "electrico",
-      "asieentos en tela/piel",
-      "1 llave",
-      "165,000km",
-      "encendido de boton"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_13_img_2.jpeg",
-    "main_photo": "assets/cars/page_13_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_13_img_2.jpeg",
       "assets/cars/page_13_img_3.jpeg",
-      "assets/cars/page_13_img_4.jpeg"
+      "assets/cars/page_13_img_4.jpeg",
+      "assets/cars/page_13_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_13_img_2.jpeg",
-      "assets/cars/page_13_img_3.jpeg",
-      "assets/cars/page_13_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Eléctrico",
+      "Asientos en tela/piel",
+      "1 llave",
+      "165,000 km",
+      "Encendido de botón"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p14",
     "page": 14,
-    "brand": "KIA",
-    "model": "RIO EX PACK",
+    "brand": "Kia",
+    "model": "Rio EX Pack",
     "year": 2023,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$290,000",
     "price_contado": "$290,000",
     "price_financiado": "$300,000",
-    "price_num": 290000,
-    "specs": [
-      "automatico",
-      "electrico",
-      "70,000 km",
-      "factura de gencia",
-      "unico dueño",
-      "1 llave",
-      "asientos en piel",
-      "camara de reversa"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_14_img_2.jpeg",
-    "main_photo": "assets/cars/page_14_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_14_img_2.jpeg",
       "assets/cars/page_14_img_3.jpeg",
-      "assets/cars/page_14_img_4.jpeg"
+      "assets/cars/page_14_img_4.jpeg",
+      "assets/cars/page_14_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_14_img_2.jpeg",
-      "assets/cars/page_14_img_3.jpeg",
-      "assets/cars/page_14_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Eléctrico",
+      "70,000 km",
+      "Factura de agencia",
+      "Único dueño",
+      "1 llave",
+      "Asientos en piel",
+      "Cámara de reversa"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p15",
     "page": 15,
-    "brand": "TOYOTA",
-    "model": "PRIUS C HATCHBACK",
+    "brand": "Toyota",
+    "model": "Prius C Hatchback",
     "year": 2021,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$255,000",
     "price_contado": "$255,000",
     "price_financiado": "$265,000",
-    "price_num": 255000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_15_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_15_img_2.jpeg",
+      "assets/cars/page_15_img_3.jpeg",
+      "assets/cars/page_15_img_4.jpeg",
+      "assets/cars/page_15_img_5.jpeg"
+    ],
     "specs": [
-      "TOYOTA PRIUS C",
-      "HATCHBACK",
-      "Hibrido",
+      "Híbrido",
       "Automático",
       "Eléctrico",
       "Asientos en tela",
-      "70,000km",
-      "Factura de empresa"
+      "70,000 km",
+      "Factura de empresa",
+      "1 llave 🔑"
     ],
-    "cover_photo": "assets/cars/page_15_img_2.jpeg",
-    "main_photo": "assets/cars/page_15_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_15_img_2.jpeg",
-      "assets/cars/page_15_img_3.jpeg",
-      "assets/cars/page_15_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_15_img_2.jpeg",
-      "assets/cars/page_15_img_3.jpeg",
-      "assets/cars/page_15_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p16",
     "page": 16,
-    "brand": "CHEVROLET",
-    "model": "BEAT LT",
+    "brand": "Chevrolet",
+    "model": "Beat LT",
     "year": 2019,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$160,000",
     "price_contado": "$160,000",
     "price_financiado": "$170,000",
-    "price_num": 160000,
-    "specs": [
-      "transmision manual",
-      "semi electrico",
-      "80,000 km",
-      "factura de agencia",
-      "1 dueño",
-      "asientos en tela",
-      "2 llaves",
-      "motor 4 cil. 1.2 litros"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_16_img_2.jpeg",
-    "main_photo": "assets/cars/page_16_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_16_img_2.jpeg",
       "assets/cars/page_16_img_3.jpeg",
-      "assets/cars/page_16_img_4.jpeg"
+      "assets/cars/page_16_img_4.jpeg",
+      "assets/cars/page_16_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_16_img_2.jpeg",
-      "assets/cars/page_16_img_3.jpeg",
-      "assets/cars/page_16_img_4.jpeg"
-    ]
+    "specs": [
+      "Transmisión manual",
+      "Semi eléctrico",
+      "80,000 km",
+      "Factura de agencia",
+      "1 dueño",
+      "Asientos en tela",
+      "2 llaves",
+      "Motor 4 cil. 1.2 litros"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p17",
     "page": 17,
-    "brand": "VOLKSWAGEN",
-    "model": "JETTA COMFORTLINE",
+    "brand": "Volkswagen",
+    "model": "Jetta Comfortline",
     "year": 2025,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$399,000",
     "price_contado": "$399,000",
     "price_financiado": "$409,000",
-    "price_num": 399000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_17_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_17_img_2.jpeg",
+      "assets/cars/page_17_img_3.jpeg",
+      "assets/cars/page_17_img_4.jpeg",
+      "assets/cars/page_17_img_5.jpeg"
+    ],
     "specs": [
       "Automático",
       "Eléctrico",
       "Asientos en tela",
       "Cámara de reversa",
-      "14,000km",
+      "14,000 km",
       "Factura de agencia",
       "Único dueño",
       "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_17_img_2.jpeg",
-    "main_photo": "assets/cars/page_17_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_17_img_2.jpeg",
-      "assets/cars/page_17_img_3.jpeg",
-      "assets/cars/page_17_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_17_img_2.jpeg",
-      "assets/cars/page_17_img_3.jpeg",
-      "assets/cars/page_17_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p18",
     "page": 18,
-    "brand": "CHEVROLET",
-    "model": "BEAT LTZ",
+    "brand": "Chevrolet",
+    "model": "Beat LTZ",
     "year": 2018,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$150,000",
     "price_contado": "$150,000",
     "price_financiado": "$160,000",
-    "price_num": 150000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_18_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_18_img_2.jpeg",
+      "assets/cars/page_18_img_3.jpeg",
+      "assets/cars/page_18_img_4.jpeg",
+      "assets/cars/page_18_img_5.jpeg"
+    ],
     "specs": [
       "Asientos en tela",
       "Transmisión manual",
       "Eléctrico",
       "Pantalla touch",
-      "88,000km",
+      "88,000 km",
       "Factura de agencia",
       "2 dueños",
-      "2 llaves"
+      "2 llaves",
+      "Rines",
+      "A/C",
+      "NUNCA UBER/DIDI",
+      "IMPECABLE!!!"
     ],
-    "cover_photo": "assets/cars/page_18_img_2.jpeg",
-    "main_photo": "assets/cars/page_18_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_18_img_2.jpeg",
-      "assets/cars/page_18_img_3.jpeg",
-      "assets/cars/page_18_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_18_img_2.jpeg",
-      "assets/cars/page_18_img_3.jpeg",
-      "assets/cars/page_18_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p19",
     "page": 19,
-    "brand": "MERCEDES-BENZ",
-    "model": "S500 WALD BLACK",
+    "brand": "Mercedes-Benz",
+    "model": "S500 Wald Black",
     "year": 2015,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$1,100,000",
     "price_contado": "$1,100,000",
-    "price_financiado": "$1,110,000",
-    "price_num": 1100000,
+    "price_financiado": "$1,100,000",
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_19_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_19_img_2.jpeg",
+      "assets/cars/page_19_img_3.jpeg",
+      "assets/cars/page_19_img_4.jpeg",
+      "assets/cars/page_19_img_5.jpeg"
+    ],
     "specs": [
-      "full catback",
-      "intakes",
-      "repro",
+      "Full catback",
+      "Intakes",
+      "Repro",
       "Bodykit WALD",
       "61,000 km",
       "Techo panorámico",
       "Mexicano 100%",
-      "Motor v8 biturbo 4.7L"
+      "Motor V8 biturbo 4.7L",
+      "Se toma una o dos unidades a cuenta"
     ],
-    "cover_photo": "assets/cars/page_19_img_2.jpeg",
-    "main_photo": "assets/cars/page_19_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_19_img_2.jpeg",
-      "assets/cars/page_19_img_3.jpeg",
-      "assets/cars/page_19_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_19_img_2.jpeg",
-      "assets/cars/page_19_img_3.jpeg",
-      "assets/cars/page_19_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p20",
     "page": 20,
-    "brand": "NISSAN",
-    "model": "SENTRA ADVANCE",
+    "brand": "Nissan",
+    "model": "Sentra Advance",
     "year": 2020,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$260,000",
     "price_contado": "$260,000",
     "price_financiado": "$270,000",
-    "price_num": 260000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_20_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_20_img_2.jpeg",
+      "assets/cars/page_20_img_3.jpeg",
+      "assets/cars/page_20_img_4.jpeg",
+      "assets/cars/page_20_img_5.jpeg"
+    ],
     "specs": [
       "Automático",
       "Eléctrico",
       "Asientos en tela",
       "Cámara de reversa",
-      "Factura de agencia",
-      "NISSAN SENTRA",
-      "ADVANCE"
+      "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_20_img_2.jpeg",
-    "main_photo": "assets/cars/page_20_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_20_img_2.jpeg",
-      "assets/cars/page_20_img_3.jpeg",
-      "assets/cars/page_20_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_20_img_2.jpeg",
-      "assets/cars/page_20_img_3.jpeg",
-      "assets/cars/page_20_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p21",
     "page": 21,
-    "brand": "HONDA",
-    "model": "CITY PRIME",
+    "brand": "Honda",
+    "model": "City Prime",
     "year": 2024,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$330,000",
     "price_contado": "$330,000",
     "price_financiado": "$340,000",
-    "price_num": 330000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_21_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_21_img_2.jpeg",
+      "assets/cars/page_21_img_3.jpeg",
+      "assets/cars/page_21_img_4.jpeg",
+      "assets/cars/page_21_img_5.jpeg"
+    ],
     "specs": [
       "Automático",
       "Eléctrico",
       "Asientos en tela",
       "Pantalla touch",
-      "Cámara de",
-      "reversa",
+      "Cámara de reversa",
       "Cámara lateral",
-      "Factura de"
+      "Factura de agencia",
+      "18,000 km"
     ],
-    "cover_photo": "assets/cars/page_21_img_2.jpeg",
-    "main_photo": "assets/cars/page_21_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_21_img_2.jpeg",
-      "assets/cars/page_21_img_3.jpeg",
-      "assets/cars/page_21_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_21_img_2.jpeg",
-      "assets/cars/page_21_img_3.jpeg",
-      "assets/cars/page_21_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p22",
     "page": 22,
-    "brand": "FORD",
-    "model": "FIGO ENERGY",
+    "brand": "Ford",
+    "model": "Figo Energy",
     "year": 2018,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$130,000",
     "price_contado": "$130,000",
     "price_financiado": "$140,000",
-    "price_num": 130000,
-    "specs": [
-      "Automático",
-      "Vidrios",
-      "manuales",
-      "Asientos en tela",
-      "126,000km",
-      "FORD FIGO",
-      "ENERGY"
-    ],
+    "category": "SEDAN & HATCHBACK",
     "cover_photo": "assets/cars/page_22_img_2.jpeg",
-    "main_photo": "assets/cars/page_22_img_2.jpeg",
     "real_photos": [
       "assets/cars/page_22_img_2.jpeg",
       "assets/cars/page_22_img_3.jpeg",
-      "assets/cars/page_22_img_4.jpeg"
+      "assets/cars/page_22_img_4.jpeg",
+      "assets/cars/page_22_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_22_img_2.jpeg",
-      "assets/cars/page_22_img_3.jpeg",
-      "assets/cars/page_22_img_4.jpeg"
-    ]
+    "specs": [
+      "Automático",
+      "Vidrios manuales",
+      "Asientos en tela",
+      "126,000 km"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p23",
     "page": 23,
-    "brand": "NISSAN",
-    "model": "SENTRA SENSE",
+    "brand": "Nissan",
+    "model": "Sentra Sense",
     "year": 2022,
-    "category": "SEDAN & HATCHBACK",
-    "status": "disponible",
+    "price": "$269,000",
     "price_contado": "$269,000",
     "price_financiado": "$279,000",
-    "price_num": 269000,
+    "category": "SEDAN & HATCHBACK",
+    "cover_photo": "assets/cars/page_23_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_23_img_2.jpeg",
+      "assets/cars/page_23_img_3.jpeg",
+      "assets/cars/page_23_img_4.jpeg",
+      "assets/cars/page_23_img_5.jpeg"
+    ],
     "specs": [
-      "Factura de",
-      "agencia",
+      "Factura de agencia",
       "Único dueño",
-      "Transmisión",
-      "manual",
+      "Transmisión manual",
       "Eléctrico",
       "Asientos en tela",
-      "82,000 km"
+      "82,000 km",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_23_img_2.jpeg",
-    "main_photo": "assets/cars/page_23_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_23_img_2.jpeg",
-      "assets/cars/page_23_img_3.jpeg",
-      "assets/cars/page_23_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_23_img_2.jpeg",
-      "assets/cars/page_23_img_3.jpeg",
-      "assets/cars/page_23_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 24,
-    "brand": "MAZDA",
-    "model": "MAZDA 3 GRAND TOURING",
-    "year": 2017,
-    "category": "SEDAN & HATCHBACK",
-    "price_contado": "$245,000",
-    "price_financiado": "$255,000",
-    "price_num": 245000,
-    "status": "disponible",
-    "specs": [
-      "Quemacocos",
-      "Piel",
-      "Automático",
-      "Factura de Agencia"
-    ],
-    "cover_photo": "assets/cars/car_1788307666717_3718.jpeg",
-    "real_photos": [
-      "assets/cars/car_1788307666717_3718.jpeg",
-      "assets/cars/car_1788307666717_7400.jpeg"
-    ],
-    "cutout_photo": "assets/cars/car_1788307666717_3718.jpeg",
-    "main_photo": "assets/cars/car_1788307666717_3718.jpeg"
-  },
-  {
+    "id": "autohaus-p25",
     "page": 25,
-    "brand": "MERCEDES-BENZ",
+    "brand": "Mercedes-Benz",
     "model": "GLE 450",
     "year": 2020,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$620,000",
     "price_contado": "$620,000",
     "price_financiado": "$630,000",
-    "price_num": 620000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_25_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_25_img_2.jpeg",
+      "assets/cars/page_25_img_3.jpeg",
+      "assets/cars/page_25_img_4.jpeg",
+      "assets/cars/page_25_img_5.jpeg"
+    ],
     "specs": [
-      "MERCEDES BENZ GLE",
+      "SUV",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
-      "Quemará de reversa",
+      "Cámara de reversa",
       "3 filas de pasajeros",
-      "152,000km",
+      "152,000 km",
       "Factura de agencia"
     ],
-    "cover_photo": "assets/cars/page_24_img_2.jpeg",
-    "main_photo": "assets/cars/page_24_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_24_img_2.jpeg",
-      "assets/cars/page_24_img_3.jpeg",
-      "assets/cars/page_24_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_24_img_2.jpeg",
-      "assets/cars/page_24_img_3.jpeg",
-      "assets/cars/page_24_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p26",
     "page": 26,
-    "brand": "HYUNDAI",
-    "model": "CRETA GRAND LIMITED",
+    "brand": "Hyundai",
+    "model": "Creta Grand Limited",
     "year": 2022,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$395,000",
     "price_contado": "$395,000",
     "price_financiado": "$405,000",
-    "price_num": 395000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_26_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_26_img_2.jpeg",
+      "assets/cars/page_26_img_3.jpeg",
+      "assets/cars/page_26_img_4.jpeg",
+      "assets/cars/page_26_img_5.jpeg"
+    ],
     "specs": [
-      "HYUNDAI CRETA",
-      "GRAND LIMITED",
       "Automática",
       "Eléctrica",
-      "Asientos en piel bi tono",
-      "46,000km",
-      "Factura de seminuevos de",
-      "agencia Hyundai"
+      "Asientos en piel bi-tono",
+      "46,000 km",
+      "Factura de seminuevos de agencia Hyundai",
+      "3 filas de asientos (7 pasajeros)",
+      "Motor 4 cil 2.0L",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_25_img_2.jpeg",
-    "main_photo": "assets/cars/page_25_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_25_img_2.jpeg",
-      "assets/cars/page_25_img_3.jpeg",
-      "assets/cars/page_25_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_25_img_2.jpeg",
-      "assets/cars/page_25_img_3.jpeg",
-      "assets/cars/page_25_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p27",
     "page": 27,
-    "brand": "MAZDA",
-    "model": "CX-9 GRAND TOURING",
+    "brand": "Mazda",
+    "model": "CX-9 Grand Touring",
     "year": 2020,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$455,000",
     "price_contado": "$455,000",
     "price_financiado": "$465,000",
-    "price_num": 455000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_27_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_27_img_2.jpeg",
+      "assets/cars/page_27_img_3.jpeg",
+      "assets/cars/page_27_img_4.jpeg",
+      "assets/cars/page_27_img_5.jpeg"
+    ],
     "specs": [
-      "MAZDA CX9",
-      "GRANDTOURING",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "3 filas de asientos",
       "Cámara de reversa",
-      "Quemacocos"
+      "Quemacocos",
+      "Factura de seminuevos",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_26_img_2.jpeg",
-    "main_photo": "assets/cars/page_26_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_26_img_2.jpeg",
-      "assets/cars/page_26_img_3.jpeg",
-      "assets/cars/page_26_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_26_img_2.jpeg",
-      "assets/cars/page_26_img_3.jpeg",
-      "assets/cars/page_26_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p28",
     "page": 28,
-    "brand": "HYUNDAI",
-    "model": "TUCSON LIMITED TECH HYBRID",
+    "brand": "Hyundai",
+    "model": "Tucson Limited Tech Hybrid",
     "year": 2025,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$740,000",
     "price_contado": "$740,000",
     "price_financiado": "$750,000",
-    "price_num": 740000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_28_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_28_img_2.jpeg",
+      "assets/cars/page_28_img_3.jpeg",
+      "assets/cars/page_28_img_4.jpeg",
+      "assets/cars/page_28_img_5.jpeg"
+    ],
     "specs": [
-      "HYUNDAI TUCSON",
-      "LIMITED TECH HYBRID",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "Quemacocos",
       "Techo panorámico",
-      "Cámara de reversa"
+      "Cámara de reversa",
+      "Cámara frontal",
+      "7,000 km",
+      "Factura de agencia",
+      "1 dueño"
     ],
-    "cover_photo": "assets/cars/page_27_img_2.jpeg",
-    "main_photo": "assets/cars/page_27_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_27_img_2.jpeg",
-      "assets/cars/page_27_img_3.jpeg",
-      "assets/cars/page_27_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_27_img_2.jpeg",
-      "assets/cars/page_27_img_3.jpeg",
-      "assets/cars/page_27_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p29",
     "page": 29,
-    "brand": "VOLKSWAGEN",
-    "model": "TERAMONT CROSS SPORT R-LINE",
+    "brand": "Volkswagen",
+    "model": "Teramont Cross Sport R-Line",
     "year": 2024,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$945,000",
     "price_contado": "$945,000",
     "price_financiado": "$955,000",
-    "price_num": 945000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_29_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_29_img_2.jpeg",
+      "assets/cars/page_29_img_3.jpeg",
+      "assets/cars/page_29_img_4.jpeg",
+      "assets/cars/page_29_img_5.jpeg"
+    ],
     "specs": [
-      "TERAMONT CROSS",
-      "SPORT RLINE",
       "Automática",
       "Eléctrica",
-      "Asientos en piel bi tono",
+      "Asientos en piel bi-tono",
       "Quemacocos",
       "Cámara de reversa",
-      "Factura de agencia"
+      "Factura de agencia",
+      "Única dueña",
+      "2 llaves 🔑",
+      "Servicios en la agencia",
+      "15,000 km"
     ],
-    "cover_photo": "assets/cars/page_28_img_2.jpeg",
-    "main_photo": "assets/cars/page_28_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_28_img_2.jpeg",
-      "assets/cars/page_28_img_3.jpeg",
-      "assets/cars/page_28_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_28_img_2.jpeg",
-      "assets/cars/page_28_img_3.jpeg",
-      "assets/cars/page_28_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p30",
     "page": 30,
-    "brand": "HYUNDAI",
-    "model": "TUCSON GLS",
+    "brand": "Hyundai",
+    "model": "Tucson GLS",
     "year": 2024,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$485,000",
     "price_contado": "$485,000",
     "price_financiado": "$495,000",
-    "price_num": 485000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_30_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_30_img_2.jpeg",
+      "assets/cars/page_30_img_3.jpeg",
+      "assets/cars/page_30_img_4.jpeg",
+      "assets/cars/page_30_img_5.jpeg"
+    ],
     "specs": [
-      "HYUNDAI TUCSON",
-      "GLS",
       "Automática",
       "Eléctrica",
       "Asientos en tela",
       "Cámara de reversa",
-      "40,000km",
-      "Factura de agencia"
+      "40,000 km",
+      "Factura de agencia",
+      "1 dueño",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_29_img_2.jpeg",
-    "main_photo": "assets/cars/page_29_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_29_img_2.jpeg",
-      "assets/cars/page_29_img_3.jpeg",
-      "assets/cars/page_29_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_29_img_2.jpeg",
-      "assets/cars/page_29_img_3.jpeg",
-      "assets/cars/page_29_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p31",
     "page": 31,
-    "brand": "PORSCHE",
-    "model": "CAYENNE COUPE TURBO GT",
+    "brand": "Porsche",
+    "model": "Cayenne Coupe Turbo GT",
     "year": 2024,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$3,200,000",
     "price_contado": "$3,200,000",
     "price_financiado": "$3,210,000",
-    "price_num": 3200000,
-    "specs": [
-      "PORCHE CAYENNE",
-      "QP TURBO GT",
-      "Automatica",
-      "electrica",
-      "asientos en tela/alcantara",
-      "camara de reversa/frontal",
-      "a/c doble zona",
-      "factura de empresa"
-    ],
-    "cover_photo": "assets/cars/page_30_img_2.jpeg",
-    "main_photo": "assets/cars/page_30_img_2.jpeg",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_31_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_30_img_2.jpeg",
-      "assets/cars/page_30_img_3.jpeg",
-      "assets/cars/page_30_img_4.jpeg"
+      "assets/cars/page_31_img_2.jpeg",
+      "assets/cars/page_31_img_3.jpeg",
+      "assets/cars/page_31_img_4.jpeg",
+      "assets/cars/page_31_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_30_img_2.jpeg",
-      "assets/cars/page_30_img_3.jpeg",
-      "assets/cars/page_30_img_4.jpeg"
-    ]
+    "specs": [
+      "Automática",
+      "Eléctrica",
+      "Asientos en tela/alcántara",
+      "Cámara de reversa / frontal",
+      "A/C doble zona",
+      "Factura de empresa",
+      "16,000 km",
+      "Motor V8 4.0L Turbo 659 hp"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p32",
     "page": 32,
-    "brand": "MERCEDES-BENZ",
-    "model": "GLE 43 AMG",
+    "brand": "Mercedes-Benz",
+    "model": "GLE 43 AMG Coupe",
     "year": 2019,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$750,000",
     "price_contado": "$750,000",
     "price_financiado": "$760,000",
-    "price_num": 750000,
-    "specs": [
-      "Automatica",
-      "electrica",
-      "asientos en piel",
-      "factura de agencia",
-      "100,000 km",
-      "motor v6 v turbo",
-      "traccion formatic",
-      "camara de reversa"
-    ],
-    "cover_photo": "assets/cars/page_31_img_2.jpeg",
-    "main_photo": "assets/cars/page_31_img_2.jpeg",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_32_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_31_img_2.jpeg",
-      "assets/cars/page_31_img_3.jpeg",
-      "assets/cars/page_31_img_4.jpeg"
+      "assets/cars/page_32_img_2.jpeg",
+      "assets/cars/page_32_img_3.jpeg",
+      "assets/cars/page_32_img_4.jpeg",
+      "assets/cars/page_32_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_31_img_2.jpeg",
-      "assets/cars/page_31_img_3.jpeg",
-      "assets/cars/page_31_img_4.jpeg"
-    ]
+    "specs": [
+      "Automática",
+      "Eléctrica",
+      "Asientos en piel",
+      "Factura de agencia",
+      "100,000 km",
+      "Motor V6 biturbo",
+      "Tracción 4MATIC",
+      "Cámara de reversa",
+      "Quemacocos",
+      "Rines Vossen",
+      "Iluminación LED en puertas"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p33",
     "page": 33,
-    "brand": "AUDI",
-    "model": "Q3 ELITE",
+    "brand": "Audi",
+    "model": "Q3 Elite",
     "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$330,000",
     "price_contado": "$330,000",
     "price_financiado": "$340,000",
-    "price_num": 330000,
-    "specs": [
-      "Automatica",
-      "electrica",
-      "asientos en piel",
-      "factura de agencia",
-      "103,000 km",
-      "motor 4cils. 2.0L",
-      "quemacocos",
-      "2 llaves"
-    ],
-    "cover_photo": "assets/cars/page_32_img_2.jpeg",
-    "main_photo": "assets/cars/page_32_img_2.jpeg",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_33_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_32_img_2.jpeg",
-      "assets/cars/page_32_img_3.jpeg",
-      "assets/cars/page_32_img_4.jpeg"
+      "assets/cars/page_33_img_2.jpeg",
+      "assets/cars/page_33_img_3.jpeg",
+      "assets/cars/page_33_img_4.jpeg",
+      "assets/cars/page_33_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_32_img_2.jpeg",
-      "assets/cars/page_32_img_3.jpeg",
-      "assets/cars/page_32_img_4.jpeg"
-    ]
+    "specs": [
+      "Automática",
+      "Eléctrica",
+      "Asientos en piel",
+      "Factura de agencia",
+      "103,000 km",
+      "Motor 4 cil. 2.0L",
+      "Quemacocos",
+      "2 llaves",
+      "Único dueño"
+    ],
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p34",
     "page": 34,
-    "brand": "AUDI",
-    "model": "Q5 ELITE",
+    "brand": "Audi",
+    "model": "Q5 Elite",
     "year": 2020,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$495,000",
     "price_contado": "$495,000",
     "price_financiado": "$505,000",
-    "price_num": 495000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_34_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_34_img_2.jpeg",
+      "assets/cars/page_34_img_3.jpeg",
+      "assets/cars/page_34_img_4.jpeg",
+      "assets/cars/page_34_img_5.jpeg"
+    ],
     "specs": [
       "Asientos en piel",
       "Cámara de reversa",
       "Quemacocos",
-      "Clouster digital",
+      "Cluster digital",
       "Factura de agencia",
-      "Unica dueña",
-      "56,000km",
-      "Motor 2.0 Turbo"
+      "Única dueña",
+      "56,000 km",
+      "Motor 2.0 Turbo",
+      "Tracción Quattro"
     ],
-    "cover_photo": "assets/cars/page_33_img_2.jpeg",
-    "main_photo": "assets/cars/page_33_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_33_img_2.jpeg",
-      "assets/cars/page_33_img_3.jpeg",
-      "assets/cars/page_33_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_33_img_2.jpeg",
-      "assets/cars/page_33_img_3.jpeg",
-      "assets/cars/page_33_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p35",
     "page": 35,
-    "brand": "KIA",
-    "model": "SORENTO SLX",
-    "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "brand": "Mazda",
+    "model": "CX-9 Grand Touring",
+    "year": 2020,
+    "price": "$455,000",
     "price_contado": "$455,000",
     "price_financiado": "$465,000",
-    "price_num": 455000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_35_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_35_img_2.jpeg",
+      "assets/cars/page_35_img_3.jpeg",
+      "assets/cars/page_35_img_4.jpeg",
+      "assets/cars/page_35_img_5.jpeg"
+    ],
     "specs": [
       "Automática",
       "Eléctrica",
       "Asientos en tela",
-      "Factura de",
-      "agencia",
-      "único dueño",
+      "Factura de agencia",
+      "Único dueño",
       "2 llaves 🔑",
-      "156,000km"
+      "156,000 km"
     ],
-    "cover_photo": "assets/cars/page_34_img_2.jpeg",
-    "main_photo": "assets/cars/page_34_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_34_img_2.jpeg",
-      "assets/cars/page_34_img_3.jpeg",
-      "assets/cars/page_34_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_34_img_2.jpeg",
-      "assets/cars/page_34_img_3.jpeg",
-      "assets/cars/page_34_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p36",
     "page": 36,
     "brand": "BMW",
-    "model": "X6 SPORT",
+    "model": "X6 Sport",
     "year": 2020,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$999,000",
     "price_contado": "$999,000",
     "price_financiado": "$1,009,000",
-    "price_num": 999000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_36_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_36_img_2.jpeg",
+      "assets/cars/page_36_img_3.jpeg",
+      "assets/cars/page_36_img_4.jpeg",
+      "assets/cars/page_36_img_5.jpeg"
+    ],
     "specs": [
       "Automática",
       "Eléctrica",
       "Asientos en piel",
-      "Cámara de",
-      "reversa",
+      "Cámara de reversa",
       "Quemacocos",
-      "6cil twin power",
-      "turbo"
+      "6 cil TwinPower Turbo",
+      "78,000 km",
+      "Factura de agencia",
+      "2 llaves"
     ],
-    "cover_photo": "assets/cars/page_35_img_2.jpeg",
-    "main_photo": "assets/cars/page_35_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_35_img_2.jpeg",
-      "assets/cars/page_35_img_3.jpeg",
-      "assets/cars/page_35_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_35_img_2.jpeg",
-      "assets/cars/page_35_img_3.jpeg",
-      "assets/cars/page_35_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p37",
     "page": 37,
-    "brand": "MERCEDES-BENZ",
-    "model": "GLC 300",
+    "brand": "Ford",
+    "model": "Territory Titanium",
     "year": 2024,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$479,000",
     "price_contado": "$479,000",
     "price_financiado": "$489,000",
-    "price_num": 479000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_37_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_37_img_2.jpeg",
+      "assets/cars/page_37_img_3.jpeg",
+      "assets/cars/page_37_img_4.jpeg",
+      "assets/cars/page_37_img_5.jpeg"
+    ],
     "specs": [
       "Automática",
       "Eléctrica",
-      "Asientos en piel",
-      "bi-tono",
+      "Asientos en piel bi-tono",
       "Quemacocos",
-      "Cámara de",
-      "reversa",
-      "33,000km"
+      "Cámara de reversa",
+      "33,000 km",
+      "Factura de agencia",
+      "1 dueño",
+      "Motor 1.8L Turbo 4 cil"
     ],
-    "cover_photo": "assets/cars/page_36_img_2.jpeg",
-    "main_photo": "assets/cars/page_36_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_36_img_2.jpeg",
-      "assets/cars/page_36_img_3.jpeg",
-      "assets/cars/page_36_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_36_img_2.jpeg",
-      "assets/cars/page_36_img_3.jpeg",
-      "assets/cars/page_36_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p38",
     "page": 38,
-    "brand": "FORD",
-    "model": "TERRITORY TITANIUM",
-    "year": 2023,
-    "category": "SUV'S",
-    "status": "disponible",
+    "brand": "Mercedes-Benz",
+    "model": "GLC 300",
+    "year": 2019,
+    "price": "$430,000",
     "price_contado": "$430,000",
     "price_financiado": "$440,000",
-    "price_num": 430000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_38_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_38_img_2.jpeg",
+      "assets/cars/page_38_img_3.jpeg",
+      "assets/cars/page_38_img_4.jpeg",
+      "assets/cars/page_38_img_5.jpeg"
+    ],
     "specs": [
       "Automática",
       "Eléctrica",
       "Asientos en piel",
-      "Cámara de",
-      "reversa",
-      "Factura de",
-      "agencia",
-      "78,000km"
+      "Cámara de reversa",
+      "Factura de agencia",
+      "78,000 km",
+      "Motor 4 cil 2.0 Turbo"
     ],
-    "cover_photo": "assets/cars/page_37_img_2.jpeg",
-    "main_photo": "assets/cars/page_37_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_37_img_2.jpeg",
-      "assets/cars/page_37_img_3.jpeg",
-      "assets/cars/page_37_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_37_img_2.jpeg",
-      "assets/cars/page_37_img_3.jpeg",
-      "assets/cars/page_37_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p39",
     "page": 39,
-    "brand": "PEUGEOT",
-    "model": "3008 ACTIVE",
-    "year": 2019,
-    "category": "SUV'S",
-    "status": "disponible",
+    "brand": "Peugeot",
+    "model": "3008 Active",
+    "year": 2023,
+    "price": "$359,000",
     "price_contado": "$359,000",
     "price_financiado": "$369,000",
-    "price_num": 359000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_39_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_39_img_2.jpeg",
+      "assets/cars/page_39_img_3.jpeg",
+      "assets/cars/page_39_img_4.jpeg",
+      "assets/cars/page_39_img_5.jpeg"
+    ],
     "specs": [
       "Automática",
       "Eléctrica",
       "Asientos en tela",
-      "Cámara de",
-      "reversa",
-      "73,000km",
-      "Factura de",
-      "empresa"
+      "Cámara de reversa",
+      "73,000 km",
+      "Factura de empresa",
+      "1 llave 🔑"
     ],
-    "cover_photo": "assets/cars/page_38_img_2.jpeg",
-    "main_photo": "assets/cars/page_38_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_38_img_2.jpeg",
-      "assets/cars/page_38_img_3.jpeg",
-      "assets/cars/page_38_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_38_img_2.jpeg",
-      "assets/cars/page_38_img_3.jpeg",
-      "assets/cars/page_38_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p40",
     "page": 40,
-    "brand": "JEEP",
-    "model": "GRAND CHEROKEE TRACKHAWK",
+    "brand": "Jeep",
+    "model": "Grand Cherokee Trackhawk",
     "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$1,400,000",
     "price_contado": "$1,400,000",
-    "price_financiado": "$1,410,000",
-    "price_num": 1400000,
+    "price_financiado": "$1,400,000",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_40_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_40_img_2.jpeg",
+      "assets/cars/page_40_img_3.jpeg",
+      "assets/cars/page_40_img_4.jpeg",
+      "assets/cars/page_40_img_5.jpeg"
+    ],
     "specs": [
       "Asientos en Alcántara",
       "Eléctrica",
       "Cámara de reversa",
       "4x4",
-      "42,000km",
+      "42,000 km",
       "AWD",
-      "Motor 8cil 6.2L",
-      "Súper cargado"
+      "Motor 8 cil 6.2L Súpercargado",
+      "Launch Control",
+      "Filtro de alto flujo JLT",
+      "Tubería Borla",
+      "Polea del súper cargador",
+      "Reprogramada HP Tuners",
+      "Termostato de 160°",
+      "Resortes Lowering Kit Eibach",
+      "Importada (D)"
     ],
-    "cover_photo": "assets/cars/page_39_img_2.jpeg",
-    "main_photo": "assets/cars/page_39_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_39_img_2.jpeg",
-      "assets/cars/page_39_img_3.jpeg",
-      "assets/cars/page_39_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_39_img_2.jpeg",
-      "assets/cars/page_39_img_3.jpeg",
-      "assets/cars/page_39_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p41",
     "page": 41,
-    "brand": "KIA",
-    "model": "SORENTO SXL",
+    "brand": "Kia",
+    "model": "Sorento SXL",
     "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$225,000",
     "price_contado": "$225,000",
-    "price_financiado": "$235,000",
-    "price_num": 225000,
+    "price_financiado": "$225,000",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_41_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_41_img_2.jpeg",
+      "assets/cars/page_41_img_3.jpeg",
+      "assets/cars/page_41_img_4.jpeg",
+      "assets/cars/page_41_img_5.jpeg"
+    ],
     "specs": [
-      "automática",
+      "Automática",
       "Eléctrica",
       "Asientos en piel",
-      "Cámara de",
-      "reversa",
-      "3 filas de",
-      "asientos",
-      "2 llaves"
+      "Cámara de reversa",
+      "3 filas de asientos",
+      "2 llaves",
+      "Factura de seguro",
+      "4x4",
+      "140,000 km"
     ],
-    "cover_photo": "assets/cars/page_40_img_2.jpeg",
-    "main_photo": "assets/cars/page_40_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_40_img_2.jpeg",
-      "assets/cars/page_40_img_3.jpeg",
-      "assets/cars/page_40_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_40_img_2.jpeg",
-      "assets/cars/page_40_img_3.jpeg",
-      "assets/cars/page_40_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p42",
     "page": 42,
-    "brand": "MITSUBISHI",
+    "brand": "Mitsubishi",
     "model": "L200",
     "year": 2022,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$335,000",
     "price_contado": "$335,000",
     "price_financiado": "$345,000",
-    "price_num": 335000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_42_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_42_img_2.jpeg",
+      "assets/cars/page_42_img_3.jpeg",
+      "assets/cars/page_42_img_4.jpeg",
+      "assets/cars/page_42_img_5.jpeg"
+    ],
     "specs": [
-      "Transmisión",
-      "manual",
+      "Transmisión manual",
       "Eléctrica",
       "Asientos en tela",
       "4x2",
-      "Factura de",
-      "empresa",
-      "Único dueño"
+      "Factura de empresa",
+      "Único dueño",
+      "1 llave",
+      "130,000 km"
     ],
-    "cover_photo": "assets/cars/page_41_img_2.jpeg",
-    "main_photo": "assets/cars/page_41_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_41_img_2.jpeg",
-      "assets/cars/page_41_img_3.jpeg",
-      "assets/cars/page_41_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_41_img_2.jpeg",
-      "assets/cars/page_41_img_3.jpeg",
-      "assets/cars/page_41_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p43",
     "page": 43,
-    "brand": "PEUGEOT",
-    "model": "PARTNER MAXI",
+    "brand": "Peugeot",
+    "model": "Partner Maxi",
     "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$215,000",
     "price_contado": "$215,000",
     "price_financiado": "$225,000",
-    "price_num": 215000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_43_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_43_img_2.jpeg",
+      "assets/cars/page_43_img_3.jpeg",
+      "assets/cars/page_43_img_4.jpeg",
+      "assets/cars/page_43_img_5.jpeg"
+    ],
     "specs": [
-      "PEUGEOT",
-      "PARTNER MAXI",
       "Factura de agencia",
       "Un dueño",
-      "Std",
+      "Transmisión manual (Std)",
       "Eléctrica",
       "A/C",
-      "Capacidad de carga 2"
+      "Capacidad de carga 2 toneladas",
+      "4 puertas",
+      "193,000 km"
     ],
-    "cover_photo": "assets/cars/page_42_img_2.jpeg",
-    "main_photo": "assets/cars/page_42_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_42_img_2.jpeg",
-      "assets/cars/page_42_img_3.jpeg",
-      "assets/cars/page_42_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_42_img_2.jpeg",
-      "assets/cars/page_42_img_3.jpeg",
-      "assets/cars/page_42_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p44",
     "page": 44,
-    "brand": "PEUGEOT",
-    "model": "PARTNER MAXI PACK",
+    "brand": "Peugeot",
+    "model": "Partner Maxi Pack",
     "year": 2021,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$279,000",
     "price_contado": "$279,000",
     "price_financiado": "$289,000",
-    "price_num": 279000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_44_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_44_img_2.jpeg",
+      "assets/cars/page_44_img_3.jpeg",
+      "assets/cars/page_44_img_4.jpeg",
+      "assets/cars/page_44_img_5.jpeg"
+    ],
     "specs": [
-      "PEUGEOT",
-      "PARTNER MAXI",
-      "PACK",
       "Transmisión manual",
-      "A/c",
+      "A/C",
       "Asientos en tela",
       "Estéreo",
-      "Modos de manejo"
+      "Modos de manejo",
+      "Faros de niebla",
+      "Puerta lateral corrediza",
+      "Motor 1.6 Turbo Diesel",
+      "Capacidad de carga 950 kg",
+      "120,000 km",
+      "Factura de seminuevos de agencia"
     ],
-    "cover_photo": "assets/cars/page_43_img_2.jpeg",
-    "main_photo": "assets/cars/page_43_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_43_img_2.jpeg",
-      "assets/cars/page_43_img_3.jpeg",
-      "assets/cars/page_43_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_43_img_2.jpeg",
-      "assets/cars/page_43_img_3.jpeg",
-      "assets/cars/page_43_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p45",
     "page": 45,
-    "brand": "CHEVROLET",
-    "model": "TRAVERSE LT",
+    "brand": "Chevrolet",
+    "model": "Traverse LT",
     "year": 2021,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$505,000",
     "price_contado": "$505,000",
     "price_financiado": "$515,000",
-    "price_num": 505000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_45_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_45_img_2.jpeg",
+      "assets/cars/page_45_img_3.jpeg",
+      "assets/cars/page_45_img_4.jpeg",
+      "assets/cars/page_45_img_5.jpeg"
+    ],
     "specs": [
-      "CHEVROLET",
-      "TRAVERSE LT",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "7 pasajeros",
       "Cámara de reversa",
-      "Cámara 360•"
+      "Cámara 360°",
+      "Quemacocos",
+      "Techo panorámico",
+      "72,000 km",
+      "Factura de agencia",
+      "Único dueño"
     ],
-    "cover_photo": "assets/cars/page_44_img_2.jpeg",
-    "main_photo": "assets/cars/page_44_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_44_img_2.jpeg",
-      "assets/cars/page_44_img_3.jpeg",
-      "assets/cars/page_44_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_44_img_2.jpeg",
-      "assets/cars/page_44_img_3.jpeg",
-      "assets/cars/page_44_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p46",
     "page": 46,
     "brand": "GMC",
-    "model": "TERRAIN DENALI",
+    "model": "Terrain Denali",
     "year": 2020,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$379,000",
     "price_contado": "$379,000",
     "price_financiado": "$389,000",
-    "price_num": 379000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_46_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_46_img_2.jpeg",
+      "assets/cars/page_46_img_3.jpeg",
+      "assets/cars/page_46_img_4.jpeg",
+      "assets/cars/page_46_img_5.jpeg"
+    ],
     "specs": [
-      "GMC TERRAIN",
-      "DENALI",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "Cámara de reversa",
       "Quemacocos",
-      "Factura de agencia"
+      "Factura de agencia",
+      "1 dueño",
+      "137,000 km"
     ],
-    "cover_photo": "assets/cars/page_45_img_2.jpeg",
-    "main_photo": "assets/cars/page_45_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_45_img_2.jpeg",
-      "assets/cars/page_45_img_3.jpeg",
-      "assets/cars/page_45_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_45_img_2.jpeg",
-      "assets/cars/page_45_img_3.jpeg",
-      "assets/cars/page_45_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p47",
     "page": 47,
-    "brand": "JEEP",
-    "model": "GRAND CHEROKEE LIMITED LUJO",
+    "brand": "Jeep",
+    "model": "Grand Cherokee Limited Lujo",
     "year": 2015,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$245,000",
     "price_contado": "$245,000",
     "price_financiado": "$255,000",
-    "price_num": 245000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_47_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_47_img_2.jpeg",
+      "assets/cars/page_47_img_3.jpeg",
+      "assets/cars/page_47_img_4.jpeg",
+      "assets/cars/page_47_img_5.jpeg"
+    ],
     "specs": [
-      "GRAND CHEROKEE",
-      "LIMITED LUJO",
-      "Motor v6 3.6L",
+      "Motor V6 3.6L",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "Navegador",
-      "Quemacocos"
+      "Quemacocos",
+      "Cámara de reversa",
+      "132,000 km",
+      "Factura de seminuevos de agencia",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_46_img_2.jpeg",
-    "main_photo": "assets/cars/page_46_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_46_img_2.jpeg",
-      "assets/cars/page_46_img_3.jpeg",
-      "assets/cars/page_46_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_46_img_2.jpeg",
-      "assets/cars/page_46_img_3.jpeg",
-      "assets/cars/page_46_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p48",
     "page": 48,
-    "brand": "AUDI",
-    "model": "Q5 ELITE QUATTRO",
+    "brand": "Audi",
+    "model": "Q5 Élite Quattro",
     "year": 2013,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$219,000",
     "price_contado": "$219,000",
-    "price_financiado": "$229,000",
-    "price_num": 219000,
+    "price_financiado": "$219,000",
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_48_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_48_img_2.jpeg",
+      "assets/cars/page_48_img_3.jpeg",
+      "assets/cars/page_48_img_4.jpeg",
+      "assets/cars/page_48_img_5.jpeg"
+    ],
     "specs": [
-      "AUDI Q5 ÉLITE",
-      "QUATTRO",
       "100% mexicana",
       "Llantas nuevas",
       "Perfectas condiciones",
       "165,000 km",
-      "Panorámico",
-      "Botón de encendido"
+      "Techo panorámico",
+      "Botón de encendido",
+      "Factura de seminuevos"
     ],
-    "cover_photo": "assets/cars/page_47_img_2.jpeg",
-    "main_photo": "assets/cars/page_47_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_47_img_2.jpeg",
-      "assets/cars/page_47_img_3.jpeg",
-      "assets/cars/page_47_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_47_img_2.jpeg",
-      "assets/cars/page_47_img_3.jpeg",
-      "assets/cars/page_47_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p49",
     "page": 49,
-    "brand": "FORD",
-    "model": "ECOSPORT TITANIUM",
+    "brand": "Ford",
+    "model": "EcoSport Titanium",
     "year": 2019,
+    "price": "$239,000",
+    "price_contado": "$239,000",
+    "price_financiado": "$249,000",
     "category": "SUV'S",
-    "status": "disponible",
-    "price_contado": "$76,000",
-    "price_financiado": "$239,000",
-    "price_num": 76000,
+    "cover_photo": "assets/cars/page_49_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_49_img_2.jpeg",
+      "assets/cars/page_49_img_3.jpeg",
+      "assets/cars/page_49_img_4.jpeg",
+      "assets/cars/page_49_img_5.jpeg"
+    ],
     "specs": [
-      "FORD ECOSPORT",
-      "TITANIUM",
       "Factura de agencia",
       "Dos llaves",
       "Llantas nuevas",
       "Automática",
       "Eléctrica",
-      "Cámara de reversa"
+      "Cámara de reversa",
+      "Asientos en piel",
+      "Quemacocos",
+      "Pantalla",
+      "76,000 km"
     ],
-    "cover_photo": "assets/cars/page_48_img_2.jpeg",
-    "main_photo": "assets/cars/page_48_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_48_img_2.jpeg",
-      "assets/cars/page_48_img_3.jpeg",
-      "assets/cars/page_48_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_48_img_2.jpeg",
-      "assets/cars/page_48_img_3.jpeg",
-      "assets/cars/page_48_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p50",
     "page": 50,
-    "brand": "NISSAN",
-    "model": "KICKS EXCLUSIVE",
+    "brand": "Nissan",
+    "model": "Kicks Exclusive",
     "year": 2018,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$239,000",
     "price_contado": "$239,000",
     "price_financiado": "$249,000",
-    "price_num": 239000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_50_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_50_img_2.jpeg",
+      "assets/cars/page_50_img_3.jpeg",
+      "assets/cars/page_50_img_4.jpeg",
+      "assets/cars/page_50_img_5.jpeg"
+    ],
     "specs": [
-      "NISSAN KICKS",
-      "EXCLUSIVE",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "Cámara de reversa",
       "Visión panorámica",
-      "Tacómetro digital"
+      "Tacómetro digital",
+      "103,000 km"
     ],
-    "cover_photo": "assets/cars/page_49_img_2.jpeg",
-    "main_photo": "assets/cars/page_49_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_49_img_2.jpeg",
-      "assets/cars/page_49_img_3.jpeg",
-      "assets/cars/page_49_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_49_img_2.jpeg",
-      "assets/cars/page_49_img_3.jpeg",
-      "assets/cars/page_49_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
+    "id": "autohaus-p51",
     "page": 51,
-    "brand": "MAZDA",
-    "model": "CX-9 SIGNATURE",
+    "brand": "Mazda",
+    "model": "CX-9 Signature",
     "year": 2019,
-    "category": "SUV'S",
-    "status": "disponible",
+    "price": "$420,000",
     "price_contado": "$420,000",
     "price_financiado": "$430,000",
-    "price_num": 420000,
+    "category": "SUV'S",
+    "cover_photo": "assets/cars/page_51_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_51_img_2.jpeg",
+      "assets/cars/page_51_img_3.jpeg",
+      "assets/cars/page_51_img_4.jpeg",
+      "assets/cars/page_51_img_5.jpeg"
+    ],
     "specs": [
-      "MAZDA CX-9",
-      "SIGNATURE",
       "Automática",
       "Eléctrica",
       "Asientos en piel color vino",
       "Cámara de reversa",
       "7 pasajeros",
-      "Quemacocos"
+      "Quemacocos",
+      "AWD",
+      "108,000 km",
+      "Todos sus servicios en la agencia"
     ],
-    "cover_photo": "assets/cars/page_50_img_2.jpeg",
-    "main_photo": "assets/cars/page_50_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_50_img_2.jpeg",
-      "assets/cars/page_50_img_3.jpeg",
-      "assets/cars/page_50_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_50_img_2.jpeg",
-      "assets/cars/page_50_img_3.jpeg",
-      "assets/cars/page_50_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 52,
+    "id": "autohaus-p53",
+    "page": 53,
     "brand": "GMC",
-    "model": "SIERRA SLT 2500 HD",
+    "model": "Sierra SLT 2500 HD",
     "year": 2021,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$1,050,000",
     "price_contado": "$1,050,000",
     "price_financiado": "$1,060,000",
-    "price_num": 1050000,
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_53_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_53_img_2.jpeg",
+      "assets/cars/page_53_img_3.jpeg",
+      "assets/cars/page_53_img_4.jpeg",
+      "assets/cars/page_53_img_5.jpeg"
+    ],
     "specs": [
-      "GMC SIERRA SLT",
-      "2500 HD",
       "Importada por pedimento",
       "Asientos en piel",
       "Quemacocos",
       "8 birlos",
       "4x4",
-      "104,000 millas"
-    ],
-    "cover_photo": "assets/cars/page_51_img_2.jpeg",
-    "main_photo": "assets/cars/page_51_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_51_img_2.jpeg",
-      "assets/cars/page_51_img_3.jpeg",
-      "assets/cars/page_51_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_51_img_2.jpeg",
-      "assets/cars/page_51_img_3.jpeg",
-      "assets/cars/page_51_img_4.jpeg"
-    ]
-  },
-  {
-    "page": 53,
-    "brand": "CHEVROLET",
-    "model": "SILVERADO CUSTOM",
-    "year": 2022,
-    "category": "PICK UPS",
-    "status": "disponible",
-    "price_contado": "$665,000",
-    "price_financiado": "$675,000",
-    "price_num": 665000,
-    "specs": [
-      "CHEVROLET",
-      "SILVERADO",
-      "CUSTOM",
-      "Automática",
-      "Eléctrica",
-      "Asientos en tela",
-      "4x4",
-      "83,000km"
-    ],
-    "cover_photo": "assets/cars/page_52_img_2.jpeg",
-    "main_photo": "assets/cars/page_52_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_52_img_2.jpeg",
-      "assets/cars/page_52_img_3.jpeg",
-      "assets/cars/page_52_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_52_img_2.jpeg",
-      "assets/cars/page_52_img_3.jpeg",
-      "assets/cars/page_52_img_4.jpeg"
-    ]
-  },
-  {
-    "page": 54,
-    "brand": "CHEVROLET",
-    "model": "CHEYENNE RST",
-    "year": 2019,
-    "category": "PICK UPS",
-    "status": "disponible",
-    "price_contado": "$665,000",
-    "price_financiado": "$675,000",
-    "price_num": 665000,
-    "specs": [
-      "CHEVROLET",
-      "CHEYENNE",
-      "RST",
-      "Automática",
-      "Eléctrica",
-      "4x4",
-      "Asientos en tela",
+      "104,000 millas",
       "Cámara de reversa"
     ],
-    "cover_photo": "assets/cars/page_53_img_2.jpeg",
-    "main_photo": "assets/cars/page_53_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_53_img_2.jpeg",
-      "assets/cars/page_53_img_3.jpeg",
-      "assets/cars/page_53_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_53_img_2.jpeg",
-      "assets/cars/page_53_img_3.jpeg",
-      "assets/cars/page_53_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 55,
-    "brand": "JEEP",
-    "model": "RUBICON GLADIATOR JT",
-    "year": 2023,
+    "id": "autohaus-p54",
+    "page": 54,
+    "brand": "Chevrolet",
+    "model": "Silverado Custom",
+    "year": 2022,
+    "price": "$665,000",
+    "price_contado": "$665,000",
+    "price_financiado": "$675,000",
     "category": "PICK UPS",
-    "status": "disponible",
+    "cover_photo": "assets/cars/page_54_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_54_img_2.jpeg",
+      "assets/cars/page_54_img_3.jpeg",
+      "assets/cars/page_54_img_4.jpeg",
+      "assets/cars/page_54_img_5.jpeg"
+    ],
+    "specs": [
+      "Automática",
+      "Eléctrica",
+      "Asientos en tela",
+      "4x4",
+      "83,000 km",
+      "Factura de seminuevos",
+      "Motor 8 cil"
+    ],
+    "status": "Disponible"
+  },
+  {
+    "id": "autohaus-p55",
+    "page": 55,
+    "brand": "Chevrolet",
+    "model": "Cheyenne RST",
+    "year": 2019,
+    "price": "$665,000",
+    "price_contado": "$665,000",
+    "price_financiado": "$675,000",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_55_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_55_img_2.jpeg",
+      "assets/cars/page_55_img_3.jpeg",
+      "assets/cars/page_55_img_4.jpeg",
+      "assets/cars/page_55_img_5.jpeg"
+    ],
+    "specs": [
+      "Automática",
+      "Eléctrica",
+      "4x4",
+      "Asientos en tela",
+      "Cámara de reversa",
+      "Pantalla touch",
+      "Factura de seminuevos de agencia",
+      "1 llave",
+      "90,000 km"
+    ],
+    "status": "Disponible"
+  },
+  {
+    "id": "autohaus-p56",
+    "page": 56,
+    "brand": "Jeep",
+    "model": "Rubicon Gladiator JT",
+    "year": 2023,
+    "price": "$899,000",
     "price_contado": "$899,000",
     "price_financiado": "$909,000",
-    "price_num": 899000,
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_56_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_56_img_2.jpeg",
+      "assets/cars/page_56_img_3.jpeg",
+      "assets/cars/page_56_img_4.jpeg",
+      "assets/cars/page_56_img_5.jpeg"
+    ],
     "specs": [
-      "JEEP RUBICON",
-      "33,000 mil km",
+      "33,000 km",
       "Factura de agencia",
       "Único dueño",
       "2 llaves",
       "Motor V6 3.6L",
       "4x4",
-      "Automático"
+      "Automático",
+      "Eléctrico",
+      "Pantalla táctil",
+      "Controles al volante",
+      "Descapotable",
+      "Tapa en caja",
+      "Jalón",
+      "Cámara de reversa y cámara frontal",
+      "Llantas nuevas",
+      "Tomo tu unidad a cuenta"
     ],
-    "cover_photo": "assets/cars/page_54_img_2.jpeg",
-    "main_photo": "assets/cars/page_54_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_54_img_2.jpeg",
-      "assets/cars/page_54_img_3.jpeg",
-      "assets/cars/page_54_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_54_img_2.jpeg",
-      "assets/cars/page_54_img_3.jpeg",
-      "assets/cars/page_54_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 56,
-    "brand": "RENAULT",
-    "model": "OROCH INTENSE",
+    "id": "autohaus-p57",
+    "page": 57,
+    "brand": "Renault",
+    "model": "Oroch Intense",
     "year": 2019,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$260,000",
     "price_contado": "$260,000",
     "price_financiado": "$270,000",
-    "price_num": 260000,
-    "specs": [
-      "RENAULT OROCH",
-      "INTENSE",
-      "trasmision automatica",
-      "electrica",
-      "asientos en tela",
-      "quemacocos",
-      "unica dueña",
-      "1 llave"
-    ],
-    "cover_photo": "assets/cars/page_55_img_2.jpeg",
-    "main_photo": "assets/cars/page_55_img_2.jpeg",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_57_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_55_img_2.jpeg",
-      "assets/cars/page_55_img_3.jpeg",
-      "assets/cars/page_55_img_4.jpeg"
+      "assets/cars/page_57_img_2.jpeg",
+      "assets/cars/page_57_img_3.jpeg",
+      "assets/cars/page_57_img_4.jpeg",
+      "assets/cars/page_57_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_55_img_2.jpeg",
-      "assets/cars/page_55_img_3.jpeg",
-      "assets/cars/page_55_img_4.jpeg"
-    ]
+    "specs": [
+      "Transmisión automática",
+      "Eléctrica",
+      "Asientos en tela",
+      "Quemacocos",
+      "Única dueña",
+      "1 llave",
+      "90,000 km",
+      "Factura de agencia"
+    ],
+    "status": "Disponible"
   },
   {
-    "page": 57,
+    "id": "autohaus-p58",
+    "page": 58,
     "brand": "RAM",
-    "model": "1500 LARAMIE SPORT MILD HYBRID",
+    "model": "1500 Laramie Sport",
     "year": 2020,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$720,000",
     "price_contado": "$720,000",
     "price_financiado": "$730,000",
-    "price_num": 720000,
-    "specs": [
-      "DODGE LARAMIE",
-      "SPORT",
-      "1500 mild hybrird",
-      "110,000 kms",
-      "Asientos en piel/",
-      "gamuza",
-      "4x4",
-      "8cil 5.7L"
-    ],
-    "cover_photo": "assets/cars/page_56_img_2.jpeg",
-    "main_photo": "assets/cars/page_56_img_2.jpeg",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_58_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_56_img_2.jpeg",
-      "assets/cars/page_56_img_3.jpeg",
-      "assets/cars/page_56_img_4.jpeg"
+      "assets/cars/page_58_img_2.jpeg",
+      "assets/cars/page_58_img_3.jpeg",
+      "assets/cars/page_58_img_4.jpeg",
+      "assets/cars/page_58_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_56_img_2.jpeg",
-      "assets/cars/page_56_img_3.jpeg",
-      "assets/cars/page_56_img_4.jpeg"
-    ]
+    "specs": [
+      "1500 Mild Hybrid",
+      "110,000 km",
+      "Asientos en piel / gamuza",
+      "4x4",
+      "8 cil 5.7L",
+      "Quemacocos",
+      "Cámara de reversa",
+      "Pantalla larga",
+      "Factura de seminuevos",
+      "Garantía hasta 2027",
+      "Llantas nuevas Michelin",
+      "Tapa batea",
+      "2 llaves"
+    ],
+    "status": "Disponible"
   },
   {
-    "page": 58,
-    "brand": "CHEVROLET",
-    "model": "CHEYENNE LT",
+    "id": "autohaus-p59",
+    "page": 59,
+    "brand": "Chevrolet",
+    "model": "Cheyenne LT",
     "year": 2023,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$825,000",
     "price_contado": "$825,000",
     "price_financiado": "$835,000",
-    "price_num": 825000,
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_59_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_59_img_2.jpeg",
+      "assets/cars/page_59_img_3.jpeg",
+      "assets/cars/page_59_img_4.jpeg",
+      "assets/cars/page_59_img_5.jpeg"
+    ],
     "specs": [
-      "CHEVROLET",
-      "CHEYENNE LT",
       "Automática",
       "Eléctrica",
       "Asientos en tela",
-      "50,000km",
+      "50,000 km",
       "4x4",
-      "Factura de agencia"
+      "Factura de agencia",
+      "1 dueño",
+      "2 llaves 🔑"
     ],
-    "cover_photo": "assets/cars/page_57_img_2.jpeg",
-    "main_photo": "assets/cars/page_57_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_57_img_2.jpeg",
-      "assets/cars/page_57_img_3.jpeg",
-      "assets/cars/page_57_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_57_img_2.jpeg",
-      "assets/cars/page_57_img_3.jpeg",
-      "assets/cars/page_57_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 59,
-    "brand": "RAM",
-    "model": "1500 BIGHORN 4X4",
-    "year": 2022,
-    "category": "PICK UPS",
-    "status": "disponible",
-    "price_contado": "$755,000",
-    "price_financiado": "$765,000",
-    "price_num": 755000,
-    "specs": [
-      "DODGE RAM 1500",
-      "BIGHORN",
-      "57,000km",
-      "4x4",
-      "Motor Pentastar",
-      "etorque mild hybrid V6",
-      "3.6L 305hp",
-      "Interiores en tela"
-    ],
-    "cover_photo": "assets/cars/page_58_img_2.jpeg",
-    "main_photo": "assets/cars/page_58_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_58_img_2.jpeg",
-      "assets/cars/page_58_img_3.jpeg",
-      "assets/cars/page_58_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_58_img_2.jpeg",
-      "assets/cars/page_58_img_3.jpeg",
-      "assets/cars/page_58_img_4.jpeg"
-    ]
-  },
-  {
+    "id": "autohaus-p60",
     "page": 60,
     "brand": "RAM",
-    "model": "1500 LIMITED",
-    "year": 2021,
+    "model": "1500 Big Horn",
+    "year": 2022,
+    "price": "$755,000",
+    "price_contado": "$755,000",
+    "price_financiado": "$765,000",
     "category": "PICK UPS",
-    "status": "disponible",
+    "cover_photo": "assets/cars/page_60_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_60_img_2.jpeg",
+      "assets/cars/page_60_img_3.jpeg",
+      "assets/cars/page_60_img_4.jpeg",
+      "assets/cars/page_60_img_5.jpeg"
+    ],
+    "specs": [
+      "57,000 km",
+      "4x4",
+      "Motor Pentastar eTorque Mild Hybrid V6 3.6L 305hp",
+      "Interiores en tela",
+      "Cámara de reversa",
+      "Todos los servicios en la agencia",
+      "Factura de empresa",
+      "Un dueño"
+    ],
+    "status": "Disponible"
+  },
+  {
+    "id": "autohaus-p61",
+    "page": 61,
+    "brand": "RAM",
+    "model": "1500 Limited",
+    "year": 2021,
+    "price": "$860,000",
     "price_contado": "$860,000",
     "price_financiado": "$870,000",
-    "price_num": 860000,
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_61_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_61_img_2.jpeg",
+      "assets/cars/page_61_img_3.jpeg",
+      "assets/cars/page_61_img_4.jpeg",
+      "assets/cars/page_61_img_5.jpeg"
+    ],
     "specs": [
-      "DODGE RAM",
-      "LIMITED",
       "Automática",
       "Eléctrica",
       "Asientos en piel",
       "Pantalla larga",
       "Quemacocos",
-      "Cámara de reversa"
+      "Cámara de reversa",
+      "4x4",
+      "Suspensión de aire",
+      "69,000 km"
     ],
-    "cover_photo": "assets/cars/page_59_img_2.jpeg",
-    "main_photo": "assets/cars/page_59_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_59_img_2.jpeg",
-      "assets/cars/page_59_img_3.jpeg",
-      "assets/cars/page_59_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_59_img_2.jpeg",
-      "assets/cars/page_59_img_3.jpeg",
-      "assets/cars/page_59_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 61,
+    "id": "autohaus-p62",
+    "page": 62,
     "brand": "RAM",
-    "model": "1500 BIGHORN ETORQUE",
+    "model": "1500 Big Horn",
     "year": 2022,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$860,000",
     "price_contado": "$860,000",
     "price_financiado": "$870,000",
-    "price_num": 860000,
-    "specs": [
-      "DODGE RAM 1500",
-      "BIGHORN",
-      "57,000km",
-      "4x4",
-      "Motor Pentastar etorque mild",
-      "hybrid V6 3.6L 305hp",
-      "Interiores en tela",
-      "Cámara de reversa"
-    ],
-    "cover_photo": "assets/cars/page_60_img_2.jpeg",
-    "main_photo": "assets/cars/page_60_img_2.jpeg",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_62_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_60_img_2.jpeg",
-      "assets/cars/page_60_img_3.jpeg",
-      "assets/cars/page_60_img_4.jpeg"
+      "assets/cars/page_62_img_2.jpeg",
+      "assets/cars/page_62_img_3.jpeg",
+      "assets/cars/page_62_img_4.jpeg",
+      "assets/cars/page_62_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_60_img_2.jpeg",
-      "assets/cars/page_60_img_3.jpeg",
-      "assets/cars/page_60_img_4.jpeg"
-    ]
+    "specs": [
+      "57,000 km",
+      "4x4",
+      "Motor Pentastar eTorque Mild Hybrid V6 3.6L 305hp",
+      "Interiores en tela",
+      "Cámara de reversa",
+      "Todos los servicios en la agencia",
+      "Factura de empresa",
+      "Un dueño"
+    ],
+    "status": "Disponible"
   },
   {
-    "page": 62,
-    "brand": "CHEVROLET",
-    "model": "CHEYENNE CLÁSICA VORTEC",
+    "id": "autohaus-p63",
+    "page": 63,
+    "brand": "Chevrolet",
+    "model": "Cheyenne Clásica",
     "year": 1990,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$385,000",
     "price_contado": "$385,000",
-    "price_financiado": "$395,000",
-    "price_num": 385000,
+    "price_financiado": "$385,000",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_63_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_63_img_2.jpeg",
+      "assets/cars/page_63_img_3.jpeg",
+      "assets/cars/page_63_img_4.jpeg",
+      "assets/cars/page_63_img_5.jpeg"
+    ],
     "specs": [
-      "CHEVROLET",
-      "CHEYENNE",
-      "Motor vortec",
+      "Motor Vortec",
       "Frenos de disco traseros",
       "Diferencial positivo",
       "Repro en la computadora",
       "Headers",
-      "Llantas nuevas"
+      "Llantas nuevas",
+      "Rines 22",
+      "Aire acondicionado",
+      "Interior impecable",
+      "Equipo de sonido JL todo clase D competition",
+      "Pantalla Alpine"
     ],
-    "cover_photo": "assets/cars/page_61_img_2.jpeg",
-    "main_photo": "assets/cars/page_61_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_61_img_2.jpeg",
-      "assets/cars/page_61_img_3.jpeg",
-      "assets/cars/page_61_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_61_img_2.jpeg",
-      "assets/cars/page_61_img_3.jpeg",
-      "assets/cars/page_61_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 63,
-    "brand": "RAM",
-    "model": "1500 TRX / REBEL",
+    "id": "autohaus-p64",
+    "page": 64,
+    "brand": "Ford",
+    "model": "Lobo Raptor R",
     "year": 2025,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$2,580,000",
     "price_contado": "$2,580,000",
     "price_financiado": "$2,590,000",
-    "price_num": 2580000,
-    "specs": [
-      "20,000km",
-      "Factura de seminuevos",
-      "Asiento en Alcántara",
-      "Todos sus servicios en la",
-      "agencia",
-      "4x4",
-      "Motor v8 5.2L",
-      "Extras:"
-    ],
-    "cover_photo": "assets/cars/page_62_img_2.jpeg",
-    "main_photo": "assets/cars/page_62_img_2.jpeg",
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_64_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_62_img_2.jpeg",
-      "assets/cars/page_62_img_3.jpeg",
-      "assets/cars/page_62_img_4.jpeg"
+      "assets/cars/page_64_img_2.jpeg",
+      "assets/cars/page_64_img_3.jpeg",
+      "assets/cars/page_64_img_4.jpeg",
+      "assets/cars/page_64_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_62_img_2.jpeg",
-      "assets/cars/page_62_img_3.jpeg",
-      "assets/cars/page_62_img_4.jpeg"
-    ]
+    "specs": [
+      "20,000 km",
+      "Factura de seminuevos",
+      "Asientos en Alcántara",
+      "Todos sus servicios en la agencia",
+      "4x4",
+      "Motor V8 5.2L Supercharged",
+      "Filtro de alto flujo",
+      "Polea de súper cargador",
+      "Banda de accesorios uso rudo",
+      "Repro en motor y transmisión",
+      "Tapa en caja sólida",
+      "Tubería de acero inoxidable"
+    ],
+    "status": "Disponible"
   },
   {
-    "page": 64,
-    "brand": "FORD",
-    "model": "F-150 / LOBO XLT",
+    "id": "autohaus-p65",
+    "page": 65,
+    "brand": "Volkswagen",
+    "model": "Amarok Highline",
     "year": 2015,
-    "category": "PICK UPS",
-    "status": "disponible",
+    "price": "$249,000",
     "price_contado": "$249,000",
     "price_financiado": "$259,000",
-    "price_num": 249000,
+    "category": "PICK UPS",
+    "cover_photo": "assets/cars/page_65_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_65_img_2.jpeg",
+      "assets/cars/page_65_img_3.jpeg",
+      "assets/cars/page_65_img_4.jpeg",
+      "assets/cars/page_65_img_5.jpeg"
+    ],
     "specs": [
       "Factura de seminuevos",
-      "216,000km",
+      "216,000 km",
       "Asientos en piel",
       "Automática",
-      "VOLKSWAGEN",
-      "AMAROK HIGHLINE"
+      "4x4"
     ],
-    "cover_photo": "assets/cars/page_63_img_2.jpeg",
-    "main_photo": "assets/cars/page_63_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_63_img_2.jpeg",
-      "assets/cars/page_63_img_3.jpeg",
-      "assets/cars/page_63_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_63_img_2.jpeg",
-      "assets/cars/page_63_img_3.jpeg",
-      "assets/cars/page_63_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 65,
-    "brand": "MERCEDES-BENZ",
-    "model": "S500 WALD BLACK EDITION",
+    "id": "autohaus-p67",
+    "page": 67,
+    "brand": "Mercedes-Benz",
+    "model": "S500 Wald Black",
     "year": 2018,
-    "category": "DEPORTIVOS",
-    "status": "disponible",
+    "price": "$1,100,000",
     "price_contado": "$1,100,000",
-    "price_financiado": "$1,110,000",
-    "price_num": 1100000,
-    "specs": [
-      "MERCEDES BENZ",
-      "S500 WALD BLACK",
-      "full catback",
-      "intakes",
-      "repro",
-      "Bodykit WALD",
-      "55,000km",
-      "Techo panorámico"
-    ],
-    "cover_photo": "assets/cars/page_64_img_2.jpeg",
-    "main_photo": "assets/cars/page_64_img_2.jpeg",
+    "price_financiado": "$1,100,000",
+    "category": "DEPORTIVOS",
+    "cover_photo": "assets/cars/page_67_img_2.jpeg",
     "real_photos": [
-      "assets/cars/page_64_img_2.jpeg",
-      "assets/cars/page_64_img_3.jpeg",
-      "assets/cars/page_64_img_4.jpeg"
+      "assets/cars/page_67_img_2.jpeg",
+      "assets/cars/page_67_img_3.jpeg",
+      "assets/cars/page_67_img_4.jpeg",
+      "assets/cars/page_67_img_5.jpeg"
     ],
-    "photos": [
-      "assets/cars/page_64_img_2.jpeg",
-      "assets/cars/page_64_img_3.jpeg",
-      "assets/cars/page_64_img_4.jpeg"
-    ]
+    "specs": [
+      "Full catback",
+      "Intakes",
+      "Repro",
+      "Bodykit WALD",
+      "55,000 km",
+      "Techo panorámico",
+      "Mexicano 100%",
+      "Motor V8 biturbo 4.6L"
+    ],
+    "status": "Disponible"
   },
   {
-    "page": 66,
-    "brand": "AUDI",
-    "model": "RS5 SPORTBACK",
+    "id": "autohaus-p68",
+    "page": 68,
+    "brand": "Audi",
+    "model": "RS5 Sportback Quattro",
     "year": 2021,
-    "category": "DEPORTIVOS",
-    "status": "disponible",
+    "price": "$1,060,000",
     "price_contado": "$1,060,000",
     "price_financiado": "$1,070,000",
-    "price_num": 1060000,
+    "category": "DEPORTIVOS",
+    "cover_photo": "assets/cars/page_68_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_68_img_2.jpeg",
+      "assets/cars/page_68_img_3.jpeg",
+      "assets/cars/page_68_img_4.jpeg",
+      "assets/cars/page_68_img_5.jpeg"
+    ],
     "specs": [
-      "AUDI RS5",
       "4 puertas",
       "Automático",
       "Eléctrico",
       "Asientos en piel",
       "Cámara de reversa",
       "Quemacocos",
-      "Transmisión Quattro"
+      "Transmisión Quattro",
+      "1 llave 🔑",
+      "50,000 km",
+      "Motor V6 2.9L bi-turbo",
+      "Factura de seminuevos Audi"
     ],
-    "cover_photo": "assets/cars/page_65_img_2.jpeg",
-    "main_photo": "assets/cars/page_65_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_65_img_2.jpeg",
-      "assets/cars/page_65_img_3.jpeg",
-      "assets/cars/page_65_img_4.jpeg"
-    ],
-    "photos": [
-      "assets/cars/page_65_img_2.jpeg",
-      "assets/cars/page_65_img_3.jpeg",
-      "assets/cars/page_65_img_4.jpeg"
-    ]
+    "status": "Disponible"
   },
   {
-    "page": 67,
-    "brand": "MCLAREN",
-    "model": "540C V8 TWIN TURBO",
+    "id": "autohaus-p69",
+    "page": 69,
+    "brand": "McLaren",
+    "model": "540C V8 Twin Turbo",
     "year": 2017,
-    "category": "DEPORTIVOS",
-    "status": "disponible",
+    "price": "$1,350,000",
     "price_contado": "$1,350,000",
-    "price_financiado": "$1,360,000",
-    "price_num": 1350000,
-    "specs": [
-      "MCLAREN 540C",
-      "Asientos en Alcántara",
-      "21,000km",
-      "Motor v8 3.8L biturbo"
+    "price_financiado": "$1,350,000",
+    "category": "DEPORTIVOS",
+    "cover_photo": "assets/cars/page_69_img_2.jpeg",
+    "real_photos": [
+      "assets/cars/page_69_img_2.jpeg",
+      "assets/cars/page_69_img_3.jpeg",
+      "assets/cars/page_69_img_4.jpeg",
+      "assets/cars/page_69_img_5.jpeg"
     ],
-    "cover_photo": "assets/svg/autohaus-tag.svg",
-    "main_photo": "assets/svg/autohaus-tag.svg",
-    "real_photos": [],
-    "photos": []
+    "specs": [
+      "Asientos en Alcántara",
+      "21,000 km",
+      "Motor V8 3.8L biturbo",
+      "Transmisión secuencial de doble embrague",
+      "Chasis monocasco de fibra de carbono"
+    ],
+    "status": "Disponible"
   }
 ]

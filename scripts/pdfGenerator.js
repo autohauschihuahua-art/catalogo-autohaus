@@ -3,7 +3,12 @@
  * Crea páginas de alta resolución (1080x1920) con el diseño oficial de la marca.
  */
 
-const puppeteer = require('puppeteer-core');
+let puppeteer;
+try {
+  puppeteer = require('puppeteer');
+} catch (e) {
+  puppeteer = require('puppeteer-core');
+}
 const fs = require('fs');
 const path = require('path');
 
@@ -26,17 +31,13 @@ function sortCatalogByCategory(vehicles) {
   vehicles.forEach(v => {
     const cat = v.category || 'SEDAN & HATCHBACK';
     if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(v);
+    // Clone vehicle to prevent unintended mutation
+    groups[cat].push({ ...v });
   });
 
   const sorted = [];
   Object.keys(groups).forEach(cat => {
     sorted.push(...groups[cat]);
-  });
-
-  // Reasignar numeración de página limpia
-  sorted.forEach((v, idx) => {
-    v.page = idx + 4;
   });
 
   return sorted;
@@ -622,68 +623,156 @@ function buildCatalogHtml(vehicles) {
   `;
 }
 
+// Mutex to avoid parallel headless Chrome instances colliding
+let activeGenerationPromise = null;
+let pendingRegenerate = false;
+
+function getChromeExecutablePath() {
+  if (process.env.PUPPETEER_EXECUTABLE_PATH && fs.existsSync(process.env.PUPPETEER_EXECUTABLE_PATH)) {
+    return process.env.PUPPETEER_EXECUTABLE_PATH;
+  }
+  const possiblePaths = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/chromium'
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return undefined; // Allows puppeteer's bundled Chrome on Render / Linux
+}
+
 /**
  * Función principal para generar el archivo PDF del catálogo
  */
 async function generateFullCatalogPDF(targetPath = null) {
-  try {
-    const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
-    const rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
-    
-    // 1. Acomodar por categoría y asignar numeración
-    const sortedCars = sortCatalogByCategory(rawCars);
-    
-    // Guardar catálogo ordenado
-    fs.writeFileSync(catalogPath, JSON.stringify(sortedCars, null, 2));
-
-    // Actualizar scripts/data.js
-    const jsDataPath = path.join(__dirname, 'data.js');
-    const jsContent = `/**\n * AUTOHAUS DATA STORE - INVENTARIO OFICIAL EDITORIAL 2025\n */\nconst AUTOHAUS_DATA = {\n  vehicles: ${JSON.stringify(sortedCars, null, 2)}\n};\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = AUTOHAUS_DATA;\n}\n`;
-    fs.writeFileSync(jsDataPath, jsContent);
-
-    // 2. Construir HTML
-    const html = buildCatalogHtml(sortedCars);
-
-    // 3. Generar PDF con Puppeteer
-    const browser = await puppeteer.launch({
-      executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu'
-      ]
-    });
-
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1080, height: 1920 });
-    await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
-
-    const outputPath = targetPath || path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
-    
-    // Asegurar directorio
-    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-
-    const pdfBuffer = await page.pdf({
-      width: '1080px',
-      height: '1920px',
-      printBackground: true
-    });
-
-    await browser.close();
-    fs.writeFileSync(outputPath, pdfBuffer);
-
-    console.log(`✅ Catálogo PDF actualizado con éxito (${sortedCars.length} vehículos). Tamaño: ${(pdfBuffer.length / (1024*1024)).toFixed(2)} MB`);
-    return { success: true, count: sortedCars.length, path: outputPath, size: pdfBuffer.length };
-  } catch (error) {
-    console.error('❌ Error generando Catálogo PDF:', error);
-    return { success: false, error: error.message };
+  if (activeGenerationPromise) {
+    console.log('⏳ Generación de PDF ya en curso. Encolando solicitud...');
+    pendingRegenerate = true;
+    return activeGenerationPromise;
   }
+
+  activeGenerationPromise = (async () => {
+    try {
+      const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
+      const rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+      
+      // 1. Acomodar por categoría y asignar numeración
+      const sortedCars = sortCatalogByCategory(rawCars);
+      
+      // Guardar catálogo ordenado
+      fs.writeFileSync(catalogPath, JSON.stringify(sortedCars, null, 2));
+
+      // Actualizar scripts/data.js con estructura completa
+      const jsDataPath = path.join(__dirname, 'data.js');
+      const jsContent = `/**
+ * AUTOHAUS DATA STORE - INVENTARIO OFICIAL EDITORIAL 2025
+ */
+const AUTOHAUS_DATA = {
+  metadata: {
+    title: "Catálogo Autohaus",
+    version: "7.0.0",
+    total_pages: ${Math.max(65, sortedCars.length + 6)},
+    vehicles_count: ${sortedCars.length},
+    contact: "477 771 0000",
+    whatsapp: "524777710000",
+    instagram: "@autohausautohaus",
+    location: "Chihuahua, Chihuahua, México",
+    generated_at: "${new Date().toISOString()}"
+  },
+  sections: [
+    { page: 1, type: "cover", hero_image: "assets/cars/page_4_img_2.jpeg", title: "CATÁLOGO DIGITAL AUTOHAUS", subtitle: "INVENTARIO COMPLETO Y FINANCIAMIENTO", handle: "@autohausautohaus" },
+    { page: 2, type: "divider", category: "SEDAN & HATCHBACK", line1: "LÍNEA", line2: "SEDAN & HATCHBACK", hero_image: "assets/cars/page_2_img_2.jpeg", handle: "@autohausautohaus" },
+    { page: 22, type: "divider", category: "SUV'S", line1: "LÍNEA", line2: "SUV'S", hero_image: "assets/cars/page_23_img_2.jpeg", handle: "@autohausautohaus" },
+    { page: 47, type: "divider", category: "PICK UPS", line1: "LÍNEA", line2: "PICK UPS", hero_image: "assets/cars/page_48_img_2.jpeg", handle: "@autohausautohaus" },
+    { page: 62, type: "divider", category: "DEPORTIVOS", line1: "LÍNEA", line2: "DEPORTIVOS", hero_image: "assets/cars/page_65_img_2.jpeg", handle: "@autohausautohaus" }
+  ],
+  vehicles: ${JSON.stringify(sortedCars, null, 2)}
+};
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = AUTOHAUS_DATA;
+}
+`;
+      fs.writeFileSync(jsDataPath, jsContent);
+
+      // 2. Construir HTML
+      const html = buildCatalogHtml(sortedCars);
+
+      // 3. Generar PDF con Puppeteer
+      const chromePath = getChromeExecutablePath();
+      const launchOptions = {
+        headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--disable-background-networking',
+          '--disable-default-apps',
+          '--disable-extensions',
+          '--disable-sync',
+          '--disable-translate',
+          '--hide-scrollbars',
+          '--metrics-recording-only',
+          '--mute-audio',
+          '--no-first-run',
+          '--safebrowsing-disable-auto-update'
+        ]
+      };
+      if (chromePath) {
+        launchOptions.executablePath = chromePath;
+      }
+
+      const browser = await puppeteer.launch(launchOptions);
+
+      const page = await browser.newPage();
+      await page.setViewport({ width: 1080, height: 1920 });
+      await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
+
+      const outputPath = targetPath || path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
+      
+      // Asegurar directorio
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+
+      const pdfBuffer = await page.pdf({
+        width: '1080px',
+        height: '1920px',
+        printBackground: true
+      });
+
+      await browser.close();
+      fs.writeFileSync(outputPath, pdfBuffer);
+
+      console.log(`✅ Catálogo PDF actualizado con éxito (${sortedCars.length} vehículos). Tamaño: ${(pdfBuffer.length / (1024*1024)).toFixed(2)} MB`);
+      return { success: true, count: sortedCars.length, path: outputPath, size: pdfBuffer.length };
+    } catch (error) {
+      console.error('❌ Error generando Catálogo PDF:', error);
+      return { success: false, error: error.message };
+    } finally {
+      activeGenerationPromise = null;
+      if (pendingRegenerate) {
+        pendingRegenerate = false;
+        console.log('🔄 Ejecutando regeneración de PDF pendiente tras cambios simultáneos...');
+        generateFullCatalogPDF(targetPath).catch(e => console.error('Error in queued PDF gen:', e));
+      }
+    }
+  })();
+
+  return activeGenerationPromise;
+}
+
+function isGeneratingPDF() {
+  return activeGenerationPromise !== null;
 }
 
 module.exports = {
   sortCatalogByCategory,
   generateFullCatalogPDF,
+  isGeneratingPDF,
   CATEGORY_ORDER
 };

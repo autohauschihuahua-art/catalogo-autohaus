@@ -5,7 +5,7 @@ const fs = require('fs');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { sortCatalogByCategory, generateFullCatalogPDF } = require('./scripts/pdfGenerator');
+const { sortCatalogByCategory, generateFullCatalogPDF, isGeneratingPDF } = require('./scripts/pdfGenerator');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -901,19 +901,26 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
 
-  if (fs.existsSync(pdfPath)) {
-    res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
-  } else {
-    // If not compiled yet, generate immediately and serve
-    try {
-      console.log('Generating PDF on the fly for download request...');
-      const genResult = await generateFullCatalogPDF();
-      if (genResult.success && fs.existsSync(pdfPath)) {
-        res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
-      } else {
-        res.status(500).json({ success: false, message: 'Error al compilar el catálogo PDF.' });
-      }
-    } catch (e) {
+  try {
+    const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
+    const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : null;
+
+    // Si el PDF no existe o si catalog.json fue modificado después de la última generación del PDF
+    if (!pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs)) {
+      console.log('🔄 PDF desactualizado o inexistente. Regenerando catálogo PDF antes de descargar...');
+      await generateFullCatalogPDF();
+    }
+
+    if (fs.existsSync(pdfPath)) {
+      res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
+    } else {
+      res.status(500).json({ success: false, message: 'Error al compilar el catálogo PDF.' });
+    }
+  } catch (e) {
+    console.error('Error en download-pdf:', e);
+    if (fs.existsSync(pdfPath)) {
+      res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
+    } else {
       res.status(500).json({ success: false, message: 'Error interno: ' + e.message });
     }
   }
@@ -935,6 +942,25 @@ app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecreta
   } catch (err) {
     res.status(500).json({ success: false, message: 'Error interno: ' + err.message });
   }
+});
+
+// 7. CATALOG PDF STATUS CHECK
+app.get('/api/catalog/status', (req, res) => {
+  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
+  const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
+  const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : null;
+  const vehicles = loadVehicles();
+
+  const isOutdated = !pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs);
+
+  res.json({
+    success: true,
+    isGenerating: isGeneratingPDF(),
+    isOutdated,
+    totalVehicles: vehicles.length,
+    lastPdfModified: pdfStat ? pdfStat.mtime.toISOString() : null,
+    pdfSize: pdfStat ? pdfStat.size : 0
+  });
 });
 
 // 3. UPDATE LEAD (Admin can update all; Sales can update status and notes)

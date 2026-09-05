@@ -377,11 +377,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawerExportBackupBtn = document.getElementById('drawerExportBackupBtn');
     if (drawerExportBackupBtn) drawerExportBackupBtn.addEventListener('click', handleExportBackup);
 
-    // Regenerate Editorial PDF (Desktop & Drawer)
+    // Direct PDF Download
+    async function downloadPdfDirect() {
+      try {
+        if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+        showToast('⏳ Preparando descarga del catálogo PDF más reciente...', 'info');
+
+        const res = await fetch('/api/catalog/download-pdf');
+        if (!res.ok) throw new Error('Error en el servidor al descargar PDF');
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        showToast('✓ Catálogo PDF descargado exitosamente.', 'success');
+      } catch (e) {
+        showToast('⚠️ ' + (e.message || 'Error al descargar PDF'), 'error');
+      }
+    }
+
+    const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+    if (downloadPdfBtn) downloadPdfBtn.addEventListener('click', downloadPdfDirect);
+    const drawerDownloadPdfBtn = document.getElementById('drawerDownloadPdfBtn');
+    if (drawerDownloadPdfBtn) drawerDownloadPdfBtn.addEventListener('click', downloadPdfDirect);
+
+    // Regenerate Editorial PDF (Desktop & Drawer) & Auto-Download
     async function handleRegeneratePdf() {
       try {
         if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
-        showToast('Compilando catálogo editorial en PDF...', 'success');
+        showToast('⏳ Recompilando catálogo editorial PDF con los cambios del inventario...', 'info');
 
         const res = await fetch('/api/catalog/regenerate-pdf', {
           method: 'POST',
@@ -389,7 +419,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const data = await res.json();
         if (data.success) {
-          showToast(data.message, 'success');
+          showToast(`✓ ${data.message} Iniciando descarga...`, 'success');
+          await downloadPdfDirect();
         } else {
           showToast(data.message || 'Error al generar PDF', 'error');
         }
