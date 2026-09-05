@@ -1121,15 +1121,27 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${state.token}` }
       });
+
+      if (res.status === 401 || res.status === 403) {
+        showToast('Tu sesión ha expirado o no tienes permisos. Por favor vuelve a iniciar sesión.', 'error');
+        setTimeout(() => {
+          localStorage.removeItem('autohaus_admin_token');
+          window.location.href = '/admin/login';
+        }, 1500);
+        return;
+      }
+
       const data = await res.json();
       if (data.success) {
         showToast(data.message, 'success');
+        state.vehicles = state.vehicles.filter(v => v.page !== page);
+        applyInventoryFilters();
         await loadDashboardData();
       } else {
-        showToast(data.message, 'error');
+        showToast(data.message || 'Error al eliminar vehículo', 'error');
       }
     } catch (e) {
-      showToast('Error al eliminar vehículo', 'error');
+      showToast('Error de conexión al eliminar vehículo', 'error');
     }
   };
 

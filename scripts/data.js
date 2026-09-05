@@ -6,13 +6,13 @@ const AUTOHAUS_DATA = {
   metadata: {
     title: "Catálogo Autohaus",
     version: "7.0.0",
-    total_pages: 69,
-    vehicles_count: 63,
+    total_pages: 68,
+    vehicles_count: 62,
     contact: "477 771 0000",
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-05T19:33:19.590Z"
+    generated_at: "2026-09-05T19:57:46.773Z"
   },
   sections: [
     {
@@ -454,39 +454,6 @@ const AUTOHAUS_DATA = {
             "Factura de agencia",
             "Único dueño",
             "2 llaves 🔑"
-        ],
-        "status": "Disponible"
-    },
-    {
-        "id": "autohaus-p18",
-        "page": 18,
-        "brand": "Chevrolet",
-        "model": "Beat LTZ",
-        "year": 2018,
-        "price": "$150,000",
-        "price_contado": "$150,000",
-        "price_financiado": "$160,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_18_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_18_img_2.jpeg",
-            "assets/cars/page_18_img_3.jpeg",
-            "assets/cars/page_18_img_4.jpeg",
-            "assets/cars/page_18_img_5.jpeg"
-        ],
-        "specs": [
-            "Asientos en tela",
-            "Transmisión manual",
-            "Eléctrico",
-            "Pantalla touch",
-            "88,000 km",
-            "Factura de agencia",
-            "2 dueños",
-            "2 llaves",
-            "Rines",
-            "A/C",
-            "NUNCA UBER/DIDI",
-            "IMPECABLE!!!"
         ],
         "status": "Disponible"
     },

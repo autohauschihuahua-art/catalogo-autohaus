@@ -396,39 +396,6 @@
     "status": "Disponible"
   },
   {
-    "id": "autohaus-p18",
-    "page": 18,
-    "brand": "Chevrolet",
-    "model": "Beat LTZ",
-    "year": 2018,
-    "price": "$150,000",
-    "price_contado": "$150,000",
-    "price_financiado": "$160,000",
-    "category": "SEDAN & HATCHBACK",
-    "cover_photo": "assets/cars/page_18_img_2.jpeg",
-    "real_photos": [
-      "assets/cars/page_18_img_2.jpeg",
-      "assets/cars/page_18_img_3.jpeg",
-      "assets/cars/page_18_img_4.jpeg",
-      "assets/cars/page_18_img_5.jpeg"
-    ],
-    "specs": [
-      "Asientos en tela",
-      "Transmisión manual",
-      "Eléctrico",
-      "Pantalla touch",
-      "88,000 km",
-      "Factura de agencia",
-      "2 dueños",
-      "2 llaves",
-      "Rines",
-      "A/C",
-      "NUNCA UBER/DIDI",
-      "IMPECABLE!!!"
-    ],
-    "status": "Disponible"
-  },
-  {
     "id": "autohaus-p19",
     "page": 19,
     "brand": "Mercedes-Benz",

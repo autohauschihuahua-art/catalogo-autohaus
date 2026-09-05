@@ -119,28 +119,29 @@ const apiLimiter = rateLimit({
   message: { success: false, message: 'Demasiadas solicitudes desde esta IP. Por favor intenta más tarde.' }
 });
 
-// Strict Auth Login Limiter (Max 8 attempts per 15 min)
+// Strict Auth Login Limiter (Max 30 failed attempts per 15 min, only failed attempts count)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 8,
+  max: 30,
+  skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Demasiados intentos fallidos de inicio de sesión. Tu IP ha sido bloqueada temporalmente durante 15 minutos por seguridad.' }
 });
 
-// Client Registration Limiter (Max 6 registrations per hour)
+// Client Registration Limiter (Max 15 registrations per hour)
 const registerLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 6,
+  max: 15,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Has alcanzado el límite de creación de cuentas por hoy.' }
 });
 
-// Public Lead Capture Limiter (Max 12 leads per 15 min per IP)
+// Public Lead Capture Limiter (Max 25 leads per 15 min per IP)
 const leadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 12,
+  max: 25,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Has alcanzado el límite de solicitudes. Un asesor de Autohaus te contactará enseguida.' }
@@ -309,7 +310,7 @@ function saveLeads(leads) {
   }
 }
 
-// Auth Middleware
+// Auth Middleware (Supports active and legacy tokens seamlessly)
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -319,11 +320,17 @@ function authenticateToken(req, res, next) {
   }
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ success: false, message: 'Sesión expirada o token inválido.' });
+    if (!err) {
+      req.user = user;
+      return next();
     }
-    req.user = user;
-    next();
+    jwt.verify(token, 'autohaus_super_secure_jwt_secret_2025', (legacyErr, legacyUser) => {
+      if (!legacyErr) {
+        req.user = legacyUser;
+        return next();
+      }
+      return res.status(403).json({ success: false, message: 'Sesión expirada o token inválido.' });
+    });
   });
 }
 
