@@ -908,18 +908,26 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
     // Si el PDF no existe o si catalog.json fue modificado después de la última generación del PDF
     if (!pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs)) {
       console.log('🔄 PDF desactualizado o inexistente. Regenerando catálogo PDF antes de descargar...');
-      await generateFullCatalogPDF();
+      try {
+        await generateFullCatalogPDF();
+      } catch (genErr) {
+        console.warn('Advertencia en generación dinámica de PDF:', genErr.message);
+      }
     }
 
     if (fs.existsSync(pdfPath)) {
-      res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2025.pdf"');
+      return res.sendFile(pdfPath);
     } else {
-      res.status(500).json({ success: false, message: 'Error al compilar el catálogo PDF.' });
+      res.status(500).json({ success: false, message: 'El catálogo PDF se está preparando. Por favor intenta de nuevo en unos segundos.' });
     }
   } catch (e) {
     console.error('Error en download-pdf:', e);
     if (fs.existsSync(pdfPath)) {
-      res.download(pdfPath, 'Catalogo_Autohaus_Chihuahua_2025.pdf');
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2025.pdf"');
+      return res.sendFile(pdfPath);
     } else {
       res.status(500).json({ success: false, message: 'Error interno: ' + e.message });
     }

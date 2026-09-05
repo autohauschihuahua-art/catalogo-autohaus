@@ -11,7 +11,7 @@ const AUTOHAUS_DATA = {
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-04T23:09:57.832Z"
+    generated_at: "2026-09-05T19:03:23.707Z"
   },
   sections: [
     { page: 1, type: "cover", hero_image: "assets/cars/page_4_img_2.jpeg", title: "CATÁLOGO DIGITAL AUTOHAUS", subtitle: "INVENTARIO COMPLETO Y FINANCIAMIENTO", handle: "@autohausautohaus" },

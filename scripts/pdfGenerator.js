@@ -1,6 +1,6 @@
 /**
  * Generador Dinámico de Catálogo PDF Editorial Autohaus
- * Crea páginas de alta resolución (1080x1920) con el diseño oficial de la marca.
+ * Diseñado para generar un catálogo de alta resolución, ultra nítido y de carga instantánea (< 10 MB).
  */
 
 let puppeteer;
@@ -21,8 +21,7 @@ const CATEGORY_ORDER = [
 ];
 
 /**
- * Ordena el inventario por categoría colocando los autos nuevos al final de su categoría
- * y renumera las páginas de forma secuencial.
+ * Ordena el inventario por categoría
  */
 function sortCatalogByCategory(vehicles) {
   const groups = {};
@@ -31,7 +30,6 @@ function sortCatalogByCategory(vehicles) {
   vehicles.forEach(v => {
     const cat = v.category || 'SEDAN & HATCHBACK';
     if (!groups[cat]) groups[cat] = [];
-    // Clone vehicle to prevent unintended mutation
     groups[cat].push({ ...v });
   });
 
@@ -44,7 +42,7 @@ function sortCatalogByCategory(vehicles) {
 }
 
 /**
- * Convierte un archivo local a Base64 para que Puppeteer lo renderice de forma instantánea
+ * Convierte un archivo local a Base64
  */
 function imageToBase64(relOrAbsPath) {
   try {
@@ -65,7 +63,7 @@ function imageToBase64(relOrAbsPath) {
 }
 
 /**
- * Genera el documento HTML completo para el PDF con portada y todas las páginas de vehículos
+ * Genera el documento HTML completo para el PDF
  */
 function buildCatalogHtml(vehicles) {
   const logoInlineB64 = imageToBase64('assets/images/autohaus_logo_white.png');
@@ -74,9 +72,7 @@ function buildCatalogHtml(vehicles) {
   // 1. Portada Editorial Oficial (Página 1)
   const coverHtml = `
     <div class="page-container page-cover">
-      <div class="cover-background-glow"></div>
-      
-      <div class="cover-header">
+      <div class="cover-top-box">
         <div class="cover-tag-badge">EDICIÓN OFICIAL 2025</div>
         <div class="cover-logo-wrap">
           ${logoInlineB64 ? `<img src="${logoInlineB64}" class="cover-logo-img" alt="Autohaus" />` : '<h1 class="cover-fallback-title">AUTO HAUS</h1>'}
@@ -108,7 +104,7 @@ function buildCatalogHtml(vehicles) {
     </div>
   `;
 
-  // 2. Páginas Individuales de Vehículos (Con el diseño de revista oficial)
+  // 2. Páginas Individuales de Vehículos
   const vehiclePagesHtml = vehicles.map(car => {
     const photoPath = car.cover_photo || car.main_photo || (car.photos && car.photos[0]) || `assets/cars/page_${car.page}_img_2.jpeg`;
     const photoB64 = imageToBase64(photoPath) || tagLogoB64;
@@ -130,7 +126,7 @@ function buildCatalogHtml(vehicles) {
     return `
       <div class="page-container page-vehicle">
         
-        <!-- Top Section: Watermark & Hero Car -->
+        <!-- Top Section -->
         <div class="page-top">
           <div class="page-brand">${car.brand}</div>
           <div class="page-model">${car.model}</div>
@@ -146,7 +142,7 @@ function buildCatalogHtml(vehicles) {
           </div>
         </div>
 
-        <!-- Bottom Section: Royal Blue Luxury Specs & Pricing -->
+        <!-- Bottom Section -->
         <div class="page-bottom">
           
           <!-- Pricing Box -->
@@ -205,10 +201,10 @@ function buildCatalogHtml(vehicles) {
       <meta charset="UTF-8">
       <title>Catálogo Oficial Autohaus</title>
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
 
         @page {
-          size: 1080px 1920px;
+          size: 720px 1280px;
           margin: 0;
         }
 
@@ -227,8 +223,8 @@ function buildCatalogHtml(vehicles) {
         }
 
         .page-container {
-          width: 1080px;
-          height: 1920px;
+          width: 720px;
+          height: 1280px;
           page-break-after: always;
           position: relative;
           overflow: hidden;
@@ -239,8 +235,8 @@ function buildCatalogHtml(vehicles) {
 
         /* COVER PAGE STYLES */
         .page-cover {
-          background: radial-gradient(circle at 50% 40%, #2458b8 0%, #163875 60%, #0d2248 100%);
-          padding: 100px 70px 80px;
+          background: linear-gradient(180deg, #132e60 0%, #1a428a 50%, #0d2248 100%);
+          padding: 60px 45px 50px;
           justify-content: space-between;
           align-items: center;
           text-align: center;
@@ -250,162 +246,162 @@ function buildCatalogHtml(vehicles) {
           display: inline-block;
           background: #ffde59;
           color: #000000;
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 900;
           letter-spacing: 0.15em;
-          padding: 8px 36px;
-          border-radius: 30px;
-          margin-bottom: 40px;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-        }
-
-        .cover-logo-wrap {
+          padding: 6px 24px;
+          border-radius: 20px;
           margin-bottom: 25px;
         }
 
+        .cover-logo-wrap {
+          margin-bottom: 15px;
+        }
+
         .cover-logo-img {
-          height: 110px;
+          height: 75px;
           width: auto;
-          filter: drop-shadow(0 10px 25px rgba(0,0,0,0.5));
+        }
+
+        .cover-fallback-title {
+          font-size: 42px;
+          font-weight: 900;
+          color: #ffffff;
+          letter-spacing: 0.1em;
         }
 
         .cover-divider-gold {
-          width: 220px;
-          height: 4px;
+          width: 150px;
+          height: 3px;
           background: #ffde59;
-          margin: 0 auto 30px;
+          margin: 0 auto 20px;
           border-radius: 2px;
         }
 
         .cover-subtitle {
-          font-size: 38px;
+          font-size: 26px;
           font-weight: 800;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.1em;
           color: #ffffff;
           text-transform: uppercase;
-          margin-bottom: 12px;
+          margin-bottom: 8px;
         }
 
         .cover-location {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 600;
           color: #93c5fd;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
         }
 
         .cover-badge-vehicles-count {
-          background: rgba(15, 39, 82, 0.85);
-          border: 4px solid #ffde59;
-          border-radius: 32px;
-          padding: 50px 70px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,222,89,0.3);
+          background: rgba(15, 39, 82, 0.95);
+          border: 3px solid #ffde59;
+          border-radius: 24px;
+          padding: 35px 50px;
           display: flex;
           flex-direction: column;
           align-items: center;
         }
 
         .count-number {
-          font-size: 140px;
+          font-size: 95px;
           font-weight: 900;
           color: #ffde59;
           line-height: 1;
-          margin-bottom: 10px;
-          text-shadow: 0 4px 25px rgba(255,222,89,0.4);
+          margin-bottom: 8px;
         }
 
         .count-text {
-          font-size: 26px;
+          font-size: 18px;
           font-weight: 800;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.1em;
           color: #ffffff;
         }
 
         .cover-features-row {
           display: flex;
           justify-content: center;
-          gap: 20px;
-          margin-bottom: 30px;
+          gap: 12px;
+          margin-bottom: 20px;
         }
 
         .cover-feat-pill {
           background: rgba(255,255,255,0.12);
-          border: 2px solid rgba(255,255,255,0.25);
-          padding: 14px 24px;
-          border-radius: 20px;
-          font-size: 20px;
+          border: 1.5px solid rgba(255,255,255,0.25);
+          padding: 10px 16px;
+          border-radius: 14px;
+          font-size: 13px;
           font-weight: 700;
           color: #ffffff;
         }
 
         .cover-contact-bar {
-          border-top: 2px solid rgba(255,255,255,0.2);
-          padding-top: 25px;
+          border-top: 1.5px solid rgba(255,255,255,0.2);
+          padding-top: 18px;
           display: flex;
           justify-content: space-around;
-          font-size: 20px;
+          font-size: 13px;
           color: #cbd5e1;
           font-weight: 600;
         }
 
         /* VEHICLE PAGE STYLES */
         .page-top {
-          height: 1100px;
+          height: 60%;
           position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 70px 60px 20px;
-          background: radial-gradient(circle at 50% 35%, #2a62c8 0%, #1a4490 60%, #12316a 100%);
+          padding: 40px 40px 15px;
+          background: linear-gradient(180deg, #132e60 0%, #1e458e 100%);
         }
 
         .page-brand {
-          font-size: 64px;
+          font-size: 42px;
           font-weight: 900;
           color: #ffffff;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           text-align: center;
           line-height: 1.1;
-          text-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .page-model {
-          font-size: 32px;
+          font-size: 22px;
           font-weight: 700;
           color: #ffde59;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           text-align: center;
-          margin-top: 10px;
-          margin-bottom: 18px;
-          text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+          margin-top: 6px;
+          margin-bottom: 12px;
         }
 
         .page-meta-row {
           display: flex;
           align-items: center;
-          gap: 16px;
-          margin-bottom: 25px;
+          gap: 10px;
+          margin-bottom: 15px;
         }
 
         .page-year-badge {
           background: #ffde59;
           color: #000000;
-          font-size: 26px;
+          font-size: 17px;
           font-weight: 900;
-          padding: 4px 32px;
-          border-radius: 25px;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+          padding: 3px 20px;
+          border-radius: 18px;
         }
 
         .page-category-pill {
           background: rgba(15, 39, 82, 0.85);
-          border: 1.5px solid rgba(255,255,255,0.3);
+          border: 1px solid rgba(255,255,255,0.3);
           color: #93c5fd;
-          font-size: 20px;
+          font-size: 14px;
           font-weight: 800;
-          padding: 6px 24px;
-          border-radius: 20px;
+          padding: 4px 16px;
+          border-radius: 15px;
           letter-spacing: 0.05em;
         }
 
@@ -416,61 +412,60 @@ function buildCatalogHtml(vehicles) {
           align-items: center;
           justify-content: center;
           position: relative;
+          overflow: hidden;
+          border-radius: 16px;
         }
 
         .page-car-img {
-          max-width: 950px;
-          max-height: 600px;
-          object-fit: contain;
-          filter: drop-shadow(0 25px 35px rgba(0,0,0,0.65));
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 16px;
         }
 
         .status-overlay-badge {
           position: absolute;
-          top: 20px;
-          right: 20px;
-          padding: 10px 24px;
-          border-radius: 16px;
-          font-size: 22px;
+          top: 15px;
+          right: 15px;
+          padding: 6px 16px;
+          border-radius: 12px;
+          font-size: 14px;
           font-weight: 900;
-          letter-spacing: 0.08em;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+          letter-spacing: 0.06em;
         }
 
         .status-apartado {
           background: #facc15;
           color: #000000;
-          border: 2px solid #ffffff;
+          border: 1.5px solid #ffffff;
         }
 
         .status-vendido {
           background: #ef4444;
           color: #ffffff;
-          border: 2px solid #ffffff;
+          border: 1.5px solid #ffffff;
         }
 
         /* BOTTOM SOLID ROYAL BLUE CARD */
         .page-bottom {
-          height: 820px;
+          height: 40%;
           background: #0f2752;
-          border-top: 6px solid #ffde59;
-          padding: 45px 65px;
+          border-top: 4px solid #ffde59;
+          padding: 25px 40px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          box-shadow: 0 -15px 40px rgba(0,0,0,0.4);
         }
 
         /* PRICING BOX */
         .price-card-box {
           background: rgba(22, 56, 117, 0.85);
-          border: 3px solid rgba(255, 222, 89, 0.6);
-          border-radius: 24px;
-          padding: 28px 40px;
+          border: 2px solid rgba(255, 222, 89, 0.6);
+          border-radius: 16px;
+          padding: 18px 24px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .price-col-contado {
@@ -479,26 +474,26 @@ function buildCatalogHtml(vehicles) {
         }
 
         .price-label-contado {
-          font-size: 22px;
+          font-size: 14px;
           font-weight: 700;
           color: #93c5fd;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          margin-bottom: 6px;
+          letter-spacing: 0.08em;
+          margin-bottom: 4px;
         }
 
         .price-val-contado {
-          font-size: 56px;
+          font-size: 36px;
           font-weight: 900;
           color: #ffffff;
           letter-spacing: -0.02em;
         }
 
         .price-divider {
-          width: 3px;
-          height: 85px;
+          width: 2px;
+          height: 55px;
           background: rgba(255, 255, 255, 0.25);
-          margin: 0 35px;
+          margin: 0 15px;
         }
 
         .price-col-financiado {
@@ -507,75 +502,66 @@ function buildCatalogHtml(vehicles) {
         }
 
         .price-label-financiado {
-          font-size: 22px;
+          font-size: 14px;
           font-weight: 700;
           color: #ffde59;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          margin-bottom: 6px;
+          letter-spacing: 0.08em;
+          margin-bottom: 4px;
         }
 
         .price-badge-financiado {
-          background: #ffde59;
-          color: #000000;
-          font-size: 48px;
+          font-size: 32px;
           font-weight: 900;
-          padding: 4px 24px;
-          border-radius: 16px;
-          display: inline-block;
-          box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+          color: #ffde59;
+          letter-spacing: -0.01em;
         }
 
-        /* SPECS SECTION */
+        /* SPECS TITLE */
         .specs-header {
           display: flex;
           align-items: center;
-          gap: 20px;
-          margin: 20px 0 16px;
+          gap: 12px;
+          margin-top: 8px;
+          margin-bottom: 6px;
         }
 
         .specs-header-text {
-          font-size: 24px;
+          font-size: 14px;
           font-weight: 900;
-          letter-spacing: 0.15em;
           color: #ffde59;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
         }
 
         .specs-header-line {
           flex: 1;
-          height: 3px;
-          background: linear-gradient(90deg, #ffde59, transparent);
+          height: 2px;
+          background: rgba(255, 222, 89, 0.3);
         }
 
+        /* SPECS GRID */
         .specs-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 14px 26px;
+          gap: 6px 14px;
         }
 
         .spec-item {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1.5px solid rgba(255, 255, 255, 0.15);
-          border-radius: 14px;
-          padding: 12px 18px;
-          font-size: 22px;
-          font-weight: 600;
-          color: #f1f5f9;
           display: flex;
           align-items: center;
-          gap: 14px;
+          gap: 6px;
+          font-size: 13px;
+          color: #e2e8f0;
+          font-weight: 600;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .spec-bullet {
           color: #ffde59;
-          font-size: 24px;
-        }
-
-        .spec-text {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          font-size: 12px;
         }
 
         /* FOOTER */
@@ -583,35 +569,32 @@ function buildCatalogHtml(vehicles) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-top: 2px solid rgba(255, 255, 255, 0.15);
-          padding-top: 18px;
-          font-size: 22px;
-          color: #94a3b8;
+          border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+          padding-top: 10px;
         }
 
         .footer-left {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
+          font-size: 12px;
+          color: #94a3b8;
+          font-weight: 600;
         }
 
         .footer-handle {
           color: #ffde59;
-          font-weight: 800;
-        }
-
-        .footer-dot {
-          color: rgba(255,255,255,0.3);
+          font-weight: 700;
         }
 
         .page-number-badge {
-          background: rgba(255, 222, 89, 0.2);
-          color: #ffde59;
-          border: 1.5px solid #ffde59;
-          padding: 4px 20px;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          padding: 3px 12px;
           border-radius: 12px;
+          font-size: 12px;
           font-weight: 800;
-          font-size: 20px;
+          color: #ffffff;
         }
       </style>
     </head>
@@ -623,7 +606,6 @@ function buildCatalogHtml(vehicles) {
   `;
 }
 
-// Mutex to avoid parallel headless Chrome instances colliding
 let activeGenerationPromise = null;
 let pendingRegenerate = false;
 
@@ -644,7 +626,7 @@ function getChromeExecutablePath() {
   for (const p of possiblePaths) {
     if (fs.existsSync(p)) return p;
   }
-  return undefined; // Allows puppeteer's bundled Chrome on Render / Linux
+  return undefined;
 }
 
 /**
@@ -662,66 +644,21 @@ async function generateFullCatalogPDF(targetPath = null) {
       const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
       const rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
       
-      // 1. Acomodar por categoría y asignar numeración
       const sortedCars = sortCatalogByCategory(rawCars);
-      
-      // Guardar catálogo ordenado
       fs.writeFileSync(catalogPath, JSON.stringify(sortedCars, null, 2));
 
-      // Actualizar scripts/data.js con estructura completa
-      const jsDataPath = path.join(__dirname, 'data.js');
-      const jsContent = `/**
- * AUTOHAUS DATA STORE - INVENTARIO OFICIAL EDITORIAL 2025
- */
-const AUTOHAUS_DATA = {
-  metadata: {
-    title: "Catálogo Autohaus",
-    version: "7.0.0",
-    total_pages: ${Math.max(65, sortedCars.length + 6)},
-    vehicles_count: ${sortedCars.length},
-    contact: "477 771 0000",
-    whatsapp: "524777710000",
-    instagram: "@autohausautohaus",
-    location: "Chihuahua, Chihuahua, México",
-    generated_at: "${new Date().toISOString()}"
-  },
-  sections: [
-    { page: 1, type: "cover", hero_image: "assets/cars/page_4_img_2.jpeg", title: "CATÁLOGO DIGITAL AUTOHAUS", subtitle: "INVENTARIO COMPLETO Y FINANCIAMIENTO", handle: "@autohausautohaus" },
-    { page: 2, type: "divider", category: "SEDAN & HATCHBACK", line1: "LÍNEA", line2: "SEDAN & HATCHBACK", hero_image: "assets/cars/page_2_img_2.jpeg", handle: "@autohausautohaus" },
-    { page: 22, type: "divider", category: "SUV'S", line1: "LÍNEA", line2: "SUV'S", hero_image: "assets/cars/page_23_img_2.jpeg", handle: "@autohausautohaus" },
-    { page: 47, type: "divider", category: "PICK UPS", line1: "LÍNEA", line2: "PICK UPS", hero_image: "assets/cars/page_48_img_2.jpeg", handle: "@autohausautohaus" },
-    { page: 62, type: "divider", category: "DEPORTIVOS", line1: "LÍNEA", line2: "DEPORTIVOS", hero_image: "assets/cars/page_65_img_2.jpeg", handle: "@autohausautohaus" }
-  ],
-  vehicles: ${JSON.stringify(sortedCars, null, 2)}
-};
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AUTOHAUS_DATA;
-}
-`;
-      fs.writeFileSync(jsDataPath, jsContent);
-
-      // 2. Construir HTML
+      // Construir HTML
       const html = buildCatalogHtml(sortedCars);
 
-      // 3. Generar PDF con Puppeteer
+      // Generar PDF con Puppeteer
       const chromePath = getChromeExecutablePath();
       const launchOptions = {
-        headless: true,
+        headless: 'new',
         args: [
           '--no-sandbox',
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
-          '--disable-gpu',
-          '--disable-background-networking',
-          '--disable-default-apps',
-          '--disable-extensions',
-          '--disable-sync',
-          '--disable-translate',
-          '--hide-scrollbars',
-          '--metrics-recording-only',
-          '--mute-audio',
-          '--no-first-run',
-          '--safebrowsing-disable-auto-update'
+          '--disable-gpu'
         ]
       };
       if (chromePath) {
@@ -729,19 +666,16 @@ if (typeof module !== 'undefined' && module.exports) {
       }
 
       const browser = await puppeteer.launch(launchOptions);
-
       const page = await browser.newPage();
-      await page.setViewport({ width: 1080, height: 1920 });
+      await page.setViewport({ width: 720, height: 1280 });
       await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
 
       const outputPath = targetPath || path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
-      
-      // Asegurar directorio
       fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
       const pdfBuffer = await page.pdf({
-        width: '1080px',
-        height: '1920px',
+        width: '720px',
+        height: '1280px',
         printBackground: true
       });
 
