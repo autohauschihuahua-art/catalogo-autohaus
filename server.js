@@ -908,7 +908,8 @@ app.post('/api/leads/public', (req, res) => {
 
 // 5. DOWNLOAD EDITORIAL PDF CATALOG (Always up to date & no-cache)
 app.get('/api/catalog/download-pdf', async (req, res) => {
-  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
+  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
+  const fallbackPdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
   
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -916,11 +917,11 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
 
   try {
     const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
-    const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : null;
+    const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : (fs.existsSync(fallbackPdfPath) ? fs.statSync(fallbackPdfPath) : null);
 
     // Si el PDF no existe o si catalog.json fue modificado después de la última generación del PDF
     if (!pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs)) {
-      console.log('🔄 PDF desactualizado o inexistente. Regenerando catálogo PDF antes de descargar...');
+      console.log('🔄 PDF desactualizado o inexistente. Regenerando catálogo PDF 2026 antes de descargar...');
       try {
         await generateFullCatalogPDF();
       } catch (genErr) {
@@ -928,19 +929,21 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
       }
     }
 
-    if (fs.existsSync(pdfPath)) {
+    const finalPath = fs.existsSync(pdfPath) ? pdfPath : fallbackPdfPath;
+    if (fs.existsSync(finalPath)) {
       res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2025.pdf"');
-      return res.sendFile(pdfPath);
+      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2026.pdf"');
+      return res.sendFile(finalPath);
     } else {
       res.status(500).json({ success: false, message: 'El catálogo PDF se está preparando. Por favor intenta de nuevo en unos segundos.' });
     }
   } catch (e) {
     console.error('Error en download-pdf:', e);
-    if (fs.existsSync(pdfPath)) {
+    const finalPath = fs.existsSync(pdfPath) ? pdfPath : fallbackPdfPath;
+    if (fs.existsSync(finalPath)) {
       res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2025.pdf"');
-      return res.sendFile(pdfPath);
+      res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2026.pdf"');
+      return res.sendFile(finalPath);
     } else {
       res.status(500).json({ success: false, message: 'Error interno: ' + e.message });
     }
@@ -954,7 +957,7 @@ app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecreta
     if (result.success) {
       res.json({
         success: true,
-        message: `Catálogo PDF regenerado con éxito (${result.count} vehículos).`,
+        message: `Catálogo PDF 2026 regenerado con éxito (${result.count} vehículos).`,
         size: result.size
       });
     } else {
@@ -967,9 +970,10 @@ app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecreta
 
 // 7. CATALOG PDF STATUS CHECK
 app.get('/api/catalog/status', (req, res) => {
-  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
+  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
+  const fallbackPdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
   const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
-  const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : null;
+  const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : (fs.existsSync(fallbackPdfPath) ? fs.statSync(fallbackPdfPath) : null);
   const vehicles = loadVehicles();
 
   const isOutdated = !pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs);

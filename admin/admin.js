@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const a = document.createElement('a');
         a.href = '/api/catalog/download-pdf';
-        a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+        a.download = 'Catalogo_Autohaus_Chihuahua_2026.pdf';
         document.body.appendChild(a);
         a.click();
         setTimeout(() => {

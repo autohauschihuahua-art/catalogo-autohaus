@@ -893,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const a = document.createElement('a');
       a.href = '/api/catalog/download-pdf';
-      a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+      a.download = 'Catalogo_Autohaus_Chihuahua_2026.pdf';
       document.body.appendChild(a);
       a.click();
       setTimeout(() => {
@@ -913,7 +913,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="text-align: center; color: #ffffff; padding: 2rem;">
         <div style="font-size: 2rem; margin-bottom: 0.5rem;">📖</div>
         <p style="font-size: 1rem; font-weight: 700;">Cargando visor digital...</p>
-        <button class="btn-hero-primary" onclick="window.open('/assets/docs/Catalogo_Autohaus_Editorial_2025.pdf', '_blank')" style="margin-top: 1rem;">
+        <button class="btn-hero-primary" onclick="window.open('/assets/docs/Catalogo_Autohaus_Editorial_2026.pdf', '_blank')" style="margin-top: 1rem;">
           Abrir Catálogo Completo en Nueva Pestaña
         </button>
       </div>

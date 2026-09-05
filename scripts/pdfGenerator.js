@@ -80,13 +80,13 @@ function buildCatalogHtml(vehicles) {
   const coverHtml = `
     <div class="page-container page-cover">
       <div class="cover-top-box">
-        <div class="cover-tag-badge">EDICIÓN OFICIAL 2025</div>
+        <div class="cover-tag-badge">EDICIÓN OFICIAL 2026</div>
         <div class="cover-logo-wrap">
           ${logoInlineB64 ? `<img src="${logoInlineB64}" class="cover-logo-img" alt="Autohaus" />` : '<h1 class="cover-fallback-title">AUTO HAUS</h1>'}
         </div>
         <div class="cover-divider-gold"></div>
         <h2 class="cover-subtitle">CATÁLOGO EDITORIAL & INVENTARIO</h2>
-        <p class="cover-location">CHIHUAHUA, CHIH. • SUCURSALES SAN FELIPE Y SUR</p>
+        <p class="cover-location">CHIHUAHUA, CHIH. • SUCURSALES SAN FELIPE Y CENTRAL DE ABASTOS</p>
       </div>
 
       <div class="cover-hero-center">
@@ -104,7 +104,7 @@ function buildCatalogHtml(vehicles) {
         </div>
         <div class="cover-contact-bar">
           <span>📍 San Felipe: Fernando de Borja 907</span>
-          <span>📍 Sur: Calle Industrial 8 #7407</span>
+          <span>📍 Central de Abastos: Calle Industrial 8 #7407</span>
           <span>📱 WhatsApp: 614 365 3015</span>
         </div>
       </div>
@@ -137,7 +137,7 @@ function buildCatalogHtml(vehicles) {
     bodyContentHtml += `
       <div class="page-container page-separator">
         <div class="separator-top-bar">
-          <span class="separator-tag-badge">LÍNEA EXCLUSIVA 2025</span>
+          <span class="separator-tag-badge">LÍNEA EXCLUSIVA 2026</span>
         </div>
 
         <div class="separator-center-content">
@@ -157,7 +157,7 @@ function buildCatalogHtml(vehicles) {
         </div>
 
         <div class="separator-footer-bar">
-          <span>📍 Sucursales San Felipe y Sur • Chihuahua, Chih.</span>
+          <span>📍 Sucursales San Felipe y Central de Abastos • Chihuahua, Chih.</span>
           <span>📱 WhatsApp: 614 365 3015</span>
         </div>
       </div>
@@ -841,7 +841,8 @@ async function generateFullCatalogPDF(targetPath = null) {
       await page.setViewport({ width: 720, height: 1280 });
       await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
 
-      const outputPath = targetPath || path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
+      const outputPath = targetPath || path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
+      const legacyPath = path.join(__dirname, '..', 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
       fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
       const pdfBuffer = await page.pdf({
@@ -852,8 +853,9 @@ async function generateFullCatalogPDF(targetPath = null) {
 
       await browser.close();
       fs.writeFileSync(outputPath, pdfBuffer);
+      try { fs.writeFileSync(legacyPath, pdfBuffer); } catch (e) {}
 
-      console.log(`✅ Catálogo PDF actualizado con éxito (${sortedCars.length} vehículos). Tamaño: ${(pdfBuffer.length / (1024*1024)).toFixed(2)} MB`);
+      console.log(`✅ Catálogo PDF 2026 actualizado con éxito (${sortedCars.length} vehículos). Tamaño: ${(pdfBuffer.length / (1024*1024)).toFixed(2)} MB`);
       return { success: true, count: sortedCars.length, path: outputPath, size: pdfBuffer.length };
     } catch (error) {
       console.error('❌ Error generando Catálogo PDF:', error);
