@@ -644,21 +644,34 @@ app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, uploa
       current.cover_photo = `assets/cars/${req.files['cover_photo'][0].filename}`;
       current.main_photo = current.cover_photo;
       current.cutout_photo = current.cover_photo;
-      if (!current.real_photos || current.real_photos.length === 0) {
-        current.real_photos = [current.cover_photo];
-      } else {
-        current.real_photos[0] = current.cover_photo;
+    } else if (req.body.cover_photo_url) {
+      current.cover_photo = req.body.cover_photo_url;
+      current.main_photo = current.cover_photo;
+      current.cutout_photo = current.cover_photo;
+    }
+
+    let finalRealPhotos = [];
+    if (req.body.existing_gallery_photos) {
+      try {
+        finalRealPhotos = JSON.parse(req.body.existing_gallery_photos);
+      } catch (e) {
+        finalRealPhotos = Array.isArray(req.body.existing_gallery_photos) ? req.body.existing_gallery_photos : [req.body.existing_gallery_photos];
       }
+    } else if (current.real_photos && current.real_photos.length) {
+      finalRealPhotos = [...current.real_photos];
     }
 
     if (req.files && req.files['gallery_photos'] && req.files['gallery_photos'].length > 0) {
-      if (!current.real_photos || current.real_photos.length === 0) {
-        current.real_photos = [current.cover_photo];
-      }
       req.files['gallery_photos'].forEach(f => {
-        current.real_photos.push(`assets/cars/${f.filename}`);
+        finalRealPhotos.push(`assets/cars/${f.filename}`);
       });
     }
+
+    if (!finalRealPhotos.length) {
+      finalRealPhotos = [current.cover_photo || 'assets/svg/autohaus-tag.svg'];
+    }
+
+    current.real_photos = finalRealPhotos;
     current.photos = current.real_photos;
 
     const sortedVehicles = sortCatalogByCategory(vehicles);

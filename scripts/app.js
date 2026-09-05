@@ -277,6 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 
+  const CATEGORY_ORDER = [
+    'SEDAN & HATCHBACK',
+    "SUV'S",
+    'PICK UPS',
+    'DEPORTIVOS'
+  ];
+
   function normCat(cat) {
     if (!cat) return '';
     const u = cat.toUpperCase().trim();
@@ -285,6 +292,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (u.includes('PICK') || u.includes('RAM') || u.includes('CHEYENNE') || u.includes('SIERRA')) return 'PICK UPS';
     if (u.includes('DEPORT') || u.includes('SPORT')) return 'DEPORTIVOS';
     return u;
+  }
+
+  function getCategoryRank(cat) {
+    const norm = normCat(cat);
+    const idx = CATEGORY_ORDER.indexOf(norm);
+    return idx === -1 ? 99 : idx;
   }
 
   function updateCategoryCounts() {
@@ -390,6 +403,9 @@ document.addEventListener('DOMContentLoaded', () => {
       list.sort((a, b) => b.year - a.year);
     } else if (state.sortBy === 'year-asc') {
       list.sort((a, b) => a.year - b.year);
+    } else {
+      // Default: Strict Category Order (Sedán -> SUV -> Pick Up -> Deportivo)
+      list.sort((a, b) => getCategoryRank(a.category) - getCategoryRank(b.category) || (a.page - b.page));
     }
 
     state.filteredVehicles = list;
@@ -871,26 +887,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // DIRECT PDF DOWNLOAD WITH DYNAMIC SYNC
   // ==========================================
-  async function downloadPDFCatalog() {
-    showAppToast('⏳ Preparando catálogo oficial en PDF con los vehículos actualizados...', 'info', 6000);
+  function downloadPDFCatalog() {
+    showAppToast('⏳ Descargando catálogo oficial Autohaus en PDF...', 'info', 4500);
 
     try {
-      const res = await fetch('/api/catalog/download-pdf');
-      if (!res.ok) throw new Error('El servidor está compilando el archivo');
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-
-      showAppToast('✓ ¡Catálogo PDF descargado exitosamente!', 'success');
+      const a = document.createElement('a');
+      a.href = '/api/catalog/download-pdf';
+      a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        if (a.parentNode) document.body.removeChild(a);
+      }, 200);
     } catch (e) {
-      console.warn('Fallback direct window open for PDF download', e);
       window.open('/api/catalog/download-pdf', '_blank');
     }
   }

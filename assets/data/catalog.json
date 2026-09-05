@@ -2,8 +2,8 @@
   {
     "id": "autohaus-p4",
     "page": 4,
-    "brand": "Chevrolet",
-    "model": "Beat LT",
+    "brand": "CHEVROLET",
+    "model": "BEAT LT",
     "year": 2020,
     "price": "$195,000",
     "price_contado": "$195,000",
@@ -25,7 +25,13 @@
       "1 dueño",
       "2 llaves 🔑"
     ],
-    "status": "Disponible"
+    "status": "Disponible",
+    "photos": [
+      "assets/cars/page_4_img_2.jpeg",
+      "assets/cars/page_4_img_3.jpeg",
+      "assets/cars/page_4_img_4.jpeg",
+      "assets/cars/page_4_img_5.jpeg"
+    ]
   },
   {
     "id": "autohaus-p5",

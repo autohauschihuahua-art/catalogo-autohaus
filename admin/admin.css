@@ -996,17 +996,59 @@ body {
 
 .upload-preview-item {
   width: 90px;
-  height: 65px;
-  border-radius: 8px;
+  height: 70px;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   position: relative;
+  background: #0d2248;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .upload-preview-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.upload-preview-item .btn-remove-preview {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 22px;
+  height: 22px;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+  line-height: 1;
+}
+
+.upload-preview-item .btn-remove-preview:hover {
+  background: #dc2626;
+  transform: scale(1.18);
+}
+
+.upload-preview-item .preview-tag-badge {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  background: rgba(15, 39, 82, 0.85);
+  color: #ffde59;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
 }
 
 .modal-window-footer {

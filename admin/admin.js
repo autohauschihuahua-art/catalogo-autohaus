@@ -378,27 +378,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawerExportBackupBtn) drawerExportBackupBtn.addEventListener('click', handleExportBackup);
 
     // Direct PDF Download
-    async function downloadPdfDirect() {
+    function downloadPdfDirect() {
+      if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+      showToast('⏳ Descargando catálogo oficial Autohaus en PDF...', 'info');
+
       try {
-        if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
-        showToast('⏳ Preparando descarga del catálogo PDF más reciente...', 'info');
-
-        const res = await fetch('/api/catalog/download-pdf');
-        if (!res.ok) throw new Error('Error en el servidor al descargar PDF');
-
-        const blob = await res.blob();
-        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
+        a.href = '/api/catalog/download-pdf';
         a.download = 'Catalogo_Autohaus_Chihuahua_2025.pdf';
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-
-        showToast('✓ Catálogo PDF descargado exitosamente.', 'success');
+        setTimeout(() => {
+          if (a.parentNode) document.body.removeChild(a);
+        }, 200);
       } catch (e) {
-        showToast('⚠️ ' + (e.message || 'Error al descargar PDF'), 'error');
+        window.open('/api/catalog/download-pdf', '_blank');
       }
     }
 
@@ -499,9 +493,9 @@ document.addEventListener('DOMContentLoaded', () => {
       leadForm.addEventListener('submit', handleLeadFormSubmit);
     }
 
-    // Image Upload Previews
-    setupImageDropzone('coverDropzone', 'coverPhotoFile', 'coverPhotoPreview', false);
-    setupImageDropzone('galleryDropzone', 'galleryPhotosFiles', 'galleryPhotosPreview', true);
+    // Image Upload Previews & Dropzones
+    setupImageDropzone('coverDropzone', 'coverPhotoFile', false);
+    setupImageDropzone('galleryDropzone', 'galleryPhotosFiles', true);
   }
 
   // Switch Tab
@@ -924,13 +918,95 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // MODAL HANDLERS: VEHICLES
+  // MODAL HANDLERS: VEHICLES & INTERACTIVE PHOTO MANAGER
   // ==========================================
+
+  // State for Modal Photos (Allows deleting individual photos without page refresh)
+  let modalCoverState = {
+    existingUrl: null,
+    newFile: null
+  };
+  let modalGalleryState = {
+    existingUrls: [],
+    newFiles: []
+  };
+
+  function renderModalCoverPreview() {
+    coverPhotoPreview.innerHTML = '';
+    if (modalCoverState.newFile) {
+      const url = URL.createObjectURL(modalCoverState.newFile);
+      const item = document.createElement('div');
+      item.className = 'upload-preview-item';
+      item.innerHTML = `
+        <img src="${url}" alt="Portada Nueva" />
+        <span class="preview-tag-badge" style="background:#16a34a;color:#ffffff;">Nueva</span>
+        <button type="button" class="btn-remove-preview" title="Quitar fotografía" onclick="window.removeModalCover()">&times;</button>
+      `;
+      coverPhotoPreview.appendChild(item);
+    } else if (modalCoverState.existingUrl) {
+      const item = document.createElement('div');
+      item.className = 'upload-preview-item';
+      item.innerHTML = `
+        <img src="../${modalCoverState.existingUrl}" alt="Portada Guardada" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+        <span class="preview-tag-badge">Portada</span>
+        <button type="button" class="btn-remove-preview" title="Quitar fotografía" onclick="window.removeModalCover()">&times;</button>
+      `;
+      coverPhotoPreview.appendChild(item);
+    }
+  }
+
+  function renderModalGalleryPreviews() {
+    galleryPhotosPreview.innerHTML = '';
+
+    // 1. Existing Saved Photos
+    modalGalleryState.existingUrls.forEach((src, idx) => {
+      const item = document.createElement('div');
+      item.className = 'upload-preview-item';
+      item.innerHTML = `
+        <img src="../${src}" alt="Foto Guardada ${idx + 1}" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+        <span class="preview-tag-badge">Guardada</span>
+        <button type="button" class="btn-remove-preview" title="Eliminar foto de la galería" onclick="window.removeExistingGalleryPhoto(${idx})">&times;</button>
+      `;
+      galleryPhotosPreview.appendChild(item);
+    });
+
+    // 2. Newly Staged Files
+    modalGalleryState.newFiles.forEach((file, idx) => {
+      const url = URL.createObjectURL(file);
+      const item = document.createElement('div');
+      item.className = 'upload-preview-item';
+      item.innerHTML = `
+        <img src="${url}" alt="Foto Nueva ${idx + 1}" />
+        <span class="preview-tag-badge" style="background:#16a34a;color:#ffffff;">Nueva</span>
+        <button type="button" class="btn-remove-preview" title="Eliminar foto de la galería" onclick="window.removeNewGalleryFile(${idx})">&times;</button>
+      `;
+      galleryPhotosPreview.appendChild(item);
+    });
+  }
+
+  window.removeModalCover = function() {
+    modalCoverState.existingUrl = null;
+    modalCoverState.newFile = null;
+    if (coverPhotoFile) coverPhotoFile.value = '';
+    renderModalCoverPreview();
+  };
+
+  window.removeExistingGalleryPhoto = function(index) {
+    if (index >= 0 && index < modalGalleryState.existingUrls.length) {
+      modalGalleryState.existingUrls.splice(index, 1);
+      renderModalGalleryPreviews();
+    }
+  };
+
+  window.removeNewGalleryFile = function(index) {
+    if (index >= 0 && index < modalGalleryState.newFiles.length) {
+      modalGalleryState.newFiles.splice(index, 1);
+      renderModalGalleryPreviews();
+    }
+  };
 
   function openVehicleModal(carData = null) {
     vehicleForm.reset();
-    coverPhotoPreview.innerHTML = '';
-    galleryPhotosPreview.innerHTML = '';
 
     if (carData) {
       modalFormTitle.textContent = `Editar Vehículo: ${carData.brand} ${carData.model}`;
@@ -944,27 +1020,25 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('carPriceFinanciadoInput').value = carData.price_financiado || '';
       document.getElementById('carSpecsInput').value = (carData.specs || []).join('\n');
 
-      if (carData.cover_photo || carData.main_photo) {
-        coverPhotoPreview.innerHTML = `
-          <div class="upload-preview-item">
-            <img src="../${carData.cover_photo || carData.main_photo}" />
-          </div>
-        `;
-      }
+      modalCoverState.existingUrl = carData.cover_photo || carData.main_photo || null;
+      modalCoverState.newFile = null;
 
-      if (carData.real_photos && carData.real_photos.length > 0) {
-        galleryPhotosPreview.innerHTML = carData.real_photos.map(p => `
-          <div class="upload-preview-item">
-            <img src="../${p}" />
-          </div>
-        `).join('');
-      }
+      modalGalleryState.existingUrls = Array.isArray(carData.real_photos) ? [...carData.real_photos] : [];
+      modalGalleryState.newFiles = [];
     } else {
       modalFormTitle.textContent = 'Agregar Nuevo Vehículo al Catálogo';
       editPageNumInput.value = '';
       document.getElementById('carYearInput').value = new Date().getFullYear();
+
+      modalCoverState.existingUrl = null;
+      modalCoverState.newFile = null;
+
+      modalGalleryState.existingUrls = [];
+      modalGalleryState.newFiles = [];
     }
 
+    renderModalCoverPreview();
+    renderModalGalleryPreviews();
     vehicleFormModal.classList.add('active');
   }
 
@@ -976,37 +1050,39 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const saveBtn = document.getElementById('saveVehicleBtn');
     saveBtn.disabled = true;
-    saveBtn.textContent = 'Guardando...';
+    saveBtn.textContent = 'Guardando vehículo...';
 
     try {
-      const formData = new FormData(vehicleForm);
+      const formData = new FormData();
       const isEdit = !!editPageNumInput.value;
       const url = isEdit ? `/api/vehicles/${editPageNumInput.value}` : '/api/vehicles';
       const method = isEdit ? 'PUT' : 'POST';
 
-      formData.set('brand', document.getElementById('carBrandInput').value);
-      formData.set('model', document.getElementById('carModelInput').value);
-      formData.set('year', document.getElementById('carYearInput').value);
-      formData.set('category', document.getElementById('carCategoryInput').value);
-      formData.set('status', document.getElementById('carStatusInput').value);
-      formData.set('price_contado', document.getElementById('carPriceContadoInput').value);
-      formData.set('price_financiado', document.getElementById('carPriceFinanciadoInput').value);
+      formData.append('brand', document.getElementById('carBrandInput').value);
+      formData.append('model', document.getElementById('carModelInput').value);
+      formData.append('year', document.getElementById('carYearInput').value);
+      formData.append('category', document.getElementById('carCategoryInput').value);
+      formData.append('status', document.getElementById('carStatusInput').value);
+      formData.append('price_contado', document.getElementById('carPriceContadoInput').value);
+      formData.append('price_financiado', document.getElementById('carPriceFinanciadoInput').value);
       
       const specsRaw = document.getElementById('carSpecsInput').value.split('\n').map(s => s.trim()).filter(Boolean);
-      formData.set('specs', JSON.stringify(specsRaw));
+      formData.append('specs', JSON.stringify(specsRaw));
 
-      const coverInput = document.getElementById('coverPhotoFile');
-      if (coverInput && coverInput.files && coverInput.files[0]) {
-        formData.set('cover_photo', coverInput.files[0]);
+      // Cover Photo
+      if (modalCoverState.newFile) {
+        formData.append('cover_photo', modalCoverState.newFile);
+      } else if (modalCoverState.existingUrl) {
+        formData.append('cover_photo_url', modalCoverState.existingUrl);
       }
 
-      const galleryInput = document.getElementById('galleryPhotosFiles');
-      if (galleryInput && galleryInput.files && galleryInput.files.length > 0) {
-        formData.delete('gallery_photos');
-        Array.from(galleryInput.files).forEach(file => {
-          formData.append('gallery_photos', file);
-        });
-      }
+      // Existing Gallery Photos retained
+      formData.append('existing_gallery_photos', JSON.stringify(modalGalleryState.existingUrls));
+
+      // Newly staged Gallery Files
+      modalGalleryState.newFiles.forEach(file => {
+        formData.append('gallery_photos', file);
+      });
 
       const res = await fetch(url, {
         method,
@@ -1181,10 +1257,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Setup Image Dropzone
-  function setupImageDropzone(dropzoneId, fileInputId, previewContainerId, isMultiple) {
+  function setupImageDropzone(dropzoneId, fileInputId, isGallery) {
     const dropzone = document.getElementById(dropzoneId);
     const fileInput = document.getElementById(fileInputId);
-    const previewContainer = document.getElementById(previewContainerId);
 
     if (!dropzone || !fileInput) return;
 
@@ -1204,30 +1279,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dropzone.addEventListener('drop', (e) => {
       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        fileInput.files = e.dataTransfer.files;
-        updatePreviews(fileInput.files, previewContainer, isMultiple);
+        handleIncomingFiles(e.dataTransfer.files, isGallery);
       }
     });
 
     fileInput.addEventListener('change', () => {
-      updatePreviews(fileInput.files, previewContainer, isMultiple);
+      if (fileInput.files && fileInput.files.length > 0) {
+        handleIncomingFiles(fileInput.files, isGallery);
+        fileInput.value = ''; // Clear value so same file can be re-added if desired
+      }
     });
   }
 
-  function updatePreviews(files, container, isMultiple) {
-    if (!isMultiple) container.innerHTML = '';
-    Array.from(files).forEach(file => {
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const div = document.createElement('div');
-          div.className = 'upload-preview-item';
-          div.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
-          container.appendChild(div);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+  function handleIncomingFiles(fileList, isGallery) {
+    const validImages = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+    if (!validImages.length) return;
+
+    if (!isGallery) {
+      modalCoverState.newFile = validImages[0];
+      modalCoverState.existingUrl = null;
+      renderModalCoverPreview();
+    } else {
+      modalGalleryState.newFiles.push(...validImages);
+      renderModalGalleryPreviews();
+    }
   }
 
   // Toast Notification

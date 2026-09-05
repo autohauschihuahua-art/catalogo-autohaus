@@ -69,6 +69,13 @@ function buildCatalogHtml(vehicles) {
   const logoInlineB64 = imageToBase64('assets/images/autohaus_logo_white.png');
   const tagLogoB64 = imageToBase64('assets/images/autohaus_tag_original.png');
 
+  const CATEGORY_TITLES = {
+    'SEDAN & HATCHBACK': 'SEDÁN & HATCHBACK',
+    "SUV'S": "SUV'S & CROSSOVERS",
+    'PICK UPS': 'PICK UPS & 4X4',
+    'DEPORTIVOS': 'DEPORTIVOS & EXÓTICOS'
+  };
+
   // 1. Portada Editorial Oficial (Página 1)
   const coverHtml = `
     <div class="page-container page-cover">
@@ -104,95 +111,148 @@ function buildCatalogHtml(vehicles) {
     </div>
   `;
 
-  // 2. Páginas Individuales de Vehículos
-  const vehiclePagesHtml = vehicles.map(car => {
-    const photoPath = car.cover_photo || car.main_photo || (car.photos && car.photos[0]) || `assets/cars/page_${car.page}_img_2.jpeg`;
-    const photoB64 = imageToBase64(photoPath) || tagLogoB64;
-    const specs = (car.specs && car.specs.length) ? car.specs.slice(0, 6) : [
-      'Transmisión Automática',
-      'Eléctrico',
-      'Excelente Estado',
-      'Factura de Agencia'
-    ];
+  // Helper to normalize category name
+  function normCat(cat) {
+    if (!cat) return 'SEDAN & HATCHBACK';
+    const u = cat.toUpperCase().trim();
+    if (u.includes('SEDAN') || u.includes('HATCH')) return 'SEDAN & HATCHBACK';
+    if (u.includes('SUV')) return "SUV'S";
+    if (u.includes('PICK') || u.includes('RAM') || u.includes('CHEYENNE') || u.includes('SIERRA')) return 'PICK UPS';
+    if (u.includes('DEPORT') || u.includes('SPORT')) return 'DEPORTIVOS';
+    return u;
+  }
 
-    const carStatus = car.status || 'disponible';
-    let statusBadgeHtml = '';
-    if (carStatus === 'apartado') {
-      statusBadgeHtml = '<div class="status-overlay-badge status-apartado">🟡 UNIDAD APARTADA</div>';
-    } else if (carStatus === 'vendido') {
-      statusBadgeHtml = '<div class="status-overlay-badge status-vendido">🔴 VENDIDO</div>';
-    }
+  // 2. Agrupar por Categorías en el orden exacto solicitado:
+  // 1. Sedanes y Hatchbacks -> 2. SUVs -> 3. Pick Ups -> 4. Deportivos
+  const orderedCategories = ['SEDAN & HATCHBACK', "SUV'S", 'PICK UPS', 'DEPORTIVOS'];
+  let bodyContentHtml = '';
 
-    return `
-      <div class="page-container page-vehicle">
-        
-        <!-- Top Section -->
-        <div class="page-top">
-          <div class="page-brand">${car.brand}</div>
-          <div class="page-model">${car.model}</div>
-          
-          <div class="page-meta-row">
-            <div class="page-year-badge">${car.year}</div>
-            <div class="page-category-pill">${car.category}</div>
+  orderedCategories.forEach(catKey => {
+    const categoryCars = vehicles.filter(v => normCat(v.category) === catKey);
+    if (!categoryCars.length) return;
+
+    const displayTitle = CATEGORY_TITLES[catKey] || catKey;
+
+    // Portada de Separador SIN IMAGEN (minimalista, elegante, con el nombre de la categoría)
+    bodyContentHtml += `
+      <div class="page-container page-separator">
+        <div class="separator-top-bar">
+          <span class="separator-tag-badge">LÍNEA EXCLUSIVA 2025</span>
+        </div>
+
+        <div class="separator-center-content">
+          <div class="separator-logo-wrap">
+            ${logoInlineB64 ? `<img src="${logoInlineB64}" class="separator-logo-img" alt="Autohaus" />` : '<h2 class="separator-fallback-logo">AUTOHAUS</h2>'}
           </div>
-
-          <div class="page-car-img-wrap">
-            ${photoB64 ? `<img src="${photoB64}" class="page-car-img" alt="${car.brand} ${car.model}" />` : ''}
-            ${statusBadgeHtml}
+          
+          <div class="separator-gold-line"></div>
+          
+          <h1 class="separator-title">${displayTitle}</h1>
+          <p class="separator-subtitle">CATÁLOGO EDITORIAL AUTOHAUS</p>
+          
+          <div class="separator-badge-count">
+            <span class="sep-count-num">${categoryCars.length}</span>
+            <span class="sep-count-lbl">UNIDADES DISPONIBLES</span>
           </div>
         </div>
 
-        <!-- Bottom Section -->
-        <div class="page-bottom">
-          
-          <!-- Pricing Box -->
-          <div class="price-card-box">
-            <div class="price-col-contado">
-              <div class="price-label-contado">Precio Contado</div>
-              <div class="price-val-contado">${car.price_contado || '$0'}</div>
-            </div>
-            
-            <div class="price-divider"></div>
-            
-            <div class="price-col-financiado">
-              <div class="price-label-financiado">Financiado Desde</div>
-              <div class="price-badge-financiado">${car.price_financiado || 'Consultar'}</div>
-            </div>
-          </div>
-
-          <!-- Specs Title -->
-          <div class="specs-header">
-            <span class="specs-header-text">ESPECIFICACIONES</span>
-            <span class="specs-header-line"></span>
-          </div>
-
-          <!-- Specs Grid -->
-          <div class="specs-grid">
-            ${specs.map(s => `
-              <div class="spec-item">
-                <span class="spec-bullet">✦</span>
-                <span class="spec-text">${s}</span>
-              </div>
-            `).join('')}
-          </div>
-
-          <!-- Footer -->
-          <div class="page-footer">
-            <div class="footer-left">
-              <span class="footer-handle">@autohausautohaus</span>
-              <span class="footer-dot">•</span>
-              <span class="footer-location">📱 614 365 3015 • Chihuahua, Chih.</span>
-            </div>
-            <div class="footer-right">
-              <span class="page-number-badge">Pág. ${car.page}</span>
-            </div>
-          </div>
-
+        <div class="separator-footer-bar">
+          <span>📍 Sucursales San Felipe y Sur • Chihuahua, Chih.</span>
+          <span>📱 WhatsApp: 614 365 3015</span>
         </div>
-
       </div>
     `;
-  }).join('');
+
+    // Páginas individuales de los vehículos de esta categoría
+    categoryCars.forEach(car => {
+      const photoPath = car.cover_photo || car.main_photo || (car.photos && car.photos[0]) || `assets/cars/page_${car.page}_img_2.jpeg`;
+      const photoB64 = imageToBase64(photoPath) || tagLogoB64;
+      const specs = (car.specs && car.specs.length) ? car.specs.slice(0, 6) : [
+        'Transmisión Automática',
+        'Eléctrico',
+        'Excelente Estado',
+        'Factura de Agencia'
+      ];
+
+      const carStatus = car.status || 'disponible';
+      let statusBadgeHtml = '';
+      if (carStatus === 'apartado') {
+        statusBadgeHtml = '<div class="status-overlay-badge status-apartado">🟡 UNIDAD APARTADA</div>';
+      } else if (carStatus === 'vendido') {
+        statusBadgeHtml = '<div class="status-overlay-badge status-vendido">🔴 VENDIDO</div>';
+      }
+
+      bodyContentHtml += `
+        <div class="page-container page-vehicle">
+          
+          <!-- Top Section -->
+          <div class="page-top">
+            <div class="page-brand">${car.brand}</div>
+            <div class="page-model">${car.model}</div>
+            
+            <div class="page-meta-row">
+              <div class="page-year-badge">${car.year}</div>
+              <div class="page-category-pill">${car.category}</div>
+            </div>
+
+            <div class="page-car-img-wrap">
+              ${photoB64 ? `<img src="${photoB64}" class="page-car-img" alt="${car.brand} ${car.model}" />` : ''}
+              ${statusBadgeHtml}
+            </div>
+          </div>
+
+          <!-- Bottom Section -->
+          <div class="page-bottom">
+            
+            <!-- Pricing Box -->
+            <div class="price-card-box">
+              <div class="price-col-contado">
+                <div class="price-label-contado">Precio Contado</div>
+                <div class="price-val-contado">${car.price_contado || '$0'}</div>
+              </div>
+              
+              <div class="price-divider"></div>
+              
+              <div class="price-col-financiado">
+                <div class="price-label-financiado">Financiado Desde</div>
+                <div class="price-badge-financiado">${car.price_financiado || 'Consultar'}</div>
+              </div>
+            </div>
+
+            <!-- Specs Title -->
+            <div class="specs-header">
+              <span class="specs-header-text">ESPECIFICACIONES</span>
+              <span class="specs-header-line"></span>
+            </div>
+
+            <!-- Specs Grid -->
+            <div class="specs-grid">
+              ${specs.map(s => `
+                <div class="spec-item">
+                  <span class="spec-bullet">✦</span>
+                  <span class="spec-text">${s}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Footer -->
+            <div class="page-footer">
+              <div class="footer-left">
+                <span class="footer-handle">@autohausautohaus</span>
+                <span class="footer-dot">•</span>
+                <span class="footer-location">📱 614 365 3015 • Chihuahua, Chih.</span>
+              </div>
+              <div class="footer-right">
+                <span class="page-number-badge">Pág. ${car.page}</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    });
+  });
 
   return `
     <!DOCTYPE html>
@@ -587,20 +647,127 @@ function buildCatalogHtml(vehicles) {
           font-weight: 700;
         }
 
-        .page-number-badge {
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          padding: 3px 12px;
-          border-radius: 12px;
-          font-size: 12px;
-          font-weight: 800;
+        /* SEPARATOR PAGE STYLES (MINIMALIST WITH NO CAR IMAGES) */
+        .page-separator {
+          background: radial-gradient(circle at center, #1b458f 0%, #102a5c 60%, #0a1b3b 100%);
+          padding: 60px 50px;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+        }
+
+        .separator-top-bar {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .separator-tag-badge {
+          display: inline-block;
+          background: #ffde59;
+          color: #000000;
+          font-size: 15px;
+          font-weight: 900;
+          letter-spacing: 0.18em;
+          padding: 6px 24px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        }
+
+        .separator-center-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .separator-logo-wrap {
+          margin-bottom: 30px;
+        }
+
+        .separator-logo-img {
+          height: 70px;
+          width: auto;
+        }
+
+        .separator-fallback-logo {
+          font-size: 38px;
+          font-weight: 900;
           color: #ffffff;
+          letter-spacing: 0.12em;
+        }
+
+        .separator-gold-line {
+          width: 160px;
+          height: 4px;
+          background: #ffde59;
+          border-radius: 2px;
+          margin-bottom: 35px;
+        }
+
+        .separator-title {
+          font-size: 54px;
+          font-weight: 900;
+          color: #ffffff;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          line-height: 1.15;
+          margin-bottom: 14px;
+          text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+        }
+
+        .separator-subtitle {
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          color: #93c5fd;
+          text-transform: uppercase;
+          margin-bottom: 45px;
+        }
+
+        .separator-badge-count {
+          background: rgba(15, 39, 82, 0.95);
+          border: 2px solid #ffde59;
+          border-radius: 20px;
+          padding: 20px 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .sep-count-num {
+          font-size: 56px;
+          font-weight: 900;
+          color: #ffde59;
+          line-height: 1;
+          margin-bottom: 4px;
+        }
+
+        .sep-count-lbl {
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          color: #ffffff;
+        }
+
+        .separator-footer-bar {
+          width: 100%;
+          border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+          padding-top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-size: 13px;
+          color: #cbd5e1;
+          font-weight: 600;
         }
       </style>
     </head>
     <body>
       ${coverHtml}
-      ${vehiclePagesHtml}
+      ${bodyContentHtml}
     </body>
     </html>
   `;
