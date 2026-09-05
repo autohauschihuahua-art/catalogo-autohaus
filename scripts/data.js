@@ -6,13 +6,13 @@ const AUTOHAUS_DATA = {
   metadata: {
     title: "Catálogo Autohaus",
     version: "7.0.0",
-    total_pages: 67,
-    vehicles_count: 61,
+    total_pages: 66,
+    vehicles_count: 60,
     contact: "477 771 0000",
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-05T20:08:59.587Z"
+    generated_at: "2026-09-05T20:13:21.413Z"
   },
   sections: [
     {
@@ -61,33 +61,6 @@ const AUTOHAUS_DATA = {
     }
   ],
   vehicles: [
-    {
-        "id": "autohaus-p5",
-        "page": 5,
-        "brand": "Mazda",
-        "model": "Mazda 6 Signature",
-        "year": 2019,
-        "price": "$339,000",
-        "price_contado": "$339,000",
-        "price_financiado": "$349,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_5_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_5_img_2.jpeg",
-            "assets/cars/page_5_img_3.jpeg",
-            "assets/cars/page_5_img_4.jpeg",
-            "assets/cars/page_5_img_5.jpeg"
-        ],
-        "specs": [
-            "Motor 2.5 turbo",
-            "Factura de agencia",
-            "Único dueño",
-            "Dos llaves",
-            "90,000 km",
-            "CarPlay inalámbrico"
-        ],
-        "status": "disponible"
-    },
     {
         "id": "autohaus-p6",
         "page": 6,

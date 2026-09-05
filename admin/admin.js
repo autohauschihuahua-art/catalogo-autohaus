@@ -503,6 +503,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // Image Upload Previews & Dropzones
     setupImageDropzone('coverDropzone', 'coverPhotoFile', false);
     setupImageDropzone('galleryDropzone', 'galleryPhotosFiles', true);
+
+    // Inventory Event Delegation (guarantees clicks work in all browsers)
+    if (inventoryTableBody) {
+      inventoryTableBody.addEventListener('click', (e) => {
+        const editBtn = e.target.closest('[data-action="edit"]');
+        if (editBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const page = editBtn.dataset.page || editBtn.getAttribute('data-page');
+          if (page) window.editVehicle(page);
+          return;
+        }
+
+        const deleteBtn = e.target.closest('[data-action="delete"]');
+        if (deleteBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const page = deleteBtn.dataset.page || deleteBtn.getAttribute('data-page');
+          if (page) window.deleteVehicle(page);
+          return;
+        }
+      });
+    }
+
+    const inventoryMobileCards = document.getElementById('inventoryMobileCards');
+    if (inventoryMobileCards) {
+      inventoryMobileCards.addEventListener('click', (e) => {
+        const editBtn = e.target.closest('[data-action="edit"]');
+        if (editBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const page = editBtn.dataset.page || editBtn.getAttribute('data-page');
+          if (page) window.editVehicle(page);
+          return;
+        }
+
+        const deleteBtn = e.target.closest('[data-action="delete"]');
+        if (deleteBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const page = deleteBtn.dataset.page || deleteBtn.getAttribute('data-page');
+          if (page) window.deleteVehicle(page);
+          return;
+        }
+
+        const card = e.target.closest('.admin-mobile-card');
+        if (card && !e.target.closest('select, a, button, .mobile-card-footer')) {
+          const page = card.dataset.page || card.getAttribute('data-page');
+          if (page) window.editVehicle(page);
+        }
+      });
+    }
   }
 
   // Switch Tab
@@ -530,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const matchCat = state.inventoryFilters.category === 'all' || v.category === state.inventoryFilters.category;
       
-      const vStatus = v.status || 'disponible';
+      const vStatus = (v.status || 'disponible').toLowerCase();
       const matchStatus = state.inventoryFilters.status === 'all' || vStatus === state.inventoryFilters.status;
 
       return matchSearch && matchCat && matchStatus;
@@ -597,22 +649,22 @@ document.addEventListener('DOMContentLoaded', () => {
         actionsHtml = `
           <div class="table-actions">
             <!-- Edit -->
-            <button type="button" class="btn-action-icon" title="Editar vehículo" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
+            <button type="button" class="btn-action-icon btn-action-edit" data-action="edit" data-page="${car.page}" title="Editar vehículo" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
             <!-- Delete -->
-            <button type="button" class="btn-action-icon btn-delete" title="Quitar del catálogo" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})">
+            <button type="button" class="btn-action-icon btn-delete btn-action-delete" data-action="delete" data-page="${car.page}" title="Quitar del catálogo" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
             </button>
           </div>
         `;
         mobileActionsHtml = `
           <div class="mobile-card-actions" onclick="event.stopPropagation()">
-            <button type="button" class="btn-mobile-edit" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
+            <button type="button" class="btn-mobile-edit" data-action="edit" data-page="${car.page}" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               <span>Editar</span>
             </button>
-            <button type="button" class="btn-mobile-delete" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})" title="Eliminar">
+            <button type="button" class="btn-mobile-delete" data-action="delete" data-page="${car.page}" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})" title="Eliminar">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </button>
           </div>
@@ -659,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Mobile Touch Card
       mobileCardsHtml += `
-        <div class="admin-mobile-card" onclick="window.editVehicle(${car.page})">
+        <div class="admin-mobile-card" data-page="${car.page}" onclick="window.editVehicle(${car.page})">
           <div class="mobile-card-top">
             <img src="../${coverPhoto}" alt="${car.brand}" class="mobile-car-thumb" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
             <div class="mobile-card-info">
