@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div class="card-price-financiado-wrap">
                 <span class="card-price-label">Financiado Desde</span>
-                <span class="card-price-financiado-val">${v.price_financiado || '-'}</span>
+                <span class="card-price-financiado-val">${formatFinanciadoDisplay(v.price_financiado)}</span>
               </div>
             </div>
 
@@ -508,6 +508,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
+  function formatFinanciadoDisplay(val) {
+    if (!val) return 'No Aplica';
+    const clean = String(val).trim();
+    if (!clean || clean === '$0' || clean === '0' || clean === '-' || clean.toLowerCase() === 'n/a' || clean.toLowerCase() === 'no aplica' || clean.toLowerCase() === 'consultar') {
+      return 'No Aplica';
+    }
+    return clean;
+  }
+
   // Open Vehicle Detail Modal
   window.appOpenDetailModal = (pageNum) => {
     const v = state.vehicles.find(item => item.page === pageNum);
@@ -519,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modalModel.textContent = v.model;
     modalYear.textContent = `AÑO ${v.year} • ${v.category}`;
     modalPriceContado.textContent = v.price_contado;
-    modalPriceFinanciado.textContent = v.price_financiado || '-';
+    modalPriceFinanciado.textContent = formatFinanciadoDisplay(v.price_financiado);
 
     // Photos Gallery
     const cover = v.cover_photo || `assets/cars/page_${v.page}_img_2.jpeg`;

@@ -6,13 +6,13 @@ const AUTOHAUS_DATA = {
   metadata: {
     title: "Catálogo Autohaus",
     version: "7.0.0",
-    total_pages: 66,
-    vehicles_count: 60,
+    total_pages: 65,
+    vehicles_count: 59,
     contact: "477 771 0000",
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-05T20:13:21.413Z"
+    generated_at: "2026-09-07T23:14:24.610Z"
   },
   sections: [
     {
@@ -69,7 +69,7 @@ const AUTOHAUS_DATA = {
         "year": 2022,
         "price": "$269,000",
         "price_contado": "$269,000",
-        "price_financiado": "$279,000",
+        "price_financiado": "No Aplica",
         "category": "SEDAN & HATCHBACK",
         "cover_photo": "assets/cars/page_6_img_2.jpeg",
         "real_photos": [
@@ -86,7 +86,13 @@ const AUTOHAUS_DATA = {
             "Pantalla touch",
             "46,000 km"
         ],
-        "status": "Disponible"
+        "status": "Disponible",
+        "photos": [
+            "assets/cars/page_6_img_2.jpeg",
+            "assets/cars/page_6_img_3.jpeg",
+            "assets/cars/page_6_img_4.jpeg",
+            "assets/cars/page_6_img_5.jpeg"
+        ]
     },
     {
         "id": "autohaus-p7",
@@ -1010,36 +1016,6 @@ const AUTOHAUS_DATA = {
             "Termostato de 160°",
             "Resortes Lowering Kit Eibach",
             "Importada (D)"
-        ],
-        "status": "Disponible"
-    },
-    {
-        "id": "autohaus-p41",
-        "page": 41,
-        "brand": "Kia",
-        "model": "Sorento SXL",
-        "year": 2018,
-        "price": "$225,000",
-        "price_contado": "$225,000",
-        "price_financiado": "$225,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_41_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_41_img_2.jpeg",
-            "assets/cars/page_41_img_3.jpeg",
-            "assets/cars/page_41_img_4.jpeg",
-            "assets/cars/page_41_img_5.jpeg"
-        ],
-        "specs": [
-            "Automática",
-            "Eléctrica",
-            "Asientos en piel",
-            "Cámara de reversa",
-            "3 filas de asientos",
-            "2 llaves",
-            "Factura de seguro",
-            "4x4",
-            "140,000 km"
         ],
         "status": "Disponible"
     },

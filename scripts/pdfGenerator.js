@@ -63,6 +63,18 @@ function imageToBase64(relOrAbsPath) {
 }
 
 /**
+ * Helper para formatear precio financiado
+ */
+function formatPriceFinanciado(val) {
+  if (!val) return 'NO APLICA';
+  const clean = String(val).trim();
+  if (!clean || clean === '$0' || clean === '0' || clean === '-' || clean.toLowerCase() === 'n/a' || clean.toLowerCase() === 'no aplica' || clean.toLowerCase() === 'consultar') {
+    return 'NO APLICA';
+  }
+  return clean;
+}
+
+/**
  * Genera el documento HTML completo para el PDF
  */
 function buildCatalogHtml(vehicles) {
@@ -215,7 +227,7 @@ function buildCatalogHtml(vehicles) {
               
               <div class="price-col-financiado">
                 <div class="price-label-financiado">Financiado Desde</div>
-                <div class="price-badge-financiado">${car.price_financiado || 'Consultar'}</div>
+                <div class="price-badge-financiado ${formatPriceFinanciado(car.price_financiado) === 'NO APLICA' ? 'is-no-aplica' : ''}">${formatPriceFinanciado(car.price_financiado)}</div>
               </div>
             </div>
 
@@ -575,6 +587,12 @@ function buildCatalogHtml(vehicles) {
           font-weight: 900;
           color: #ffde59;
           letter-spacing: -0.01em;
+        }
+
+        .price-badge-financiado.is-no-aplica {
+          font-size: 24px;
+          letter-spacing: 0.05em;
+          opacity: 0.95;
         }
 
         /* SPECS TITLE */

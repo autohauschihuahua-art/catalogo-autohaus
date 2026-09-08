@@ -689,6 +689,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }
 
+      const rawFin = car.price_financiado ? String(car.price_financiado).trim() : '';
+      const finDisplay = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
+
       // Desktop Table Row
       tr.innerHTML = `
         <td style="font-weight: 800; color: #94a3b8;">${car.page}</td>
@@ -703,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td><span class="badge-category">${car.category}</span></td>
         <td>${statusHtml}</td>
         <td class="price-contado-cell">${car.price_contado || '$0'}</td>
-        <td><span class="price-financiado-badge">${car.price_financiado || 'N/A'}</span></td>
+        <td><span class="price-financiado-badge">${finDisplay}</span></td>
         <td style="text-align: center;">${actionsHtml}</td>
       `;
 
@@ -731,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div>
               <span class="mobile-price-lbl">Financiado</span>
-              <span class="price-financiado-badge">${car.price_financiado || '-'}</span>
+              <span class="price-financiado-badge">${finDisplay}</span>
             </div>
           </div>
 
@@ -1092,7 +1095,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('carStatusInput').value = ['disponible', 'apartado', 'vendido'].includes(rawStatus) ? rawStatus : 'disponible';
 
       document.getElementById('carPriceContadoInput').value = carData.price_contado || carData.price || '';
-      document.getElementById('carPriceFinanciadoInput').value = carData.price_financiado || '';
+      
+      const rawFinModal = carData.price_financiado ? String(carData.price_financiado).trim() : '';
+      const finModalVal = (!rawFinModal || rawFinModal === '$0' || rawFinModal === '0' || rawFinModal === '-' || rawFinModal.toLowerCase() === 'no aplica' || rawFinModal.toLowerCase() === 'n/a' || rawFinModal.toLowerCase() === 'consultar') ? 'No Aplica' : rawFinModal;
+      document.getElementById('carPriceFinanciadoInput').value = finModalVal;
       
       let specsText = '';
       if (Array.isArray(carData.specs)) {
@@ -1111,6 +1117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalFormTitle.textContent = 'Agregar Nuevo Vehículo al Catálogo';
       editPageNumInput.value = '';
       document.getElementById('carYearInput').value = new Date().getFullYear();
+      document.getElementById('carPriceFinanciadoInput').value = '';
 
       modalCoverState.existingUrl = null;
       modalCoverState.newFile = null;
@@ -1146,7 +1153,10 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('category', document.getElementById('carCategoryInput').value);
       formData.append('status', document.getElementById('carStatusInput').value);
       formData.append('price_contado', document.getElementById('carPriceContadoInput').value);
-      formData.append('price_financiado', document.getElementById('carPriceFinanciadoInput').value);
+      
+      const rawPriceFinInput = document.getElementById('carPriceFinanciadoInput').value.trim();
+      const finalPriceFin = (!rawPriceFinInput || rawPriceFinInput === '$0' || rawPriceFinInput === '0' || rawPriceFinInput === '-' || rawPriceFinInput.toLowerCase() === 'no aplica' || rawPriceFinInput.toLowerCase() === 'n/a' || rawPriceFinInput.toLowerCase() === 'consultar') ? 'No Aplica' : rawPriceFinInput;
+      formData.append('price_financiado', finalPriceFin);
       
       const specsRaw = document.getElementById('carSpecsInput').value.split('\n').map(s => s.trim()).filter(Boolean);
       formData.append('specs', JSON.stringify(specsRaw));

@@ -618,7 +618,8 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
     const year = parseInt(req.body.year) || new Date().getFullYear();
     const category = req.body.category || 'SEDAN & HATCHBACK';
     const price_contado = req.body.price_contado || '$0';
-    const price_financiado = req.body.price_financiado || '$0';
+    const rawFin = (req.body.price_financiado || '').trim();
+    const price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
     const status = req.body.status || 'disponible';
     
     let specs = [];
@@ -723,7 +724,10 @@ app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, uploa
       current.price_contado = req.body.price_contado;
       current.price_num = parseInt(req.body.price_contado.replace(/[^0-9]/g, '')) || current.price_num;
     }
-    if (req.body.price_financiado) current.price_financiado = req.body.price_financiado;
+    if (req.body.price_financiado !== undefined) {
+      const rawFin = String(req.body.price_financiado).trim();
+      current.price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
+    }
 
     if (req.body.specs) {
       if (typeof req.body.specs === 'string') {
