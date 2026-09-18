@@ -384,9 +384,14 @@ async function createVehicle(car) {
   const rawStatus = (car.status || 'disponible').toLowerCase().trim();
   const status = ['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(rawStatus) ? rawStatus : 'disponible';
 
+  let cleanVin = null;
+  if (car.vin && typeof car.vin === 'string' && car.vin.trim()) {
+    cleanVin = car.vin.trim().toUpperCase();
+  }
+
   const vehicleObj = {
     id: newId,
-    vin: car.vin || null,
+    vin: cleanVin,
     branch_id: car.branch_id || 1,
     page: newPage,
     brand: (car.brand || '').toUpperCase().trim(),
@@ -450,7 +455,16 @@ async function updateVehicle(identifier, car) {
     }
   }
   const branch_id = car.branch_id !== undefined ? car.branch_id : existing.branch_id;
-  const vin = car.vin !== undefined ? car.vin : existing.vin;
+  
+  let cleanVin = null;
+  if (car.vin !== undefined) {
+    if (car.vin && typeof car.vin === 'string' && car.vin.trim()) {
+      cleanVin = car.vin.trim().toUpperCase();
+    }
+  } else if (existing.vin && typeof existing.vin === 'string' && existing.vin.trim()) {
+    cleanVin = existing.vin.trim().toUpperCase();
+  }
+
   const is_active = car.is_active !== undefined ? car.is_active : existing.is_active;
   const deleted_at = car.deleted_at !== undefined ? car.deleted_at : existing.deleted_at;
   const price_contado = car.price_contado !== undefined ? car.price_contado : existing.price_contado;
@@ -462,7 +476,7 @@ async function updateVehicle(identifier, car) {
 
   const updates = {
     brand, model, year, category, price_contado, price_financiado, price_num,
-    status, branch_id, vin, is_active, deleted_at, specs, cover_photo, real_photos,
+    status, branch_id, vin: cleanVin, is_active, deleted_at, specs, cover_photo, real_photos,
     cutout_photo: cover_photo, main_photo: cover_photo, updated_at: now
   };
 
