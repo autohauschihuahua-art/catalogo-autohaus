@@ -14,98 +14,10 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const JWT_SECRET = process.env.JWT_SECRET || 'autohaus_super_secure_jwt_secret_2026';
 
-// Paths
-const DATA_FILE = path.join(__dirname, 'assets', 'data', 'catalog.json');
-const JS_DATA_FILE = path.join(__dirname, 'scripts', 'data.js');
 const UPLOADS_DIR = path.join(__dirname, 'assets', 'cars');
 
-// Ensure directories exist
-fs.mkdirSync(path.join(__dirname, 'assets', 'data'), { recursive: true });
+// Ensure upload directory exists
 fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-
-// Helper: Synchronize static mirrors (catalog.json & scripts/data.js) for static caching / offline fallbacks
-function syncStaticMirrors(vehicles) {
-  try {
-    // 1. JSON Mirror
-    fs.writeFileSync(DATA_FILE, JSON.stringify(vehicles, null, 2), 'utf-8');
-
-    // 2. Client scripts/data.js Mirror
-    const jsData = `/**
- * Catálogo Autohaus - Base de Datos Maestra (Sincronizada con el CMS)
- */
-
-const AUTOHAUS_DATA = {
-  metadata: {
-    title: "Catálogo Autohaus",
-    version: "7.0.0",
-    total_pages: ${Math.max(65, vehicles.length + 6)},
-    vehicles_count: ${vehicles.length},
-    contact: "477 771 0000",
-    whatsapp: "524777710000",
-    instagram: "@autohausautohaus",
-    location: "Chihuahua, Chihuahua, México",
-    generated_at: "${new Date().toISOString()}"
-  },
-  sections: [
-    {
-      page: 1,
-      type: "cover",
-      hero_image: "assets/cars/page_4_img_2.jpeg",
-      title: "CATÁLOGO DIGITAL AUTOHAUS",
-      subtitle: "INVENTARIO COMPLETO Y FINANCIAMIENTO",
-      handle: "@autohausautohaus"
-    },
-    {
-      page: 2,
-      type: "divider",
-      category: "SEDAN & HATCHBACK",
-      line1: "LÍNEA",
-      line2: "SEDAN & HATCHBACK",
-      hero_image: "assets/cars/page_2_img_2.jpeg",
-      handle: "@autohausautohaus"
-    },
-    {
-      page: 22,
-      type: "divider",
-      category: "SUV'S",
-      line1: "LÍNEA",
-      line2: "SUV'S",
-      hero_image: "assets/cars/page_23_img_2.jpeg",
-      handle: "@autohausautohaus"
-    },
-    {
-      page: 47,
-      type: "divider",
-      category: "PICK UPS",
-      line1: "LÍNEA",
-      line2: "PICK UPS",
-      hero_image: "assets/cars/page_48_img_2.jpeg",
-      handle: "@autohausautohaus"
-    },
-    {
-      page: 62,
-      type: "divider",
-      category: "DEPORTIVOS",
-      line1: "LÍNEA",
-      line2: "DEPORTIVOS",
-      hero_image: "assets/cars/page_65_img_2.jpeg",
-      handle: "@autohausautohaus"
-    }
-  ],
-  vehicles: ${JSON.stringify(vehicles, null, 4)}
-};
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AUTOHAUS_DATA;
-}
-`;
-    fs.writeFileSync(JS_DATA_FILE, jsData, 'utf-8');
-    return true;
-  } catch (err) {
-    console.error('Error sincronizando mirrors estáticos:', err);
-    return false;
-  }
-}
 
 // ==========================================
 // SECURITY HEADERS (HELMET) & HARDENING
@@ -450,13 +362,33 @@ app.get('/api/users/sales', authenticateToken, async (req, res) => {
 });
 
 // ==========================================
-// VEHICLES API ROUTES (CRUD EN BASE DE DATOS SQL)
+// VEHICLES API ROUTES (CRUD EN BASE DE DATOS SQL - SSOT)
 // ==========================================
+
+// Helper to check admin/secretary role optionally from header
+function isStaffRequest(req) {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return false;
+    let decoded = null;
+    try {
+      decoded = jwt.verify(token, JWT_SECRET);
+    } catch (e) {
+      decoded = jwt.verify(token, 'autohaus_super_secure_jwt_secret_2025');
+    }
+    return decoded && (decoded.role === 'admin' || decoded.role === 'secretary');
+  } catch (e) {
+    return false;
+  }
+}
 
 // 1. GET ALL VEHICLES (Live SQL & Anti-Cache)
 app.get('/api/vehicles', async (req, res) => {
   try {
-    const vehicles = await db.getVehicles();
+    const wantDeleted = req.query.include_deleted === 'true';
+    const canSeeDeleted = wantDeleted && isStaffRequest(req);
+    const vehicles = await db.getVehicles({ includeDeleted: canSeeDeleted });
     res.json({ success: true, count: vehicles.length, data: vehicles });
   } catch (err) {
     console.error('Error loading vehicles from DB:', err);
@@ -467,7 +399,7 @@ app.get('/api/vehicles', async (req, res) => {
 // 2. GET SINGLE VEHICLE (By ID or Page)
 app.get('/api/vehicles/:identifier', async (req, res) => {
   try {
-    const found = await db.getVehicle(req.params.identifier);
+    const found = await db.getVehicle(req.params.identifier, { includeDeleted: true });
     if (!found) {
       return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
@@ -501,8 +433,11 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
     const price_contado = req.body.price_contado || '$0';
     const rawFin = (req.body.price_financiado || '').trim();
     const price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
-    const status = req.body.status || 'disponible';
-    
+    const rawStatus = (req.body.status || 'disponible').toLowerCase().trim();
+    const status = ['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(rawStatus) ? rawStatus : 'disponible';
+    const vin = (req.body.vin || '').toUpperCase().trim() || null;
+    const branch_id = parseInt(req.body.branch_id, 10) || 1;
+
     let specs = [];
     if (typeof req.body.specs === 'string') {
       try {
@@ -540,10 +475,13 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
     }
 
     const newVehicleData = {
+      id: req.body.id || undefined,
       brand,
       model,
       year,
       category,
+      vin,
+      branch_id,
       price: price_contado,
       price_contado,
       price_financiado,
@@ -558,13 +496,9 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
     };
 
     const created = await db.createVehicle(newVehicleData);
-    const allVehicles = await db.getVehicles();
 
-    // Sincronizar espejos estáticos
-    syncStaticMirrors(allVehicles);
-
-    // Regenerar PDF editorial en segundo plano
-    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
+    // Regenerar PDF editorial en segundo plano (sin bloquear ni escribir a archivos estáticos de BD)
+    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.status(201).json({
       success: true,
@@ -584,7 +518,7 @@ app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary,
 ]), async (req, res) => {
   try {
     const identifier = req.params.identifier;
-    const existing = await db.getVehicle(identifier);
+    const existing = await db.getVehicle(identifier, { includeDeleted: true });
 
     if (!existing) {
       return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
@@ -596,7 +530,14 @@ app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary,
     if (req.body.model) updates.model = req.body.model.toUpperCase().trim();
     if (req.body.year) updates.year = parseInt(req.body.year, 10) || existing.year;
     if (req.body.category) updates.category = req.body.category;
-    if (req.body.status) updates.status = req.body.status;
+    if (req.body.vin !== undefined) updates.vin = (req.body.vin || '').toUpperCase().trim() || null;
+    if (req.body.branch_id !== undefined) updates.branch_id = parseInt(req.body.branch_id, 10) || existing.branch_id;
+    if (req.body.status) {
+      const s = req.body.status.toLowerCase().trim();
+      if (['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(s)) {
+        updates.status = s;
+      }
+    }
     if (req.body.price_contado) {
       updates.price_contado = req.body.price_contado;
       updates.price = req.body.price_contado;
@@ -653,10 +594,8 @@ app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary,
     updates.real_photos = finalRealPhotos;
 
     const updated = await db.updateVehicle(identifier, updates);
-    const allVehicles = await db.getVehicles();
 
-    syncStaticMirrors(allVehicles);
-    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
+    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.json({
       success: true,
@@ -675,8 +614,8 @@ app.patch('/api/vehicles/:identifier/status', authenticateToken, requireAdminOrS
     const identifier = req.params.identifier;
     const { status } = req.body;
     
-    if (!['disponible', 'apartado', 'vendido'].includes(status)) {
-      return res.status(400).json({ success: false, message: 'Estado inválido. Use disponible, apartado o vendido.' });
+    if (!['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(status)) {
+      return res.status(400).json({ success: false, message: 'Estado inválido. Use disponible, apartado, en_preparacion, vendido o baja.' });
     }
 
     const updated = await db.updateVehicleStatus(identifier, status);
@@ -684,9 +623,7 @@ app.patch('/api/vehicles/:identifier/status', authenticateToken, requireAdminOrS
       return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
 
-    const allVehicles = await db.getVehicles();
-    syncStaticMirrors(allVehicles);
-    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
+    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.json({
       success: true,
@@ -698,7 +635,7 @@ app.patch('/api/vehicles/:identifier/status', authenticateToken, requireAdminOrS
   }
 });
 
-// 7. DELETE VEHICLE (Admin & Secretaria - Persistencia ACID en Base de Datos)
+// 7. SOFT DELETE VEHICLE (Admin & Secretaria - Persistencia ACID & Auditoría)
 app.delete('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary, async (req, res) => {
   try {
     const identifier = req.params.identifier;
@@ -708,20 +645,18 @@ app.delete('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecreta
       return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
 
-    const allVehicles = await db.getVehicles();
-    syncStaticMirrors(allVehicles);
-    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
+    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
 
-    console.log(`🗑️ Vehículo ${removed.brand} ${removed.model} (${removed.id}) eliminado de la base de datos SQL. Quedan ${allVehicles.length} vehículos.`);
+    console.log(`🗑️ Vehículo ${removed.brand} ${removed.model} (${removed.id}) dado de baja (Soft Delete) en Supabase.`);
 
     res.json({
       success: true,
-      message: `Vehículo ${removed.brand} ${removed.model} eliminado permanentemente de la base de datos.`,
+      message: `Vehículo ${removed.brand} ${removed.model} dado de baja (borrado lógico) del inventario con éxito.`,
       data: removed
     });
   } catch (err) {
     console.error('Error deleting vehicle from DB:', err);
-    res.status(500).json({ success: false, message: 'Error al eliminar vehículo de la base de datos: ' + err.message });
+    res.status(500).json({ success: false, message: 'Error al dar de baja vehículo de la base de datos: ' + err.message });
   }
 });
 
@@ -1116,7 +1051,6 @@ async function startServer() {
   try {
     await db.initDb();
     const vehicles = await db.getVehicles();
-    syncStaticMirrors(vehicles);
 
     app.listen(PORT, () => {
       console.log(`\n======================================================`);

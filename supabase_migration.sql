@@ -61,15 +61,18 @@ CREATE TABLE public.clients (
 CREATE TABLE public.vehicles (
   id TEXT PRIMARY KEY,
   branch_id INTEGER REFERENCES public.branches(id) ON DELETE SET NULL,
+  vin TEXT UNIQUE,
   page INTEGER,
   brand TEXT NOT NULL,
   model TEXT NOT NULL,
   year INTEGER NOT NULL,
   category TEXT NOT NULL DEFAULT 'SEDAN & HATCHBACK',
-  price_contado TEXT NOT NULL DEFAULT 'zsh',
+  price_contado TEXT NOT NULL DEFAULT '$0',
   price_financiado TEXT DEFAULT 'No Aplica',
   price_num BIGINT DEFAULT 0,
-  status TEXT DEFAULT 'disponible',
+  status TEXT DEFAULT 'disponible' CHECK (status IN ('disponible', 'apartado', 'en_preparacion', 'vendido', 'baja')),
+  is_active BOOLEAN DEFAULT true NOT NULL,
+  deleted_at TIMESTAMPTZ DEFAULT NULL,
   specs JSONB DEFAULT '[]'::jsonb,
   cover_photo TEXT DEFAULT 'assets/svg/autohaus-tag.svg',
   real_photos JSONB DEFAULT '[]'::jsonb,
@@ -89,7 +92,8 @@ CREATE TABLE public.vehicle_status_history (
   previous_status TEXT DEFAULT '',
   deposit_amount TEXT DEFAULT '',
   notes TEXT DEFAULT '',
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- 7. LEADS / PROSPECTOS (leads)
@@ -119,6 +123,33 @@ CREATE TABLE public.client_favorites (
   PRIMARY KEY (client_id, vehicle_id)
 );
 
+-- AUDIT FUNCTION & TRIGGERS
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_vehicles_updated_at ON public.vehicles;
+CREATE TRIGGER trg_vehicles_updated_at
+  BEFORE UPDATE ON public.vehicles
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_leads_updated_at ON public.leads;
+CREATE TRIGGER trg_leads_updated_at
+  BEFORE UPDATE ON public.leads
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_status_history_updated_at ON public.vehicle_status_history;
+CREATE TRIGGER trg_status_history_updated_at
+  BEFORE UPDATE ON public.vehicle_status_history
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_updated_at_column();
+
 -- RLS POLICIES
 ALTER TABLE public.branches ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
@@ -131,19 +162,16 @@ ALTER TABLE public.client_favorites ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Public read branches" ON public.branches FOR SELECT USING (true);
 CREATE POLICY "Service full branches" ON public.branches FOR ALL USING (true);
-CREATE POLICY "Public read users" ON public.users FOR SELECT USING (true);
-CREATE POLICY "Service full users" ON public.users FOR ALL USING (true);
 CREATE POLICY "Public read sales_reps" ON public.sales_reps FOR SELECT USING (true);
 CREATE POLICY "Service full sales_reps" ON public.sales_reps FOR ALL USING (true);
-CREATE POLICY "Public read clients" ON public.clients FOR SELECT USING (true);
-CREATE POLICY "Service full clients" ON public.clients FOR ALL USING (true);
-CREATE POLICY "Public read vehicles" ON public.vehicles FOR SELECT USING (true);
+CREATE POLICY "Public read active vehicles" ON public.vehicles FOR SELECT USING (is_active = true AND deleted_at IS NULL);
 CREATE POLICY "Service full vehicles" ON public.vehicles FOR ALL USING (true);
 CREATE POLICY "Public read status_history" ON public.vehicle_status_history FOR SELECT USING (true);
 CREATE POLICY "Service full status_history" ON public.vehicle_status_history FOR ALL USING (true);
-CREATE POLICY "Public read leads" ON public.leads FOR SELECT USING (true);
+CREATE POLICY "Public insert leads" ON public.leads FOR INSERT WITH CHECK (true);
 CREATE POLICY "Service full leads" ON public.leads FOR ALL USING (true);
-CREATE POLICY "Public read client_favorites" ON public.client_favorites FOR SELECT USING (true);
+CREATE POLICY "Service full users" ON public.users FOR ALL USING (true);
+CREATE POLICY "Service full clients" ON public.clients FOR ALL USING (true);
 CREATE POLICY "Service full client_favorites" ON public.client_favorites FOR ALL USING (true);
 
 -- SEED SUCURSALES

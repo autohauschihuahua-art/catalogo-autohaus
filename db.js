@@ -1,6 +1,6 @@
 /**
- * Autohaus Enterprise Database Layer (SQL & Supabase Cloud)
- * Soporte relacional completo: Supabase (Cloud PostgreSQL) y SQLite local
+ * Autohaus Enterprise Database Layer (SQL & Supabase Cloud SSOT)
+ * Single Source of Truth (SSOT) en Supabase PostgreSQL con fallback local SQLite.
  */
 
 require('dotenv').config();
@@ -11,9 +11,6 @@ const { createClient: createSupabaseClient } = require('@supabase/supabase-js');
 
 const DB_PATH = path.join(__dirname, 'assets', 'data', 'autohaus.db');
 const DATA_DIR = path.join(__dirname, 'assets', 'data');
-const CATALOG_JSON = path.join(DATA_DIR, 'catalog.json');
-const USERS_JSON = path.join(DATA_DIR, 'users.json');
-const LEADS_JSON = path.join(DATA_DIR, 'leads.json');
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
 
@@ -44,7 +41,7 @@ function getSqliteDb() {
   return dbInstance;
 }
 
-// SQL Query helper for SQLite
+// SQL Query helper for SQLite (Solo utilizado en modo offline/fallback)
 async function runQuery(sql, params = []) {
   const db = getSqliteDb();
   return new Promise((resolve, reject) => {
@@ -82,6 +79,9 @@ function formatVehicle(v) {
 
   return {
     id: v.id,
+    vin: v.vin || '',
+    is_active: v.is_active !== false && v.is_active !== 0,
+    deleted_at: v.deleted_at || null,
     page: parseInt(v.page, 10) || 0,
     brand: v.brand || '',
     model: v.model || '',
@@ -170,10 +170,13 @@ function sortVehicles(list) {
 }
 
 /**
- * Initialize Database Schema and Auto-Seed
+ * Initialize Database Schema (Offline SQLite Fallback)
  */
 async function initDb() {
-  // SQLite relational schema
+  if (useSupabase) {
+    return;
+  }
+  // SQLite relational schema fallback
   await runQuery(`
     CREATE TABLE IF NOT EXISTS branches (
       id INTEGER PRIMARY KEY,
@@ -201,10 +204,10 @@ async function initDb() {
     CREATE TABLE IF NOT EXISTS sales_reps (
       id INTEGER PRIMARY KEY,
       user_id INTEGER,
+      branch_id INTEGER,
       name TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
       phone TEXT,
-      branch_id INTEGER,
       is_active BOOLEAN DEFAULT 1,
       turn_order INTEGER DEFAULT 1
     );
@@ -225,6 +228,8 @@ async function initDb() {
   await runQuery(`
     CREATE TABLE IF NOT EXISTS vehicles (
       id TEXT PRIMARY KEY,
+      branch_id INTEGER DEFAULT 1,
+      vin TEXT UNIQUE,
       page INTEGER,
       brand TEXT,
       model TEXT,
@@ -234,7 +239,8 @@ async function initDb() {
       price_financiado TEXT,
       price_num INTEGER,
       status TEXT DEFAULT 'disponible',
-      branch_id INTEGER DEFAULT 1,
+      is_active BOOLEAN DEFAULT 1,
+      deleted_at TEXT,
       specs TEXT,
       cover_photo TEXT,
       real_photos TEXT,
@@ -249,13 +255,14 @@ async function initDb() {
     CREATE TABLE IF NOT EXISTS vehicle_status_history (
       id TEXT PRIMARY KEY,
       vehicle_id TEXT,
-      status TEXT NOT NULL,
-      previous_status TEXT,
       client_id INTEGER,
       sales_rep_id INTEGER,
+      status TEXT NOT NULL,
+      previous_status TEXT,
       deposit_amount TEXT,
       notes TEXT,
-      created_at TEXT
+      created_at TEXT,
+      updated_at TEXT
     );
   `);
 
@@ -293,33 +300,59 @@ async function initDb() {
 // VEHICLES CRUD & STATUS OPERATIONS
 // ==========================================
 
-async function getVehicles() {
+async function getVehicles(options = {}) {
+  const includeDeleted = options.includeDeleted === true;
   if (useSupabase && supabase) {
     try {
-      const { data, error } = await supabase.from('vehicles').select('*').order('page', { ascending: true });
-      if (!error && Array.isArray(data) && data.length > 0) {
+      let query = supabase.from('vehicles').select('*');
+      if (!includeDeleted) {
+        query = query.eq('is_active', true).is('deleted_at', null);
+      }
+      const { data, error } = await query.order('page', { ascending: true });
+      if (!error && Array.isArray(data)) {
         return sortVehicles(data.map(formatVehicle));
       }
-    } catch (e) {}
+      if (error) {
+        console.error('Supabase getVehicles error:', error.message);
+      }
+    } catch (e) {
+      console.error('Error in getVehicles Supabase:', e.message);
+    }
   }
-  const res = await runQuery('SELECT * FROM vehicles ORDER BY page ASC');
+
+  let sql = 'SELECT * FROM vehicles';
+  if (!includeDeleted) {
+    sql += ' WHERE (is_active = 1 OR is_active IS NULL) AND deleted_at IS NULL';
+  }
+  sql += ' ORDER BY page ASC';
+  const res = await runQuery(sql);
   return sortVehicles(res.rows.map(formatVehicle));
 }
 
-async function getVehicle(identifier) {
+async function getVehicle(identifier, options = {}) {
+  const includeDeleted = options.includeDeleted !== false; // default true for direct lookup
   if (useSupabase && supabase) {
     try {
       const pageNum = parseInt(identifier, 10) || -1;
-      const { data, error } = await supabase.from('vehicles').select('*').or(`id.eq.${identifier},page.eq.${pageNum}`).limit(1);
+      let query = supabase.from('vehicles').select('*').or(`id.eq.${identifier},page.eq.${pageNum}`);
+      if (!includeDeleted) {
+        query = query.eq('is_active', true).is('deleted_at', null);
+      }
+      const { data, error } = await query.limit(1);
       if (!error && data && data.length > 0) {
         return formatVehicle(data[0]);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Error in getVehicle Supabase:', e.message);
+    }
   }
-  const res = await runQuery(
-    'SELECT * FROM vehicles WHERE id = ? OR page = ? LIMIT 1',
-    [String(identifier), parseInt(identifier, 10) || -1]
-  );
+
+  let sql = 'SELECT * FROM vehicles WHERE (id = ? OR page = ?)';
+  if (!includeDeleted) {
+    sql += ' AND (is_active = 1 OR is_active IS NULL) AND deleted_at IS NULL';
+  }
+  sql += ' LIMIT 1';
+  const res = await runQuery(sql, [String(identifier), parseInt(identifier, 10) || -1]);
   if (!res.rows.length) return null;
   return formatVehicle(res.rows[0]);
 }
@@ -329,12 +362,20 @@ async function createVehicle(car) {
   const newId = car.id || ('autohaus-v' + Date.now());
   const priceClean = car.price_num || parseInt((car.price_contado || '').replace(/[^0-9]/g, '')) || 0;
 
-  const maxPageRes = await runQuery('SELECT MAX(page) as max_page FROM vehicles');
-  const maxPage = parseInt(maxPageRes.rows[0]?.max_page || 3, 10);
-  const newPage = car.page || (maxPage + 1);
+  let newPage = car.page;
+  if (!newPage) {
+    const all = await getVehicles({ includeDeleted: true });
+    const maxPage = all.reduce((max, v) => Math.max(max, v.page || 0), 3);
+    newPage = maxPage + 1;
+  }
+
+  const rawStatus = (car.status || 'disponible').toLowerCase().trim();
+  const status = ['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(rawStatus) ? rawStatus : 'disponible';
 
   const vehicleObj = {
     id: newId,
+    vin: car.vin || null,
+    branch_id: car.branch_id || 1,
     page: newPage,
     brand: (car.brand || '').toUpperCase().trim(),
     model: (car.model || '').toUpperCase().trim(),
@@ -343,8 +384,9 @@ async function createVehicle(car) {
     price_contado: car.price_contado || '$0',
     price_financiado: car.price_financiado || 'No Aplica',
     price_num: priceClean,
-    status: (car.status || 'disponible').toLowerCase(),
-    branch_id: car.branch_id || 1,
+    status,
+    is_active: true,
+    deleted_at: null,
     specs: car.specs || [],
     cover_photo: car.cover_photo || 'assets/svg/autohaus-tag.svg',
     real_photos: car.real_photos || [car.cover_photo || 'assets/svg/autohaus-tag.svg'],
@@ -355,30 +397,32 @@ async function createVehicle(car) {
   };
 
   if (useSupabase && supabase) {
-    try {
-      await supabase.from('vehicles').insert([vehicleObj]);
-    } catch (e) {}
+    const { data, error } = await supabase.from('vehicles').insert([vehicleObj]).select().single();
+    if (error) {
+      console.error('Error inserting vehicle in Supabase:', error.message);
+      throw new Error(error.message);
+    }
+    await logStatusChange(newId, vehicleObj.status, '', 'Ingreso inicial a inventario');
+    return formatVehicle(data || vehicleObj);
   }
 
   await runQuery(`
     INSERT INTO vehicles (
-      id, page, brand, model, year, category, price_contado, price_financiado, price_num, status, branch_id, specs, cover_photo, real_photos, cutout_photo, main_photo, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      id, branch_id, vin, page, brand, model, year, category, price_contado, price_financiado, price_num, status, is_active, deleted_at, specs, cover_photo, real_photos, cutout_photo, main_photo, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `, [
-    vehicleObj.id, vehicleObj.page, vehicleObj.brand, vehicleObj.model, vehicleObj.year, vehicleObj.category,
-    vehicleObj.price_contado, vehicleObj.price_financiado, vehicleObj.price_num, vehicleObj.status, vehicleObj.branch_id,
+    vehicleObj.id, vehicleObj.branch_id, vehicleObj.vin, vehicleObj.page, vehicleObj.brand, vehicleObj.model, vehicleObj.year, vehicleObj.category,
+    vehicleObj.price_contado, vehicleObj.price_financiado, vehicleObj.price_num, vehicleObj.status, 1, null,
     JSON.stringify(vehicleObj.specs), vehicleObj.cover_photo, JSON.stringify(vehicleObj.real_photos),
     vehicleObj.cutout_photo, vehicleObj.main_photo, now, now
   ]);
 
-  // Log status history
   await logStatusChange(newId, vehicleObj.status, '', 'Ingreso inicial a inventario');
-
-  return getVehicle(newId);
+  return getVehicle(newId, { includeDeleted: true });
 }
 
 async function updateVehicle(identifier, car) {
-  const existing = await getVehicle(identifier);
+  const existing = await getVehicle(identifier, { includeDeleted: true });
   if (!existing) return null;
 
   const now = new Date().toISOString();
@@ -386,8 +430,17 @@ async function updateVehicle(identifier, car) {
   const model = car.model !== undefined ? car.model.toUpperCase().trim() : existing.model;
   const year = car.year !== undefined ? (parseInt(car.year, 10) || existing.year) : existing.year;
   const category = car.category !== undefined ? car.category : existing.category;
-  const status = car.status !== undefined ? car.status.toLowerCase() : existing.status;
+  let status = existing.status;
+  if (car.status !== undefined) {
+    const s = car.status.toLowerCase().trim();
+    if (['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(s)) {
+      status = s;
+    }
+  }
   const branch_id = car.branch_id !== undefined ? car.branch_id : existing.branch_id;
+  const vin = car.vin !== undefined ? car.vin : existing.vin;
+  const is_active = car.is_active !== undefined ? car.is_active : existing.is_active;
+  const deleted_at = car.deleted_at !== undefined ? car.deleted_at : existing.deleted_at;
   const price_contado = car.price_contado !== undefined ? car.price_contado : existing.price_contado;
   const price_financiado = car.price_financiado !== undefined ? car.price_financiado : existing.price_financiado;
   const price_num = car.price_num !== undefined ? car.price_num : (parseInt((price_contado || '').replace(/[^0-9]/g, '')) || existing.price_num);
@@ -397,45 +450,64 @@ async function updateVehicle(identifier, car) {
 
   const updates = {
     brand, model, year, category, price_contado, price_financiado, price_num,
-    status, branch_id, specs, cover_photo, real_photos, cutout_photo: cover_photo, main_photo: cover_photo,
-    updated_at: now
+    status, branch_id, vin, is_active, deleted_at, specs, cover_photo, real_photos,
+    cutout_photo: cover_photo, main_photo: cover_photo, updated_at: now
   };
 
   if (useSupabase && supabase) {
-    try {
-      await supabase.from('vehicles').update(updates).or(`id.eq.${existing.id},page.eq.${existing.page}`);
-    } catch (e) {}
+    const { data, error } = await supabase.from('vehicles').update(updates).eq('id', existing.id).select().single();
+    if (error) {
+      console.error('Error updating vehicle in Supabase:', error.message);
+      throw new Error(error.message);
+    }
+    if (existing.status !== status) {
+      await logStatusChange(existing.id, status, existing.status, 'Actualización de ficha técnica');
+    }
+    return formatVehicle(data || { ...existing, ...updates });
   }
 
   await runQuery(`
     UPDATE vehicles SET
       brand = ?, model = ?, year = ?, category = ?, price_contado = ?, price_financiado = ?, price_num = ?,
-      status = ?, branch_id = ?, specs = ?, cover_photo = ?, real_photos = ?, cutout_photo = ?, main_photo = ?, updated_at = ?
+      status = ?, branch_id = ?, vin = ?, is_active = ?, deleted_at = ?, specs = ?, cover_photo = ?, real_photos = ?, cutout_photo = ?, main_photo = ?, updated_at = ?
     WHERE id = ? OR page = ?
   `, [
     brand, model, year, category, price_contado, price_financiado, price_num, status, branch_id,
-    JSON.stringify(specs), cover_photo, JSON.stringify(real_photos), cover_photo, cover_photo, now,
-    existing.id, existing.page
+    vin, is_active ? 1 : 0, deleted_at, JSON.stringify(specs), cover_photo, JSON.stringify(real_photos),
+    cover_photo, cover_photo, now, existing.id, existing.page
   ]);
 
   if (existing.status !== status) {
     await logStatusChange(existing.id, status, existing.status, 'Actualización de ficha técnica');
   }
 
-  return getVehicle(existing.id);
+  return getVehicle(existing.id, { includeDeleted: true });
 }
 
 async function updateVehicleStatus(identifier, status, extra = {}) {
-  const existing = await getVehicle(identifier);
+  const existing = await getVehicle(identifier, { includeDeleted: true });
   if (!existing) return null;
 
   const now = new Date().toISOString();
-  const safeStatus = (status || 'disponible').toLowerCase();
+  const safeStatus = (status || 'disponible').toLowerCase().trim();
+  if (!['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(safeStatus)) {
+    throw new Error('Estatus inválido: ' + status);
+  }
 
   if (useSupabase && supabase) {
-    try {
-      await supabase.from('vehicles').update({ status: safeStatus, updated_at: now }).or(`id.eq.${existing.id},page.eq.${existing.page}`);
-    } catch (e) {}
+    const { data, error } = await supabase.from('vehicles').update({ status: safeStatus, updated_at: now }).eq('id', existing.id).select().single();
+    if (error) {
+      console.error('Error updating vehicle status in Supabase:', error.message);
+      throw new Error(error.message);
+    }
+    await logStatusChange(
+      existing.id, safeStatus, existing.status,
+      extra.notes || `Cambio de estatus rápido a ${safeStatus.toUpperCase()}`,
+      extra.deposit_amount || '',
+      extra.client_id || null,
+      extra.sales_rep_id || null
+    );
+    return formatVehicle(data || { ...existing, status: safeStatus });
   }
 
   await runQuery(`
@@ -451,21 +523,43 @@ async function updateVehicleStatus(identifier, status, extra = {}) {
     extra.sales_rep_id || null
   );
 
-  return getVehicle(existing.id);
+  return getVehicle(existing.id, { includeDeleted: true });
 }
 
+/**
+ * Soft Delete: Marca el vehículo como inactivo (is_active = false, deleted_at = now, status = 'baja')
+ * Preserva integridad referencial y audita el movimiento en vehicle_status_history.
+ */
 async function deleteVehicle(identifier) {
-  const existing = await getVehicle(identifier);
+  const existing = await getVehicle(identifier, { includeDeleted: true });
   if (!existing) return null;
 
+  const now = new Date().toISOString();
+  const updates = {
+    is_active: false,
+    deleted_at: now,
+    status: 'baja',
+    updated_at: now
+  };
+
   if (useSupabase && supabase) {
-    try {
-      await supabase.from('vehicles').delete().or(`id.eq.${existing.id},page.eq.${existing.page}`);
-    } catch (e) {}
+    const { data, error } = await supabase.from('vehicles').update(updates).eq('id', existing.id).select().single();
+    if (error) {
+      console.error('Error soft-deleting in Supabase:', error.message);
+      throw new Error(error.message);
+    }
+    await logStatusChange(existing.id, 'baja', existing.status, 'Baja de inventario (Soft Delete)');
+    return formatVehicle(data || { ...existing, ...updates });
   }
 
-  await runQuery('DELETE FROM vehicles WHERE id = ? OR page = ?', [existing.id, existing.page]);
-  return existing;
+  await runQuery(`
+    UPDATE vehicles SET is_active = 0, deleted_at = ?, status = 'baja', updated_at = ?
+    WHERE id = ? OR page = ?
+  `, [now, now, existing.id, existing.page]);
+
+  await logStatusChange(existing.id, 'baja', existing.status, 'Baja de inventario (Soft Delete)');
+
+  return { ...existing, ...updates };
 }
 
 // ==========================================
@@ -485,19 +579,24 @@ async function logStatusChange(vehicleId, newStatus, previousStatus = '', notes 
     sales_rep_id: salesRepId,
     deposit_amount: depositAmount,
     notes,
-    created_at: now
+    created_at: now,
+    updated_at: now
   };
 
   if (useSupabase && supabase) {
-    try {
-      await supabase.from('vehicle_status_history').insert([histObj]);
-    } catch (e) {}
+    const { data, error } = await supabase.from('vehicle_status_history').insert([histObj]).select().single();
+    if (error) {
+      console.error('Error logging status history in Supabase:', error.message);
+    }
+    return data || histObj;
   }
 
   await runQuery(`
-    INSERT INTO vehicle_status_history (id, vehicle_id, status, previous_status, client_id, sales_rep_id, deposit_amount, notes, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `, [histId, vehicleId, newStatus, previousStatus, clientId, salesRepId, depositAmount, notes, now]);
+    INSERT INTO vehicle_status_history (id, vehicle_id, status, previous_status, client_id, sales_rep_id, deposit_amount, notes, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `, [histId, vehicleId, newStatus, previousStatus, clientId, salesRepId, depositAmount, notes, now, now]);
+
+  return histObj;
 }
 
 async function getVehicleStatusHistory(vehicleId) {
@@ -505,7 +604,9 @@ async function getVehicleStatusHistory(vehicleId) {
     try {
       const { data, error } = await supabase.from('vehicle_status_history').select('*').eq('vehicle_id', vehicleId).order('created_at', { ascending: false });
       if (!error && data) return data;
-    } catch (e) {}
+    } catch (e) {
+      console.error('Error fetching vehicle status history:', e.message);
+    }
   }
   const res = await runQuery('SELECT * FROM vehicle_status_history WHERE vehicle_id = ? ORDER BY created_at DESC', [vehicleId]);
   return res.rows;
@@ -611,7 +712,11 @@ async function createUser(user) {
           created_at: now
         }]);
       }
-    } catch (e) {}
+      return formatUser(userObj);
+    } catch (e) {
+      console.error('Error creating user in Supabase:', e.message);
+      throw new Error(e.message);
+    }
   }
 
   await runQuery(`
@@ -636,7 +741,10 @@ async function updateUserFavorites(userId, favorites) {
   if (useSupabase && supabase) {
     try {
       await supabase.from('users').update({ favorites }).eq('id', userId);
-    } catch (e) {}
+      return getUserById(userId);
+    } catch (e) {
+      console.error('Error updating favorites in Supabase:', e.message);
+    }
   }
   await runQuery('UPDATE users SET favorites = ? WHERE id = ?', [JSON.stringify(favorites || []), userId]);
   return getUserById(userId);
@@ -687,8 +795,13 @@ async function createClient(client) {
 
   if (useSupabase && supabase) {
     try {
-      await supabase.from('clients').insert([clientObj]);
-    } catch (e) {}
+      const { data, error } = await supabase.from('clients').insert([clientObj]).select().single();
+      if (error) throw new Error(error.message);
+      return data || clientObj;
+    } catch (e) {
+      console.error('Error creating client in Supabase:', e.message);
+      throw new Error(e.message);
+    }
   }
 
   await runQuery(`
@@ -755,8 +868,13 @@ async function createLead(lead) {
 
   if (useSupabase && supabase) {
     try {
-      await supabase.from('leads').insert([leadObj]);
-    } catch (e) {}
+      const { data, error } = await supabase.from('leads').insert([leadObj]).select().single();
+      if (error) throw new Error(error.message);
+      return formatLead(data || leadObj);
+    } catch (e) {
+      console.error('Error inserting lead in Supabase:', e.message);
+      throw new Error(e.message);
+    }
   }
 
   await runQuery(`
@@ -792,8 +910,13 @@ async function updateLead(id, data) {
 
   if (useSupabase && supabase) {
     try {
-      await supabase.from('leads').update(updates).eq('id', id);
-    } catch (e) {}
+      const { data: updated, error } = await supabase.from('leads').update(updates).eq('id', id).select().single();
+      if (error) throw new Error(error.message);
+      return formatLead(updated || { ...existing, ...updates });
+    } catch (e) {
+      console.error('Error updating lead in Supabase:', e.message);
+      throw new Error(e.message);
+    }
   }
 
   await runQuery(`
@@ -816,7 +939,11 @@ async function deleteLead(id) {
   if (useSupabase && supabase) {
     try {
       await supabase.from('leads').delete().eq('id', id);
-    } catch (e) {}
+      return existing;
+    } catch (e) {
+      console.error('Error deleting lead in Supabase:', e.message);
+      throw new Error(e.message);
+    }
   }
 
   await runQuery('DELETE FROM leads WHERE id = ?', [id]);
@@ -828,13 +955,16 @@ async function deleteLead(id) {
 // ==========================================
 
 async function getStats() {
-  const vehicles = await getVehicles();
+  const allVehicles = await getVehicles({ includeDeleted: true });
+  const activeVehicles = allVehicles.filter(v => v.is_active && !v.deleted_at);
   const leads = await getLeads();
 
   let totalContadoValue = 0;
   let disponiblesCount = 0;
   let apartadosCount = 0;
   let vendidosCount = 0;
+  let enPreparacionCount = 0;
+  let bajasCount = 0;
 
   const categoryCounts = {
     'SEDAN & HATCHBACK': 0,
@@ -843,11 +973,17 @@ async function getStats() {
     'DEPORTIVOS': 0
   };
 
-  vehicles.forEach(v => {
-    totalContadoValue += (v.price_num || 0);
+  allVehicles.forEach(v => {
     const st = (v.status || 'disponible').toLowerCase();
+    if (!v.is_active || v.deleted_at || st === 'baja') {
+      bajasCount++;
+      return;
+    }
+
+    totalContadoValue += (v.price_num || 0);
     if (st === 'apartado') apartadosCount++;
     else if (st === 'vendido') vendidosCount++;
+    else if (st === 'en_preparacion') enPreparacionCount++;
     else disponiblesCount++;
 
     if (categoryCounts[v.category] !== undefined) {
@@ -856,10 +992,14 @@ async function getStats() {
   });
 
   return {
-    totalVehicles: vehicles.length,
+    totalVehicles: activeVehicles.length,
+    activeVehicles: activeVehicles.length,
+    totalAllIncludingDeleted: allVehicles.length,
     disponiblesCount,
     apartadosCount,
     vendidosCount,
+    enPreparacionCount,
+    bajasCount,
     totalValue: totalContadoValue,
     totalLeads: leads.length,
     categoryCounts,

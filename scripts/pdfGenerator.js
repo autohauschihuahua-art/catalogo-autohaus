@@ -828,13 +828,8 @@ async function generateFullCatalogPDF(targetPath = null, customVehicles = null) 
     try {
       let rawCars = customVehicles;
       if (!rawCars || !Array.isArray(rawCars)) {
-        try {
-          const db = require('../db');
-          rawCars = await db.getVehicles();
-        } catch (dbErr) {
-          const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
-          rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
-        }
+        const db = require('../db');
+        rawCars = await db.getVehicles({ includeDeleted: false });
       }
       
       const sortedCars = sortCatalogByCategory(rawCars);
