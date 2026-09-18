@@ -41,6 +41,9 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
+// Trust proxy for Render/Cloudflare reverse proxies so client IP is accurately detected
+app.set('trust proxy', 1);
+
 // Hide server fingerprint
 app.disable('x-powered-by');
 
@@ -64,15 +67,19 @@ app.use('/api', (req, res, next) => {
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 400,
+  max: 3000,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => {
+    // Exempt authenticated admin/staff users and health checks from rate limiting
+    return Boolean(req.headers['authorization']) || req.path === '/health' || req.path === '/api/health';
+  },
   message: { success: false, message: 'Demasiadas solicitudes desde esta IP. Por favor intenta más tarde.' }
 });
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 30,
+  max: 50,
   skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
@@ -81,7 +88,7 @@ const authLimiter = rateLimit({
 
 const registerLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 15,
+  max: 30,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Has alcanzado el límite de creación de cuentas por hoy.' }
@@ -89,7 +96,7 @@ const registerLimiter = rateLimit({
 
 const leadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 25,
+  max: 50,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Has alcanzado el límite de solicitudes. Un asesor de Autohaus te contactará enseguida.' }
