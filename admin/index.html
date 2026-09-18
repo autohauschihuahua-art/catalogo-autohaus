@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Control | Autohaus CRM & Inventario</title>
   
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
   <!-- Google Fonts: Poppins & Comfortaa -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="admin.css?v=20260907_no_aplica_v5">
+  <link rel="stylesheet" href="admin.css?v=20260911_persistence_v6">
   <link rel="icon" href="../assets/svg/autohaus-tag.svg" type="image/svg+xml">
 </head>
 <body>
@@ -27,6 +31,12 @@
       <!-- Header Actions (Desktop & Tablet) -->
       <div class="admin-header-actions">
         
+        <!-- Live DB Sync Status Pill -->
+        <div class="db-sync-status-badge" id="dbSyncStatusBadge" title="Persistencia directa en base de datos (catalog.json & PDF)">
+          <span class="db-status-dot"></span>
+          <span id="dbSyncStatusText">BD Sincronizada</span>
+        </div>
+
         <!-- View Public Catalog Link -->
         <a href="/" target="_blank" class="btn-secondary desktop-only-btn" title="Abrir catálogo público en pestaña nueva">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -544,6 +554,6 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
-  <script src="admin.js?v=20260907_no_aplica_v5"></script>
+  <script src="admin.js?v=20260911_persistence_v6"></script>
 </body>
 </html>

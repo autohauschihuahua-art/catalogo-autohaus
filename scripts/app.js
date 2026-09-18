@@ -80,6 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupAuthEventListeners();
     updateFavoritesCounter();
     updateNavbarUserUI();
+
+    // Auto-refresh when tab gains focus to guarantee real-time inventory
+    window.addEventListener('focus', () => {
+      loadVehicles();
+    });
   }
 
   // ==========================================
@@ -93,8 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!token) return;
 
     try {
-      const res = await fetch('/api/auth/me', {
-        headers: { 'Authorization': `Bearer ${token}` }
+      const res = await fetch(`/api/auth/me?_t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
       });
       const data = await res.json();
       if (data.success && data.user) {
@@ -257,12 +267,19 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   };
 
-  // Load Vehicles from API with fallback to static data
+  // Load Vehicles directly from Database (Anti-Cache) with fallback to static data
   async function loadVehicles() {
     try {
-      const res = await fetch('/api/vehicles');
+      const timestamp = Date.now();
+      const res = await fetch(`/api/vehicles?_t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
+      });
       const data = await res.json();
-      if (data.success && data.data && data.data.length) {
+      if (data.success && Array.isArray(data.data)) {
         state.vehicles = data.data;
       } else {
         throw new Error('Fallback to static data');
@@ -897,11 +914,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // DIRECT PDF DOWNLOAD WITH DYNAMIC SYNC
   // ==========================================
   function downloadPDFCatalog() {
-    showAppToast('⏳ Descargando catálogo oficial Autohaus en PDF...', 'info', 4500);
+    showAppToast('⏳ Consultando base de datos y preparando catálogo oficial PDF...', 'info', 5000);
 
     try {
       const a = document.createElement('a');
-      a.href = '/api/catalog/download-pdf';
+      a.href = `/api/catalog/download-pdf?_t=${Date.now()}&force=1`;
       a.download = 'Catalogo_Autohaus_Chihuahua_2026.pdf';
       document.body.appendChild(a);
       a.click();
@@ -909,7 +926,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (a.parentNode) document.body.removeChild(a);
       }, 200);
     } catch (e) {
-      window.open('/api/catalog/download-pdf', '_blank');
+      window.open(`/api/catalog/download-pdf?_t=${Date.now()}&force=1`, '_blank');
     }
   }
 

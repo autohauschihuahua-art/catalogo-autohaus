@@ -12,7 +12,7 @@ const AUTOHAUS_DATA = {
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-07T23:14:24.610Z"
+    generated_at: "2026-09-18T13:39:27.448Z"
   },
   sections: [
     {
@@ -67,17 +67,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Versa Advance",
         "year": 2022,
+        "category": "SEDAN & HATCHBACK",
         "price": "$269,000",
         "price_contado": "$269,000",
         "price_financiado": "No Aplica",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_6_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_6_img_2.jpeg",
-            "assets/cars/page_6_img_3.jpeg",
-            "assets/cars/page_6_img_4.jpeg",
-            "assets/cars/page_6_img_5.jpeg"
-        ],
+        "price_num": 269000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -86,13 +81,23 @@ const AUTOHAUS_DATA = {
             "Pantalla touch",
             "46,000 km"
         ],
-        "status": "Disponible",
+        "cover_photo": "assets/cars/page_6_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_6_img_2.jpeg",
+            "assets/cars/page_6_img_3.jpeg",
+            "assets/cars/page_6_img_4.jpeg",
+            "assets/cars/page_6_img_5.jpeg"
+        ],
         "photos": [
             "assets/cars/page_6_img_2.jpeg",
             "assets/cars/page_6_img_3.jpeg",
             "assets/cars/page_6_img_4.jpeg",
             "assets/cars/page_6_img_5.jpeg"
-        ]
+        ],
+        "cutout_photo": "assets/cars/page_6_img_2.jpeg",
+        "main_photo": "assets/cars/page_6_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.608Z",
+        "updated_at": "2026-09-17T23:46:38.608Z"
     },
     {
         "id": "autohaus-p7",
@@ -100,17 +105,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Sentra Sense",
         "year": 2018,
+        "category": "SEDAN & HATCHBACK",
         "price": "$185,000",
         "price_contado": "$185,000",
         "price_financiado": "$195,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_7_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_7_img_2.jpeg",
-            "assets/cars/page_7_img_3.jpeg",
-            "assets/cars/page_7_img_4.jpeg",
-            "assets/cars/page_7_img_5.jpeg"
-        ],
+        "price_num": 185000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -118,7 +118,23 @@ const AUTOHAUS_DATA = {
             "76,000 km",
             "Factura de seminuevos autotokio"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_7_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_7_img_2.jpeg",
+            "assets/cars/page_7_img_3.jpeg",
+            "assets/cars/page_7_img_4.jpeg",
+            "assets/cars/page_7_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_7_img_2.jpeg",
+            "assets/cars/page_7_img_3.jpeg",
+            "assets/cars/page_7_img_4.jpeg",
+            "assets/cars/page_7_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_7_img_2.jpeg",
+        "main_photo": "assets/cars/page_7_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.612Z",
+        "updated_at": "2026-09-17T23:46:38.612Z"
     },
     {
         "id": "autohaus-p8",
@@ -126,17 +142,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Beat LT Hatchback",
         "year": 2021,
+        "category": "SEDAN & HATCHBACK",
         "price": "$175,000",
         "price_contado": "$175,000",
         "price_financiado": "$185,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_8_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_8_img_2.jpeg",
-            "assets/cars/page_8_img_3.jpeg",
-            "assets/cars/page_8_img_4.jpeg",
-            "assets/cars/page_8_img_5.jpeg"
-        ],
+        "price_num": 175000,
+        "status": "disponible",
         "specs": [
             "Transmisión manual",
             "Vidrios delanteros eléctricos",
@@ -147,7 +158,23 @@ const AUTOHAUS_DATA = {
             "1 dueño",
             "2 llaves"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_8_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_8_img_2.jpeg",
+            "assets/cars/page_8_img_3.jpeg",
+            "assets/cars/page_8_img_4.jpeg",
+            "assets/cars/page_8_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_8_img_2.jpeg",
+            "assets/cars/page_8_img_3.jpeg",
+            "assets/cars/page_8_img_4.jpeg",
+            "assets/cars/page_8_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_8_img_2.jpeg",
+        "main_photo": "assets/cars/page_8_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.613Z",
+        "updated_at": "2026-09-17T23:46:38.613Z"
     },
     {
         "id": "autohaus-p9",
@@ -155,10 +182,17 @@ const AUTOHAUS_DATA = {
         "brand": "Mazda",
         "model": "Mazda 3 Grand Touring",
         "year": 2023,
+        "category": "SEDAN & HATCHBACK",
         "price": "$360,000",
         "price_contado": "$360,000",
         "price_financiado": "$370,000",
-        "category": "SEDAN & HATCHBACK",
+        "price_num": 360000,
+        "status": "disponible",
+        "specs": [
+            "Factura de agencia",
+            "Único dueño",
+            "73,000 km"
+        ],
         "cover_photo": "assets/cars/page_9_img_2.jpeg",
         "real_photos": [
             "assets/cars/page_9_img_2.jpeg",
@@ -166,12 +200,16 @@ const AUTOHAUS_DATA = {
             "assets/cars/page_9_img_4.jpeg",
             "assets/cars/page_9_img_5.jpeg"
         ],
-        "specs": [
-            "Factura de agencia",
-            "Único dueño",
-            "73,000 km"
+        "photos": [
+            "assets/cars/page_9_img_2.jpeg",
+            "assets/cars/page_9_img_3.jpeg",
+            "assets/cars/page_9_img_4.jpeg",
+            "assets/cars/page_9_img_5.jpeg"
         ],
-        "status": "Disponible"
+        "cutout_photo": "assets/cars/page_9_img_2.jpeg",
+        "main_photo": "assets/cars/page_9_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.614Z",
+        "updated_at": "2026-09-17T23:46:38.614Z"
     },
     {
         "id": "autohaus-p10",
@@ -179,17 +217,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Sentra Advance",
         "year": 2017,
+        "category": "SEDAN & HATCHBACK",
         "price": "$185,000",
         "price_contado": "$185,000",
         "price_financiado": "$195,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_10_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_10_img_2.jpeg",
-            "assets/cars/page_10_img_3.jpeg",
-            "assets/cars/page_10_img_4.jpeg",
-            "assets/cars/page_10_img_5.jpeg"
-        ],
+        "price_num": 185000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -200,7 +233,23 @@ const AUTOHAUS_DATA = {
             "2 llaves",
             "124,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_10_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_10_img_2.jpeg",
+            "assets/cars/page_10_img_3.jpeg",
+            "assets/cars/page_10_img_4.jpeg",
+            "assets/cars/page_10_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_10_img_2.jpeg",
+            "assets/cars/page_10_img_3.jpeg",
+            "assets/cars/page_10_img_4.jpeg",
+            "assets/cars/page_10_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_10_img_2.jpeg",
+        "main_photo": "assets/cars/page_10_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.615Z",
+        "updated_at": "2026-09-17T23:46:38.615Z"
     },
     {
         "id": "autohaus-p11",
@@ -208,17 +257,12 @@ const AUTOHAUS_DATA = {
         "brand": "Hyundai",
         "model": "Grand i10 GLS",
         "year": 2017,
+        "category": "SEDAN & HATCHBACK",
         "price": "$159,000",
         "price_contado": "$159,000",
         "price_financiado": "$169,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_11_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_11_img_2.jpeg",
-            "assets/cars/page_11_img_3.jpeg",
-            "assets/cars/page_11_img_4.jpeg",
-            "assets/cars/page_11_img_5.jpeg"
-        ],
+        "price_num": 159000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Asientos en tela",
@@ -229,7 +273,23 @@ const AUTOHAUS_DATA = {
             "1 llave 🔑",
             "138,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_11_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_11_img_2.jpeg",
+            "assets/cars/page_11_img_3.jpeg",
+            "assets/cars/page_11_img_4.jpeg",
+            "assets/cars/page_11_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_11_img_2.jpeg",
+            "assets/cars/page_11_img_3.jpeg",
+            "assets/cars/page_11_img_4.jpeg",
+            "assets/cars/page_11_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_11_img_2.jpeg",
+        "main_photo": "assets/cars/page_11_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.615Z",
+        "updated_at": "2026-09-17T23:46:38.615Z"
     },
     {
         "id": "autohaus-p12",
@@ -237,17 +297,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "C280",
         "year": 2008,
+        "category": "SEDAN & HATCHBACK",
         "price": "$115,000",
         "price_contado": "$115,000",
         "price_financiado": "$115,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_12_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_12_img_2.jpeg",
-            "assets/cars/page_12_img_3.jpeg",
-            "assets/cars/page_12_img_4.jpeg",
-            "assets/cars/page_12_img_5.jpeg"
-        ],
+        "price_num": 115000,
+        "status": "disponible",
         "specs": [
             "Factura de seminuevos",
             "100% mexicano",
@@ -258,7 +313,23 @@ const AUTOHAUS_DATA = {
             "Motor V6",
             "1 llave 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_12_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_12_img_2.jpeg",
+            "assets/cars/page_12_img_3.jpeg",
+            "assets/cars/page_12_img_4.jpeg",
+            "assets/cars/page_12_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_12_img_2.jpeg",
+            "assets/cars/page_12_img_3.jpeg",
+            "assets/cars/page_12_img_4.jpeg",
+            "assets/cars/page_12_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_12_img_2.jpeg",
+        "main_photo": "assets/cars/page_12_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.617Z",
+        "updated_at": "2026-09-17T23:46:38.617Z"
     },
     {
         "id": "autohaus-p13",
@@ -266,17 +337,12 @@ const AUTOHAUS_DATA = {
         "brand": "Audi",
         "model": "A3 Select",
         "year": 2018,
+        "category": "SEDAN & HATCHBACK",
         "price": "$275,000",
         "price_contado": "$275,000",
         "price_financiado": "$285,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_13_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_13_img_2.jpeg",
-            "assets/cars/page_13_img_3.jpeg",
-            "assets/cars/page_13_img_4.jpeg",
-            "assets/cars/page_13_img_5.jpeg"
-        ],
+        "price_num": 275000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -285,7 +351,23 @@ const AUTOHAUS_DATA = {
             "165,000 km",
             "Encendido de botón"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_13_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_13_img_2.jpeg",
+            "assets/cars/page_13_img_3.jpeg",
+            "assets/cars/page_13_img_4.jpeg",
+            "assets/cars/page_13_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_13_img_2.jpeg",
+            "assets/cars/page_13_img_3.jpeg",
+            "assets/cars/page_13_img_4.jpeg",
+            "assets/cars/page_13_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_13_img_2.jpeg",
+        "main_photo": "assets/cars/page_13_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.617Z",
+        "updated_at": "2026-09-17T23:46:38.617Z"
     },
     {
         "id": "autohaus-p14",
@@ -293,17 +375,12 @@ const AUTOHAUS_DATA = {
         "brand": "Kia",
         "model": "Rio EX Pack",
         "year": 2023,
+        "category": "SEDAN & HATCHBACK",
         "price": "$290,000",
         "price_contado": "$290,000",
         "price_financiado": "$300,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_14_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_14_img_2.jpeg",
-            "assets/cars/page_14_img_3.jpeg",
-            "assets/cars/page_14_img_4.jpeg",
-            "assets/cars/page_14_img_5.jpeg"
-        ],
+        "price_num": 290000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -314,7 +391,23 @@ const AUTOHAUS_DATA = {
             "Asientos en piel",
             "Cámara de reversa"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_14_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_14_img_2.jpeg",
+            "assets/cars/page_14_img_3.jpeg",
+            "assets/cars/page_14_img_4.jpeg",
+            "assets/cars/page_14_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_14_img_2.jpeg",
+            "assets/cars/page_14_img_3.jpeg",
+            "assets/cars/page_14_img_4.jpeg",
+            "assets/cars/page_14_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_14_img_2.jpeg",
+        "main_photo": "assets/cars/page_14_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.618Z",
+        "updated_at": "2026-09-17T23:46:38.618Z"
     },
     {
         "id": "autohaus-p15",
@@ -322,17 +415,12 @@ const AUTOHAUS_DATA = {
         "brand": "Toyota",
         "model": "Prius C Hatchback",
         "year": 2021,
+        "category": "SEDAN & HATCHBACK",
         "price": "$255,000",
         "price_contado": "$255,000",
         "price_financiado": "$265,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_15_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_15_img_2.jpeg",
-            "assets/cars/page_15_img_3.jpeg",
-            "assets/cars/page_15_img_4.jpeg",
-            "assets/cars/page_15_img_5.jpeg"
-        ],
+        "price_num": 255000,
+        "status": "disponible",
         "specs": [
             "Híbrido",
             "Automático",
@@ -342,7 +430,23 @@ const AUTOHAUS_DATA = {
             "Factura de empresa",
             "1 llave 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_15_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_15_img_2.jpeg",
+            "assets/cars/page_15_img_3.jpeg",
+            "assets/cars/page_15_img_4.jpeg",
+            "assets/cars/page_15_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_15_img_2.jpeg",
+            "assets/cars/page_15_img_3.jpeg",
+            "assets/cars/page_15_img_4.jpeg",
+            "assets/cars/page_15_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_15_img_2.jpeg",
+        "main_photo": "assets/cars/page_15_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.619Z",
+        "updated_at": "2026-09-17T23:46:38.619Z"
     },
     {
         "id": "autohaus-p16",
@@ -350,17 +454,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Beat LT",
         "year": 2019,
+        "category": "SEDAN & HATCHBACK",
         "price": "$160,000",
         "price_contado": "$160,000",
         "price_financiado": "$170,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_16_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_16_img_2.jpeg",
-            "assets/cars/page_16_img_3.jpeg",
-            "assets/cars/page_16_img_4.jpeg",
-            "assets/cars/page_16_img_5.jpeg"
-        ],
+        "price_num": 160000,
+        "status": "disponible",
         "specs": [
             "Transmisión manual",
             "Semi eléctrico",
@@ -371,7 +470,23 @@ const AUTOHAUS_DATA = {
             "2 llaves",
             "Motor 4 cil. 1.2 litros"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_16_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_16_img_2.jpeg",
+            "assets/cars/page_16_img_3.jpeg",
+            "assets/cars/page_16_img_4.jpeg",
+            "assets/cars/page_16_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_16_img_2.jpeg",
+            "assets/cars/page_16_img_3.jpeg",
+            "assets/cars/page_16_img_4.jpeg",
+            "assets/cars/page_16_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_16_img_2.jpeg",
+        "main_photo": "assets/cars/page_16_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.619Z",
+        "updated_at": "2026-09-17T23:46:38.619Z"
     },
     {
         "id": "autohaus-p17",
@@ -379,17 +494,12 @@ const AUTOHAUS_DATA = {
         "brand": "Volkswagen",
         "model": "Jetta Comfortline",
         "year": 2025,
+        "category": "SEDAN & HATCHBACK",
         "price": "$399,000",
         "price_contado": "$399,000",
         "price_financiado": "$409,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_17_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_17_img_2.jpeg",
-            "assets/cars/page_17_img_3.jpeg",
-            "assets/cars/page_17_img_4.jpeg",
-            "assets/cars/page_17_img_5.jpeg"
-        ],
+        "price_num": 399000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -400,7 +510,23 @@ const AUTOHAUS_DATA = {
             "Único dueño",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_17_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_17_img_2.jpeg",
+            "assets/cars/page_17_img_3.jpeg",
+            "assets/cars/page_17_img_4.jpeg",
+            "assets/cars/page_17_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_17_img_2.jpeg",
+            "assets/cars/page_17_img_3.jpeg",
+            "assets/cars/page_17_img_4.jpeg",
+            "assets/cars/page_17_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_17_img_2.jpeg",
+        "main_photo": "assets/cars/page_17_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.619Z",
+        "updated_at": "2026-09-17T23:46:38.619Z"
     },
     {
         "id": "autohaus-p19",
@@ -408,17 +534,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "S500 Wald Black",
         "year": 2015,
+        "category": "SEDAN & HATCHBACK",
         "price": "$1,100,000",
         "price_contado": "$1,100,000",
         "price_financiado": "$1,100,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_19_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_19_img_2.jpeg",
-            "assets/cars/page_19_img_3.jpeg",
-            "assets/cars/page_19_img_4.jpeg",
-            "assets/cars/page_19_img_5.jpeg"
-        ],
+        "price_num": 1100000,
+        "status": "disponible",
         "specs": [
             "Full catback",
             "Intakes",
@@ -430,7 +551,23 @@ const AUTOHAUS_DATA = {
             "Motor V8 biturbo 4.7L",
             "Se toma una o dos unidades a cuenta"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_19_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_19_img_2.jpeg",
+            "assets/cars/page_19_img_3.jpeg",
+            "assets/cars/page_19_img_4.jpeg",
+            "assets/cars/page_19_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_19_img_2.jpeg",
+            "assets/cars/page_19_img_3.jpeg",
+            "assets/cars/page_19_img_4.jpeg",
+            "assets/cars/page_19_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_19_img_2.jpeg",
+        "main_photo": "assets/cars/page_19_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.620Z",
+        "updated_at": "2026-09-17T23:46:38.620Z"
     },
     {
         "id": "autohaus-p20",
@@ -438,17 +575,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Sentra Advance",
         "year": 2020,
+        "category": "SEDAN & HATCHBACK",
         "price": "$260,000",
         "price_contado": "$260,000",
         "price_financiado": "$270,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_20_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_20_img_2.jpeg",
-            "assets/cars/page_20_img_3.jpeg",
-            "assets/cars/page_20_img_4.jpeg",
-            "assets/cars/page_20_img_5.jpeg"
-        ],
+        "price_num": 260000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -456,7 +588,23 @@ const AUTOHAUS_DATA = {
             "Cámara de reversa",
             "Factura de agencia"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_20_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_20_img_2.jpeg",
+            "assets/cars/page_20_img_3.jpeg",
+            "assets/cars/page_20_img_4.jpeg",
+            "assets/cars/page_20_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_20_img_2.jpeg",
+            "assets/cars/page_20_img_3.jpeg",
+            "assets/cars/page_20_img_4.jpeg",
+            "assets/cars/page_20_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_20_img_2.jpeg",
+        "main_photo": "assets/cars/page_20_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.620Z",
+        "updated_at": "2026-09-17T23:46:38.620Z"
     },
     {
         "id": "autohaus-p21",
@@ -464,17 +612,12 @@ const AUTOHAUS_DATA = {
         "brand": "Honda",
         "model": "City Prime",
         "year": 2024,
+        "category": "SEDAN & HATCHBACK",
         "price": "$330,000",
         "price_contado": "$330,000",
         "price_financiado": "$340,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_21_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_21_img_2.jpeg",
-            "assets/cars/page_21_img_3.jpeg",
-            "assets/cars/page_21_img_4.jpeg",
-            "assets/cars/page_21_img_5.jpeg"
-        ],
+        "price_num": 330000,
+        "status": "disponible",
         "specs": [
             "Automático",
             "Eléctrico",
@@ -485,7 +628,23 @@ const AUTOHAUS_DATA = {
             "Factura de agencia",
             "18,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_21_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_21_img_2.jpeg",
+            "assets/cars/page_21_img_3.jpeg",
+            "assets/cars/page_21_img_4.jpeg",
+            "assets/cars/page_21_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_21_img_2.jpeg",
+            "assets/cars/page_21_img_3.jpeg",
+            "assets/cars/page_21_img_4.jpeg",
+            "assets/cars/page_21_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_21_img_2.jpeg",
+        "main_photo": "assets/cars/page_21_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.621Z",
+        "updated_at": "2026-09-17T23:46:38.621Z"
     },
     {
         "id": "autohaus-p22",
@@ -493,10 +652,18 @@ const AUTOHAUS_DATA = {
         "brand": "Ford",
         "model": "Figo Energy",
         "year": 2018,
+        "category": "SEDAN & HATCHBACK",
         "price": "$130,000",
         "price_contado": "$130,000",
         "price_financiado": "$140,000",
-        "category": "SEDAN & HATCHBACK",
+        "price_num": 130000,
+        "status": "disponible",
+        "specs": [
+            "Automático",
+            "Vidrios manuales",
+            "Asientos en tela",
+            "126,000 km"
+        ],
         "cover_photo": "assets/cars/page_22_img_2.jpeg",
         "real_photos": [
             "assets/cars/page_22_img_2.jpeg",
@@ -504,13 +671,16 @@ const AUTOHAUS_DATA = {
             "assets/cars/page_22_img_4.jpeg",
             "assets/cars/page_22_img_5.jpeg"
         ],
-        "specs": [
-            "Automático",
-            "Vidrios manuales",
-            "Asientos en tela",
-            "126,000 km"
+        "photos": [
+            "assets/cars/page_22_img_2.jpeg",
+            "assets/cars/page_22_img_3.jpeg",
+            "assets/cars/page_22_img_4.jpeg",
+            "assets/cars/page_22_img_5.jpeg"
         ],
-        "status": "Disponible"
+        "cutout_photo": "assets/cars/page_22_img_2.jpeg",
+        "main_photo": "assets/cars/page_22_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.621Z",
+        "updated_at": "2026-09-17T23:46:38.621Z"
     },
     {
         "id": "autohaus-p23",
@@ -518,17 +688,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Sentra Sense",
         "year": 2022,
+        "category": "SEDAN & HATCHBACK",
         "price": "$269,000",
         "price_contado": "$269,000",
         "price_financiado": "$279,000",
-        "category": "SEDAN & HATCHBACK",
-        "cover_photo": "assets/cars/page_23_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_23_img_2.jpeg",
-            "assets/cars/page_23_img_3.jpeg",
-            "assets/cars/page_23_img_4.jpeg",
-            "assets/cars/page_23_img_5.jpeg"
-        ],
+        "price_num": 269000,
+        "status": "disponible",
         "specs": [
             "Factura de agencia",
             "Único dueño",
@@ -538,7 +703,23 @@ const AUTOHAUS_DATA = {
             "82,000 km",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_23_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_23_img_2.jpeg",
+            "assets/cars/page_23_img_3.jpeg",
+            "assets/cars/page_23_img_4.jpeg",
+            "assets/cars/page_23_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_23_img_2.jpeg",
+            "assets/cars/page_23_img_3.jpeg",
+            "assets/cars/page_23_img_4.jpeg",
+            "assets/cars/page_23_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_23_img_2.jpeg",
+        "main_photo": "assets/cars/page_23_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.621Z",
+        "updated_at": "2026-09-17T23:46:38.621Z"
     },
     {
         "id": "autohaus-p25",
@@ -546,17 +727,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "GLE 450",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$620,000",
         "price_contado": "$620,000",
         "price_financiado": "$630,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_25_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_25_img_2.jpeg",
-            "assets/cars/page_25_img_3.jpeg",
-            "assets/cars/page_25_img_4.jpeg",
-            "assets/cars/page_25_img_5.jpeg"
-        ],
+        "price_num": 620000,
+        "status": "disponible",
         "specs": [
             "SUV",
             "Automática",
@@ -567,7 +743,23 @@ const AUTOHAUS_DATA = {
             "152,000 km",
             "Factura de agencia"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_25_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_25_img_2.jpeg",
+            "assets/cars/page_25_img_3.jpeg",
+            "assets/cars/page_25_img_4.jpeg",
+            "assets/cars/page_25_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_25_img_2.jpeg",
+            "assets/cars/page_25_img_3.jpeg",
+            "assets/cars/page_25_img_4.jpeg",
+            "assets/cars/page_25_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_25_img_2.jpeg",
+        "main_photo": "assets/cars/page_25_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.622Z",
+        "updated_at": "2026-09-17T23:46:38.622Z"
     },
     {
         "id": "autohaus-p26",
@@ -575,17 +767,12 @@ const AUTOHAUS_DATA = {
         "brand": "Hyundai",
         "model": "Creta Grand Limited",
         "year": 2022,
+        "category": "SUV'S",
         "price": "$395,000",
         "price_contado": "$395,000",
         "price_financiado": "$405,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_26_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_26_img_2.jpeg",
-            "assets/cars/page_26_img_3.jpeg",
-            "assets/cars/page_26_img_4.jpeg",
-            "assets/cars/page_26_img_5.jpeg"
-        ],
+        "price_num": 395000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -596,7 +783,23 @@ const AUTOHAUS_DATA = {
             "Motor 4 cil 2.0L",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_26_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_26_img_2.jpeg",
+            "assets/cars/page_26_img_3.jpeg",
+            "assets/cars/page_26_img_4.jpeg",
+            "assets/cars/page_26_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_26_img_2.jpeg",
+            "assets/cars/page_26_img_3.jpeg",
+            "assets/cars/page_26_img_4.jpeg",
+            "assets/cars/page_26_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_26_img_2.jpeg",
+        "main_photo": "assets/cars/page_26_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.622Z",
+        "updated_at": "2026-09-17T23:46:38.622Z"
     },
     {
         "id": "autohaus-p27",
@@ -604,17 +807,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mazda",
         "model": "CX-9 Grand Touring",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$455,000",
         "price_contado": "$455,000",
         "price_financiado": "$465,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_27_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_27_img_2.jpeg",
-            "assets/cars/page_27_img_3.jpeg",
-            "assets/cars/page_27_img_4.jpeg",
-            "assets/cars/page_27_img_5.jpeg"
-        ],
+        "price_num": 455000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -625,7 +823,23 @@ const AUTOHAUS_DATA = {
             "Factura de seminuevos",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_27_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_27_img_2.jpeg",
+            "assets/cars/page_27_img_3.jpeg",
+            "assets/cars/page_27_img_4.jpeg",
+            "assets/cars/page_27_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_27_img_2.jpeg",
+            "assets/cars/page_27_img_3.jpeg",
+            "assets/cars/page_27_img_4.jpeg",
+            "assets/cars/page_27_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_27_img_2.jpeg",
+        "main_photo": "assets/cars/page_27_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.623Z",
+        "updated_at": "2026-09-17T23:46:38.623Z"
     },
     {
         "id": "autohaus-p28",
@@ -633,17 +847,12 @@ const AUTOHAUS_DATA = {
         "brand": "Hyundai",
         "model": "Tucson Limited Tech Hybrid",
         "year": 2025,
+        "category": "SUV'S",
         "price": "$740,000",
         "price_contado": "$740,000",
         "price_financiado": "$750,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_28_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_28_img_2.jpeg",
-            "assets/cars/page_28_img_3.jpeg",
-            "assets/cars/page_28_img_4.jpeg",
-            "assets/cars/page_28_img_5.jpeg"
-        ],
+        "price_num": 740000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -656,7 +865,23 @@ const AUTOHAUS_DATA = {
             "Factura de agencia",
             "1 dueño"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_28_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_28_img_2.jpeg",
+            "assets/cars/page_28_img_3.jpeg",
+            "assets/cars/page_28_img_4.jpeg",
+            "assets/cars/page_28_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_28_img_2.jpeg",
+            "assets/cars/page_28_img_3.jpeg",
+            "assets/cars/page_28_img_4.jpeg",
+            "assets/cars/page_28_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_28_img_2.jpeg",
+        "main_photo": "assets/cars/page_28_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.623Z",
+        "updated_at": "2026-09-17T23:46:38.623Z"
     },
     {
         "id": "autohaus-p29",
@@ -664,17 +889,12 @@ const AUTOHAUS_DATA = {
         "brand": "Volkswagen",
         "model": "Teramont Cross Sport R-Line",
         "year": 2024,
+        "category": "SUV'S",
         "price": "$945,000",
         "price_contado": "$945,000",
         "price_financiado": "$955,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_29_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_29_img_2.jpeg",
-            "assets/cars/page_29_img_3.jpeg",
-            "assets/cars/page_29_img_4.jpeg",
-            "assets/cars/page_29_img_5.jpeg"
-        ],
+        "price_num": 945000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -687,7 +907,23 @@ const AUTOHAUS_DATA = {
             "Servicios en la agencia",
             "15,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_29_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_29_img_2.jpeg",
+            "assets/cars/page_29_img_3.jpeg",
+            "assets/cars/page_29_img_4.jpeg",
+            "assets/cars/page_29_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_29_img_2.jpeg",
+            "assets/cars/page_29_img_3.jpeg",
+            "assets/cars/page_29_img_4.jpeg",
+            "assets/cars/page_29_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_29_img_2.jpeg",
+        "main_photo": "assets/cars/page_29_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.623Z",
+        "updated_at": "2026-09-17T23:46:38.623Z"
     },
     {
         "id": "autohaus-p30",
@@ -695,17 +931,12 @@ const AUTOHAUS_DATA = {
         "brand": "Hyundai",
         "model": "Tucson GLS",
         "year": 2024,
+        "category": "SUV'S",
         "price": "$485,000",
         "price_contado": "$485,000",
         "price_financiado": "$495,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_30_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_30_img_2.jpeg",
-            "assets/cars/page_30_img_3.jpeg",
-            "assets/cars/page_30_img_4.jpeg",
-            "assets/cars/page_30_img_5.jpeg"
-        ],
+        "price_num": 485000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -716,7 +947,23 @@ const AUTOHAUS_DATA = {
             "1 dueño",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_30_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_30_img_2.jpeg",
+            "assets/cars/page_30_img_3.jpeg",
+            "assets/cars/page_30_img_4.jpeg",
+            "assets/cars/page_30_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_30_img_2.jpeg",
+            "assets/cars/page_30_img_3.jpeg",
+            "assets/cars/page_30_img_4.jpeg",
+            "assets/cars/page_30_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_30_img_2.jpeg",
+        "main_photo": "assets/cars/page_30_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.624Z",
+        "updated_at": "2026-09-17T23:46:38.624Z"
     },
     {
         "id": "autohaus-p31",
@@ -724,17 +971,12 @@ const AUTOHAUS_DATA = {
         "brand": "Porsche",
         "model": "Cayenne Coupe Turbo GT",
         "year": 2024,
+        "category": "SUV'S",
         "price": "$3,200,000",
         "price_contado": "$3,200,000",
         "price_financiado": "$3,210,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_31_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_31_img_2.jpeg",
-            "assets/cars/page_31_img_3.jpeg",
-            "assets/cars/page_31_img_4.jpeg",
-            "assets/cars/page_31_img_5.jpeg"
-        ],
+        "price_num": 3200000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -745,7 +987,23 @@ const AUTOHAUS_DATA = {
             "16,000 km",
             "Motor V8 4.0L Turbo 659 hp"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_31_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_31_img_2.jpeg",
+            "assets/cars/page_31_img_3.jpeg",
+            "assets/cars/page_31_img_4.jpeg",
+            "assets/cars/page_31_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_31_img_2.jpeg",
+            "assets/cars/page_31_img_3.jpeg",
+            "assets/cars/page_31_img_4.jpeg",
+            "assets/cars/page_31_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_31_img_2.jpeg",
+        "main_photo": "assets/cars/page_31_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.625Z",
+        "updated_at": "2026-09-17T23:46:38.625Z"
     },
     {
         "id": "autohaus-p32",
@@ -753,17 +1011,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "GLE 43 AMG Coupe",
         "year": 2019,
+        "category": "SUV'S",
         "price": "$750,000",
         "price_contado": "$750,000",
         "price_financiado": "$760,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_32_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_32_img_2.jpeg",
-            "assets/cars/page_32_img_3.jpeg",
-            "assets/cars/page_32_img_4.jpeg",
-            "assets/cars/page_32_img_5.jpeg"
-        ],
+        "price_num": 750000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -777,7 +1030,23 @@ const AUTOHAUS_DATA = {
             "Rines Vossen",
             "Iluminación LED en puertas"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_32_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_32_img_2.jpeg",
+            "assets/cars/page_32_img_3.jpeg",
+            "assets/cars/page_32_img_4.jpeg",
+            "assets/cars/page_32_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_32_img_2.jpeg",
+            "assets/cars/page_32_img_3.jpeg",
+            "assets/cars/page_32_img_4.jpeg",
+            "assets/cars/page_32_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_32_img_2.jpeg",
+        "main_photo": "assets/cars/page_32_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.625Z",
+        "updated_at": "2026-09-17T23:46:38.625Z"
     },
     {
         "id": "autohaus-p33",
@@ -785,17 +1054,12 @@ const AUTOHAUS_DATA = {
         "brand": "Audi",
         "model": "Q3 Elite",
         "year": 2018,
+        "category": "SUV'S",
         "price": "$330,000",
         "price_contado": "$330,000",
         "price_financiado": "$340,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_33_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_33_img_2.jpeg",
-            "assets/cars/page_33_img_3.jpeg",
-            "assets/cars/page_33_img_4.jpeg",
-            "assets/cars/page_33_img_5.jpeg"
-        ],
+        "price_num": 330000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -807,7 +1071,23 @@ const AUTOHAUS_DATA = {
             "2 llaves",
             "Único dueño"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_33_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_33_img_2.jpeg",
+            "assets/cars/page_33_img_3.jpeg",
+            "assets/cars/page_33_img_4.jpeg",
+            "assets/cars/page_33_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_33_img_2.jpeg",
+            "assets/cars/page_33_img_3.jpeg",
+            "assets/cars/page_33_img_4.jpeg",
+            "assets/cars/page_33_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_33_img_2.jpeg",
+        "main_photo": "assets/cars/page_33_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.625Z",
+        "updated_at": "2026-09-17T23:46:38.625Z"
     },
     {
         "id": "autohaus-p34",
@@ -815,17 +1095,12 @@ const AUTOHAUS_DATA = {
         "brand": "Audi",
         "model": "Q5 Elite",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$495,000",
         "price_contado": "$495,000",
         "price_financiado": "$505,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_34_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_34_img_2.jpeg",
-            "assets/cars/page_34_img_3.jpeg",
-            "assets/cars/page_34_img_4.jpeg",
-            "assets/cars/page_34_img_5.jpeg"
-        ],
+        "price_num": 495000,
+        "status": "disponible",
         "specs": [
             "Asientos en piel",
             "Cámara de reversa",
@@ -837,7 +1112,23 @@ const AUTOHAUS_DATA = {
             "Motor 2.0 Turbo",
             "Tracción Quattro"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_34_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_34_img_2.jpeg",
+            "assets/cars/page_34_img_3.jpeg",
+            "assets/cars/page_34_img_4.jpeg",
+            "assets/cars/page_34_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_34_img_2.jpeg",
+            "assets/cars/page_34_img_3.jpeg",
+            "assets/cars/page_34_img_4.jpeg",
+            "assets/cars/page_34_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_34_img_2.jpeg",
+        "main_photo": "assets/cars/page_34_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.626Z",
+        "updated_at": "2026-09-17T23:46:38.626Z"
     },
     {
         "id": "autohaus-p35",
@@ -845,17 +1136,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mazda",
         "model": "CX-9 Grand Touring",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$455,000",
         "price_contado": "$455,000",
         "price_financiado": "$465,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_35_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_35_img_2.jpeg",
-            "assets/cars/page_35_img_3.jpeg",
-            "assets/cars/page_35_img_4.jpeg",
-            "assets/cars/page_35_img_5.jpeg"
-        ],
+        "price_num": 455000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -865,7 +1151,23 @@ const AUTOHAUS_DATA = {
             "2 llaves 🔑",
             "156,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_35_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_35_img_2.jpeg",
+            "assets/cars/page_35_img_3.jpeg",
+            "assets/cars/page_35_img_4.jpeg",
+            "assets/cars/page_35_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_35_img_2.jpeg",
+            "assets/cars/page_35_img_3.jpeg",
+            "assets/cars/page_35_img_4.jpeg",
+            "assets/cars/page_35_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_35_img_2.jpeg",
+        "main_photo": "assets/cars/page_35_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.626Z",
+        "updated_at": "2026-09-17T23:46:38.626Z"
     },
     {
         "id": "autohaus-p36",
@@ -873,17 +1175,12 @@ const AUTOHAUS_DATA = {
         "brand": "BMW",
         "model": "X6 Sport",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$999,000",
         "price_contado": "$999,000",
         "price_financiado": "$1,009,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_36_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_36_img_2.jpeg",
-            "assets/cars/page_36_img_3.jpeg",
-            "assets/cars/page_36_img_4.jpeg",
-            "assets/cars/page_36_img_5.jpeg"
-        ],
+        "price_num": 999000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -895,7 +1192,23 @@ const AUTOHAUS_DATA = {
             "Factura de agencia",
             "2 llaves"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_36_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_36_img_2.jpeg",
+            "assets/cars/page_36_img_3.jpeg",
+            "assets/cars/page_36_img_4.jpeg",
+            "assets/cars/page_36_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_36_img_2.jpeg",
+            "assets/cars/page_36_img_3.jpeg",
+            "assets/cars/page_36_img_4.jpeg",
+            "assets/cars/page_36_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_36_img_2.jpeg",
+        "main_photo": "assets/cars/page_36_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.627Z",
+        "updated_at": "2026-09-17T23:46:38.627Z"
     },
     {
         "id": "autohaus-p37",
@@ -903,17 +1216,12 @@ const AUTOHAUS_DATA = {
         "brand": "Ford",
         "model": "Territory Titanium",
         "year": 2024,
+        "category": "SUV'S",
         "price": "$479,000",
         "price_contado": "$479,000",
         "price_financiado": "$489,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_37_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_37_img_2.jpeg",
-            "assets/cars/page_37_img_3.jpeg",
-            "assets/cars/page_37_img_4.jpeg",
-            "assets/cars/page_37_img_5.jpeg"
-        ],
+        "price_num": 479000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -925,7 +1233,23 @@ const AUTOHAUS_DATA = {
             "1 dueño",
             "Motor 1.8L Turbo 4 cil"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_37_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_37_img_2.jpeg",
+            "assets/cars/page_37_img_3.jpeg",
+            "assets/cars/page_37_img_4.jpeg",
+            "assets/cars/page_37_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_37_img_2.jpeg",
+            "assets/cars/page_37_img_3.jpeg",
+            "assets/cars/page_37_img_4.jpeg",
+            "assets/cars/page_37_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_37_img_2.jpeg",
+        "main_photo": "assets/cars/page_37_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.627Z",
+        "updated_at": "2026-09-17T23:46:38.627Z"
     },
     {
         "id": "autohaus-p38",
@@ -933,17 +1257,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "GLC 300",
         "year": 2019,
+        "category": "SUV'S",
         "price": "$430,000",
         "price_contado": "$430,000",
         "price_financiado": "$440,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_38_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_38_img_2.jpeg",
-            "assets/cars/page_38_img_3.jpeg",
-            "assets/cars/page_38_img_4.jpeg",
-            "assets/cars/page_38_img_5.jpeg"
-        ],
+        "price_num": 430000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -953,7 +1272,23 @@ const AUTOHAUS_DATA = {
             "78,000 km",
             "Motor 4 cil 2.0 Turbo"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_38_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_38_img_2.jpeg",
+            "assets/cars/page_38_img_3.jpeg",
+            "assets/cars/page_38_img_4.jpeg",
+            "assets/cars/page_38_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_38_img_2.jpeg",
+            "assets/cars/page_38_img_3.jpeg",
+            "assets/cars/page_38_img_4.jpeg",
+            "assets/cars/page_38_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_38_img_2.jpeg",
+        "main_photo": "assets/cars/page_38_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.628Z",
+        "updated_at": "2026-09-17T23:46:38.628Z"
     },
     {
         "id": "autohaus-p39",
@@ -961,17 +1296,12 @@ const AUTOHAUS_DATA = {
         "brand": "Peugeot",
         "model": "3008 Active",
         "year": 2023,
+        "category": "SUV'S",
         "price": "$359,000",
         "price_contado": "$359,000",
         "price_financiado": "$369,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_39_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_39_img_2.jpeg",
-            "assets/cars/page_39_img_3.jpeg",
-            "assets/cars/page_39_img_4.jpeg",
-            "assets/cars/page_39_img_5.jpeg"
-        ],
+        "price_num": 359000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -981,7 +1311,23 @@ const AUTOHAUS_DATA = {
             "Factura de empresa",
             "1 llave 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_39_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_39_img_2.jpeg",
+            "assets/cars/page_39_img_3.jpeg",
+            "assets/cars/page_39_img_4.jpeg",
+            "assets/cars/page_39_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_39_img_2.jpeg",
+            "assets/cars/page_39_img_3.jpeg",
+            "assets/cars/page_39_img_4.jpeg",
+            "assets/cars/page_39_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_39_img_2.jpeg",
+        "main_photo": "assets/cars/page_39_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.628Z",
+        "updated_at": "2026-09-17T23:46:38.628Z"
     },
     {
         "id": "autohaus-p40",
@@ -989,17 +1335,12 @@ const AUTOHAUS_DATA = {
         "brand": "Jeep",
         "model": "Grand Cherokee Trackhawk",
         "year": 2018,
+        "category": "SUV'S",
         "price": "$1,400,000",
         "price_contado": "$1,400,000",
         "price_financiado": "$1,400,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_40_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_40_img_2.jpeg",
-            "assets/cars/page_40_img_3.jpeg",
-            "assets/cars/page_40_img_4.jpeg",
-            "assets/cars/page_40_img_5.jpeg"
-        ],
+        "price_num": 1400000,
+        "status": "disponible",
         "specs": [
             "Asientos en Alcántara",
             "Eléctrica",
@@ -1017,7 +1358,23 @@ const AUTOHAUS_DATA = {
             "Resortes Lowering Kit Eibach",
             "Importada (D)"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_40_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_40_img_2.jpeg",
+            "assets/cars/page_40_img_3.jpeg",
+            "assets/cars/page_40_img_4.jpeg",
+            "assets/cars/page_40_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_40_img_2.jpeg",
+            "assets/cars/page_40_img_3.jpeg",
+            "assets/cars/page_40_img_4.jpeg",
+            "assets/cars/page_40_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_40_img_2.jpeg",
+        "main_photo": "assets/cars/page_40_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.629Z",
+        "updated_at": "2026-09-17T23:46:38.629Z"
     },
     {
         "id": "autohaus-p42",
@@ -1025,17 +1382,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mitsubishi",
         "model": "L200",
         "year": 2022,
+        "category": "SUV'S",
         "price": "$335,000",
         "price_contado": "$335,000",
         "price_financiado": "$345,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_42_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_42_img_2.jpeg",
-            "assets/cars/page_42_img_3.jpeg",
-            "assets/cars/page_42_img_4.jpeg",
-            "assets/cars/page_42_img_5.jpeg"
-        ],
+        "price_num": 335000,
+        "status": "disponible",
         "specs": [
             "Transmisión manual",
             "Eléctrica",
@@ -1046,7 +1398,23 @@ const AUTOHAUS_DATA = {
             "1 llave",
             "130,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_42_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_42_img_2.jpeg",
+            "assets/cars/page_42_img_3.jpeg",
+            "assets/cars/page_42_img_4.jpeg",
+            "assets/cars/page_42_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_42_img_2.jpeg",
+            "assets/cars/page_42_img_3.jpeg",
+            "assets/cars/page_42_img_4.jpeg",
+            "assets/cars/page_42_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_42_img_2.jpeg",
+        "main_photo": "assets/cars/page_42_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.629Z",
+        "updated_at": "2026-09-17T23:46:38.629Z"
     },
     {
         "id": "autohaus-p43",
@@ -1054,17 +1422,12 @@ const AUTOHAUS_DATA = {
         "brand": "Peugeot",
         "model": "Partner Maxi",
         "year": 2018,
+        "category": "SUV'S",
         "price": "$215,000",
         "price_contado": "$215,000",
         "price_financiado": "$225,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_43_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_43_img_2.jpeg",
-            "assets/cars/page_43_img_3.jpeg",
-            "assets/cars/page_43_img_4.jpeg",
-            "assets/cars/page_43_img_5.jpeg"
-        ],
+        "price_num": 215000,
+        "status": "disponible",
         "specs": [
             "Factura de agencia",
             "Un dueño",
@@ -1075,7 +1438,23 @@ const AUTOHAUS_DATA = {
             "4 puertas",
             "193,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_43_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_43_img_2.jpeg",
+            "assets/cars/page_43_img_3.jpeg",
+            "assets/cars/page_43_img_4.jpeg",
+            "assets/cars/page_43_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_43_img_2.jpeg",
+            "assets/cars/page_43_img_3.jpeg",
+            "assets/cars/page_43_img_4.jpeg",
+            "assets/cars/page_43_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_43_img_2.jpeg",
+        "main_photo": "assets/cars/page_43_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.629Z",
+        "updated_at": "2026-09-17T23:46:38.629Z"
     },
     {
         "id": "autohaus-p44",
@@ -1083,17 +1462,12 @@ const AUTOHAUS_DATA = {
         "brand": "Peugeot",
         "model": "Partner Maxi Pack",
         "year": 2021,
+        "category": "SUV'S",
         "price": "$279,000",
         "price_contado": "$279,000",
         "price_financiado": "$289,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_44_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_44_img_2.jpeg",
-            "assets/cars/page_44_img_3.jpeg",
-            "assets/cars/page_44_img_4.jpeg",
-            "assets/cars/page_44_img_5.jpeg"
-        ],
+        "price_num": 279000,
+        "status": "disponible",
         "specs": [
             "Transmisión manual",
             "A/C",
@@ -1107,7 +1481,23 @@ const AUTOHAUS_DATA = {
             "120,000 km",
             "Factura de seminuevos de agencia"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_44_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_44_img_2.jpeg",
+            "assets/cars/page_44_img_3.jpeg",
+            "assets/cars/page_44_img_4.jpeg",
+            "assets/cars/page_44_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_44_img_2.jpeg",
+            "assets/cars/page_44_img_3.jpeg",
+            "assets/cars/page_44_img_4.jpeg",
+            "assets/cars/page_44_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_44_img_2.jpeg",
+        "main_photo": "assets/cars/page_44_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.630Z",
+        "updated_at": "2026-09-17T23:46:38.630Z"
     },
     {
         "id": "autohaus-p45",
@@ -1115,17 +1505,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Traverse LT",
         "year": 2021,
+        "category": "SUV'S",
         "price": "$505,000",
         "price_contado": "$505,000",
         "price_financiado": "$515,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_45_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_45_img_2.jpeg",
-            "assets/cars/page_45_img_3.jpeg",
-            "assets/cars/page_45_img_4.jpeg",
-            "assets/cars/page_45_img_5.jpeg"
-        ],
+        "price_num": 505000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1139,7 +1524,23 @@ const AUTOHAUS_DATA = {
             "Factura de agencia",
             "Único dueño"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_45_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_45_img_2.jpeg",
+            "assets/cars/page_45_img_3.jpeg",
+            "assets/cars/page_45_img_4.jpeg",
+            "assets/cars/page_45_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_45_img_2.jpeg",
+            "assets/cars/page_45_img_3.jpeg",
+            "assets/cars/page_45_img_4.jpeg",
+            "assets/cars/page_45_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_45_img_2.jpeg",
+        "main_photo": "assets/cars/page_45_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.630Z",
+        "updated_at": "2026-09-17T23:46:38.630Z"
     },
     {
         "id": "autohaus-p46",
@@ -1147,17 +1548,12 @@ const AUTOHAUS_DATA = {
         "brand": "GMC",
         "model": "Terrain Denali",
         "year": 2020,
+        "category": "SUV'S",
         "price": "$379,000",
         "price_contado": "$379,000",
         "price_financiado": "$389,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_46_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_46_img_2.jpeg",
-            "assets/cars/page_46_img_3.jpeg",
-            "assets/cars/page_46_img_4.jpeg",
-            "assets/cars/page_46_img_5.jpeg"
-        ],
+        "price_num": 379000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1168,7 +1564,23 @@ const AUTOHAUS_DATA = {
             "1 dueño",
             "137,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_46_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_46_img_2.jpeg",
+            "assets/cars/page_46_img_3.jpeg",
+            "assets/cars/page_46_img_4.jpeg",
+            "assets/cars/page_46_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_46_img_2.jpeg",
+            "assets/cars/page_46_img_3.jpeg",
+            "assets/cars/page_46_img_4.jpeg",
+            "assets/cars/page_46_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_46_img_2.jpeg",
+        "main_photo": "assets/cars/page_46_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.630Z",
+        "updated_at": "2026-09-17T23:46:38.630Z"
     },
     {
         "id": "autohaus-p47",
@@ -1176,17 +1588,12 @@ const AUTOHAUS_DATA = {
         "brand": "Jeep",
         "model": "Grand Cherokee Limited Lujo",
         "year": 2015,
+        "category": "SUV'S",
         "price": "$245,000",
         "price_contado": "$245,000",
         "price_financiado": "$255,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_47_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_47_img_2.jpeg",
-            "assets/cars/page_47_img_3.jpeg",
-            "assets/cars/page_47_img_4.jpeg",
-            "assets/cars/page_47_img_5.jpeg"
-        ],
+        "price_num": 245000,
+        "status": "disponible",
         "specs": [
             "Motor V6 3.6L",
             "Automática",
@@ -1199,7 +1606,23 @@ const AUTOHAUS_DATA = {
             "Factura de seminuevos de agencia",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_47_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_47_img_2.jpeg",
+            "assets/cars/page_47_img_3.jpeg",
+            "assets/cars/page_47_img_4.jpeg",
+            "assets/cars/page_47_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_47_img_2.jpeg",
+            "assets/cars/page_47_img_3.jpeg",
+            "assets/cars/page_47_img_4.jpeg",
+            "assets/cars/page_47_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_47_img_2.jpeg",
+        "main_photo": "assets/cars/page_47_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.631Z",
+        "updated_at": "2026-09-17T23:46:38.631Z"
     },
     {
         "id": "autohaus-p48",
@@ -1207,17 +1630,12 @@ const AUTOHAUS_DATA = {
         "brand": "Audi",
         "model": "Q5 Élite Quattro",
         "year": 2013,
+        "category": "SUV'S",
         "price": "$219,000",
         "price_contado": "$219,000",
         "price_financiado": "$219,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_48_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_48_img_2.jpeg",
-            "assets/cars/page_48_img_3.jpeg",
-            "assets/cars/page_48_img_4.jpeg",
-            "assets/cars/page_48_img_5.jpeg"
-        ],
+        "price_num": 219000,
+        "status": "disponible",
         "specs": [
             "100% mexicana",
             "Llantas nuevas",
@@ -1227,7 +1645,23 @@ const AUTOHAUS_DATA = {
             "Botón de encendido",
             "Factura de seminuevos"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_48_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_48_img_2.jpeg",
+            "assets/cars/page_48_img_3.jpeg",
+            "assets/cars/page_48_img_4.jpeg",
+            "assets/cars/page_48_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_48_img_2.jpeg",
+            "assets/cars/page_48_img_3.jpeg",
+            "assets/cars/page_48_img_4.jpeg",
+            "assets/cars/page_48_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_48_img_2.jpeg",
+        "main_photo": "assets/cars/page_48_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.631Z",
+        "updated_at": "2026-09-17T23:46:38.631Z"
     },
     {
         "id": "autohaus-p49",
@@ -1235,17 +1669,12 @@ const AUTOHAUS_DATA = {
         "brand": "Ford",
         "model": "EcoSport Titanium",
         "year": 2019,
+        "category": "SUV'S",
         "price": "$239,000",
         "price_contado": "$239,000",
         "price_financiado": "$249,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_49_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_49_img_2.jpeg",
-            "assets/cars/page_49_img_3.jpeg",
-            "assets/cars/page_49_img_4.jpeg",
-            "assets/cars/page_49_img_5.jpeg"
-        ],
+        "price_num": 239000,
+        "status": "disponible",
         "specs": [
             "Factura de agencia",
             "Dos llaves",
@@ -1258,7 +1687,23 @@ const AUTOHAUS_DATA = {
             "Pantalla",
             "76,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_49_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_49_img_2.jpeg",
+            "assets/cars/page_49_img_3.jpeg",
+            "assets/cars/page_49_img_4.jpeg",
+            "assets/cars/page_49_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_49_img_2.jpeg",
+            "assets/cars/page_49_img_3.jpeg",
+            "assets/cars/page_49_img_4.jpeg",
+            "assets/cars/page_49_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_49_img_2.jpeg",
+        "main_photo": "assets/cars/page_49_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.632Z",
+        "updated_at": "2026-09-17T23:46:38.632Z"
     },
     {
         "id": "autohaus-p50",
@@ -1266,17 +1711,12 @@ const AUTOHAUS_DATA = {
         "brand": "Nissan",
         "model": "Kicks Exclusive",
         "year": 2018,
+        "category": "SUV'S",
         "price": "$239,000",
         "price_contado": "$239,000",
         "price_financiado": "$249,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_50_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_50_img_2.jpeg",
-            "assets/cars/page_50_img_3.jpeg",
-            "assets/cars/page_50_img_4.jpeg",
-            "assets/cars/page_50_img_5.jpeg"
-        ],
+        "price_num": 239000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1286,7 +1726,23 @@ const AUTOHAUS_DATA = {
             "Tacómetro digital",
             "103,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_50_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_50_img_2.jpeg",
+            "assets/cars/page_50_img_3.jpeg",
+            "assets/cars/page_50_img_4.jpeg",
+            "assets/cars/page_50_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_50_img_2.jpeg",
+            "assets/cars/page_50_img_3.jpeg",
+            "assets/cars/page_50_img_4.jpeg",
+            "assets/cars/page_50_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_50_img_2.jpeg",
+        "main_photo": "assets/cars/page_50_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.632Z",
+        "updated_at": "2026-09-17T23:46:38.632Z"
     },
     {
         "id": "autohaus-p51",
@@ -1294,17 +1750,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mazda",
         "model": "CX-9 Signature",
         "year": 2019,
+        "category": "SUV'S",
         "price": "$420,000",
         "price_contado": "$420,000",
         "price_financiado": "$430,000",
-        "category": "SUV'S",
-        "cover_photo": "assets/cars/page_51_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_51_img_2.jpeg",
-            "assets/cars/page_51_img_3.jpeg",
-            "assets/cars/page_51_img_4.jpeg",
-            "assets/cars/page_51_img_5.jpeg"
-        ],
+        "price_num": 420000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1316,7 +1767,23 @@ const AUTOHAUS_DATA = {
             "108,000 km",
             "Todos sus servicios en la agencia"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_51_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_51_img_2.jpeg",
+            "assets/cars/page_51_img_3.jpeg",
+            "assets/cars/page_51_img_4.jpeg",
+            "assets/cars/page_51_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_51_img_2.jpeg",
+            "assets/cars/page_51_img_3.jpeg",
+            "assets/cars/page_51_img_4.jpeg",
+            "assets/cars/page_51_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_51_img_2.jpeg",
+        "main_photo": "assets/cars/page_51_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.632Z",
+        "updated_at": "2026-09-17T23:46:38.632Z"
     },
     {
         "id": "autohaus-p53",
@@ -1324,17 +1791,12 @@ const AUTOHAUS_DATA = {
         "brand": "GMC",
         "model": "Sierra SLT 2500 HD",
         "year": 2021,
+        "category": "PICK UPS",
         "price": "$1,050,000",
         "price_contado": "$1,050,000",
         "price_financiado": "$1,060,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_53_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_53_img_2.jpeg",
-            "assets/cars/page_53_img_3.jpeg",
-            "assets/cars/page_53_img_4.jpeg",
-            "assets/cars/page_53_img_5.jpeg"
-        ],
+        "price_num": 1050000,
+        "status": "disponible",
         "specs": [
             "Importada por pedimento",
             "Asientos en piel",
@@ -1344,7 +1806,23 @@ const AUTOHAUS_DATA = {
             "104,000 millas",
             "Cámara de reversa"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_53_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_53_img_2.jpeg",
+            "assets/cars/page_53_img_3.jpeg",
+            "assets/cars/page_53_img_4.jpeg",
+            "assets/cars/page_53_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_53_img_2.jpeg",
+            "assets/cars/page_53_img_3.jpeg",
+            "assets/cars/page_53_img_4.jpeg",
+            "assets/cars/page_53_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_53_img_2.jpeg",
+        "main_photo": "assets/cars/page_53_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.633Z",
+        "updated_at": "2026-09-17T23:46:38.633Z"
     },
     {
         "id": "autohaus-p54",
@@ -1352,17 +1830,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Silverado Custom",
         "year": 2022,
+        "category": "PICK UPS",
         "price": "$665,000",
         "price_contado": "$665,000",
         "price_financiado": "$675,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_54_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_54_img_2.jpeg",
-            "assets/cars/page_54_img_3.jpeg",
-            "assets/cars/page_54_img_4.jpeg",
-            "assets/cars/page_54_img_5.jpeg"
-        ],
+        "price_num": 665000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1372,7 +1845,23 @@ const AUTOHAUS_DATA = {
             "Factura de seminuevos",
             "Motor 8 cil"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_54_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_54_img_2.jpeg",
+            "assets/cars/page_54_img_3.jpeg",
+            "assets/cars/page_54_img_4.jpeg",
+            "assets/cars/page_54_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_54_img_2.jpeg",
+            "assets/cars/page_54_img_3.jpeg",
+            "assets/cars/page_54_img_4.jpeg",
+            "assets/cars/page_54_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_54_img_2.jpeg",
+        "main_photo": "assets/cars/page_54_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.633Z",
+        "updated_at": "2026-09-17T23:46:38.633Z"
     },
     {
         "id": "autohaus-p55",
@@ -1380,17 +1869,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Cheyenne RST",
         "year": 2019,
+        "category": "PICK UPS",
         "price": "$665,000",
         "price_contado": "$665,000",
         "price_financiado": "$675,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_55_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_55_img_2.jpeg",
-            "assets/cars/page_55_img_3.jpeg",
-            "assets/cars/page_55_img_4.jpeg",
-            "assets/cars/page_55_img_5.jpeg"
-        ],
+        "price_num": 665000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1402,7 +1886,23 @@ const AUTOHAUS_DATA = {
             "1 llave",
             "90,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_55_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_55_img_2.jpeg",
+            "assets/cars/page_55_img_3.jpeg",
+            "assets/cars/page_55_img_4.jpeg",
+            "assets/cars/page_55_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_55_img_2.jpeg",
+            "assets/cars/page_55_img_3.jpeg",
+            "assets/cars/page_55_img_4.jpeg",
+            "assets/cars/page_55_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_55_img_2.jpeg",
+        "main_photo": "assets/cars/page_55_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.633Z",
+        "updated_at": "2026-09-17T23:46:38.633Z"
     },
     {
         "id": "autohaus-p56",
@@ -1410,17 +1910,12 @@ const AUTOHAUS_DATA = {
         "brand": "Jeep",
         "model": "Rubicon Gladiator JT",
         "year": 2023,
+        "category": "PICK UPS",
         "price": "$899,000",
         "price_contado": "$899,000",
         "price_financiado": "$909,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_56_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_56_img_2.jpeg",
-            "assets/cars/page_56_img_3.jpeg",
-            "assets/cars/page_56_img_4.jpeg",
-            "assets/cars/page_56_img_5.jpeg"
-        ],
+        "price_num": 899000,
+        "status": "disponible",
         "specs": [
             "33,000 km",
             "Factura de agencia",
@@ -1439,7 +1934,23 @@ const AUTOHAUS_DATA = {
             "Llantas nuevas",
             "Tomo tu unidad a cuenta"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_56_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_56_img_2.jpeg",
+            "assets/cars/page_56_img_3.jpeg",
+            "assets/cars/page_56_img_4.jpeg",
+            "assets/cars/page_56_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_56_img_2.jpeg",
+            "assets/cars/page_56_img_3.jpeg",
+            "assets/cars/page_56_img_4.jpeg",
+            "assets/cars/page_56_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_56_img_2.jpeg",
+        "main_photo": "assets/cars/page_56_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.634Z",
+        "updated_at": "2026-09-17T23:46:38.634Z"
     },
     {
         "id": "autohaus-p57",
@@ -1447,17 +1958,12 @@ const AUTOHAUS_DATA = {
         "brand": "Renault",
         "model": "Oroch Intense",
         "year": 2019,
+        "category": "PICK UPS",
         "price": "$260,000",
         "price_contado": "$260,000",
         "price_financiado": "$270,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_57_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_57_img_2.jpeg",
-            "assets/cars/page_57_img_3.jpeg",
-            "assets/cars/page_57_img_4.jpeg",
-            "assets/cars/page_57_img_5.jpeg"
-        ],
+        "price_num": 260000,
+        "status": "disponible",
         "specs": [
             "Transmisión automática",
             "Eléctrica",
@@ -1468,7 +1974,23 @@ const AUTOHAUS_DATA = {
             "90,000 km",
             "Factura de agencia"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_57_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_57_img_2.jpeg",
+            "assets/cars/page_57_img_3.jpeg",
+            "assets/cars/page_57_img_4.jpeg",
+            "assets/cars/page_57_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_57_img_2.jpeg",
+            "assets/cars/page_57_img_3.jpeg",
+            "assets/cars/page_57_img_4.jpeg",
+            "assets/cars/page_57_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_57_img_2.jpeg",
+        "main_photo": "assets/cars/page_57_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.634Z",
+        "updated_at": "2026-09-17T23:46:38.634Z"
     },
     {
         "id": "autohaus-p58",
@@ -1476,17 +1998,12 @@ const AUTOHAUS_DATA = {
         "brand": "RAM",
         "model": "1500 Laramie Sport",
         "year": 2020,
+        "category": "PICK UPS",
         "price": "$720,000",
         "price_contado": "$720,000",
         "price_financiado": "$730,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_58_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_58_img_2.jpeg",
-            "assets/cars/page_58_img_3.jpeg",
-            "assets/cars/page_58_img_4.jpeg",
-            "assets/cars/page_58_img_5.jpeg"
-        ],
+        "price_num": 720000,
+        "status": "disponible",
         "specs": [
             "1500 Mild Hybrid",
             "110,000 km",
@@ -1502,7 +2019,23 @@ const AUTOHAUS_DATA = {
             "Tapa batea",
             "2 llaves"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_58_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_58_img_2.jpeg",
+            "assets/cars/page_58_img_3.jpeg",
+            "assets/cars/page_58_img_4.jpeg",
+            "assets/cars/page_58_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_58_img_2.jpeg",
+            "assets/cars/page_58_img_3.jpeg",
+            "assets/cars/page_58_img_4.jpeg",
+            "assets/cars/page_58_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_58_img_2.jpeg",
+        "main_photo": "assets/cars/page_58_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.634Z",
+        "updated_at": "2026-09-17T23:46:38.634Z"
     },
     {
         "id": "autohaus-p59",
@@ -1510,17 +2043,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Cheyenne LT",
         "year": 2023,
+        "category": "PICK UPS",
         "price": "$825,000",
         "price_contado": "$825,000",
         "price_financiado": "$835,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_59_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_59_img_2.jpeg",
-            "assets/cars/page_59_img_3.jpeg",
-            "assets/cars/page_59_img_4.jpeg",
-            "assets/cars/page_59_img_5.jpeg"
-        ],
+        "price_num": 825000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1531,7 +2059,23 @@ const AUTOHAUS_DATA = {
             "1 dueño",
             "2 llaves 🔑"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_59_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_59_img_2.jpeg",
+            "assets/cars/page_59_img_3.jpeg",
+            "assets/cars/page_59_img_4.jpeg",
+            "assets/cars/page_59_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_59_img_2.jpeg",
+            "assets/cars/page_59_img_3.jpeg",
+            "assets/cars/page_59_img_4.jpeg",
+            "assets/cars/page_59_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_59_img_2.jpeg",
+        "main_photo": "assets/cars/page_59_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.635Z",
+        "updated_at": "2026-09-17T23:46:38.635Z"
     },
     {
         "id": "autohaus-p60",
@@ -1539,17 +2083,12 @@ const AUTOHAUS_DATA = {
         "brand": "RAM",
         "model": "1500 Big Horn",
         "year": 2022,
+        "category": "PICK UPS",
         "price": "$755,000",
         "price_contado": "$755,000",
         "price_financiado": "$765,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_60_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_60_img_2.jpeg",
-            "assets/cars/page_60_img_3.jpeg",
-            "assets/cars/page_60_img_4.jpeg",
-            "assets/cars/page_60_img_5.jpeg"
-        ],
+        "price_num": 755000,
+        "status": "disponible",
         "specs": [
             "57,000 km",
             "4x4",
@@ -1560,7 +2099,23 @@ const AUTOHAUS_DATA = {
             "Factura de empresa",
             "Un dueño"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_60_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_60_img_2.jpeg",
+            "assets/cars/page_60_img_3.jpeg",
+            "assets/cars/page_60_img_4.jpeg",
+            "assets/cars/page_60_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_60_img_2.jpeg",
+            "assets/cars/page_60_img_3.jpeg",
+            "assets/cars/page_60_img_4.jpeg",
+            "assets/cars/page_60_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_60_img_2.jpeg",
+        "main_photo": "assets/cars/page_60_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.635Z",
+        "updated_at": "2026-09-17T23:46:38.635Z"
     },
     {
         "id": "autohaus-p61",
@@ -1568,17 +2123,12 @@ const AUTOHAUS_DATA = {
         "brand": "RAM",
         "model": "1500 Limited",
         "year": 2021,
+        "category": "PICK UPS",
         "price": "$860,000",
         "price_contado": "$860,000",
         "price_financiado": "$870,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_61_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_61_img_2.jpeg",
-            "assets/cars/page_61_img_3.jpeg",
-            "assets/cars/page_61_img_4.jpeg",
-            "assets/cars/page_61_img_5.jpeg"
-        ],
+        "price_num": 860000,
+        "status": "disponible",
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1590,7 +2140,23 @@ const AUTOHAUS_DATA = {
             "Suspensión de aire",
             "69,000 km"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_61_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_61_img_2.jpeg",
+            "assets/cars/page_61_img_3.jpeg",
+            "assets/cars/page_61_img_4.jpeg",
+            "assets/cars/page_61_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_61_img_2.jpeg",
+            "assets/cars/page_61_img_3.jpeg",
+            "assets/cars/page_61_img_4.jpeg",
+            "assets/cars/page_61_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_61_img_2.jpeg",
+        "main_photo": "assets/cars/page_61_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.635Z",
+        "updated_at": "2026-09-17T23:46:38.635Z"
     },
     {
         "id": "autohaus-p62",
@@ -1598,17 +2164,12 @@ const AUTOHAUS_DATA = {
         "brand": "RAM",
         "model": "1500 Big Horn",
         "year": 2022,
+        "category": "PICK UPS",
         "price": "$860,000",
         "price_contado": "$860,000",
         "price_financiado": "$870,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_62_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_62_img_2.jpeg",
-            "assets/cars/page_62_img_3.jpeg",
-            "assets/cars/page_62_img_4.jpeg",
-            "assets/cars/page_62_img_5.jpeg"
-        ],
+        "price_num": 860000,
+        "status": "disponible",
         "specs": [
             "57,000 km",
             "4x4",
@@ -1619,7 +2180,23 @@ const AUTOHAUS_DATA = {
             "Factura de empresa",
             "Un dueño"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_62_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_62_img_2.jpeg",
+            "assets/cars/page_62_img_3.jpeg",
+            "assets/cars/page_62_img_4.jpeg",
+            "assets/cars/page_62_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_62_img_2.jpeg",
+            "assets/cars/page_62_img_3.jpeg",
+            "assets/cars/page_62_img_4.jpeg",
+            "assets/cars/page_62_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_62_img_2.jpeg",
+        "main_photo": "assets/cars/page_62_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.636Z",
+        "updated_at": "2026-09-17T23:46:38.636Z"
     },
     {
         "id": "autohaus-p63",
@@ -1627,17 +2204,12 @@ const AUTOHAUS_DATA = {
         "brand": "Chevrolet",
         "model": "Cheyenne Clásica",
         "year": 1990,
+        "category": "PICK UPS",
         "price": "$385,000",
         "price_contado": "$385,000",
         "price_financiado": "$385,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_63_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_63_img_2.jpeg",
-            "assets/cars/page_63_img_3.jpeg",
-            "assets/cars/page_63_img_4.jpeg",
-            "assets/cars/page_63_img_5.jpeg"
-        ],
+        "price_num": 385000,
+        "status": "disponible",
         "specs": [
             "Motor Vortec",
             "Frenos de disco traseros",
@@ -1651,7 +2223,23 @@ const AUTOHAUS_DATA = {
             "Equipo de sonido JL todo clase D competition",
             "Pantalla Alpine"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_63_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_63_img_2.jpeg",
+            "assets/cars/page_63_img_3.jpeg",
+            "assets/cars/page_63_img_4.jpeg",
+            "assets/cars/page_63_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_63_img_2.jpeg",
+            "assets/cars/page_63_img_3.jpeg",
+            "assets/cars/page_63_img_4.jpeg",
+            "assets/cars/page_63_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_63_img_2.jpeg",
+        "main_photo": "assets/cars/page_63_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.636Z",
+        "updated_at": "2026-09-17T23:46:38.636Z"
     },
     {
         "id": "autohaus-p64",
@@ -1659,17 +2247,12 @@ const AUTOHAUS_DATA = {
         "brand": "Ford",
         "model": "Lobo Raptor R",
         "year": 2025,
+        "category": "PICK UPS",
         "price": "$2,580,000",
         "price_contado": "$2,580,000",
         "price_financiado": "$2,590,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_64_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_64_img_2.jpeg",
-            "assets/cars/page_64_img_3.jpeg",
-            "assets/cars/page_64_img_4.jpeg",
-            "assets/cars/page_64_img_5.jpeg"
-        ],
+        "price_num": 2580000,
+        "status": "disponible",
         "specs": [
             "20,000 km",
             "Factura de seminuevos",
@@ -1684,7 +2267,23 @@ const AUTOHAUS_DATA = {
             "Tapa en caja sólida",
             "Tubería de acero inoxidable"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_64_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_64_img_2.jpeg",
+            "assets/cars/page_64_img_3.jpeg",
+            "assets/cars/page_64_img_4.jpeg",
+            "assets/cars/page_64_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_64_img_2.jpeg",
+            "assets/cars/page_64_img_3.jpeg",
+            "assets/cars/page_64_img_4.jpeg",
+            "assets/cars/page_64_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_64_img_2.jpeg",
+        "main_photo": "assets/cars/page_64_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.636Z",
+        "updated_at": "2026-09-17T23:46:38.636Z"
     },
     {
         "id": "autohaus-p65",
@@ -1692,17 +2291,12 @@ const AUTOHAUS_DATA = {
         "brand": "Volkswagen",
         "model": "Amarok Highline",
         "year": 2015,
+        "category": "PICK UPS",
         "price": "$249,000",
         "price_contado": "$249,000",
         "price_financiado": "$259,000",
-        "category": "PICK UPS",
-        "cover_photo": "assets/cars/page_65_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_65_img_2.jpeg",
-            "assets/cars/page_65_img_3.jpeg",
-            "assets/cars/page_65_img_4.jpeg",
-            "assets/cars/page_65_img_5.jpeg"
-        ],
+        "price_num": 249000,
+        "status": "disponible",
         "specs": [
             "Factura de seminuevos",
             "216,000 km",
@@ -1710,7 +2304,23 @@ const AUTOHAUS_DATA = {
             "Automática",
             "4x4"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_65_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_65_img_2.jpeg",
+            "assets/cars/page_65_img_3.jpeg",
+            "assets/cars/page_65_img_4.jpeg",
+            "assets/cars/page_65_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_65_img_2.jpeg",
+            "assets/cars/page_65_img_3.jpeg",
+            "assets/cars/page_65_img_4.jpeg",
+            "assets/cars/page_65_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_65_img_2.jpeg",
+        "main_photo": "assets/cars/page_65_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.638Z",
+        "updated_at": "2026-09-17T23:46:38.638Z"
     },
     {
         "id": "autohaus-p67",
@@ -1718,17 +2328,12 @@ const AUTOHAUS_DATA = {
         "brand": "Mercedes-Benz",
         "model": "S500 Wald Black",
         "year": 2018,
+        "category": "DEPORTIVOS",
         "price": "$1,100,000",
         "price_contado": "$1,100,000",
         "price_financiado": "$1,100,000",
-        "category": "DEPORTIVOS",
-        "cover_photo": "assets/cars/page_67_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_67_img_2.jpeg",
-            "assets/cars/page_67_img_3.jpeg",
-            "assets/cars/page_67_img_4.jpeg",
-            "assets/cars/page_67_img_5.jpeg"
-        ],
+        "price_num": 1100000,
+        "status": "disponible",
         "specs": [
             "Full catback",
             "Intakes",
@@ -1739,7 +2344,23 @@ const AUTOHAUS_DATA = {
             "Mexicano 100%",
             "Motor V8 biturbo 4.6L"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_67_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_67_img_2.jpeg",
+            "assets/cars/page_67_img_3.jpeg",
+            "assets/cars/page_67_img_4.jpeg",
+            "assets/cars/page_67_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_67_img_2.jpeg",
+            "assets/cars/page_67_img_3.jpeg",
+            "assets/cars/page_67_img_4.jpeg",
+            "assets/cars/page_67_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_67_img_2.jpeg",
+        "main_photo": "assets/cars/page_67_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.638Z",
+        "updated_at": "2026-09-17T23:46:38.638Z"
     },
     {
         "id": "autohaus-p68",
@@ -1747,17 +2368,12 @@ const AUTOHAUS_DATA = {
         "brand": "Audi",
         "model": "RS5 Sportback Quattro",
         "year": 2021,
+        "category": "DEPORTIVOS",
         "price": "$1,060,000",
         "price_contado": "$1,060,000",
         "price_financiado": "$1,070,000",
-        "category": "DEPORTIVOS",
-        "cover_photo": "assets/cars/page_68_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_68_img_2.jpeg",
-            "assets/cars/page_68_img_3.jpeg",
-            "assets/cars/page_68_img_4.jpeg",
-            "assets/cars/page_68_img_5.jpeg"
-        ],
+        "price_num": 1060000,
+        "status": "disponible",
         "specs": [
             "4 puertas",
             "Automático",
@@ -1771,7 +2387,23 @@ const AUTOHAUS_DATA = {
             "Motor V6 2.9L bi-turbo",
             "Factura de seminuevos Audi"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_68_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_68_img_2.jpeg",
+            "assets/cars/page_68_img_3.jpeg",
+            "assets/cars/page_68_img_4.jpeg",
+            "assets/cars/page_68_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_68_img_2.jpeg",
+            "assets/cars/page_68_img_3.jpeg",
+            "assets/cars/page_68_img_4.jpeg",
+            "assets/cars/page_68_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_68_img_2.jpeg",
+        "main_photo": "assets/cars/page_68_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.639Z",
+        "updated_at": "2026-09-17T23:46:38.639Z"
     },
     {
         "id": "autohaus-p69",
@@ -1779,17 +2411,12 @@ const AUTOHAUS_DATA = {
         "brand": "McLaren",
         "model": "540C V8 Twin Turbo",
         "year": 2017,
+        "category": "DEPORTIVOS",
         "price": "$1,350,000",
         "price_contado": "$1,350,000",
         "price_financiado": "$1,350,000",
-        "category": "DEPORTIVOS",
-        "cover_photo": "assets/cars/page_69_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_69_img_2.jpeg",
-            "assets/cars/page_69_img_3.jpeg",
-            "assets/cars/page_69_img_4.jpeg",
-            "assets/cars/page_69_img_5.jpeg"
-        ],
+        "price_num": 1350000,
+        "status": "disponible",
         "specs": [
             "Asientos en Alcántara",
             "21,000 km",
@@ -1797,7 +2424,23 @@ const AUTOHAUS_DATA = {
             "Transmisión secuencial de doble embrague",
             "Chasis monocasco de fibra de carbono"
         ],
-        "status": "Disponible"
+        "cover_photo": "assets/cars/page_69_img_2.jpeg",
+        "real_photos": [
+            "assets/cars/page_69_img_2.jpeg",
+            "assets/cars/page_69_img_3.jpeg",
+            "assets/cars/page_69_img_4.jpeg",
+            "assets/cars/page_69_img_5.jpeg"
+        ],
+        "photos": [
+            "assets/cars/page_69_img_2.jpeg",
+            "assets/cars/page_69_img_3.jpeg",
+            "assets/cars/page_69_img_4.jpeg",
+            "assets/cars/page_69_img_5.jpeg"
+        ],
+        "cutout_photo": "assets/cars/page_69_img_2.jpeg",
+        "main_photo": "assets/cars/page_69_img_2.jpeg",
+        "created_at": "2026-09-17T23:46:38.639Z",
+        "updated_at": "2026-09-17T23:46:38.639Z"
     }
 ]
 };

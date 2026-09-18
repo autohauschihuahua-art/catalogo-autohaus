@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const db = require('./db');
 const { sortCatalogByCategory, generateFullCatalogPDF, isGeneratingPDF } = require('./scripts/pdfGenerator');
 
 const app = express();
@@ -16,202 +17,19 @@ const JWT_SECRET = process.env.JWT_SECRET || 'autohaus_super_secure_jwt_secret_2
 // Paths
 const DATA_FILE = path.join(__dirname, 'assets', 'data', 'catalog.json');
 const JS_DATA_FILE = path.join(__dirname, 'scripts', 'data.js');
-const USERS_FILE = path.join(__dirname, 'assets', 'data', 'users.json');
-const LEADS_FILE = path.join(__dirname, 'assets', 'data', 'leads.json');
 const UPLOADS_DIR = path.join(__dirname, 'assets', 'cars');
 
 // Ensure directories exist
 fs.mkdirSync(path.join(__dirname, 'assets', 'data'), { recursive: true });
 fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
-// Initialize Users if not exists
-if (!fs.existsSync(USERS_FILE)) {
-  const initialUsers = [
-    {
-      id: 1,
-      name: 'Administrador Autohaus',
-      email: 'admin@autohaus.mx',
-      password: bcrypt.hashSync('autohaus2025', 10),
-      role: 'admin'
-    },
-    {
-      id: 2,
-      name: 'Alice (Secretaria)',
-      email: 'alice@autohaus.mx',
-      password: bcrypt.hashSync('alice2025', 10),
-      role: 'secretary'
-    },
-    {
-      id: 3,
-      name: 'Napo (Vendedor)',
-      email: 'napo@autohaus.mx',
-      password: bcrypt.hashSync('napo2025', 10),
-      role: 'sales'
-    },
-    {
-      id: 4,
-      name: 'Javier (Vendedor)',
-      email: 'javier@autohaus.mx',
-      password: bcrypt.hashSync('javier2025', 10),
-      role: 'sales'
-    },
-    {
-      id: 5,
-      name: 'Fernanda (Vendedora)',
-      email: 'fernanda@autohaus.mx',
-      password: bcrypt.hashSync('fernanda2025', 10),
-      role: 'sales'
-    },
-    {
-      id: 6,
-      name: 'Raúl (Vendedor)',
-      email: 'raul@autohaus.mx',
-      password: bcrypt.hashSync('raul2025', 10),
-      role: 'sales'
-    }
-  ];
-  fs.writeFileSync(USERS_FILE, JSON.stringify(initialUsers, null, 2), 'utf-8');
-}
-
-// Initialize Leads if not exists
-if (!fs.existsSync(LEADS_FILE)) {
-  fs.writeFileSync(LEADS_FILE, JSON.stringify([], null, 2), 'utf-8');
-}
-
-// ==========================================
-// SECURITY HEADERS (HELMET) & HARDENING
-// ==========================================
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
-      scriptSrcAttr: ["'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-      styleSrcAttr: ["'unsafe-inline'"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-      imgSrc: ["'self'", "data:", "blob:", "https:", "http:"],
-      connectSrc: ["'self'", "https://api.whatsapp.com", "https://wa.me"],
-      frameSrc: ["'self'", "https://www.google.com"],
-      objectSrc: ["'none'"]
-    },
-  },
-  crossOriginEmbedderPolicy: false,
-  crossOriginResourcePolicy: { policy: "cross-origin" }
-}));
-
-// Hide server fingerprint
-app.disable('x-powered-by');
-
-// Middleware
-app.use(cors());
-app.use(express.json({ limit: '30mb' }));
-app.use(express.urlencoded({ extended: true, limit: '30mb' }));
-
-// ==========================================
-// RATE LIMITERS (ANTI-BRUTE FORCE & ANTI-BOTS)
-// ==========================================
-
-// Global API Limiter (300 requests per 15 min)
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 400,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Demasiadas solicitudes desde esta IP. Por favor intenta más tarde.' }
-});
-
-// Strict Auth Login Limiter (Max 30 failed attempts per 15 min, only failed attempts count)
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 30,
-  skipSuccessfulRequests: true,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Demasiados intentos fallidos de inicio de sesión. Tu IP ha sido bloqueada temporalmente durante 15 minutos por seguridad.' }
-});
-
-// Client Registration Limiter (Max 15 registrations per hour)
-const registerLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 15,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Has alcanzado el límite de creación de cuentas por hoy.' }
-});
-
-// Public Lead Capture Limiter (Max 25 leads per 15 min per IP)
-const leadLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 25,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Has alcanzado el límite de solicitudes. Un asesor de Autohaus te contactará enseguida.' }
-});
-
-// Apply API Limiter to /api
-app.use('/api/', apiLimiter);
-
-// Sanitization Helper (Anti-XSS & Injection)
-function sanitizeInput(str) {
-  if (typeof str !== 'string') return str;
-  return str
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/javascript:/gi, '')
-    .replace(/onload=/gi, '')
-    .replace(/onerror=/gi, '')
-    .trim();
-}
-
-// Multer Storage Configuration with Extension Whitelist
-const ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.webp'];
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, UPLOADS_DIR);
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname).toLowerCase() || '.jpeg';
-    const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : '.jpeg';
-    const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E6);
-    cb(null, `car_${uniqueSuffix}${safeExt}`);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
-  fileFilter: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    if (file.mimetype.startsWith('image/') && ALLOWED_EXTENSIONS.includes(ext)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Solo se permiten archivos de imagen válidos (JPEG, PNG, WebP)'));
-    }
-  }
-});
-
-// Helper: Load vehicles from catalog.json
-function loadVehicles() {
+// Helper: Synchronize static mirrors (catalog.json & scripts/data.js) for static caching / offline fallbacks
+function syncStaticMirrors(vehicles) {
   try {
-    if (fs.existsSync(DATA_FILE)) {
-      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-      return JSON.parse(raw);
-    }
-  } catch (err) {
-    console.error('Error loading vehicles:', err);
-  }
-  return [];
-}
-
-// Helper: Save vehicles and sync data.js
-function saveVehicles(vehicles) {
-  try {
-    // 1. Save JSON
+    // 1. JSON Mirror
     fs.writeFileSync(DATA_FILE, JSON.stringify(vehicles, null, 2), 'utf-8');
-    
-    // 2. Sync scripts/data.js for client-side catalog
+
+    // 2. Client scripts/data.js Mirror
     const jsData = `/**
  * Catálogo Autohaus - Base de Datos Maestra (Sincronizada con el CMS)
  */
@@ -284,35 +102,130 @@ if (typeof module !== 'undefined' && module.exports) {
     fs.writeFileSync(JS_DATA_FILE, jsData, 'utf-8');
     return true;
   } catch (err) {
-    console.error('Error saving vehicles:', err);
+    console.error('Error sincronizando mirrors estáticos:', err);
     return false;
   }
 }
 
-// Helper: Load leads
-function loadLeads() {
-  try {
-    if (fs.existsSync(LEADS_FILE)) {
-      return JSON.parse(fs.readFileSync(LEADS_FILE, 'utf-8'));
+// ==========================================
+// SECURITY HEADERS (HELMET) & HARDENING
+// ==========================================
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
+      scriptSrcAttr: ["'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+      styleSrcAttr: ["'unsafe-inline'"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "blob:", "https:", "http:"],
+      connectSrc: ["'self'", "https://api.whatsapp.com", "https://wa.me"],
+      frameSrc: ["'self'", "https://www.google.com"],
+      objectSrc: ["'none'"]
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// Hide server fingerprint
+app.disable('x-powered-by');
+
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: '30mb' }));
+app.use(express.urlencoded({ extended: true, limit: '30mb' }));
+
+// Global Anti-Cache Middleware for all /api routes (ensures live DB persistence & no stale responses)
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
+});
+
+// ==========================================
+// RATE LIMITERS (ANTI-BRUTE FORCE & ANTI-BOTS)
+// ==========================================
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 400,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Demasiadas solicitudes desde esta IP. Por favor intenta más tarde.' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  skipSuccessfulRequests: true,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Demasiados intentos fallidos de inicio de sesión. Tu IP ha sido bloqueada temporalmente durante 15 minutos por seguridad.' }
+});
+
+const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 15,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Has alcanzado el límite de creación de cuentas por hoy.' }
+});
+
+const leadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 25,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Has alcanzado el límite de solicitudes. Un asesor de Autohaus te contactará enseguida.' }
+});
+
+app.use('/api/', apiLimiter);
+
+// Sanitization Helper
+function sanitizeInput(str) {
+  if (typeof str !== 'string') return str;
+  return str
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/javascript:/gi, '')
+    .replace(/onload=/gi, '')
+    .replace(/onerror=/gi, '')
+    .trim();
+}
+
+// Multer Storage Configuration
+const ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.webp'];
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, UPLOADS_DIR);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpeg';
+    const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : '.jpeg';
+    const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E6);
+    cb(null, `car_${uniqueSuffix}${safeExt}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (file.mimetype.startsWith('image/') && ALLOWED_EXTENSIONS.includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Solo se permiten archivos de imagen válidos (JPEG, PNG, WebP)'));
     }
-  } catch (err) {
-    console.error('Error loading leads:', err);
   }
-  return [];
-}
+});
 
-// Helper: Save leads
-function saveLeads(leads) {
-  try {
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf-8');
-    return true;
-  } catch (err) {
-    console.error('Error saving leads:', err);
-    return false;
-  }
-}
-
-// Auth Middleware (Supports active and legacy tokens seamlessly)
+// Auth Middleware
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -336,7 +249,6 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Role guards
 function requireAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') {
     return next();
@@ -355,8 +267,8 @@ function requireAdminOrSecretary(req, res, next) {
 // AUTHENTICATION API ROUTES
 // ==========================================
 
-// 1. Client Registration (Public) - Protected with Register Rate Limiter & Sanitization
-app.post('/api/auth/register-client', registerLimiter, (req, res) => {
+// 1. Client Registration (Public)
+app.post('/api/auth/register-client', registerLimiter, async (req, res) => {
   try {
     const name = sanitizeInput(req.body.name);
     const email = sanitizeInput(req.body.email);
@@ -371,27 +283,20 @@ app.post('/api/auth/register-client', registerLimiter, (req, res) => {
       return res.status(400).json({ success: false, message: 'La contraseña debe tener al menos 6 caracteres.' });
     }
 
-    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-    const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
-
+    const existing = await db.getUserByEmail(email);
     if (existing) {
       return res.status(400).json({ success: false, message: 'Este correo electrónico ya está registrado. Inicia sesión.' });
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const newClient = {
-      id: Date.now(),
+    const newClient = await db.createUser({
       name: name.trim(),
       email: email.toLowerCase().trim(),
       phone: (phone || '').trim(),
       password: hashedPassword,
       role: 'client',
-      favorites: [],
-      created_at: new Date().toISOString()
-    };
-
-    users.push(newClient);
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+      favorites: []
+    });
 
     const token = jwt.sign(
       { id: newClient.id, email: newClient.email, name: newClient.name, role: 'client' },
@@ -418,50 +323,31 @@ app.post('/api/auth/register-client', registerLimiter, (req, res) => {
   }
 });
 
-// 2. Login (Clients and Staff) - Protected with Strict Anti-Brute-Force Rate Limiter
-app.post('/api/auth/login', authLimiter, (req, res) => {
-  const email = sanitizeInput(req.body.email);
-  const password = req.body.password;
-  
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Ingresa correo y contraseña.' });
-  }
-
-  const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
-
-  if (!user || !bcrypt.compareSync(password, user.password)) {
-    return res.status(401).json({ success: false, message: 'Correo o contraseña incorrectos.' });
-  }
-
-  const token = jwt.sign(
-    { id: user.id, email: user.email, name: user.name, role: user.role },
-    JWT_SECRET,
-    { expiresIn: user.role === 'client' ? '30d' : '7d' }
-  );
-
-  res.json({
-    success: true,
-    message: 'Inicio de sesión exitoso.',
-    token,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone || '',
-      role: user.role,
-      favorites: user.favorites || []
+// 2. Login (Clients and Staff)
+app.post('/api/auth/login', authLimiter, async (req, res) => {
+  try {
+    const email = sanitizeInput(req.body.email);
+    const password = req.body.password;
+    
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Ingresa correo y contraseña.' });
     }
-  });
-});
 
-// 3. Verify Me / Profile
-app.get('/api/auth/me', authenticateToken, (req, res) => {
-  const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-  const user = users.find(u => u.id === req.user.id);
-  if (user) {
+    const user = await db.getUserByEmail(email);
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return res.status(401).json({ success: false, message: 'Correo o contraseña incorrectos.' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, name: user.name, role: user.role },
+      JWT_SECRET,
+      { expiresIn: user.role === 'client' ? '30d' : '7d' }
+    );
+
     res.json({
       success: true,
+      message: 'Inicio de sesión exitoso.',
+      token,
       user: {
         id: user.id,
         name: user.name,
@@ -471,16 +357,40 @@ app.get('/api/auth/me', authenticateToken, (req, res) => {
         favorites: user.favorites || []
       }
     });
-  } else {
-    res.json({ success: true, user: req.user });
+  } catch (err) {
+    console.error('Error logging in:', err);
+    res.status(500).json({ success: false, message: 'Error al iniciar sesión.' });
+  }
+});
+
+// 3. Verify Me / Profile
+app.get('/api/auth/me', authenticateToken, async (req, res) => {
+  try {
+    const user = await db.getUserById(req.user.id);
+    if (user) {
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone || '',
+          role: user.role,
+          favorites: user.favorites || []
+        }
+      });
+    } else {
+      res.json({ success: true, user: req.user });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al consultar perfil.' });
   }
 });
 
 // 4. Client Favorites Endpoints
-app.get('/api/client/favorites', authenticateToken, (req, res) => {
+app.get('/api/client/favorites', authenticateToken, async (req, res) => {
   try {
-    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-    const user = users.find(u => u.id === req.user.id);
+    const user = await db.getUserById(req.user.id);
     res.json({
       success: true,
       favorites: user ? (user.favorites || []) : []
@@ -490,35 +400,35 @@ app.get('/api/client/favorites', authenticateToken, (req, res) => {
   }
 });
 
-app.post('/api/client/favorites', authenticateToken, (req, res) => {
+app.post('/api/client/favorites', authenticateToken, async (req, res) => {
   try {
     const { vehicle_page, favorites } = req.body;
-    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
-    const userIndex = users.findIndex(u => u.id === req.user.id);
+    const user = await db.getUserById(req.user.id);
 
-    if (userIndex === -1) {
+    if (!user) {
       return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
     }
 
+    let updatedFavorites = Array.isArray(user.favorites) ? [...user.favorites] : [];
+
     if (Array.isArray(favorites)) {
-      users[userIndex].favorites = favorites.map(n => parseInt(n)).filter(n => !isNaN(n));
+      updatedFavorites = favorites.map(n => parseInt(n, 10)).filter(n => !isNaN(n));
     } else if (vehicle_page !== undefined) {
-      const pageNum = parseInt(vehicle_page);
-      if (!users[userIndex].favorites) users[userIndex].favorites = [];
-      const favIndex = users[userIndex].favorites.indexOf(pageNum);
+      const pageNum = parseInt(vehicle_page, 10);
+      const favIndex = updatedFavorites.indexOf(pageNum);
       if (favIndex > -1) {
-        users[userIndex].favorites.splice(favIndex, 1);
+        updatedFavorites.splice(favIndex, 1);
       } else {
-        users[userIndex].favorites.push(pageNum);
+        updatedFavorites.push(pageNum);
       }
     }
 
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+    await db.updateUserFavorites(user.id, updatedFavorites);
 
     res.json({
       success: true,
       message: 'Favoritos actualizados con éxito.',
-      favorites: users[userIndex].favorites
+      favorites: updatedFavorites
     });
   } catch (err) {
     console.error('Error saving favorites:', err);
@@ -526,10 +436,10 @@ app.post('/api/client/favorites', authenticateToken, (req, res) => {
   }
 });
 
-// 5. Get List of Sales Reps (for Admin Lead Assignment)
-app.get('/api/users/sales', authenticateToken, (req, res) => {
+// 5. Get List of Sales Reps
+app.get('/api/users/sales', authenticateToken, async (req, res) => {
   try {
-    const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8'));
+    const users = await db.getUsers();
     const salesList = users
       .filter(u => u.role === 'sales')
       .map(u => ({ id: u.id, name: u.name, email: u.email }));
@@ -540,82 +450,53 @@ app.get('/api/users/sales', authenticateToken, (req, res) => {
 });
 
 // ==========================================
-// VEHICLES API ROUTES (CRUD)
+// VEHICLES API ROUTES (CRUD EN BASE DE DATOS SQL)
 // ==========================================
 
-// 1. GET ALL VEHICLES (Public)
-app.get('/api/vehicles', (req, res) => {
-  const vehicles = loadVehicles();
-  res.json({ success: true, count: vehicles.length, data: vehicles });
+// 1. GET ALL VEHICLES (Live SQL & Anti-Cache)
+app.get('/api/vehicles', async (req, res) => {
+  try {
+    const vehicles = await db.getVehicles();
+    res.json({ success: true, count: vehicles.length, data: vehicles });
+  } catch (err) {
+    console.error('Error loading vehicles from DB:', err);
+    res.status(500).json({ success: false, message: 'Error al consultar inventario en la base de datos.' });
+  }
 });
 
-// 2. GET SINGLE VEHICLE
-app.get('/api/vehicles/:page', (req, res) => {
-  const pageNum = parseInt(req.params.page);
-  const vehicles = loadVehicles();
-  const found = vehicles.find(v => v.page === pageNum);
-  
-  if (!found) {
-    return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+// 2. GET SINGLE VEHICLE (By ID or Page)
+app.get('/api/vehicles/:identifier', async (req, res) => {
+  try {
+    const found = await db.getVehicle(req.params.identifier);
+    if (!found) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
+    }
+    res.json({ success: true, data: found });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al consultar vehículo.' });
   }
-  res.json({ success: true, data: found });
 });
 
 // 3. STATS FOR DASHBOARD
-app.get('/api/stats', (req, res) => {
-  const vehicles = loadVehicles();
-  const leads = loadLeads();
-  
-  let totalContadoValue = 0;
-  let disponiblesCount = 0;
-  let apartadosCount = 0;
-  let vendidosCount = 0;
-
-  const categoryCounts = {
-    'SEDAN & HATCHBACK': 0,
-    "SUV'S": 0,
-    'PICK UPS': 0,
-    'DEPORTIVOS': 0
-  };
-
-  vehicles.forEach(v => {
-    const priceVal = parseInt((v.price_contado || '').replace(/[^0-9]/g, '')) || 0;
-    totalContadoValue += priceVal;
-    
-    const status = v.status || 'disponible';
-    if (status === 'apartado') apartadosCount++;
-    else if (status === 'vendido') vendidosCount++;
-    else disponiblesCount++;
-
-    if (categoryCounts[v.category] !== undefined) {
-      categoryCounts[v.category]++;
-    }
-  });
-
-  res.json({
-    success: true,
-    totalVehicles: vehicles.length,
-    disponiblesCount,
-    apartadosCount,
-    vendidosCount,
-    totalValue: totalContadoValue,
-    totalLeads: leads.length,
-    categoryCounts,
-    lastUpdated: new Date().toISOString()
-  });
+app.get('/api/stats', async (req, res) => {
+  try {
+    const stats = await db.getStats();
+    res.json({ success: true, ...stats });
+  } catch (err) {
+    console.error('Error fetching stats:', err);
+    res.status(500).json({ success: false, message: 'Error al consultar estadísticas.' });
+  }
 });
 
 // 4. CREATE NEW VEHICLE (Admin & Secretaria)
 app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fields([
   { name: 'cover_photo', maxCount: 1 },
   { name: 'gallery_photos', maxCount: 10 }
-]), (req, res) => {
+]), async (req, res) => {
   try {
-    const vehicles = loadVehicles();
-    
     const brand = (req.body.brand || '').toUpperCase().trim();
     const model = (req.body.model || '').toUpperCase().trim();
-    const year = parseInt(req.body.year) || new Date().getFullYear();
+    const year = parseInt(req.body.year, 10) || new Date().getFullYear();
     const category = req.body.category || 'SEDAN & HATCHBACK';
     const price_contado = req.body.price_contado || '$0';
     const rawFin = (req.body.price_financiado || '').trim();
@@ -633,7 +514,7 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       specs = req.body.specs;
     }
 
-    const priceClean = parseInt(price_contado.replace(/[^0-9]/g, '')) || 0;
+    const priceClean = parseInt(price_contado.replace(/[^0-9]/g, ''), 10) || 0;
     
     let coverPhotoPath = 'assets/svg/autohaus-tag.svg';
     if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
@@ -658,19 +539,16 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       realPhotos = [coverPhotoPath];
     }
 
-    const maxPage = vehicles.reduce((max, v) => Math.max(max, v.page || 0), 3);
-    const newPage = maxPage + 1;
-
-    const newVehicle = {
-      page: newPage,
+    const newVehicleData = {
       brand,
       model,
       year,
       category,
+      price: price_contado,
       price_contado,
       price_financiado,
       price_num: priceClean,
-      status, // 'disponible', 'apartado', 'vendido'
+      status,
       specs: specs.length ? specs : ['Garantía de agencia', 'Excelente estado'],
       cover_photo: coverPhotoPath,
       real_photos: realPhotos,
@@ -679,76 +557,76 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       main_photo: coverPhotoPath
     };
 
-    vehicles.push(newVehicle);
-    
-    // Sort by category order (placing new car at the end of its category) & renumber pages
-    const sortedVehicles = sortCatalogByCategory(vehicles);
-    saveVehicles(sortedVehicles);
+    const created = await db.createVehicle(newVehicleData);
+    const allVehicles = await db.getVehicles();
 
-    // Regenerate full editorial PDF in background
-    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
+    // Sincronizar espejos estáticos
+    syncStaticMirrors(allVehicles);
+
+    // Regenerar PDF editorial en segundo plano
+    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.status(201).json({
       success: true,
-      message: 'Vehículo agregado exitosamente al catálogo y PDF actualizado.',
-      data: newVehicle
+      message: `¡Vehículo ${created.brand} ${created.model} guardado con éxito en la base de datos!`,
+      data: created
     });
   } catch (err) {
-    console.error('Error creating vehicle:', err);
-    res.status(500).json({ success: false, message: 'Error al guardar vehículo: ' + err.message });
+    console.error('Error creating vehicle in DB:', err);
+    res.status(500).json({ success: false, message: 'Error al guardar vehículo en la base de datos: ' + err.message });
   }
 });
 
 // 5. UPDATE EXISTING VEHICLE (Admin & Secretaria)
-app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, upload.fields([
+app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary, upload.fields([
   { name: 'cover_photo', maxCount: 1 },
   { name: 'gallery_photos', maxCount: 10 }
-]), (req, res) => {
+]), async (req, res) => {
   try {
-    const pageNum = parseInt(req.params.page);
-    const vehicles = loadVehicles();
-    const index = vehicles.findIndex(v => v.page === pageNum);
+    const identifier = req.params.identifier;
+    const existing = await db.getVehicle(identifier);
 
-    if (index === -1) {
-      return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+    if (!existing) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
 
-    const current = vehicles[index];
+    const updates = {};
 
-    if (req.body.brand) current.brand = req.body.brand.toUpperCase().trim();
-    if (req.body.model) current.model = req.body.model.toUpperCase().trim();
-    if (req.body.year) current.year = parseInt(req.body.year) || current.year;
-    if (req.body.category) current.category = req.body.category;
-    if (req.body.status) current.status = req.body.status;
+    if (req.body.brand) updates.brand = req.body.brand.toUpperCase().trim();
+    if (req.body.model) updates.model = req.body.model.toUpperCase().trim();
+    if (req.body.year) updates.year = parseInt(req.body.year, 10) || existing.year;
+    if (req.body.category) updates.category = req.body.category;
+    if (req.body.status) updates.status = req.body.status;
     if (req.body.price_contado) {
-      current.price_contado = req.body.price_contado;
-      current.price_num = parseInt(req.body.price_contado.replace(/[^0-9]/g, '')) || current.price_num;
+      updates.price_contado = req.body.price_contado;
+      updates.price = req.body.price_contado;
+      updates.price_num = parseInt(req.body.price_contado.replace(/[^0-9]/g, ''), 10) || existing.price_num;
     }
     if (req.body.price_financiado !== undefined) {
       const rawFin = String(req.body.price_financiado).trim();
-      current.price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
+      updates.price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
     }
 
     if (req.body.specs) {
       if (typeof req.body.specs === 'string') {
         try {
-          current.specs = JSON.parse(req.body.specs);
+          updates.specs = JSON.parse(req.body.specs);
         } catch (e) {
-          current.specs = req.body.specs.split('\n').map(s => s.trim()).filter(Boolean);
+          updates.specs = req.body.specs.split('\n').map(s => s.trim()).filter(Boolean);
         }
       } else if (Array.isArray(req.body.specs)) {
-        current.specs = req.body.specs;
+        updates.specs = req.body.specs;
       }
     }
 
     if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
-      current.cover_photo = `assets/cars/${req.files['cover_photo'][0].filename}`;
-      current.main_photo = current.cover_photo;
-      current.cutout_photo = current.cover_photo;
+      updates.cover_photo = `assets/cars/${req.files['cover_photo'][0].filename}`;
+      updates.main_photo = updates.cover_photo;
+      updates.cutout_photo = updates.cover_photo;
     } else if (req.body.cover_photo_url) {
-      current.cover_photo = req.body.cover_photo_url;
-      current.main_photo = current.cover_photo;
-      current.cutout_photo = current.cover_photo;
+      updates.cover_photo = req.body.cover_photo_url;
+      updates.main_photo = updates.cover_photo;
+      updates.cutout_photo = updates.cover_photo;
     }
 
     let finalRealPhotos = [];
@@ -758,8 +636,8 @@ app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, uploa
       } catch (e) {
         finalRealPhotos = Array.isArray(req.body.existing_gallery_photos) ? req.body.existing_gallery_photos : [req.body.existing_gallery_photos];
       }
-    } else if (current.real_photos && current.real_photos.length) {
-      finalRealPhotos = [...current.real_photos];
+    } else if (existing.real_photos && existing.real_photos.length) {
+      finalRealPhotos = [...existing.real_photos];
     }
 
     if (req.files && req.files['gallery_photos'] && req.files['gallery_photos'].length > 0) {
@@ -769,88 +647,81 @@ app.put('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, uploa
     }
 
     if (!finalRealPhotos.length) {
-      finalRealPhotos = [current.cover_photo || 'assets/svg/autohaus-tag.svg'];
+      finalRealPhotos = [updates.cover_photo || existing.cover_photo || 'assets/svg/autohaus-tag.svg'];
     }
 
-    current.real_photos = finalRealPhotos;
-    current.photos = current.real_photos;
+    updates.real_photos = finalRealPhotos;
 
-    const sortedVehicles = sortCatalogByCategory(vehicles);
-    saveVehicles(sortedVehicles);
+    const updated = await db.updateVehicle(identifier, updates);
+    const allVehicles = await db.getVehicles();
 
-    // Regenerate full editorial PDF in background
-    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
+    syncStaticMirrors(allVehicles);
+    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.json({
       success: true,
-      message: 'Vehículo actualizado exitosamente y PDF regenerado.',
-      data: current
+      message: `¡Vehículo ${updated.brand} ${updated.model} actualizado con éxito en la base de datos!`,
+      data: updated
     });
   } catch (err) {
-    console.error('Error updating vehicle:', err);
-    res.status(500).json({ success: false, message: 'Error interno al actualizar: ' + err.message });
+    console.error('Error updating vehicle in DB:', err);
+    res.status(500).json({ success: false, message: 'Error al actualizar en la base de datos: ' + err.message });
   }
 });
 
-// 6. QUICK STATUS TOGGLE (Admin & Secretaria: disponible, apartado, vendido)
-app.patch('/api/vehicles/:page/status', authenticateToken, requireAdminOrSecretary, (req, res) => {
+// 6. QUICK STATUS TOGGLE (Admin & Secretaria)
+app.patch('/api/vehicles/:identifier/status', authenticateToken, requireAdminOrSecretary, async (req, res) => {
   try {
-    const pageNum = parseInt(req.params.page);
+    const identifier = req.params.identifier;
     const { status } = req.body;
     
     if (!['disponible', 'apartado', 'vendido'].includes(status)) {
       return res.status(400).json({ success: false, message: 'Estado inválido. Use disponible, apartado o vendido.' });
     }
 
-    const vehicles = loadVehicles();
-    const car = vehicles.find(v => v.page === pageNum);
-
-    if (!car) {
-      return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+    const updated = await db.updateVehicleStatus(identifier, status);
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
 
-    car.status = status;
-    saveVehicles(vehicles);
-
-    // Regenerate full editorial PDF in background
-    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
+    const allVehicles = await db.getVehicles();
+    syncStaticMirrors(allVehicles);
+    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
 
     res.json({
       success: true,
-      message: `Estado actualizado a "${status.toUpperCase()}"`,
-      data: car
+      message: `Estado guardado en base de datos: "${status.toUpperCase()}"`,
+      data: updated
     });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Error al cambiar estado.' });
+    res.status(500).json({ success: false, message: 'Error al cambiar estado en base de datos.' });
   }
 });
 
-// 7. DELETE VEHICLE (Admin & Secretaria)
-app.delete('/api/vehicles/:page', authenticateToken, requireAdminOrSecretary, (req, res) => {
+// 7. DELETE VEHICLE (Admin & Secretaria - Persistencia ACID en Base de Datos)
+app.delete('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary, async (req, res) => {
   try {
-    const pageNum = parseInt(req.params.page);
-    let vehicles = loadVehicles();
-    const index = vehicles.findIndex(v => v.page === pageNum);
+    const identifier = req.params.identifier;
+    const removed = await db.deleteVehicle(identifier);
 
-    if (index === -1) {
-      return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+    if (!removed) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado en la base de datos.' });
     }
 
-    const removed = vehicles.splice(index, 1)[0];
-    const sortedVehicles = sortCatalogByCategory(vehicles);
-    saveVehicles(sortedVehicles);
+    const allVehicles = await db.getVehicles();
+    syncStaticMirrors(allVehicles);
+    generateFullCatalogPDF(null, allVehicles).catch(err => console.error('Error in PDF auto-generation:', err));
 
-    // Regenerate full editorial PDF in background
-    generateFullCatalogPDF().catch(err => console.error('Error in PDF auto-generation:', err));
+    console.log(`🗑️ Vehículo ${removed.brand} ${removed.model} (${removed.id}) eliminado de la base de datos SQL. Quedan ${allVehicles.length} vehículos.`);
 
     res.json({
       success: true,
-      message: `Vehículo ${removed.brand} ${removed.model} eliminado con éxito del catálogo.`,
+      message: `Vehículo ${removed.brand} ${removed.model} eliminado permanentemente de la base de datos.`,
       data: removed
     });
   } catch (err) {
-    console.error('Error deleting vehicle:', err);
-    res.status(500).json({ success: false, message: 'Error al eliminar vehículo.' });
+    console.error('Error deleting vehicle from DB:', err);
+    res.status(500).json({ success: false, message: 'Error al eliminar vehículo de la base de datos: ' + err.message });
   }
 });
 
@@ -862,10 +733,8 @@ const SALES_REPRESENTATIVES = [
   { email: 'raul@autohaus.mx', name: 'Raúl' }
 ];
 
-// Helper to get next salesperson in round-robin sequence
-function getNextAssignedSalesperson() {
-  const leads = loadLeads();
-  // Find the most recent lead assigned to one of our active sales reps
+async function getNextAssignedSalesperson() {
+  const leads = await db.getLeads();
   const lastAssignedLead = leads.find(l => 
     l.assigned_to && SALES_REPRESENTATIVES.some(s => s.email.toLowerCase() === l.assigned_to.toLowerCase())
   );
@@ -887,16 +756,15 @@ function getNextAssignedSalesperson() {
 // ==========================================
 
 // 1. GET LEADS (Admin sees all; Sales sees only assigned)
-app.get('/api/leads', authenticateToken, (req, res) => {
+app.get('/api/leads', authenticateToken, async (req, res) => {
   try {
-    const leads = loadLeads();
+    const leads = await db.getLeads();
     if (req.user.role === 'admin') {
       return res.json({ success: true, count: leads.length, data: leads });
     } else if (req.user.role === 'sales') {
       const myLeads = leads.filter(l => (l.assigned_to || '').toLowerCase() === req.user.email.toLowerCase());
       return res.json({ success: true, count: myLeads.length, data: myLeads });
     } else {
-      // Secretary
       return res.json({ success: true, count: leads.length, data: leads });
     }
   } catch (err) {
@@ -905,17 +773,21 @@ app.get('/api/leads', authenticateToken, (req, res) => {
 });
 
 // 2. GET NEXT IN TURN FOR ROUND-ROBIN
-app.get('/api/leads/next-turn', authenticateToken, (req, res) => {
-  const next = getNextAssignedSalesperson();
-  res.json({
-    success: true,
-    nextSalesperson: next,
-    rotation: SALES_REPRESENTATIVES
-  });
+app.get('/api/leads/next-turn', authenticateToken, async (req, res) => {
+  try {
+    const next = await getNextAssignedSalesperson();
+    res.json({
+      success: true,
+      nextSalesperson: next,
+      rotation: SALES_REPRESENTATIVES
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al consultar turno de ventas.' });
+  }
 });
 
-// 3. CREATE LEAD & ASSIGN (Admin - Automatic Round-Robin or Manual Override)
-app.post('/api/leads', authenticateToken, requireAdmin, (req, res) => {
+// 3. CREATE LEAD & ASSIGN (Admin)
+app.post('/api/leads', authenticateToken, requireAdmin, async (req, res) => {
   try {
     const { client_name, client_phone, client_email, vehicle_page, vehicle_name, assigned_to, assigned_name, notes } = req.body;
     
@@ -926,9 +798,8 @@ app.post('/api/leads', authenticateToken, requireAdmin, (req, res) => {
     let finalAssignedTo = assigned_to;
     let finalAssignedName = assigned_name;
 
-    // Automatic Round-Robin if 'auto' or not provided
     if (!finalAssignedTo || finalAssignedTo === 'auto' || finalAssignedTo === 'automatico') {
-      const nextSales = getNextAssignedSalesperson();
+      const nextSales = await getNextAssignedSalesperson();
       finalAssignedTo = nextSales.email;
       finalAssignedName = nextSales.name;
     } else {
@@ -938,24 +809,17 @@ app.post('/api/leads', authenticateToken, requireAdmin, (req, res) => {
       }
     }
 
-    const leads = loadLeads();
-    const newLead = {
-      id: 'lead_' + Date.now(),
+    const newLead = await db.createLead({
       client_name: client_name.trim(),
       client_phone: client_phone.trim(),
       client_email: (client_email || '').trim(),
-      vehicle_page: vehicle_page ? parseInt(vehicle_page) : null,
+      vehicle_page: vehicle_page ? parseInt(vehicle_page, 10) : null,
       vehicle_name: vehicle_name || 'Interés General / Por definir',
       assigned_to: finalAssignedTo.toLowerCase().trim(),
       assigned_name: finalAssignedName || finalAssignedTo,
-      status: 'nuevo', // 'nuevo', 'contactado', 'cita', 'vendido', 'descartado'
-      notes: notes || '',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-
-    leads.unshift(newLead);
-    saveLeads(leads);
+      status: 'nuevo',
+      notes: notes || ''
+    });
 
     res.status(201).json({
       success: true,
@@ -968,10 +832,9 @@ app.post('/api/leads', authenticateToken, requireAdmin, (req, res) => {
   }
 });
 
-// 4. PUBLIC LEAD CREATION (From Landing Page - Rate Limited, Honeypot & Sanitized)
-app.post('/api/leads/public', leadLimiter, (req, res) => {
+// 4. PUBLIC LEAD CREATION (From Landing Page)
+app.post('/api/leads/public', leadLimiter, async (req, res) => {
   try {
-    // Bot Honeypot check: If bot fills hidden honeypot fields, safely drop without error
     if (req.body.website || req.body.company_hp || req.body.url_check) {
       return res.status(200).json({ success: true, message: 'Solicitud recibida exitosamente.' });
     }
@@ -979,7 +842,7 @@ app.post('/api/leads/public', leadLimiter, (req, res) => {
     const client_name = sanitizeInput(req.body.client_name);
     const client_phone = sanitizeInput(req.body.client_phone);
     const client_email = sanitizeInput(req.body.client_email);
-    const vehicle_page = req.body.vehicle_page ? parseInt(req.body.vehicle_page) : null;
+    const vehicle_page = req.body.vehicle_page ? parseInt(req.body.vehicle_page, 10) : null;
     const vehicle_name = sanitizeInput(req.body.vehicle_name);
     const notes = sanitizeInput(req.body.notes);
 
@@ -987,11 +850,9 @@ app.post('/api/leads/public', leadLimiter, (req, res) => {
       return res.status(400).json({ success: false, message: 'Nombre y teléfono son requeridos.' });
     }
 
-    const nextSales = getNextAssignedSalesperson();
-    const leads = loadLeads();
+    const nextSales = await getNextAssignedSalesperson();
 
-    const newLead = {
-      id: 'lead_' + Date.now(),
+    const newLead = await db.createLead({
       client_name: client_name.trim(),
       client_phone: client_phone.trim(),
       client_email: (client_email || '').trim(),
@@ -1000,13 +861,8 @@ app.post('/api/leads/public', leadLimiter, (req, res) => {
       assigned_to: nextSales.email,
       assigned_name: nextSales.name,
       status: 'nuevo',
-      notes: notes || 'Prospecto registrado desde la Landing Page de Autohaus',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-
-    leads.unshift(newLead);
-    saveLeads(leads);
+      notes: notes || 'Prospecto registrado desde la Landing Page de Autohaus'
+    });
 
     res.status(201).json({
       success: true,
@@ -1018,24 +874,93 @@ app.post('/api/leads/public', leadLimiter, (req, res) => {
   }
 });
 
-// 5. DOWNLOAD EDITORIAL PDF CATALOG (Always up to date & no-cache)
+// 5. UPDATE LEAD
+app.put('/api/leads/:id', authenticateToken, async (req, res) => {
+  try {
+    const leadId = req.params.id;
+    const lead = await db.getLeadById(leadId);
+
+    if (!lead) {
+      return res.status(404).json({ success: false, message: 'Lead no encontrado.' });
+    }
+
+    const updates = {};
+
+    if (req.user.role === 'sales') {
+      if (lead.assigned_to.toLowerCase() !== req.user.email.toLowerCase()) {
+        return res.status(403).json({ success: false, message: 'No tienes permiso para modificar este lead.' });
+      }
+      if (req.body.status) updates.status = req.body.status;
+      if (req.body.notes) updates.notes = req.body.notes;
+    } else if (req.user.role === 'admin') {
+      if (req.body.client_name) updates.client_name = req.body.client_name;
+      if (req.body.client_phone) updates.client_phone = req.body.client_phone;
+      if (req.body.client_email) updates.client_email = req.body.client_email;
+      if (req.body.vehicle_page !== undefined) updates.vehicle_page = req.body.vehicle_page;
+      if (req.body.vehicle_name) updates.vehicle_name = req.body.vehicle_name;
+      if (req.body.assigned_to) {
+        updates.assigned_to = req.body.assigned_to.toLowerCase();
+        updates.assigned_name = req.body.assigned_name || req.body.assigned_to;
+      }
+      if (req.body.status) updates.status = req.body.status;
+      if (req.body.notes !== undefined) updates.notes = req.body.notes;
+    } else {
+      return res.status(403).json({ success: false, message: 'Acción no permitida.' });
+    }
+
+    const updated = await db.updateLead(leadId, updates);
+
+    res.json({
+      success: true,
+      message: 'Lead actualizado correctamente.',
+      data: updated
+    });
+  } catch (err) {
+    console.error('Error updating lead:', err);
+    res.status(500).json({ success: false, message: 'Error al actualizar lead.' });
+  }
+});
+
+// 6. DELETE LEAD (Admin only)
+app.delete('/api/leads/:id', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const leadId = req.params.id;
+    const removed = await db.deleteLead(leadId);
+
+    if (!removed) {
+      return res.status(404).json({ success: false, message: 'Lead no encontrado.' });
+    }
+
+    res.json({
+      success: true,
+      message: `Lead de ${removed.client_name} eliminado.`,
+      data: removed
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al eliminar lead.' });
+  }
+});
+
+// 7. DOWNLOAD EDITORIAL PDF CATALOG (Live from SQL DB & no-cache)
 app.get('/api/catalog/download-pdf', async (req, res) => {
   const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
   const fallbackPdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
   
-  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
 
   try {
-    const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
+    const forceRegen = req.query.force === '1' || req.query.force === 'true';
     const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : (fs.existsSync(fallbackPdfPath) ? fs.statSync(fallbackPdfPath) : null);
+    const isOutdated = !pdfStat;
 
-    // Si el PDF no existe o si catalog.json fue modificado después de la última generación del PDF
-    if (!pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs)) {
-      console.log('🔄 PDF desactualizado o inexistente. Regenerando catálogo PDF 2026 antes de descargar...');
+    if (forceRegen || isOutdated) {
+      console.log('🔄 Consultando base de datos SQL en tiempo real y regenerando PDF oficial...');
       try {
-        await generateFullCatalogPDF();
+        const vehicles = await db.getVehicles();
+        await generateFullCatalogPDF(null, vehicles);
       } catch (genErr) {
         console.warn('Advertencia en generación dinámica de PDF:', genErr.message);
       }
@@ -1047,7 +972,7 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
       res.setHeader('Content-Disposition', 'attachment; filename="Catalogo_Autohaus_Chihuahua_2026.pdf"');
       return res.sendFile(finalPath);
     } else {
-      res.status(500).json({ success: false, message: 'El catálogo PDF se está preparando. Por favor intenta de nuevo en unos segundos.' });
+      res.status(500).json({ success: false, message: 'El catálogo PDF se está compilando con los datos más recientes. Por favor intenta de nuevo en unos segundos.' });
     }
   } catch (e) {
     console.error('Error en download-pdf:', e);
@@ -1062,10 +987,11 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
   }
 });
 
-// 6. REGENERATE PDF ON DEMAND (Admin & Secretaria)
+// 8. REGENERATE PDF ON DEMAND (Admin & Secretaria)
 app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecretary, async (req, res) => {
   try {
-    const result = await generateFullCatalogPDF();
+    const vehicles = await db.getVehicles();
+    const result = await generateFullCatalogPDF(null, vehicles);
     if (result.success) {
       res.json({
         success: true,
@@ -1080,104 +1006,16 @@ app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecreta
   }
 });
 
-// 7. CATALOG PDF STATUS CHECK
-app.get('/api/catalog/status', (req, res) => {
-  const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
-  const fallbackPdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2025.pdf');
-  const dataStat = fs.existsSync(DATA_FILE) ? fs.statSync(DATA_FILE) : null;
-  const pdfStat = fs.existsSync(pdfPath) ? fs.statSync(pdfPath) : (fs.existsSync(fallbackPdfPath) ? fs.statSync(fallbackPdfPath) : null);
-  const vehicles = loadVehicles();
-
-  const isOutdated = !pdfStat || (dataStat && dataStat.mtimeMs > pdfStat.mtimeMs);
-
-  res.json({
-    success: true,
-    isGenerating: isGeneratingPDF(),
-    isOutdated,
-    totalVehicles: vehicles.length,
-    lastPdfModified: pdfStat ? pdfStat.mtime.toISOString() : null,
-    pdfSize: pdfStat ? pdfStat.size : 0
-  });
-});
-
-// 3. UPDATE LEAD (Admin can update all; Sales can update status and notes)
-app.put('/api/leads/:id', authenticateToken, (req, res) => {
+// 9. EXPORT BACKUP JSON
+app.get('/api/export', authenticateToken, requireAdmin, async (req, res) => {
   try {
-    const leadId = req.params.id;
-    const leads = loadLeads();
-    const lead = leads.find(l => l.id === leadId);
-
-    if (!lead) {
-      return res.status(404).json({ success: false, message: 'Lead no encontrado.' });
-    }
-
-    if (req.user.role === 'sales') {
-      if (lead.assigned_to.toLowerCase() !== req.user.email.toLowerCase()) {
-        return res.status(403).json({ success: false, message: 'No tienes permiso para modificar este lead.' });
-      }
-      if (req.body.status) lead.status = req.body.status;
-      if (req.body.notes) lead.notes = req.body.notes;
-      lead.updated_at = new Date().toISOString();
-    } else if (req.user.role === 'admin') {
-      if (req.body.client_name) lead.client_name = req.body.client_name;
-      if (req.body.client_phone) lead.client_phone = req.body.client_phone;
-      if (req.body.client_email) lead.client_email = req.body.client_email;
-      if (req.body.vehicle_page !== undefined) lead.vehicle_page = req.body.vehicle_page;
-      if (req.body.vehicle_name) lead.vehicle_name = req.body.vehicle_name;
-      if (req.body.assigned_to) {
-        lead.assigned_to = req.body.assigned_to.toLowerCase();
-        lead.assigned_name = req.body.assigned_name || req.body.assigned_to;
-      }
-      if (req.body.status) lead.status = req.body.status;
-      if (req.body.notes !== undefined) lead.notes = req.body.notes;
-      lead.updated_at = new Date().toISOString();
-    } else {
-      return res.status(403).json({ success: false, message: 'Acción no permitida.' });
-    }
-
-    saveLeads(leads);
-
-    res.json({
-      success: true,
-      message: 'Lead actualizado correctamente.',
-      data: lead
-    });
+    const vehicles = await db.getVehicles();
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename=autohaus_catalog_backup_${Date.now()}.json`);
+    res.send(JSON.stringify(vehicles, null, 2));
   } catch (err) {
-    console.error('Error updating lead:', err);
-    res.status(500).json({ success: false, message: 'Error al actualizar lead.' });
+    res.status(500).json({ success: false, message: 'Error exportando backup.' });
   }
-});
-
-// 4. DELETE LEAD (Admin only)
-app.delete('/api/leads/:id', authenticateToken, requireAdmin, (req, res) => {
-  try {
-    const leadId = req.params.id;
-    let leads = loadLeads();
-    const index = leads.findIndex(l => l.id === leadId);
-
-    if (index === -1) {
-      return res.status(404).json({ success: false, message: 'Lead no encontrado.' });
-    }
-
-    const removed = leads.splice(index, 1)[0];
-    saveLeads(leads);
-
-    res.json({
-      success: true,
-      message: `Lead de ${removed.client_name} eliminado.`,
-      data: removed
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Error al eliminar lead.' });
-  }
-});
-
-// 8. EXPORT BACKUP JSON
-app.get('/api/export', authenticateToken, requireAdmin, (req, res) => {
-  const vehicles = loadVehicles();
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Content-Disposition', `attachment; filename=autohaus_catalog_backup_${Date.now()}.json`);
-  res.send(JSON.stringify(vehicles, null, 2));
 });
 
 // ==========================================
@@ -1189,7 +1027,6 @@ app.use('/styles', express.static(path.join(__dirname, 'styles')));
 app.use('/scripts', express.static(path.join(__dirname, 'scripts')));
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
-// Admin routes
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin', 'index.html'));
 });
@@ -1198,20 +1035,33 @@ app.get('/admin/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin', 'login.html'));
 });
 
-// Public catalog
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`\n======================================================`);
-  console.log(`🚗 SERVIDOR AUTOHAUS FULLSTACK CMS & CRM ACTIVO`);
-  console.log(`🌐 Catálogo Público:       http://localhost:${PORT}`);
-  console.log(`🔐 Panel de Administración: http://localhost:${PORT}/admin`);
-  console.log(`🔑 Login Admin:            http://localhost:${PORT}/admin/login`);
-  console.log(`👤 Admin:                   admin@autohaus.mx / autohaus2025`);
-  console.log(`👤 Secretaria:              alice@autohaus.mx / alice2025`);
-  console.log(`👤 Vendedores:              napo, javier, fernanda, raul @autohaus.mx`);
-  console.log(`======================================================\n`);
-});
+// Initialize Database & Start Server
+async function startServer() {
+  try {
+    await db.initDb();
+    const vehicles = await db.getVehicles();
+    syncStaticMirrors(vehicles);
+
+    app.listen(PORT, () => {
+      console.log(`\n======================================================`);
+      console.log(`🚗 SERVIDOR AUTOHAUS FULLSTACK CMS & CRM (SQL DB ACTIVA)`);
+      console.log(`📊 Total de Vehículos en Base de Datos: ${vehicles.length}`);
+      console.log(`🌐 Catálogo Público:       http://localhost:${PORT}`);
+      console.log(`🔐 Panel de Administración: http://localhost:${PORT}/admin`);
+      console.log(`🔑 Login Admin:            http://localhost:${PORT}/admin/login`);
+      console.log(`👤 Admin:                   admin@autohaus.mx / autohaus2025`);
+      console.log(`👤 Secretaria:              alice@autohaus.mx / alice2025`);
+      console.log(`👤 Vendedores:              napo, javier, fernanda, raul @autohaus.mx`);
+      console.log(`======================================================\n`);
+    });
+  } catch (err) {
+    console.error('Error fatal al inicializar servidor y base de datos:', err);
+    process.exit(1);
+  }
+}
+
+startServer();

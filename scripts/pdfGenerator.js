@@ -817,7 +817,7 @@ function getChromeExecutablePath() {
 /**
  * Función principal para generar el archivo PDF del catálogo
  */
-async function generateFullCatalogPDF(targetPath = null) {
+async function generateFullCatalogPDF(targetPath = null, customVehicles = null) {
   if (activeGenerationPromise) {
     console.log('⏳ Generación de PDF ya en curso. Encolando solicitud...');
     pendingRegenerate = true;
@@ -826,11 +826,18 @@ async function generateFullCatalogPDF(targetPath = null) {
 
   activeGenerationPromise = (async () => {
     try {
-      const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
-      const rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+      let rawCars = customVehicles;
+      if (!rawCars || !Array.isArray(rawCars)) {
+        try {
+          const db = require('../db');
+          rawCars = await db.getVehicles();
+        } catch (dbErr) {
+          const catalogPath = path.join(__dirname, '..', 'assets', 'data', 'catalog.json');
+          rawCars = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+        }
+      }
       
       const sortedCars = sortCatalogByCategory(rawCars);
-      fs.writeFileSync(catalogPath, JSON.stringify(sortedCars, null, 2));
 
       // Construir HTML
       const html = buildCatalogHtml(sortedCars);

@@ -116,15 +116,25 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     await loadDashboardData();
     
-    // Live Polling every 12s for real-time lead alerts
+    // Live Polling every 12s for real-time lead alerts & DB sync
     setInterval(loadDashboardData, 12000);
+
+    // Auto-refresh on window focus (guarantees latest database state if edited in another tab)
+    window.addEventListener('focus', () => {
+      loadDashboardData();
+    });
   }
 
   // 1. Verify Session Token & Configure Role Permissions
   async function verifyUser() {
     try {
-      const res = await fetch('/api/auth/me', {
-        headers: { 'Authorization': `Bearer ${state.token}` }
+      const res = await fetch(`/api/auth/me?_t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 
+          'Authorization': `Bearer ${state.token}`,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
       });
       const data = await res.json();
       if (!data.success) {
@@ -184,33 +194,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2. Load Vehicles, Leads & Stats
+  // 2. Load Vehicles, Leads & Stats Directly from Database (Anti-Cache)
   async function loadDashboardData() {
     try {
+      const timestamp = Date.now();
+      const noCacheHeaders = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache'
+      };
+
       // 1. Stats
-      const resStats = await fetch('/api/stats');
+      const resStats = await fetch(`/api/stats?_t=${timestamp}`, { cache: 'no-store', headers: noCacheHeaders });
       const dataStats = await resStats.json();
       if (dataStats.success) {
-        statTotalVehicles.textContent = dataStats.totalVehicles;
-        statDisponibles.textContent = dataStats.disponiblesCount;
-        statApartadosVendidos.textContent = `${dataStats.apartadosCount} / ${dataStats.vendidosCount}`;
-        statLeadsValue.textContent = dataStats.totalLeads;
+        if (statTotalVehicles) statTotalVehicles.textContent = dataStats.totalVehicles;
+        if (statDisponibles) statDisponibles.textContent = dataStats.disponiblesCount;
+        if (statApartadosVendidos) statApartadosVendidos.textContent = `${dataStats.apartadosCount} / ${dataStats.vendidosCount}`;
+        if (statLeadsValue) statLeadsValue.textContent = dataStats.totalLeads;
       }
 
-      // 2. Vehicles
-      const resVeh = await fetch('/api/vehicles');
+      // 2. Vehicles (Always Live from Database)
+      const resVeh = await fetch(`/api/vehicles?_t=${timestamp}`, { cache: 'no-store', headers: noCacheHeaders });
       const dataVeh = await resVeh.json();
       if (dataVeh.success) {
         state.vehicles = dataVeh.data;
-        tabCountInventory.textContent = state.vehicles.length;
+        if (tabCountInventory) tabCountInventory.textContent = state.vehicles.length;
         populateVehicleSelect(state.vehicles);
         applyInventoryFilters();
+        
+        // Update Live DB indicator
+        const dbSyncText = document.getElementById('dbSyncStatusText');
+        if (dbSyncText) {
+          const now = new Date();
+          dbSyncText.textContent = `BD Sincronizada (${state.vehicles.length} autos)`;
+        }
       }
 
       // 3. Leads (if not secretary)
       if (state.user && state.user.role !== 'secretary') {
-        const resLeads = await fetch('/api/leads', {
-          headers: { 'Authorization': `Bearer ${state.token}` }
+        const resLeads = await fetch(`/api/leads?_t=${timestamp}`, {
+          cache: 'no-store',
+          headers: { 
+            'Authorization': `Bearer ${state.token}`,
+            ...noCacheHeaders
+          }
         });
         const dataLeads = await resLeads.json();
         if (dataLeads.success) {
@@ -218,9 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
           
           if (state.user.role === 'sales') {
             checkSalesNewLeadsAlert(state.leads);
-            statLeadsValue.textContent = state.leads.length;
+            if (statLeadsValue) statLeadsValue.textContent = state.leads.length;
           } else {
-            tabCountLeads.textContent = state.leads.length;
+            if (tabCountLeads) tabCountLeads.textContent = state.leads.length;
             await updateRoundRobinTurnBadge();
           }
 
@@ -228,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } catch (err) {
-      console.error('Error loading dashboard:', err);
+      console.error('Error loading dashboard from DB:', err);
     }
   }
 
@@ -384,14 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawerExportBackupBtn = document.getElementById('drawerExportBackupBtn');
     if (drawerExportBackupBtn) drawerExportBackupBtn.addEventListener('click', handleExportBackup);
 
-    // Direct PDF Download
+    // Direct PDF Download (Live Real-Time Database Query)
     function downloadPdfDirect() {
       if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
-      showToast('⏳ Descargando catálogo oficial Autohaus en PDF...', 'info');
+      showToast('⏳ Consultando base de datos y descargando PDF actualizado...', 'info');
 
       try {
         const a = document.createElement('a');
-        a.href = '/api/catalog/download-pdf';
+        a.href = `/api/catalog/download-pdf?_t=${Date.now()}&force=1`;
         a.download = 'Catalogo_Autohaus_Chihuahua_2026.pdf';
         document.body.appendChild(a);
         a.click();
@@ -399,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (a.parentNode) document.body.removeChild(a);
         }, 200);
       } catch (e) {
-        window.open('/api/catalog/download-pdf', '_blank');
+        window.open(`/api/catalog/download-pdf?_t=${Date.now()}&force=1`, '_blank');
       }
     }
 
@@ -504,15 +531,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupImageDropzone('coverDropzone', 'coverPhotoFile', false);
     setupImageDropzone('galleryDropzone', 'galleryPhotosFiles', true);
 
-    // Inventory Event Delegation (guarantees clicks work in all browsers)
+    // Inventory Event Delegation (guarantees clicks work reliably in all browsers)
     if (inventoryTableBody) {
       inventoryTableBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('[data-action="edit"]');
         if (editBtn) {
           e.preventDefault();
           e.stopPropagation();
-          const page = editBtn.dataset.page || editBtn.getAttribute('data-page');
-          if (page) window.editVehicle(page);
+          const id = editBtn.dataset.id || editBtn.dataset.page || editBtn.getAttribute('data-id');
+          if (id) window.editVehicle(id);
           return;
         }
 
@@ -520,8 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (deleteBtn) {
           e.preventDefault();
           e.stopPropagation();
-          const page = deleteBtn.dataset.page || deleteBtn.getAttribute('data-page');
-          if (page) window.deleteVehicle(page);
+          const id = deleteBtn.dataset.id || deleteBtn.dataset.page || deleteBtn.getAttribute('data-id');
+          if (id) window.deleteVehicle(id);
           return;
         }
       });
@@ -534,8 +561,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editBtn) {
           e.preventDefault();
           e.stopPropagation();
-          const page = editBtn.dataset.page || editBtn.getAttribute('data-page');
-          if (page) window.editVehicle(page);
+          const id = editBtn.dataset.id || editBtn.dataset.page || editBtn.getAttribute('data-id');
+          if (id) window.editVehicle(id);
           return;
         }
 
@@ -543,15 +570,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (deleteBtn) {
           e.preventDefault();
           e.stopPropagation();
-          const page = deleteBtn.dataset.page || deleteBtn.getAttribute('data-page');
-          if (page) window.deleteVehicle(page);
+          const id = deleteBtn.dataset.id || deleteBtn.dataset.page || deleteBtn.getAttribute('data-id');
+          if (id) window.deleteVehicle(id);
           return;
         }
 
         const card = e.target.closest('.admin-mobile-card');
-        if (card && !e.target.closest('select, a, button, .mobile-card-footer')) {
-          const page = card.dataset.page || card.getAttribute('data-page');
-          if (page) window.editVehicle(page);
+        if (card && !e.target.closest('select, a, button, .mobile-card-footer, .mobile-card-actions')) {
+          const id = card.dataset.id || card.dataset.page || card.getAttribute('data-id');
+          if (id) window.editVehicle(id);
         }
       });
     }
@@ -628,9 +655,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Status selector or badge
       let statusHtml = '';
+      const carId = car.id || car.page;
       if (canManage) {
         statusHtml = `
-          <select class="status-pill-select status-${carStatus}" onchange="window.handleStatusChange(${car.page}, this.value)">
+          <select class="status-pill-select status-${carStatus}" onchange="window.handleStatusChange('${carId}', this.value)">
             <option value="disponible" ${carStatus === 'disponible' ? 'selected' : ''}>🟢 Disponible</option>
             <option value="apartado" ${carStatus === 'apartado' ? 'selected' : ''}>🟡 Apartado</option>
             <option value="vendido" ${carStatus === 'vendido' ? 'selected' : ''}>🔴 Vendido</option>
@@ -649,22 +677,22 @@ document.addEventListener('DOMContentLoaded', () => {
         actionsHtml = `
           <div class="table-actions">
             <!-- Edit -->
-            <button type="button" class="btn-action-icon btn-action-edit" data-action="edit" data-page="${car.page}" title="Editar vehículo" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
+            <button type="button" class="btn-action-icon btn-action-edit" data-action="edit" data-page="${car.page}" data-id="${carId}" title="Editar vehículo" onclick="event.stopPropagation(); window.editVehicle('${carId}')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
             <!-- Delete -->
-            <button type="button" class="btn-action-icon btn-delete btn-action-delete" data-action="delete" data-page="${car.page}" title="Quitar del catálogo" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})">
+            <button type="button" class="btn-action-icon btn-delete btn-action-delete" data-action="delete" data-page="${car.page}" data-id="${carId}" title="Quitar del catálogo" onclick="event.stopPropagation(); window.deleteVehicle('${carId}')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
             </button>
           </div>
         `;
         mobileActionsHtml = `
           <div class="mobile-card-actions" onclick="event.stopPropagation()">
-            <button type="button" class="btn-mobile-edit" data-action="edit" data-page="${car.page}" onclick="event.stopPropagation(); window.editVehicle(${car.page})">
+            <button type="button" class="btn-mobile-edit" data-action="edit" data-page="${car.page}" data-id="${carId}" onclick="event.stopPropagation(); window.editVehicle('${carId}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               <span>Editar</span>
             </button>
-            <button type="button" class="btn-mobile-delete" data-action="delete" data-page="${car.page}" onclick="event.stopPropagation(); window.deleteVehicle(${car.page})" title="Eliminar">
+            <button type="button" class="btn-mobile-delete" data-action="delete" data-page="${car.page}" data-id="${carId}" onclick="event.stopPropagation(); window.deleteVehicle('${carId}')" title="Eliminar">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </button>
           </div>
@@ -714,7 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Mobile Touch Card
       mobileCardsHtml += `
-        <div class="admin-mobile-card" data-page="${car.page}" onclick="window.editVehicle(${car.page})">
+        <div class="admin-mobile-card" data-page="${car.page}" data-id="${carId}" onclick="window.editVehicle('${carId}')">
           <div class="mobile-card-top">
             <img src="../${coverPhoto}" alt="${car.brand}" class="mobile-car-thumb" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
             <div class="mobile-card-info">
@@ -754,10 +782,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Handle Quick Status Change
-  window.handleStatusChange = async function(page, newStatus) {
+  window.handleStatusChange = async function(identifier, newStatus) {
     try {
-      const pageNum = parseInt(page, 10);
-      const res = await fetch(`/api/vehicles/${pageNum}/status`, {
+      const res = await fetch(`/api/vehicles/${identifier}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -777,13 +804,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       if (data.success) {
-        showToast(data.message, 'success');
+        showToast(data.message || `Estado guardado en base de datos: "${newStatus.toUpperCase()}"`, 'success');
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Error al actualizar estado', 'error');
+        showToast(data.message || 'Error al actualizar estado en base de datos', 'error');
       }
     } catch (e) {
-      showToast('Error al actualizar estado', 'error');
+      showToast('Error al actualizar estado en base de datos', 'error');
     }
   };
 
@@ -1085,7 +1112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (carData) {
       modalFormTitle.textContent = `Editar Vehículo: ${carData.brand || ''} ${carData.model || ''}`;
-      editPageNumInput.value = carData.page;
+      editPageNumInput.value = carData.id || carData.page || '';
       document.getElementById('carBrandInput').value = carData.brand || '';
       document.getElementById('carModelInput').value = carData.model || '';
       document.getElementById('carYearInput').value = carData.year || new Date().getFullYear();
@@ -1139,7 +1166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const saveBtn = document.getElementById('saveVehicleBtn');
     saveBtn.disabled = true;
-    saveBtn.textContent = 'Guardando vehículo...';
+    saveBtn.innerHTML = '<span>⏳ Guardando en base de datos...</span>';
 
     try {
       const formData = new FormData();
@@ -1184,43 +1211,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       if (data.success) {
-        showToast(data.message, 'success');
+        showToast(data.message || '✅ ¡Guardado con éxito en la base de datos!', 'success');
         closeVehicleModal();
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Error al guardar', 'error');
+        showToast(data.message || 'Error al guardar en base de datos', 'error');
       }
     } catch (err) {
-      showToast('Error de conexión al servidor', 'error');
+      showToast('Error de conexión al servidor al guardar', 'error');
     } finally {
       saveBtn.disabled = false;
-      saveBtn.textContent = 'Guardar Vehículo';
+      saveBtn.innerHTML = '<span>Guardar Vehículo</span>';
     }
   }
 
-  window.editVehicle = function(page) {
-    const pageNum = parseInt(page, 10);
-    const car = state.vehicles.find(v => parseInt(v.page, 10) === pageNum);
+  window.editVehicle = function(identifier) {
+    const car = state.vehicles.find(v => 
+      (v.id && String(v.id) === String(identifier)) ||
+      String(v.page) === String(identifier) ||
+      v.page === parseInt(identifier, 10)
+    );
     if (car) {
       openVehicleModal(car);
     } else {
-      console.warn('Vehículo no encontrado con página:', page);
-      showToast('No se encontró la información del vehículo.', 'error');
+      console.warn('Vehículo no encontrado:', identifier);
+      showToast('No se encontró la información del vehículo en el catálogo.', 'error');
     }
   };
 
-  window.deleteVehicle = async function(page) {
-    const pageNum = parseInt(page, 10);
-    const car = state.vehicles.find(v => parseInt(v.page, 10) === pageNum);
-    const name = car ? `${car.brand} ${car.model}` : `Vehículo Pág. ${pageNum}`;
+  window.deleteVehicle = async function(identifier) {
+    if (state.isDeleting) return;
 
-    if (!confirm(`¿Estás seguro de eliminar "${name}" del catálogo? Esta acción no se puede deshacer.`)) {
+    const car = state.vehicles.find(v => 
+      (v.id && String(v.id) === String(identifier)) ||
+      String(v.page) === String(identifier) ||
+      v.page === parseInt(identifier, 10)
+    );
+    const name = car ? `${car.brand} ${car.model}` : `Vehículo`;
+    const targetId = car ? (car.id || car.page) : identifier;
+
+    if (!confirm(`¿Estás seguro de eliminar "${name}" del catálogo? Esta acción se guardará permanentemente en la base de datos.`)) {
       return;
     }
 
+    state.isDeleting = true;
     try {
-      showToast(`⏳ Eliminando "${name}" del catálogo...`, 'info');
-      const res = await fetch(`/api/vehicles/${pageNum}`, {
+      showToast(`⏳ Eliminando "${name}" de la base de datos...`, 'info');
+      const res = await fetch(`/api/vehicles/${encodeURIComponent(targetId)}`, {
         method: 'DELETE',
         headers: { 
           'Authorization': `Bearer ${state.token}`,
@@ -1239,16 +1276,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       if (data.success) {
-        showToast(data.message || 'Vehículo eliminado con éxito.', 'success');
-        state.vehicles = state.vehicles.filter(v => parseInt(v.page, 10) !== pageNum);
+        showToast(data.message || '✅ Vehículo eliminado permanentemente de la base de datos.', 'success');
+        state.vehicles = state.vehicles.filter(v => 
+          !(v.id === targetId || (car && v.id === car.id) || String(v.page) === String(identifier) || v.page === parseInt(identifier, 10))
+        );
         applyInventoryFilters();
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Error al eliminar vehículo', 'error');
+        showToast(data.message || 'Error al eliminar vehículo de la base de datos', 'error');
       }
     } catch (e) {
       console.error('Error deleting vehicle:', e);
       showToast('Error de conexión al eliminar vehículo', 'error');
+    } finally {
+      state.isDeleting = false;
     }
   };
 
