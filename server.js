@@ -725,6 +725,78 @@ app.delete('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecreta
   }
 });
 
+// 8. GET VEHICLE STATUS HISTORY
+app.get('/api/vehicles/:identifier/history', async (req, res) => {
+  try {
+    const car = await db.getVehicle(req.params.identifier);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+    }
+    const history = await db.getVehicleStatusHistory(car.id);
+    res.json({ success: true, vehicle_id: car.id, data: history });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al obtener historial de estatus.' });
+  }
+});
+
+// 9. LOG VEHICLE STATUS CHANGE
+app.post('/api/vehicles/:identifier/status-history', authenticateToken, requireAdminOrSecretary, async (req, res) => {
+  try {
+    const car = await db.getVehicle(req.params.identifier);
+    if (!car) {
+      return res.status(404).json({ success: false, message: 'Vehículo no encontrado.' });
+    }
+    const { status, notes, deposit_amount, client_id, sales_rep_id } = req.body;
+    if (!status) {
+      return res.status(400).json({ success: false, message: 'El estatus es requerido.' });
+    }
+    const updated = await db.updateVehicleStatus(car.id, status, {
+      notes: notes || '',
+      deposit_amount: deposit_amount || '',
+      client_id: client_id || null,
+      sales_rep_id: sales_rep_id || null
+    });
+    const history = await db.getVehicleStatusHistory(car.id);
+    res.json({ success: true, message: 'Estatus e historial actualizados.', data: updated, history });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al actualizar estatus e historial.' });
+  }
+});
+
+// ==========================================
+// SUCURSALES & VENDEDORES & CLIENTES API
+// ==========================================
+
+// GET ALL BRANCHES (San Felipe, Central de Abastos)
+app.get('/api/branches', async (req, res) => {
+  try {
+    const branches = await db.getBranches();
+    res.json({ success: true, count: branches.length, data: branches });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al obtener sucursales.' });
+  }
+});
+
+// GET ALL SALES REPS
+app.get('/api/sales-reps', async (req, res) => {
+  try {
+    const reps = await db.getSalesReps();
+    res.json({ success: true, count: reps.length, data: reps });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al obtener vendedores.' });
+  }
+});
+
+// GET ALL CLIENTS
+app.get('/api/clients', authenticateToken, requireAdminOrSecretary, async (req, res) => {
+  try {
+    const clients = await db.getClients();
+    res.json({ success: true, count: clients.length, data: clients });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al obtener clientes.' });
+  }
+});
+
 // Active Sales Representatives for Automatic Round-Robin Lead Assignment (uno a uno)
 const SALES_REPRESENTATIVES = [
   { email: 'napo@autohaus.mx', name: 'Napo' },
