@@ -6,7 +6,6 @@
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
-const sqlite3 = require('sqlite3').verbose();
 const { createClient: createSupabaseClient } = require('@supabase/supabase-js');
 
 const DB_PATH = path.join(__dirname, 'assets', 'data', 'autohaus.db');
@@ -15,6 +14,7 @@ const DATA_DIR = path.join(__dirname, 'assets', 'data');
 fs.mkdirSync(DATA_DIR, { recursive: true });
 
 let dbInstance = null;
+let sqliteModule = null;
 let supabase = null;
 let useSupabase = false;
 
@@ -35,8 +35,17 @@ if (SUPABASE_URL && SUPABASE_KEY) {
 }
 
 function getSqliteDb() {
+  if (useSupabase) return null;
   if (!dbInstance) {
-    dbInstance = new sqlite3.Database(DB_PATH);
+    try {
+      if (!sqliteModule) {
+        sqliteModule = require('sqlite3').verbose();
+      }
+      dbInstance = new sqliteModule.Database(DB_PATH);
+    } catch (e) {
+      console.warn('SQLite offline no disponible (usando Supabase o modo degradado):', e.message);
+      return null;
+    }
   }
   return dbInstance;
 }
@@ -44,6 +53,9 @@ function getSqliteDb() {
 // SQL Query helper for SQLite (Solo utilizado en modo offline/fallback)
 async function runQuery(sql, params = []) {
   const db = getSqliteDb();
+  if (!db) {
+    return { rows: [] };
+  }
   return new Promise((resolve, reject) => {
     const isSelect = /^\s*(SELECT|PRAGMA)/i.test(sql);
     if (isSelect) {
