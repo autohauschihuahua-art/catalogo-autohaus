@@ -720,11 +720,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const rawFin = car.price_financiado ? String(car.price_financiado).trim() : '';
       const finDisplay = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
 
+function formatAdminPhotoUrl(url) {
+  if (!url) return '../assets/svg/autohaus-tag.svg';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
+  }
+  if (url.startsWith('../')) {
+    return url;
+  }
+  if (url.startsWith('/')) {
+    return `..${url}`;
+  }
+  return `../${url}`;
+}
+
       // Desktop Table Row
       tr.innerHTML = `
         <td style="font-weight: 800; color: #94a3b8;">${car.page}</td>
         <td>
-          <img src="../${coverPhoto}" alt="Foto" class="car-thumb-preview" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+          <img src="${formatAdminPhotoUrl(coverPhoto)}" alt="Foto" class="car-thumb-preview" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
         </td>
         <td>
           <div class="car-brand-title">${car.brand}</div>
@@ -744,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileCardsHtml += `
         <div class="admin-mobile-card" data-page="${car.page}" data-id="${carId}" onclick="window.editVehicle('${carId}')">
           <div class="mobile-card-top">
-            <img src="../${coverPhoto}" alt="${car.brand}" class="mobile-car-thumb" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+            <img src="${formatAdminPhotoUrl(coverPhoto)}" alt="${car.brand}" class="mobile-car-thumb" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
             <div class="mobile-card-info">
               <div class="mobile-card-badges-row">
                 <span class="mobile-page-badge">Pág. ${car.page}</span>
@@ -1049,7 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = document.createElement('div');
       item.className = 'upload-preview-item';
       item.innerHTML = `
-        <img src="../${modalCoverState.existingUrl}" alt="Portada Guardada" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+        <img src="${formatAdminPhotoUrl(modalCoverState.existingUrl)}" alt="Portada Guardada" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
         <span class="preview-tag-badge">Portada</span>
         <button type="button" class="btn-remove-preview" title="Quitar fotografía" onclick="window.removeModalCover()">&times;</button>
       `;
@@ -1065,7 +1079,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = document.createElement('div');
       item.className = 'upload-preview-item';
       item.innerHTML = `
-        <img src="../${src}" alt="Foto Guardada ${idx + 1}" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
+        <img src="${formatAdminPhotoUrl(src)}" alt="Foto Guardada ${idx + 1}" onerror="this.src='../assets/svg/autohaus-tag.svg'" />
         <span class="preview-tag-badge">Guardada</span>
         <button type="button" class="btn-remove-preview" title="Eliminar foto de la galería" onclick="window.removeExistingGalleryPhoto(${idx})">&times;</button>
       `;
