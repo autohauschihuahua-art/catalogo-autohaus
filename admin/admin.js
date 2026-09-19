@@ -32,6 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  function formatAdminPhotoUrl(url) {
+    if (!url) return '../assets/svg/autohaus-tag.svg';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('blob:')) {
+      return url;
+    }
+    if (url.startsWith('../')) {
+      return url;
+    }
+    if (url.startsWith('/')) {
+      return `..${url}`;
+    }
+    return `../${url}`;
+  }
+
   // 1. Auth Validation
   if (!state.token) {
     window.location.href = '/admin/login';
@@ -720,20 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const rawFin = car.price_financiado ? String(car.price_financiado).trim() : '';
       const finDisplay = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
 
-function formatAdminPhotoUrl(url) {
-  if (!url) return '../assets/svg/autohaus-tag.svg';
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('blob:')) {
-    return url;
-  }
-  if (url.startsWith('../')) {
-    return url;
-  }
-  if (url.startsWith('/')) {
-    return `..${url}`;
-  }
-  return `../${url}`;
-}
-
       // Desktop Table Row
       tr.innerHTML = `
         <td style="font-weight: 800; color: #94a3b8;">${car.page}</td>
@@ -1122,7 +1122,12 @@ function formatAdminPhotoUrl(url) {
   };
 
   function openVehicleModal(carData = null) {
-    vehicleForm.reset();
+    if (vehicleForm) vehicleForm.reset();
+    const saveBtn = document.getElementById('saveVehicleBtn');
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = '<span>Guardar Vehículo</span>';
+    }
 
     if (carData) {
       modalFormTitle.textContent = `Editar Vehículo: ${carData.brand || ''} ${carData.model || ''}`;
@@ -1169,11 +1174,11 @@ function formatAdminPhotoUrl(url) {
 
     renderModalCoverPreview();
     renderModalGalleryPreviews();
-    vehicleFormModal.classList.add('active');
+    if (vehicleFormModal) vehicleFormModal.classList.add('active');
   }
 
   function closeVehicleModal() {
-    vehicleFormModal.classList.remove('active');
+    if (vehicleFormModal) vehicleFormModal.classList.remove('active');
   }
 
   async function handleVehicleFormSubmit(e) {
