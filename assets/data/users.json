@@ -36,10 +36,10 @@
   },
   {
     "id": 6,
-    "name": "Raúl (Vendedor)",
+    "name": "Raúl",
     "email": "raul@autohaus.mx",
     "password": "$2a$10$jaINYg6PHPdEyiwMyJTiP.TSSdc6NgZXkqW3mGFkLnKTVfml1FppO",
-    "role": "sales"
+    "role": "admin"
   },
   {
     "id": 1788220562093,
