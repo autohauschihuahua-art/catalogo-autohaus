@@ -7,12 +7,12 @@ const AUTOHAUS_DATA = {
     title: "Catálogo Autohaus",
     version: "7.0.0",
     total_pages: 65,
-    vehicles_count: 59,
+    vehicles_count: 56,
     contact: "477 771 0000",
     whatsapp: "524777710000",
     instagram: "@autohausautohaus",
     location: "Chihuahua, Chihuahua, México",
-    generated_at: "2026-09-18T13:39:27.448Z"
+    generated_at: "2026-09-18T15:45:29.450Z"
   },
   sections: [
     {
@@ -62,44 +62,6 @@ const AUTOHAUS_DATA = {
   ],
   vehicles: [
     {
-        "id": "autohaus-p6",
-        "page": 6,
-        "brand": "Nissan",
-        "model": "Versa Advance",
-        "year": 2022,
-        "category": "SEDAN & HATCHBACK",
-        "price": "$269,000",
-        "price_contado": "$269,000",
-        "price_financiado": "No Aplica",
-        "price_num": 269000,
-        "status": "disponible",
-        "specs": [
-            "Automático",
-            "Eléctrico",
-            "Asientos en tela",
-            "Cámara de reversa",
-            "Pantalla touch",
-            "46,000 km"
-        ],
-        "cover_photo": "assets/cars/page_6_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_6_img_2.jpeg",
-            "assets/cars/page_6_img_3.jpeg",
-            "assets/cars/page_6_img_4.jpeg",
-            "assets/cars/page_6_img_5.jpeg"
-        ],
-        "photos": [
-            "assets/cars/page_6_img_2.jpeg",
-            "assets/cars/page_6_img_3.jpeg",
-            "assets/cars/page_6_img_4.jpeg",
-            "assets/cars/page_6_img_5.jpeg"
-        ],
-        "cutout_photo": "assets/cars/page_6_img_2.jpeg",
-        "main_photo": "assets/cars/page_6_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.608Z",
-        "updated_at": "2026-09-17T23:46:38.608Z"
-    },
-    {
         "id": "autohaus-p7",
         "page": 7,
         "brand": "Nissan",
@@ -111,6 +73,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$195,000",
         "price_num": 185000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -133,8 +96,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_7_img_2.jpeg",
         "main_photo": "assets/cars/page_7_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.612Z",
-        "updated_at": "2026-09-17T23:46:38.612Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p8",
@@ -148,6 +111,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$185,000",
         "price_num": 175000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Transmisión manual",
             "Vidrios delanteros eléctricos",
@@ -173,8 +137,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_8_img_2.jpeg",
         "main_photo": "assets/cars/page_8_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.613Z",
-        "updated_at": "2026-09-17T23:46:38.613Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p9",
@@ -188,6 +152,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$370,000",
         "price_num": 360000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de agencia",
             "Único dueño",
@@ -208,8 +173,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_9_img_2.jpeg",
         "main_photo": "assets/cars/page_9_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.614Z",
-        "updated_at": "2026-09-17T23:46:38.614Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p10",
@@ -223,6 +188,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$195,000",
         "price_num": 185000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -248,48 +214,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_10_img_2.jpeg",
         "main_photo": "assets/cars/page_10_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.615Z",
-        "updated_at": "2026-09-17T23:46:38.615Z"
-    },
-    {
-        "id": "autohaus-p11",
-        "page": 11,
-        "brand": "Hyundai",
-        "model": "Grand i10 GLS",
-        "year": 2017,
-        "category": "SEDAN & HATCHBACK",
-        "price": "$159,000",
-        "price_contado": "$159,000",
-        "price_financiado": "$169,000",
-        "price_num": 159000,
-        "status": "disponible",
-        "specs": [
-            "Automático",
-            "Asientos en tela",
-            "Eléctrico",
-            "A/C",
-            "Rines",
-            "Factura de seminuevos de agencia",
-            "1 llave 🔑",
-            "138,000 km"
-        ],
-        "cover_photo": "assets/cars/page_11_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_11_img_2.jpeg",
-            "assets/cars/page_11_img_3.jpeg",
-            "assets/cars/page_11_img_4.jpeg",
-            "assets/cars/page_11_img_5.jpeg"
-        ],
-        "photos": [
-            "assets/cars/page_11_img_2.jpeg",
-            "assets/cars/page_11_img_3.jpeg",
-            "assets/cars/page_11_img_4.jpeg",
-            "assets/cars/page_11_img_5.jpeg"
-        ],
-        "cutout_photo": "assets/cars/page_11_img_2.jpeg",
-        "main_photo": "assets/cars/page_11_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.615Z",
-        "updated_at": "2026-09-17T23:46:38.615Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p12",
@@ -303,6 +229,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$115,000",
         "price_num": 115000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de seminuevos",
             "100% mexicano",
@@ -328,8 +255,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_12_img_2.jpeg",
         "main_photo": "assets/cars/page_12_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.617Z",
-        "updated_at": "2026-09-17T23:46:38.617Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p13",
@@ -343,6 +270,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$285,000",
         "price_num": 275000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -366,8 +294,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_13_img_2.jpeg",
         "main_photo": "assets/cars/page_13_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.617Z",
-        "updated_at": "2026-09-17T23:46:38.617Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p14",
@@ -381,6 +309,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$300,000",
         "price_num": 290000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -406,8 +335,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_14_img_2.jpeg",
         "main_photo": "assets/cars/page_14_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.618Z",
-        "updated_at": "2026-09-17T23:46:38.618Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p15",
@@ -421,6 +350,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$265,000",
         "price_num": 255000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Híbrido",
             "Automático",
@@ -445,8 +375,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_15_img_2.jpeg",
         "main_photo": "assets/cars/page_15_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.619Z",
-        "updated_at": "2026-09-17T23:46:38.619Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p16",
@@ -460,6 +390,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$170,000",
         "price_num": 160000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Transmisión manual",
             "Semi eléctrico",
@@ -485,8 +416,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_16_img_2.jpeg",
         "main_photo": "assets/cars/page_16_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.619Z",
-        "updated_at": "2026-09-17T23:46:38.619Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p17",
@@ -500,6 +431,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$409,000",
         "price_num": 399000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -525,8 +457,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_17_img_2.jpeg",
         "main_photo": "assets/cars/page_17_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.619Z",
-        "updated_at": "2026-09-17T23:46:38.619Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p19",
@@ -540,6 +472,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,100,000",
         "price_num": 1100000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Full catback",
             "Intakes",
@@ -566,8 +499,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_19_img_2.jpeg",
         "main_photo": "assets/cars/page_19_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.620Z",
-        "updated_at": "2026-09-17T23:46:38.620Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p20",
@@ -581,6 +514,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$270,000",
         "price_num": 260000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -603,8 +537,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_20_img_2.jpeg",
         "main_photo": "assets/cars/page_20_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.620Z",
-        "updated_at": "2026-09-17T23:46:38.620Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p21",
@@ -618,6 +552,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$340,000",
         "price_num": 330000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automático",
             "Eléctrico",
@@ -643,8 +578,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_21_img_2.jpeg",
         "main_photo": "assets/cars/page_21_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.621Z",
-        "updated_at": "2026-09-17T23:46:38.621Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p22",
@@ -658,6 +593,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$140,000",
         "price_num": 130000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automático",
             "Vidrios manuales",
@@ -679,8 +615,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_22_img_2.jpeg",
         "main_photo": "assets/cars/page_22_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.621Z",
-        "updated_at": "2026-09-17T23:46:38.621Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p23",
@@ -694,6 +630,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$279,000",
         "price_num": 269000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de agencia",
             "Único dueño",
@@ -718,8 +655,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_23_img_2.jpeg",
         "main_photo": "assets/cars/page_23_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.621Z",
-        "updated_at": "2026-09-17T23:46:38.621Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p25",
@@ -733,6 +670,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$630,000",
         "price_num": 620000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "SUV",
             "Automática",
@@ -758,8 +696,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_25_img_2.jpeg",
         "main_photo": "assets/cars/page_25_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.622Z",
-        "updated_at": "2026-09-17T23:46:38.622Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p26",
@@ -773,6 +711,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$405,000",
         "price_num": 395000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -798,8 +737,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_26_img_2.jpeg",
         "main_photo": "assets/cars/page_26_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.622Z",
-        "updated_at": "2026-09-17T23:46:38.622Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p27",
@@ -813,6 +752,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$465,000",
         "price_num": 455000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -838,8 +778,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_27_img_2.jpeg",
         "main_photo": "assets/cars/page_27_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.623Z",
-        "updated_at": "2026-09-17T23:46:38.623Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p28",
@@ -853,6 +793,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$750,000",
         "price_num": 740000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -880,8 +821,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_28_img_2.jpeg",
         "main_photo": "assets/cars/page_28_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.623Z",
-        "updated_at": "2026-09-17T23:46:38.623Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p29",
@@ -895,6 +836,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$955,000",
         "price_num": 945000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -922,8 +864,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_29_img_2.jpeg",
         "main_photo": "assets/cars/page_29_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.623Z",
-        "updated_at": "2026-09-17T23:46:38.623Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p30",
@@ -937,6 +879,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$495,000",
         "price_num": 485000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -962,8 +905,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_30_img_2.jpeg",
         "main_photo": "assets/cars/page_30_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.624Z",
-        "updated_at": "2026-09-17T23:46:38.624Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p31",
@@ -977,6 +920,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$3,210,000",
         "price_num": 3200000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1002,8 +946,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_31_img_2.jpeg",
         "main_photo": "assets/cars/page_31_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.625Z",
-        "updated_at": "2026-09-17T23:46:38.625Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p32",
@@ -1017,6 +961,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$760,000",
         "price_num": 750000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1045,8 +990,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_32_img_2.jpeg",
         "main_photo": "assets/cars/page_32_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.625Z",
-        "updated_at": "2026-09-17T23:46:38.625Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p33",
@@ -1060,6 +1005,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$340,000",
         "price_num": 330000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1086,8 +1032,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_33_img_2.jpeg",
         "main_photo": "assets/cars/page_33_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.625Z",
-        "updated_at": "2026-09-17T23:46:38.625Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p34",
@@ -1101,6 +1047,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$505,000",
         "price_num": 495000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Asientos en piel",
             "Cámara de reversa",
@@ -1127,8 +1074,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_34_img_2.jpeg",
         "main_photo": "assets/cars/page_34_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.626Z",
-        "updated_at": "2026-09-17T23:46:38.626Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p35",
@@ -1142,6 +1089,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$465,000",
         "price_num": 455000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1166,8 +1114,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_35_img_2.jpeg",
         "main_photo": "assets/cars/page_35_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.626Z",
-        "updated_at": "2026-09-17T23:46:38.626Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p36",
@@ -1181,6 +1129,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,009,000",
         "price_num": 999000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1207,8 +1156,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_36_img_2.jpeg",
         "main_photo": "assets/cars/page_36_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.627Z",
-        "updated_at": "2026-09-17T23:46:38.627Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p37",
@@ -1222,6 +1171,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$489,000",
         "price_num": 479000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1248,8 +1198,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_37_img_2.jpeg",
         "main_photo": "assets/cars/page_37_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.627Z",
-        "updated_at": "2026-09-17T23:46:38.627Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p38",
@@ -1263,6 +1213,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$440,000",
         "price_num": 430000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1287,8 +1238,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_38_img_2.jpeg",
         "main_photo": "assets/cars/page_38_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.628Z",
-        "updated_at": "2026-09-17T23:46:38.628Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p39",
@@ -1302,6 +1253,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$369,000",
         "price_num": 359000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1326,8 +1278,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_39_img_2.jpeg",
         "main_photo": "assets/cars/page_39_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.628Z",
-        "updated_at": "2026-09-17T23:46:38.628Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p40",
@@ -1341,6 +1293,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,400,000",
         "price_num": 1400000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Asientos en Alcántara",
             "Eléctrica",
@@ -1373,8 +1326,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_40_img_2.jpeg",
         "main_photo": "assets/cars/page_40_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.629Z",
-        "updated_at": "2026-09-17T23:46:38.629Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p42",
@@ -1388,6 +1341,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$345,000",
         "price_num": 335000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Transmisión manual",
             "Eléctrica",
@@ -1413,8 +1367,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_42_img_2.jpeg",
         "main_photo": "assets/cars/page_42_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.629Z",
-        "updated_at": "2026-09-17T23:46:38.629Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p43",
@@ -1428,6 +1382,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$225,000",
         "price_num": 215000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de agencia",
             "Un dueño",
@@ -1453,8 +1408,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_43_img_2.jpeg",
         "main_photo": "assets/cars/page_43_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.629Z",
-        "updated_at": "2026-09-17T23:46:38.629Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p44",
@@ -1468,6 +1423,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$289,000",
         "price_num": 279000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Transmisión manual",
             "A/C",
@@ -1496,8 +1452,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_44_img_2.jpeg",
         "main_photo": "assets/cars/page_44_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.630Z",
-        "updated_at": "2026-09-17T23:46:38.630Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p45",
@@ -1511,6 +1467,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$515,000",
         "price_num": 505000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1539,8 +1496,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_45_img_2.jpeg",
         "main_photo": "assets/cars/page_45_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.630Z",
-        "updated_at": "2026-09-17T23:46:38.630Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p46",
@@ -1554,6 +1511,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$389,000",
         "price_num": 379000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1579,8 +1537,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_46_img_2.jpeg",
         "main_photo": "assets/cars/page_46_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.630Z",
-        "updated_at": "2026-09-17T23:46:38.630Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p47",
@@ -1594,6 +1552,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$255,000",
         "price_num": 245000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Motor V6 3.6L",
             "Automática",
@@ -1621,8 +1580,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_47_img_2.jpeg",
         "main_photo": "assets/cars/page_47_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.631Z",
-        "updated_at": "2026-09-17T23:46:38.631Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p48",
@@ -1636,6 +1595,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$219,000",
         "price_num": 219000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "100% mexicana",
             "Llantas nuevas",
@@ -1660,8 +1620,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_48_img_2.jpeg",
         "main_photo": "assets/cars/page_48_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.631Z",
-        "updated_at": "2026-09-17T23:46:38.631Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p49",
@@ -1675,6 +1635,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$249,000",
         "price_num": 239000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de agencia",
             "Dos llaves",
@@ -1702,8 +1663,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_49_img_2.jpeg",
         "main_photo": "assets/cars/page_49_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.632Z",
-        "updated_at": "2026-09-17T23:46:38.632Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p50",
@@ -1717,6 +1678,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$249,000",
         "price_num": 239000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1741,8 +1703,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_50_img_2.jpeg",
         "main_photo": "assets/cars/page_50_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.632Z",
-        "updated_at": "2026-09-17T23:46:38.632Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p51",
@@ -1756,6 +1718,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$430,000",
         "price_num": 420000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1782,8 +1745,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_51_img_2.jpeg",
         "main_photo": "assets/cars/page_51_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.632Z",
-        "updated_at": "2026-09-17T23:46:38.632Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p53",
@@ -1797,6 +1760,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,060,000",
         "price_num": 1050000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Importada por pedimento",
             "Asientos en piel",
@@ -1821,8 +1785,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_53_img_2.jpeg",
         "main_photo": "assets/cars/page_53_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.633Z",
-        "updated_at": "2026-09-17T23:46:38.633Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p54",
@@ -1836,6 +1800,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$675,000",
         "price_num": 665000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1860,8 +1825,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_54_img_2.jpeg",
         "main_photo": "assets/cars/page_54_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.633Z",
-        "updated_at": "2026-09-17T23:46:38.633Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p55",
@@ -1875,6 +1840,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$675,000",
         "price_num": 665000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -1901,56 +1867,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_55_img_2.jpeg",
         "main_photo": "assets/cars/page_55_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.633Z",
-        "updated_at": "2026-09-17T23:46:38.633Z"
-    },
-    {
-        "id": "autohaus-p56",
-        "page": 56,
-        "brand": "Jeep",
-        "model": "Rubicon Gladiator JT",
-        "year": 2023,
-        "category": "PICK UPS",
-        "price": "$899,000",
-        "price_contado": "$899,000",
-        "price_financiado": "$909,000",
-        "price_num": 899000,
-        "status": "disponible",
-        "specs": [
-            "33,000 km",
-            "Factura de agencia",
-            "Único dueño",
-            "2 llaves",
-            "Motor V6 3.6L",
-            "4x4",
-            "Automático",
-            "Eléctrico",
-            "Pantalla táctil",
-            "Controles al volante",
-            "Descapotable",
-            "Tapa en caja",
-            "Jalón",
-            "Cámara de reversa y cámara frontal",
-            "Llantas nuevas",
-            "Tomo tu unidad a cuenta"
-        ],
-        "cover_photo": "assets/cars/page_56_img_2.jpeg",
-        "real_photos": [
-            "assets/cars/page_56_img_2.jpeg",
-            "assets/cars/page_56_img_3.jpeg",
-            "assets/cars/page_56_img_4.jpeg",
-            "assets/cars/page_56_img_5.jpeg"
-        ],
-        "photos": [
-            "assets/cars/page_56_img_2.jpeg",
-            "assets/cars/page_56_img_3.jpeg",
-            "assets/cars/page_56_img_4.jpeg",
-            "assets/cars/page_56_img_5.jpeg"
-        ],
-        "cutout_photo": "assets/cars/page_56_img_2.jpeg",
-        "main_photo": "assets/cars/page_56_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.634Z",
-        "updated_at": "2026-09-17T23:46:38.634Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p57",
@@ -1964,6 +1882,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$270,000",
         "price_num": 260000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Transmisión automática",
             "Eléctrica",
@@ -1989,8 +1908,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_57_img_2.jpeg",
         "main_photo": "assets/cars/page_57_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.634Z",
-        "updated_at": "2026-09-17T23:46:38.634Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p58",
@@ -2004,6 +1923,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$730,000",
         "price_num": 720000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "1500 Mild Hybrid",
             "110,000 km",
@@ -2034,8 +1954,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_58_img_2.jpeg",
         "main_photo": "assets/cars/page_58_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.634Z",
-        "updated_at": "2026-09-17T23:46:38.634Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p59",
@@ -2049,6 +1969,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$835,000",
         "price_num": 825000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -2074,8 +1995,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_59_img_2.jpeg",
         "main_photo": "assets/cars/page_59_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.635Z",
-        "updated_at": "2026-09-17T23:46:38.635Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p60",
@@ -2089,6 +2010,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$765,000",
         "price_num": 755000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "57,000 km",
             "4x4",
@@ -2114,8 +2036,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_60_img_2.jpeg",
         "main_photo": "assets/cars/page_60_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.635Z",
-        "updated_at": "2026-09-17T23:46:38.635Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p61",
@@ -2129,6 +2051,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$870,000",
         "price_num": 860000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Automática",
             "Eléctrica",
@@ -2155,8 +2078,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_61_img_2.jpeg",
         "main_photo": "assets/cars/page_61_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.635Z",
-        "updated_at": "2026-09-17T23:46:38.635Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p62",
@@ -2170,6 +2093,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$870,000",
         "price_num": 860000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "57,000 km",
             "4x4",
@@ -2195,8 +2119,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_62_img_2.jpeg",
         "main_photo": "assets/cars/page_62_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.636Z",
-        "updated_at": "2026-09-17T23:46:38.636Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p63",
@@ -2210,6 +2134,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$385,000",
         "price_num": 385000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Motor Vortec",
             "Frenos de disco traseros",
@@ -2238,8 +2163,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_63_img_2.jpeg",
         "main_photo": "assets/cars/page_63_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.636Z",
-        "updated_at": "2026-09-17T23:46:38.636Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p64",
@@ -2253,6 +2178,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$2,590,000",
         "price_num": 2580000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "20,000 km",
             "Factura de seminuevos",
@@ -2282,8 +2208,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_64_img_2.jpeg",
         "main_photo": "assets/cars/page_64_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.636Z",
-        "updated_at": "2026-09-17T23:46:38.636Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p65",
@@ -2297,6 +2223,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$259,000",
         "price_num": 249000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "Factura de seminuevos",
             "216,000 km",
@@ -2319,8 +2246,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_65_img_2.jpeg",
         "main_photo": "assets/cars/page_65_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.638Z",
-        "updated_at": "2026-09-17T23:46:38.638Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p67",
@@ -2334,6 +2261,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,100,000",
         "price_num": 1100000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Full catback",
             "Intakes",
@@ -2359,8 +2287,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_67_img_2.jpeg",
         "main_photo": "assets/cars/page_67_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.638Z",
-        "updated_at": "2026-09-17T23:46:38.638Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p68",
@@ -2374,6 +2302,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,070,000",
         "price_num": 1060000,
         "status": "disponible",
+        "branch_id": 1,
         "specs": [
             "4 puertas",
             "Automático",
@@ -2402,8 +2331,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_68_img_2.jpeg",
         "main_photo": "assets/cars/page_68_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.639Z",
-        "updated_at": "2026-09-17T23:46:38.639Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     },
     {
         "id": "autohaus-p69",
@@ -2417,6 +2346,7 @@ const AUTOHAUS_DATA = {
         "price_financiado": "$1,350,000",
         "price_num": 1350000,
         "status": "disponible",
+        "branch_id": 2,
         "specs": [
             "Asientos en Alcántara",
             "21,000 km",
@@ -2439,8 +2369,8 @@ const AUTOHAUS_DATA = {
         ],
         "cutout_photo": "assets/cars/page_69_img_2.jpeg",
         "main_photo": "assets/cars/page_69_img_2.jpeg",
-        "created_at": "2026-09-17T23:46:38.639Z",
-        "updated_at": "2026-09-17T23:46:38.639Z"
+        "created_at": "2026-09-18T15:38:01.494904+00:00",
+        "updated_at": "2026-09-18T15:38:01.494904+00:00"
     }
 ]
 };
