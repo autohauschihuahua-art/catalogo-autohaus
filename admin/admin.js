@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (dataCredits.success) {
         state.credits = dataCredits.data;
         if (tabCountCredits) tabCountCredits.textContent = state.credits.length;
+        renderFnaCharts(state.credits);
         applyCreditsFilters();
       }
 
@@ -780,6 +781,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabPaneInventory) tabPaneInventory.classList.toggle('active', tabId === 'tabInventory');
     if (tabPaneLeads) tabPaneLeads.classList.toggle('active', tabId === 'tabLeads');
     if (tabPaneCredits) tabPaneCredits.classList.toggle('active', tabId === 'tabCredits');
+
+    if (tabId === 'tabCredits' && state.credits && state.credits.length > 0) {
+      setTimeout(() => renderFnaCharts(state.credits), 50);
+    }
   }
 
   // ==========================================
@@ -1614,6 +1619,298 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // CREDITS & FINANCING TABLE & ACTIONS (FNA)
   // ==========================================
+
+  // Chart Instances for FNA Dashboard
+  let fnaStatusChartInstance = null;
+  let fnaInstitutionsChartInstance = null;
+
+  function parseAmount(val) {
+    if (!val) return 0;
+    if (typeof val === 'number') return val;
+    const clean = val.toString().replace(/[^0-9.]/g, '');
+    const num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+  }
+
+  function formatCurrency(num) {
+    return '$' + Math.round(num).toLocaleString('es-MX');
+  }
+
+  function renderFnaCharts(allCredits) {
+    if (!allCredits) return;
+
+    // 1. Calculate Metrics
+    let totalFinanced = 0;
+    let totalApproved = 0;
+    let countApprovedOrDelivered = 0;
+
+    const statusCounts = {
+      en_proceso: 0,
+      aprobado: 0,
+      condicionado: 0,
+      entregado: 0,
+      rechazado: 0,
+      cancelado: 0
+    };
+
+    const instCounts = {};
+
+    allCredits.forEach(c => {
+      const st = (c.status || 'en_proceso').toLowerCase();
+      if (statusCounts[st] !== undefined) {
+        statusCounts[st]++;
+      } else {
+        statusCounts.en_proceso = (statusCounts.en_proceso || 0) + 1;
+      }
+
+      const financed = parseAmount(c.financed_amount) || parseAmount(c.vehicle_price);
+      totalFinanced += financed;
+
+      if (st === 'aprobado' || st === 'entregado') {
+        totalApproved += financed;
+        countApprovedOrDelivered++;
+      }
+
+      const inst = (c.financial_institution || 'Otra Financiera').trim();
+      instCounts[inst] = (instCounts[inst] || 0) + 1;
+    });
+
+    const totalCount = allCredits.length;
+    const approvalRate = totalCount > 0 ? Math.round((countApprovedOrDelivered / totalCount) * 100) : 0;
+
+    // Update Quick Stat Badges
+    const fnaTotalFinanced = document.getElementById('fnaTotalFinanced');
+    const fnaTotalApproved = document.getElementById('fnaTotalApproved');
+    const fnaApprovalRate = document.getElementById('fnaApprovalRate');
+    const fnaDonutCenterNum = document.getElementById('fnaDonutCenterNum');
+    const fnaStatusChartTotal = document.getElementById('fnaStatusChartTotal');
+    const fnaInstitutionsChartTotal = document.getElementById('fnaInstitutionsChartTotal');
+
+    if (fnaTotalFinanced) fnaTotalFinanced.textContent = `${formatCurrency(totalFinanced)} MXN`;
+    if (fnaTotalApproved) fnaTotalApproved.textContent = `${formatCurrency(totalApproved)} MXN`;
+    if (fnaApprovalRate) fnaApprovalRate.textContent = `${approvalRate}%`;
+    if (fnaDonutCenterNum) fnaDonutCenterNum.textContent = totalCount;
+    if (fnaStatusChartTotal) fnaStatusChartTotal.textContent = `${totalCount} solicitudes`;
+    if (fnaInstitutionsChartTotal) fnaInstitutionsChartTotal.textContent = `${Object.keys(instCounts).length} financieras`;
+
+    // 2. Render Status Legend
+    const fnaStatusLegend = document.getElementById('fnaStatusLegend');
+    if (fnaStatusLegend) {
+      const statusMeta = [
+        { key: 'en_proceso', label: 'En Proceso', color: '#eab308', count: statusCounts.en_proceso },
+        { key: 'aprobado', label: 'Aprobados', color: '#22c55e', count: statusCounts.aprobado },
+        { key: 'condicionado', label: 'Condicionados', color: '#f97316', count: statusCounts.condicionado },
+        { key: 'entregado', label: 'Entregados', color: '#a855f7', count: statusCounts.entregado },
+        { key: 'rechazado', label: 'Rechazados', color: '#ef4444', count: statusCounts.rechazado },
+        { key: 'cancelado', label: 'Cancelados', color: '#64748b', count: statusCounts.cancelado }
+      ];
+
+      fnaStatusLegend.innerHTML = statusMeta
+        .filter(m => m.count > 0 || ['en_proceso', 'aprobado', 'rechazado'].includes(m.key))
+        .map(m => {
+          const pct = totalCount > 0 ? Math.round((m.count / totalCount) * 100) : 0;
+          return `
+            <div class="fna-legend-item" onclick="window.filterCreditsByStatusQuick('${m.key}')" title="Clic para filtrar por: ${m.label}">
+              <div class="fna-legend-left">
+                <span class="fna-legend-dot" style="background: ${m.color}; box-shadow: 0 0 8px ${m.color};"></span>
+                <span>${m.label}</span>
+              </div>
+              <div>
+                <span class="fna-legend-val">${m.count}</span>
+                <span class="fna-legend-pct">(${pct}%)</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+    }
+
+    // 3. Render Status Donut Chart with Chart.js
+    const statusCanvas = document.getElementById('fnaStatusChart');
+    if (statusCanvas && typeof Chart !== 'undefined') {
+      if (fnaStatusChartInstance) {
+        fnaStatusChartInstance.destroy();
+        fnaStatusChartInstance = null;
+      }
+
+      const labels = ['En Proceso', 'Aprobado', 'Condicionado', 'Entregado', 'Rechazado', 'Cancelado'];
+      const data = [
+        statusCounts.en_proceso,
+        statusCounts.aprobado,
+        statusCounts.condicionado,
+        statusCounts.entregado,
+        statusCounts.rechazado,
+        statusCounts.cancelado
+      ];
+      const backgroundColors = ['#eab308', '#22c55e', '#f97316', '#a855f7', '#ef4444', '#64748b'];
+
+      fnaStatusChartInstance = new Chart(statusCanvas, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data: totalCount === 0 ? [1] : data,
+            backgroundColor: totalCount === 0 ? ['rgba(255,255,255,0.1)'] : backgroundColors,
+            borderColor: '#0b1b38',
+            borderWidth: 3,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(6, 182, 212, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  if (totalCount === 0) return 'Sin solicitudes';
+                  const val = context.raw || 0;
+                  const pct = Math.round((val / totalCount) * 100);
+                  return ` ${context.label}: ${val} expedientes (${pct}%)`;
+                }
+              }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const statusKeys = ['en_proceso', 'aprobado', 'condicionado', 'entregado', 'rechazado', 'cancelado'];
+              window.filterCreditsByStatusQuick(statusKeys[idx]);
+            }
+          }
+        }
+      });
+    }
+
+    // 4. Render Institutions Breakdown & Chart
+    const sortedInstitutions = Object.entries(instCounts).sort((a, b) => b[1] - a[1]);
+    const fnaInstitutionsLegend = document.getElementById('fnaInstitutionsLegend');
+    if (fnaInstitutionsLegend) {
+      fnaInstitutionsLegend.innerHTML = sortedInstitutions.map(([inst, count]) => {
+        return `
+          <div class="fna-inst-chip" onclick="window.filterCreditsByInstitutionQuick('${inst}')" title="Clic para filtrar por ${inst}">
+            <span>${inst}</span>
+            <span class="fna-inst-chip-count">${count}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const instCanvas = document.getElementById('fnaInstitutionsChart');
+    if (instCanvas && typeof Chart !== 'undefined') {
+      if (fnaInstitutionsChartInstance) {
+        fnaInstitutionsChartInstance.destroy();
+        fnaInstitutionsChartInstance = null;
+      }
+
+      const instLabels = sortedInstitutions.map(item => item[0]);
+      const instData = sortedInstitutions.map(item => item[1]);
+
+      const instColorMap = {
+        'BBVA': '#3b82f6',
+        'BBVA Bancomer': '#3b82f6',
+        'Banorte': '#ef4444',
+        'Scotiabank': '#f87171',
+        'Santander': '#fb7185',
+        'AFIRME': '#10b981',
+        'Hey Banco': '#facc15',
+        'Creal': '#8b5cf6',
+        'Financiera Autohaus': '#f59e0b',
+        'Financiera Autohaus (Directa)': '#f59e0b'
+      };
+
+      const barColors = instLabels.map(inst => instColorMap[inst] || '#06b6d4');
+
+      fnaInstitutionsChartInstance = new Chart(instCanvas, {
+        type: 'bar',
+        data: {
+          labels: instLabels.length ? instLabels : ['Sin datos'],
+          datasets: [{
+            label: 'Solicitudes',
+            data: instData.length ? instData : [0],
+            backgroundColor: barColors,
+            borderRadius: 6,
+            borderSkipped: false,
+            barThickness: 16
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#38bdf8',
+              borderColor: 'rgba(6, 182, 212, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw || 0;
+                  return ` Solicitudes: ${val} crédito(s)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94a3b8', font: { family: 'Poppins', size: 10 }, precision: 0 }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#ffffff', font: { family: 'Poppins', size: 11, weight: '600' } }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const selectedInst = instLabels[idx];
+              window.filterCreditsByInstitutionQuick(selectedInst);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  window.filterCreditsByStatusQuick = function(statusKey) {
+    if (creditStatusFilter) {
+      creditStatusFilter.value = statusKey;
+      state.creditsFilters.status = statusKey;
+      applyCreditsFilters();
+      showToast(`Filtrando créditos: ${statusKey.toUpperCase()}`, 'info');
+    }
+  };
+
+  window.filterCreditsByInstitutionQuick = function(instName) {
+    if (creditInstitutionFilter) {
+      let matched = false;
+      for (let i = 0; i < creditInstitutionFilter.options.length; i++) {
+        if (creditInstitutionFilter.options[i].value.toLowerCase() === instName.toLowerCase()) {
+          creditInstitutionFilter.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) creditInstitutionFilter.value = instName;
+      state.creditsFilters.institution = creditInstitutionFilter.value;
+      applyCreditsFilters();
+      showToast(`Filtrando por financiera: ${instName}`, 'info');
+    }
+  };
 
   function applyCreditsFilters() {
     state.filteredCredits = state.credits.filter(c => {

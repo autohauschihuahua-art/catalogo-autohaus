@@ -379,6 +379,93 @@
     <section class="tab-pane" id="tabCredits">
       <div class="inventory-section">
         
+        <!-- ==========================================
+             FNA EXECUTIVE CHARTS & FINANCIAL ANALYTICS
+             ========================================== -->
+        <div class="fna-analytics-container">
+          <div class="fna-analytics-header">
+            <div class="fna-analytics-title-wrap">
+              <div class="fna-badge-pulse">
+                <span class="fna-pulse-dot"></span>
+                <span>Mesa de Control & Análisis Financiero</span>
+              </div>
+              <h2 class="fna-analytics-title">Métricas y Gráficas de Créditos</h2>
+              <p class="fna-analytics-subtitle">Monitoreo en tiempo real de estatus de solicitudes y volumen por institución financiera</p>
+            </div>
+
+            <!-- Quick Financial Summary Badges -->
+            <div class="fna-analytics-quick-stats">
+              <div class="fna-stat-pill">
+                <span class="fna-stat-pill-label">Total Financiado Solicitado</span>
+                <span class="fna-stat-pill-value" id="fnaTotalFinanced">$0 MXN</span>
+              </div>
+              <div class="fna-stat-pill fna-pill-approved">
+                <span class="fna-stat-pill-label">Monto Aprobado / Colocado</span>
+                <span class="fna-stat-pill-value" id="fnaTotalApproved">$0 MXN</span>
+              </div>
+              <div class="fna-stat-pill fna-pill-rate">
+                <span class="fna-stat-pill-label">Tasa de Aprobación</span>
+                <span class="fna-stat-pill-value" id="fnaApprovalRate">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid (Two Cards) -->
+          <div class="fna-charts-grid">
+            
+            <!-- Chart 1: Estados de los Créditos (Donut) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">📊</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Distribución por Estado del Crédito</h3>
+                    <p class="fna-chart-card-sub">En Proceso, Aprobados, Condicionados, Rechazados, Entregados</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="fnaStatusChartTotal">0 solicitudes</span>
+              </div>
+              
+              <div class="fna-chart-body-flex">
+                <div class="fna-chart-canvas-wrap">
+                  <canvas id="fnaStatusChart"></canvas>
+                  <div class="fna-donut-center-metric" id="fnaDonutCenter">
+                    <span class="fna-donut-center-num" id="fnaDonutCenterNum">0</span>
+                    <span class="fna-donut-center-txt">Expedientes</span>
+                  </div>
+                </div>
+                <div class="fna-chart-legend-list" id="fnaStatusLegend">
+                  <!-- Injected dynamically via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart 2: Cantidad por Financiera / Banco (Horizontal Bar) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(6, 182, 212, 0.2); color: #38bdf8;">🏦</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Cantidad por Financiera o Banco</h3>
+                    <p class="fna-chart-card-sub">Expedientes ingresados a cada institución bancaria</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="fnaInstitutionsChartTotal">0 bancos</span>
+              </div>
+
+              <div class="fna-chart-body-bar">
+                <div class="fna-chart-bar-canvas-wrap">
+                  <canvas id="fnaInstitutionsChart"></canvas>
+                </div>
+                <div class="fna-inst-chips-grid" id="fnaInstitutionsLegend">
+                  <!-- Injected dynamically via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- Toolbar -->
         <div class="inventory-toolbar">
           <div class="toolbar-search-box">
@@ -776,6 +863,7 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
-  <script src="admin.js?v=20260919_fna_credits_v1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="admin.js?v=20260919_fna_charts_v2"></script>
 </body>
 </html>
