@@ -229,6 +229,93 @@
     <section class="tab-pane active" id="tabInventory">
       <div class="inventory-section">
         
+        <!-- ==========================================
+             INVENTORY EXECUTIVE ANALYTICS & CHARTS (ADMIN & RAUL)
+             ========================================== -->
+        <div class="fna-analytics-container admin-inventory-analytics">
+          <div class="fna-analytics-header">
+            <div class="fna-analytics-title-wrap">
+              <div class="fna-badge-pulse" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(234, 179, 8, 0.4); color: #fde047;">
+                <span class="fna-pulse-dot" style="background: #eab308; box-shadow: 0 0 10px #eab308;"></span>
+                <span>Valuación & Composición del Catálogo</span>
+              </div>
+              <h2 class="fna-analytics-title">Métricas de Inventario & Ventas</h2>
+              <p class="fna-analytics-subtitle">Valor total de activos en catálogo, distribución por categorías y marcas en piso</p>
+            </div>
+
+            <!-- Inventory Financial Summary Badges -->
+            <div class="fna-analytics-quick-stats">
+              <div class="fna-stat-pill" style="border-color: rgba(234, 179, 8, 0.35); background: rgba(234, 179, 8, 0.1);">
+                <span class="fna-stat-pill-label">Valor Total del Inventario</span>
+                <span class="fna-stat-pill-value" id="invTotalValue" style="color: #fde047;">$0 MXN</span>
+              </div>
+              <div class="fna-stat-pill fna-pill-approved">
+                <span class="fna-stat-pill-label">Valor Disponible en Venta</span>
+                <span class="fna-stat-pill-value" id="invAvailableValue">$0 MXN</span>
+              </div>
+              <div class="fna-stat-pill">
+                <span class="fna-stat-pill-label">Precio Promedio por Auto</span>
+                <span class="fna-stat-pill-value" id="invAvgPrice" style="color: #38bdf8;">$0 MXN</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid (2 Cards) -->
+          <div class="fna-charts-grid">
+            
+            <!-- Chart 1: Categories Breakdown (Donut) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">🚗</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Distribución por Categorías</h3>
+                    <p class="fna-chart-card-sub">SUV's, Sedán, Pick Ups y Deportivos</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="invCategoriesChartTotal">0 autos</span>
+              </div>
+
+              <div class="fna-chart-body-flex">
+                <div class="fna-chart-canvas-wrap">
+                  <canvas id="invCategoryChart"></canvas>
+                  <div class="fna-donut-center-metric">
+                    <span class="fna-donut-center-num" id="invDonutCenterNum">0</span>
+                    <span class="fna-donut-center-txt">Unidades</span>
+                  </div>
+                </div>
+                <div class="fna-chart-legend-list" id="invCategoryLegend">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart 2: Top Brands in Stock (Horizontal Bar) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🏷️</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Top Marcas en Inventario</h3>
+                    <p class="fna-chart-card-sub">Marcas con mayor número de autos en stock</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="invBrandsChartTotal">0 marcas</span>
+              </div>
+
+              <div class="fna-chart-body-bar">
+                <div class="fna-chart-bar-canvas-wrap">
+                  <canvas id="invBrandsChart"></canvas>
+                </div>
+                <div class="fna-inst-chips-grid" id="invBrandsLegend">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- Toolbar -->
         <div class="inventory-toolbar">
           <div class="toolbar-search-box">
@@ -298,6 +385,93 @@
     <section class="tab-pane" id="tabLeads">
       <div class="inventory-section">
         
+        <!-- ==========================================
+             LEADS & CRM EXECUTIVE ANALYTICS & CHARTS (ADMIN & RAUL)
+             ========================================== -->
+        <div class="fna-analytics-container admin-leads-analytics">
+          <div class="fna-analytics-header">
+            <div class="fna-analytics-title-wrap">
+              <div class="fna-badge-pulse" style="background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.4); color: #4ade80;">
+                <span class="fna-pulse-dot" style="background: #22c55e; box-shadow: 0 0 10px #22c55e;"></span>
+                <span>Fuerza de Ventas & Conversión CRM</span>
+              </div>
+              <h2 class="fna-analytics-title">Rendimiento Comercial & Embudo de Leads</h2>
+              <p class="fna-analytics-subtitle">Distribución de prospectos por asesor, estatus del embudo y efectividad de cierre</p>
+            </div>
+
+            <!-- CRM Summary Badges -->
+            <div class="fna-analytics-quick-stats">
+              <div class="fna-stat-pill">
+                <span class="fna-stat-pill-label">Total Prospectos Recibidos</span>
+                <span class="fna-stat-pill-value" id="crmTotalLeads">0</span>
+              </div>
+              <div class="fna-stat-pill fna-pill-approved">
+                <span class="fna-stat-pill-label">Ventas Concretadas</span>
+                <span class="fna-stat-pill-value" id="crmSoldLeads">0</span>
+              </div>
+              <div class="fna-stat-pill fna-pill-rate">
+                <span class="fna-stat-pill-label">Tasa de Conversión</span>
+                <span class="fna-stat-pill-value" id="crmConversionRate">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid (2 Cards) -->
+          <div class="fna-charts-grid">
+            
+            <!-- Chart 1: Funnel Status Breakdown (Donut) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">🎯</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Embudo de Conversión (Estatus)</h3>
+                    <p class="fna-chart-card-sub">Nuevos, Contactados, En Cita, Vendidos y Descartados</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="crmStatusChartTotal">0 leads</span>
+              </div>
+
+              <div class="fna-chart-body-flex">
+                <div class="fna-chart-canvas-wrap">
+                  <canvas id="crmStatusChart"></canvas>
+                  <div class="fna-donut-center-metric">
+                    <span class="fna-donut-center-num" id="crmDonutCenterNum">0</span>
+                    <span class="fna-donut-center-txt">Leads</span>
+                  </div>
+                </div>
+                <div class="fna-chart-legend-list" id="crmStatusLegend">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart 2: Leads por Asesor de Ventas (Horizontal Bar) -->
+            <div class="fna-chart-card">
+              <div class="fna-chart-card-header">
+                <div class="fna-chart-icon-title">
+                  <span class="fna-chart-icon" style="background: rgba(6, 182, 212, 0.2); color: #38bdf8;">👥</span>
+                  <div>
+                    <h3 class="fna-chart-card-title">Prospectos por Asesor de Ventas</h3>
+                    <p class="fna-chart-card-sub">Distribución y seguimiento de leads en el equipo</p>
+                  </div>
+                </div>
+                <span class="fna-chart-count-badge" id="crmSalesChartTotal">4 asesores</span>
+              </div>
+
+              <div class="fna-chart-body-bar">
+                <div class="fna-chart-bar-canvas-wrap">
+                  <canvas id="crmSalesChart"></canvas>
+                </div>
+                <div class="fna-inst-chips-grid" id="crmSalesLegend">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- Toolbar -->
         <div class="inventory-toolbar">
           <div class="toolbar-search-box">

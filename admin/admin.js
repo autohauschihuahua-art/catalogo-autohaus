@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.vehicles = dataVeh.data;
         if (tabCountInventory) tabCountInventory.textContent = state.vehicles.length;
         populateVehicleSelect(state.vehicles);
+        renderInventoryCharts(state.vehicles);
         applyInventoryFilters();
         
         // Update Live DB indicator
@@ -317,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await updateRoundRobinTurnBadge();
           }
 
+          renderLeadsCharts(state.leads);
           applyLeadsFilters();
         }
       }
@@ -782,14 +784,268 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabPaneLeads) tabPaneLeads.classList.toggle('active', tabId === 'tabLeads');
     if (tabPaneCredits) tabPaneCredits.classList.toggle('active', tabId === 'tabCredits');
 
-    if (tabId === 'tabCredits' && state.credits && state.credits.length > 0) {
+    if (tabId === 'tabInventory' && state.vehicles && state.vehicles.length > 0) {
+      setTimeout(() => renderInventoryCharts(state.vehicles), 50);
+    } else if (tabId === 'tabLeads' && state.leads && state.leads.length > 0) {
+      setTimeout(() => renderLeadsCharts(state.leads), 50);
+    } else if (tabId === 'tabCredits' && state.credits && state.credits.length > 0) {
       setTimeout(() => renderFnaCharts(state.credits), 50);
     }
   }
 
   // ==========================================
-  // INVENTORY TABLE & ACTIONS
+  // INVENTORY TABLE, CHARTS & ACTIONS
   // ==========================================
+
+  let invCategoryChartInstance = null;
+  let invBrandsChartInstance = null;
+
+  function renderInventoryCharts(allVehicles) {
+    if (!allVehicles || !allVehicles.length) return;
+
+    let totalVal = 0;
+    let availableVal = 0;
+    let availableCount = 0;
+
+    const categoryCounts = {
+      "SUV'S": 0,
+      "SEDAN & HATCHBACK": 0,
+      "PICK UPS": 0,
+      "DEPORTIVOS": 0
+    };
+
+    const brandCounts = {};
+
+    allVehicles.forEach(v => {
+      const priceNum = v.price_num || parseAmount(v.price_contado) || parseAmount(v.price) || 0;
+      totalVal += priceNum;
+
+      const st = (v.status || 'disponible').toLowerCase();
+      if (st === 'disponible') {
+        availableVal += priceNum;
+        availableCount++;
+      }
+
+      // Categories
+      const cat = (v.category || "SUV'S").trim();
+      if (categoryCounts[cat] !== undefined) {
+        categoryCounts[cat]++;
+      } else {
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+      }
+
+      // Brands
+      const brand = (v.brand || 'Otras').trim();
+      brandCounts[brand] = (brandCounts[brand] || 0) + 1;
+    });
+
+    const avgPrice = availableCount > 0 ? Math.round(availableVal / availableCount) : 0;
+    const totalCount = allVehicles.length;
+
+    // Badges
+    const invTotalValueEl = document.getElementById('invTotalValue');
+    const invAvailableValueEl = document.getElementById('invAvailableValue');
+    const invAvgPriceEl = document.getElementById('invAvgPrice');
+    const invDonutCenterNum = document.getElementById('invDonutCenterNum');
+    const invCategoriesChartTotal = document.getElementById('invCategoriesChartTotal');
+    const invBrandsChartTotal = document.getElementById('invBrandsChartTotal');
+
+    if (invTotalValueEl) invTotalValueEl.textContent = `${formatCurrency(totalVal)} MXN`;
+    if (invAvailableValueEl) invAvailableValueEl.textContent = `${formatCurrency(availableVal)} MXN`;
+    if (invAvgPriceEl) invAvgPriceEl.textContent = `${formatCurrency(avgPrice)} MXN`;
+    if (invDonutCenterNum) invDonutCenterNum.textContent = totalCount;
+    if (invCategoriesChartTotal) invCategoriesChartTotal.textContent = `${totalCount} autos`;
+    if (invBrandsChartTotal) invBrandsChartTotal.textContent = `${Object.keys(brandCounts).length} marcas`;
+
+    // 1. Categories Legend
+    const invCategoryLegend = document.getElementById('invCategoryLegend');
+    if (invCategoryLegend) {
+      const catMeta = [
+        { key: "SUV'S", label: "SUV's", color: '#38bdf8', count: categoryCounts["SUV'S"] || 0 },
+        { key: "SEDAN & HATCHBACK", label: 'Sedán & Hatchback', color: '#818cf8', count: categoryCounts["SEDAN & HATCHBACK"] || 0 },
+        { key: "PICK UPS", label: 'Pick Ups', color: '#fb923c', count: categoryCounts["PICK UPS"] || 0 },
+        { key: "DEPORTIVOS", label: 'Deportivos', color: '#f43f5e', count: categoryCounts["DEPORTIVOS"] || 0 }
+      ];
+
+      invCategoryLegend.innerHTML = catMeta.map(m => {
+        const pct = totalCount > 0 ? Math.round((m.count / totalCount) * 100) : 0;
+        return `
+          <div class="fna-legend-item" onclick="window.filterInventoryByCategoryQuick('${m.key}')" title="Clic para filtrar por ${m.label}">
+            <div class="fna-legend-left">
+              <span class="fna-legend-dot" style="background: ${m.color}; box-shadow: 0 0 8px ${m.color};"></span>
+              <span>${m.label}</span>
+            </div>
+            <div>
+              <span class="fna-legend-val">${m.count}</span>
+              <span class="fna-legend-pct">(${pct}%)</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 2. Categories Donut Chart
+    const catCanvas = document.getElementById('invCategoryChart');
+    if (catCanvas && typeof Chart !== 'undefined') {
+      if (invCategoryChartInstance) {
+        invCategoryChartInstance.destroy();
+        invCategoryChartInstance = null;
+      }
+
+      const catLabels = ["SUV's", "Sedán & Hatchback", "Pick Ups", "Deportivos"];
+      const catData = [
+        categoryCounts["SUV'S"] || 0,
+        categoryCounts["SEDAN & HATCHBACK"] || 0,
+        categoryCounts["PICK UPS"] || 0,
+        categoryCounts["DEPORTIVOS"] || 0
+      ];
+      const catColors = ['#38bdf8', '#818cf8', '#fb923c', '#f43f5e'];
+
+      invCategoryChartInstance = new Chart(catCanvas, {
+        type: 'doughnut',
+        data: {
+          labels: catLabels,
+          datasets: [{
+            data: totalCount === 0 ? [1] : catData,
+            backgroundColor: totalCount === 0 ? ['rgba(255,255,255,0.1)'] : catColors,
+            borderColor: '#0b1b38',
+            borderWidth: 3,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(6, 182, 212, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw || 0;
+                  const pct = Math.round((val / totalCount) * 100);
+                  return ` ${context.label}: ${val} autos (${pct}%)`;
+                }
+              }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const catKeys = ["SUV'S", "SEDAN & HATCHBACK", "PICK UPS", "DEPORTIVOS"];
+              window.filterInventoryByCategoryQuick(catKeys[idx]);
+            }
+          }
+        }
+      });
+    }
+
+    // 3. Top Brands Chart & Chips
+    const sortedBrands = Object.entries(brandCounts).sort((a, b) => b[1] - a[1]).slice(0, 7);
+    const invBrandsLegend = document.getElementById('invBrandsLegend');
+    if (invBrandsLegend) {
+      invBrandsLegend.innerHTML = sortedBrands.map(([brand, count]) => {
+        return `
+          <div class="fna-inst-chip" onclick="window.filterInventoryByBrandQuick('${brand}')" title="Clic para filtrar por ${brand}">
+            <span>${brand}</span>
+            <span class="fna-inst-chip-count">${count}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const brandsCanvas = document.getElementById('invBrandsChart');
+    if (brandsCanvas && typeof Chart !== 'undefined') {
+      if (invBrandsChartInstance) {
+        invBrandsChartInstance.destroy();
+        invBrandsChartInstance = null;
+      }
+
+      const brandLabels = sortedBrands.map(item => item[0]);
+      const brandData = sortedBrands.map(item => item[1]);
+      const brandColors = ['#f59e0b', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6', '#06b6d4', '#e11d48'];
+
+      invBrandsChartInstance = new Chart(brandsCanvas, {
+        type: 'bar',
+        data: {
+          labels: brandLabels.length ? brandLabels : ['Sin datos'],
+          datasets: [{
+            label: 'Vehículos',
+            data: brandData.length ? brandData : [0],
+            backgroundColor: brandColors,
+            borderRadius: 6,
+            borderSkipped: false,
+            barThickness: 16
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#38bdf8',
+              borderColor: 'rgba(234, 179, 8, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw || 0;
+                  return ` En catálogo: ${val} vehículo(s)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94a3b8', font: { family: 'Poppins', size: 10 }, precision: 0 }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#ffffff', font: { family: 'Poppins', size: 11, weight: '600' } }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const selectedBrand = brandLabels[idx];
+              window.filterInventoryByBrandQuick(selectedBrand);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  window.filterInventoryByCategoryQuick = function(cat) {
+    if (adminCategoryFilter) {
+      adminCategoryFilter.value = cat;
+      state.inventoryFilters.category = cat;
+      applyInventoryFilters();
+      showToast(`Filtrando categoría: ${cat}`, 'info');
+    }
+  };
+
+  window.filterInventoryByBrandQuick = function(brand) {
+    if (adminSearchInput) {
+      adminSearchInput.value = brand;
+      state.inventoryFilters.search = brand.toLowerCase().trim();
+      applyInventoryFilters();
+      showToast(`Filtrando por marca: ${brand}`, 'info');
+    }
+  };
 
   function applyInventoryFilters() {
     state.filteredVehicles = state.vehicles.filter(v => {
@@ -1010,8 +1266,273 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================
-  // LEADS CRM TABLE & ACTIONS
+  // LEADS CRM TABLE, CHARTS & ACTIONS
   // ==========================================
+
+  let crmStatusChartInstance = null;
+  let crmSalesChartInstance = null;
+
+  function renderLeadsCharts(allLeads) {
+    if (!allLeads) return;
+
+    let soldCount = 0;
+    const statusCounts = {
+      nuevo: 0,
+      contactado: 0,
+      cita: 0,
+      vendido: 0,
+      descartado: 0
+    };
+
+    const salesCounts = {
+      'Napo': 0,
+      'Javier': 0,
+      'Fernanda': 0,
+      'Raúl': 0
+    };
+
+    allLeads.forEach(l => {
+      const st = (l.status || 'nuevo').toLowerCase();
+      if (statusCounts[st] !== undefined) {
+        statusCounts[st]++;
+      } else {
+        statusCounts.nuevo = (statusCounts.nuevo || 0) + 1;
+      }
+
+      if (st === 'vendido') {
+        soldCount++;
+      }
+
+      // Sales rep
+      const assigned = (l.assigned_name || l.assigned_to || '').toLowerCase();
+      if (assigned.includes('napo')) salesCounts['Napo'] = (salesCounts['Napo'] || 0) + 1;
+      else if (assigned.includes('javier')) salesCounts['Javier'] = (salesCounts['Javier'] || 0) + 1;
+      else if (assigned.includes('fernanda')) salesCounts['Fernanda'] = (salesCounts['Fernanda'] || 0) + 1;
+      else if (assigned.includes('raul') || assigned.includes('raúl')) salesCounts['Raúl'] = (salesCounts['Raúl'] || 0) + 1;
+      else {
+        const name = l.assigned_name || 'Otros';
+        salesCounts[name] = (salesCounts[name] || 0) + 1;
+      }
+    });
+
+    const totalCount = allLeads.length;
+    const convRate = totalCount > 0 ? Math.round((soldCount / totalCount) * 100) : 0;
+
+    // Summary Badges
+    const crmTotalLeads = document.getElementById('crmTotalLeads');
+    const crmSoldLeads = document.getElementById('crmSoldLeads');
+    const crmConversionRate = document.getElementById('crmConversionRate');
+    const crmDonutCenterNum = document.getElementById('crmDonutCenterNum');
+    const crmStatusChartTotal = document.getElementById('crmStatusChartTotal');
+    const crmSalesChartTotal = document.getElementById('crmSalesChartTotal');
+
+    if (crmTotalLeads) crmTotalLeads.textContent = totalCount;
+    if (crmSoldLeads) crmSoldLeads.textContent = soldCount;
+    if (crmConversionRate) crmConversionRate.textContent = `${convRate}%`;
+    if (crmDonutCenterNum) crmDonutCenterNum.textContent = totalCount;
+    if (crmStatusChartTotal) crmStatusChartTotal.textContent = `${totalCount} leads`;
+    if (crmSalesChartTotal) crmSalesChartTotal.textContent = `${Object.keys(salesCounts).length} asesores`;
+
+    // 1. Status Funnel Legend
+    const crmStatusLegend = document.getElementById('crmStatusLegend');
+    if (crmStatusLegend) {
+      const statusMeta = [
+        { key: 'nuevo', label: 'Nuevos', color: '#facc15', count: statusCounts.nuevo },
+        { key: 'contactado', label: 'Contactados', color: '#38bdf8', count: statusCounts.contactado },
+        { key: 'cita', label: 'En Cita', color: '#fb923c', count: statusCounts.cita },
+        { key: 'vendido', label: 'Vendidos', color: '#4ade80', count: statusCounts.vendido },
+        { key: 'descartado', label: 'Descartados', color: '#f87171', count: statusCounts.descartado }
+      ];
+
+      crmStatusLegend.innerHTML = statusMeta.map(m => {
+        const pct = totalCount > 0 ? Math.round((m.count / totalCount) * 100) : 0;
+        return `
+          <div class="fna-legend-item" onclick="window.filterLeadsByStatusQuick('${m.key}')" title="Clic para filtrar por ${m.label}">
+            <div class="fna-legend-left">
+              <span class="fna-legend-dot" style="background: ${m.color}; box-shadow: 0 0 8px ${m.color};"></span>
+              <span>${m.label}</span>
+            </div>
+            <div>
+              <span class="fna-legend-val">${m.count}</span>
+              <span class="fna-legend-pct">(${pct}%)</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 2. Status Funnel Donut Chart
+    const crmCanvas = document.getElementById('crmStatusChart');
+    if (crmCanvas && typeof Chart !== 'undefined') {
+      if (crmStatusChartInstance) {
+        crmStatusChartInstance.destroy();
+        crmStatusChartInstance = null;
+      }
+
+      const labels = ['Nuevos', 'Contactados', 'En Cita', 'Vendidos', 'Descartados'];
+      const data = [
+        statusCounts.nuevo,
+        statusCounts.contactado,
+        statusCounts.cita,
+        statusCounts.vendido,
+        statusCounts.descartado
+      ];
+      const backgroundColors = ['#facc15', '#38bdf8', '#fb923c', '#4ade80', '#f87171'];
+
+      crmStatusChartInstance = new Chart(crmCanvas, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data: totalCount === 0 ? [1] : data,
+            backgroundColor: totalCount === 0 ? ['rgba(255,255,255,0.1)'] : backgroundColors,
+            borderColor: '#0b1b38',
+            borderWidth: 3,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(34, 197, 94, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw || 0;
+                  const pct = Math.round((val / totalCount) * 100);
+                  return ` ${context.label}: ${val} prospectos (${pct}%)`;
+                }
+              }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const statusKeys = ['nuevo', 'contactado', 'cita', 'vendido', 'descartado'];
+              window.filterLeadsByStatusQuick(statusKeys[idx]);
+            }
+          }
+        }
+      });
+    }
+
+    // 3. Leads by Sales Rep Chart & Chips
+    const sortedSales = Object.entries(salesCounts).sort((a, b) => b[1] - a[1]);
+    const crmSalesLegend = document.getElementById('crmSalesLegend');
+    if (crmSalesLegend) {
+      crmSalesLegend.innerHTML = sortedSales.map(([rep, count]) => {
+        return `
+          <div class="fna-inst-chip" onclick="window.filterLeadsBySalesQuick('${rep}')" title="Clic para filtrar por ${rep}">
+            <span>👤 ${rep}</span>
+            <span class="fna-inst-chip-count" style="color: #4ade80;">${count}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const salesCanvas = document.getElementById('crmSalesChart');
+    if (salesCanvas && typeof Chart !== 'undefined') {
+      if (crmSalesChartInstance) {
+        crmSalesChartInstance.destroy();
+        crmSalesChartInstance = null;
+      }
+
+      const salesLabels = sortedSales.map(item => item[0]);
+      const salesData = sortedSales.map(item => item[1]);
+      const salesColors = ['#38bdf8', '#818cf8', '#f59e0b', '#34d399', '#ec4899'];
+
+      crmSalesChartInstance = new Chart(salesCanvas, {
+        type: 'bar',
+        data: {
+          labels: salesLabels.length ? salesLabels : ['Sin datos'],
+          datasets: [{
+            label: 'Leads Asignados',
+            data: salesData.length ? salesData : [0],
+            backgroundColor: salesColors,
+            borderRadius: 6,
+            borderSkipped: false,
+            barThickness: 16
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7, 20, 48, 0.95)',
+              titleColor: '#ffffff',
+              bodyColor: '#34d399',
+              borderColor: 'rgba(34, 197, 94, 0.4)',
+              borderWidth: 1,
+              padding: 10,
+              boxPadding: 6,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw || 0;
+                  return ` Leads asignados: ${val}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94a3b8', font: { family: 'Poppins', size: 10 }, precision: 0 }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#ffffff', font: { family: 'Poppins', size: 11, weight: '600' } }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements && elements.length > 0) {
+              const idx = elements[0].index;
+              const selectedRep = salesLabels[idx];
+              window.filterLeadsBySalesQuick(selectedRep);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  window.filterLeadsByStatusQuick = function(statusKey) {
+    if (leadsStatusFilter) {
+      leadsStatusFilter.value = statusKey;
+      state.leadsFilters.status = statusKey;
+      applyLeadsFilters();
+      showToast(`Filtrando leads: ${statusKey.toUpperCase()}`, 'info');
+    }
+  };
+
+  window.filterLeadsBySalesQuick = function(repName) {
+    if (leadsSalesFilter) {
+      const emailMap = {
+        'napo': 'napo@autohaus.mx',
+        'javier': 'javier@autohaus.mx',
+        'fernanda': 'fernanda@autohaus.mx',
+        'raúl': 'raul@autohaus.mx',
+        'raul': 'raul@autohaus.mx'
+      };
+      const clean = repName.toLowerCase().trim();
+      const mapped = emailMap[clean] || repName;
+      leadsSalesFilter.value = mapped;
+      state.leadsFilters.sales = mapped;
+      applyLeadsFilters();
+      showToast(`Filtrando por asesor: ${repName}`, 'info');
+    }
+  };
 
   function applyLeadsFilters() {
     state.filteredLeads = state.leads.filter(l => {
