@@ -185,127 +185,175 @@ function sortVehicles(list) {
  * Initialize Database Schema (Offline SQLite Fallback)
  */
 async function initDb() {
-  if (useSupabase) {
-    return;
+  try {
+    // SQLite relational schema fallback
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS branches (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        address TEXT,
+        city TEXT DEFAULT 'Chihuahua',
+        phone TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        email TEXT UNIQUE,
+        phone TEXT,
+        password TEXT,
+        role TEXT DEFAULT 'client',
+        favorites TEXT,
+        created_at TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS sales_reps (
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        branch_id INTEGER,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        phone TEXT,
+        is_active BOOLEAN DEFAULT 1,
+        turn_order INTEGER DEFAULT 1
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS clients (
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        phone TEXT,
+        city TEXT DEFAULT 'Chihuahua',
+        created_at TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS vehicles (
+        id TEXT PRIMARY KEY,
+        branch_id INTEGER DEFAULT 1,
+        vin TEXT UNIQUE,
+        page INTEGER,
+        brand TEXT,
+        model TEXT,
+        year INTEGER,
+        category TEXT,
+        price_contado TEXT,
+        price_financiado TEXT,
+        price_num INTEGER,
+        status TEXT DEFAULT 'disponible',
+        is_active BOOLEAN DEFAULT 1,
+        deleted_at TEXT,
+        specs TEXT,
+        cover_photo TEXT,
+        real_photos TEXT,
+        cutout_photo TEXT,
+        main_photo TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS vehicle_status_history (
+        id TEXT PRIMARY KEY,
+        vehicle_id TEXT,
+        client_id INTEGER,
+        sales_rep_id INTEGER,
+        status TEXT NOT NULL,
+        previous_status TEXT,
+        deposit_amount TEXT,
+        notes TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS leads (
+        id TEXT PRIMARY KEY,
+        client_id INTEGER,
+        vehicle_id TEXT,
+        sales_rep_id INTEGER,
+        client_name TEXT,
+        client_phone TEXT,
+        client_email TEXT,
+        vehicle_page INTEGER,
+        vehicle_name TEXT,
+        assigned_to TEXT,
+        assigned_name TEXT,
+        status TEXT DEFAULT 'nuevo',
+        notes TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS client_favorites (
+        client_id INTEGER,
+        vehicle_id TEXT,
+        created_at TEXT,
+        PRIMARY KEY (client_id, vehicle_id)
+      );
+    `);
+
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS credit_applications (
+        id TEXT PRIMARY KEY,
+        client_name TEXT NOT NULL,
+        client_phone TEXT NOT NULL,
+        client_email TEXT,
+        vehicle_id TEXT,
+        vehicle_name TEXT NOT NULL,
+        vehicle_price TEXT,
+        financial_institution TEXT NOT NULL,
+        down_payment TEXT,
+        financed_amount TEXT,
+        term_months INTEGER,
+        monthly_payment TEXT,
+        sales_rep TEXT,
+        status TEXT DEFAULT 'en_proceso',
+        notes TEXT,
+        created_by TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      );
+    `);
+
+    // Check if credit_applications is empty and seed from JSON
+    const creditRows = await runQuery('SELECT COUNT(*) as cnt FROM credit_applications');
+    if (creditRows.rows && creditRows.rows[0] && creditRows.rows[0].cnt === 0) {
+      const jsonPath = path.join(__dirname, 'assets/data/credits.json');
+      if (fs.existsSync(jsonPath)) {
+        try {
+          const list = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+          for (const c of list) {
+            await runQuery(`
+              INSERT OR IGNORE INTO credit_applications (
+                id, client_name, client_phone, client_email, vehicle_id, vehicle_name, vehicle_price,
+                financial_institution, down_payment, financed_amount, term_months, monthly_payment,
+                sales_rep, status, notes, created_by, created_at, updated_at
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `, [
+              c.id, c.client_name, c.client_phone, c.client_email, c.vehicle_id, c.vehicle_name, c.vehicle_price,
+              c.financial_institution, c.down_payment, c.financed_amount, c.term_months, c.monthly_payment,
+              c.sales_rep, c.status, c.notes, c.created_by, c.created_at, c.updated_at
+            ]);
+          }
+        } catch (e) {}
+      }
+    }
+  } catch (err) {
+    console.error('Error in initDb:', err.message);
   }
-  // SQLite relational schema fallback
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS branches (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL,
-      address TEXT,
-      city TEXT DEFAULT 'Chihuahua',
-      phone TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY,
-      name TEXT,
-      email TEXT UNIQUE,
-      phone TEXT,
-      password TEXT,
-      role TEXT DEFAULT 'client',
-      favorites TEXT,
-      created_at TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS sales_reps (
-      id INTEGER PRIMARY KEY,
-      user_id INTEGER,
-      branch_id INTEGER,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      phone TEXT,
-      is_active BOOLEAN DEFAULT 1,
-      turn_order INTEGER DEFAULT 1
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS clients (
-      id INTEGER PRIMARY KEY,
-      user_id INTEGER,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      phone TEXT,
-      city TEXT DEFAULT 'Chihuahua',
-      created_at TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS vehicles (
-      id TEXT PRIMARY KEY,
-      branch_id INTEGER DEFAULT 1,
-      vin TEXT UNIQUE,
-      page INTEGER,
-      brand TEXT,
-      model TEXT,
-      year INTEGER,
-      category TEXT,
-      price_contado TEXT,
-      price_financiado TEXT,
-      price_num INTEGER,
-      status TEXT DEFAULT 'disponible',
-      is_active BOOLEAN DEFAULT 1,
-      deleted_at TEXT,
-      specs TEXT,
-      cover_photo TEXT,
-      real_photos TEXT,
-      cutout_photo TEXT,
-      main_photo TEXT,
-      created_at TEXT,
-      updated_at TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS vehicle_status_history (
-      id TEXT PRIMARY KEY,
-      vehicle_id TEXT,
-      client_id INTEGER,
-      sales_rep_id INTEGER,
-      status TEXT NOT NULL,
-      previous_status TEXT,
-      deposit_amount TEXT,
-      notes TEXT,
-      created_at TEXT,
-      updated_at TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS leads (
-      id TEXT PRIMARY KEY,
-      client_id INTEGER,
-      vehicle_id TEXT,
-      sales_rep_id INTEGER,
-      client_name TEXT,
-      client_phone TEXT,
-      client_email TEXT,
-      vehicle_page INTEGER,
-      vehicle_name TEXT,
-      assigned_to TEXT,
-      assigned_name TEXT,
-      status TEXT DEFAULT 'nuevo',
-      notes TEXT,
-      created_at TEXT,
-      updated_at TEXT
-    );
-  `);
-
-  await runQuery(`
-    CREATE TABLE IF NOT EXISTS client_favorites (
-      client_id INTEGER,
-      vehicle_id TEXT,
-      created_at TEXT,
-      PRIMARY KEY (client_id, vehicle_id)
-    );
-  `);
 }
 
 // ==========================================
@@ -977,6 +1025,258 @@ async function deleteLead(id) {
 }
 
 // ==========================================
+// CREDIT APPLICATIONS (FINANCIAMIENTO & FNA)
+// ==========================================
+
+function formatCredit(c) {
+  if (!c) return null;
+  return {
+    id: c.id,
+    client_name: c.client_name || '',
+    client_phone: c.client_phone || '',
+    client_email: c.client_email || '',
+    vehicle_id: c.vehicle_id || null,
+    vehicle_name: c.vehicle_name || 'Vehículo no especificado',
+    vehicle_price: c.vehicle_price || '$0',
+    financial_institution: c.financial_institution || 'Por definir',
+    down_payment: c.down_payment || '$0',
+    financed_amount: c.financed_amount || '$0',
+    term_months: parseInt(c.term_months, 10) || 48,
+    monthly_payment: c.monthly_payment || '$0',
+    sales_rep: c.sales_rep || 'Sin asignar',
+    status: (c.status || 'en_proceso').toLowerCase(),
+    notes: c.notes || '',
+    created_by: c.created_by || 'fna@autohaus.mx',
+    created_at: c.created_at || new Date().toISOString(),
+    updated_at: c.updated_at || new Date().toISOString()
+  };
+}
+
+async function getCredits() {
+  if (useSupabase && supabase) {
+    try {
+      const { data, error } = await supabase.from('credit_applications').select('*').order('created_at', { ascending: false });
+      if (!error && Array.isArray(data) && data.length > 0) {
+        return data.map(formatCredit);
+      }
+    } catch (e) {}
+  }
+  try {
+    const res = await runQuery('SELECT * FROM credit_applications ORDER BY created_at DESC');
+    if (res.rows && res.rows.length) {
+      return res.rows.map(formatCredit);
+    }
+  } catch (e) {}
+  
+  // Local JSON fallback
+  const jsonPath = path.join(__dirname, 'assets/data/credits.json');
+  if (fs.existsSync(jsonPath)) {
+    try {
+      const list = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      return list.map(formatCredit);
+    } catch (e) {}
+  }
+  return [];
+}
+
+async function getCreditById(id) {
+  if (useSupabase && supabase) {
+    try {
+      const { data, error } = await supabase.from('credit_applications').select('*').eq('id', id).limit(1);
+      if (!error && data && data.length > 0) {
+        return formatCredit(data[0]);
+      }
+    } catch (e) {}
+  }
+  try {
+    const res = await runQuery('SELECT * FROM credit_applications WHERE id = ? LIMIT 1', [id]);
+    if (res.rows && res.rows.length) return formatCredit(res.rows[0]);
+  } catch (e) {}
+
+  const list = await getCredits();
+  return list.find(c => c.id === id) || null;
+}
+
+async function createCredit(credit) {
+  const now = new Date().toISOString();
+  const id = credit.id || ('cred-' + Date.now());
+
+  const creditObj = {
+    id,
+    client_name: (credit.client_name || '').trim(),
+    client_phone: (credit.client_phone || '').trim(),
+    client_email: (credit.client_email || '').trim(),
+    vehicle_id: credit.vehicle_id || null,
+    vehicle_name: credit.vehicle_name || 'Vehículo',
+    vehicle_price: credit.vehicle_price || '$0',
+    financial_institution: credit.financial_institution || 'BBVA Bancomer',
+    down_payment: credit.down_payment || '$0',
+    financed_amount: credit.financed_amount || '$0',
+    term_months: parseInt(credit.term_months, 10) || 48,
+    monthly_payment: credit.monthly_payment || '$0',
+    sales_rep: credit.sales_rep || 'Napo',
+    status: (credit.status || 'en_proceso').toLowerCase(),
+    notes: credit.notes || '',
+    created_by: credit.created_by || 'fna@autohaus.mx',
+    created_at: now,
+    updated_at: now
+  };
+
+  if (useSupabase && supabase) {
+    try {
+      const { data, error } = await supabase.from('credit_applications').insert([creditObj]).select().single();
+      if (!error && data) return formatCredit(data);
+    } catch (e) {}
+  }
+
+  try {
+    await runQuery(`
+      INSERT INTO credit_applications (
+        id, client_name, client_phone, client_email, vehicle_id, vehicle_name, vehicle_price,
+        financial_institution, down_payment, financed_amount, term_months, monthly_payment,
+        sales_rep, status, notes, created_by, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `, [
+      creditObj.id, creditObj.client_name, creditObj.client_phone, creditObj.client_email,
+      creditObj.vehicle_id, creditObj.vehicle_name, creditObj.vehicle_price,
+      creditObj.financial_institution, creditObj.down_payment, creditObj.financed_amount,
+      creditObj.term_months, creditObj.monthly_payment, creditObj.sales_rep,
+      creditObj.status, creditObj.notes, creditObj.created_by, now, now
+    ]);
+  } catch (e) {}
+
+  // Sync to local credits.json
+  const jsonPath = path.join(__dirname, 'assets/data/credits.json');
+  let currentList = [];
+  try {
+    if (fs.existsSync(jsonPath)) currentList = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+  } catch (e) {}
+  currentList.unshift(creditObj);
+  fs.writeFileSync(jsonPath, JSON.stringify(currentList, null, 2), 'utf8');
+
+  return creditObj;
+}
+
+async function updateCredit(id, data) {
+  const existing = await getCreditById(id);
+  if (!existing) return null;
+
+  const now = new Date().toISOString();
+  const updates = {
+    client_name: data.client_name !== undefined ? data.client_name.trim() : existing.client_name,
+    client_phone: data.client_phone !== undefined ? data.client_phone.trim() : existing.client_phone,
+    client_email: data.client_email !== undefined ? data.client_email.trim() : existing.client_email,
+    vehicle_id: data.vehicle_id !== undefined ? data.vehicle_id : existing.vehicle_id,
+    vehicle_name: data.vehicle_name !== undefined ? data.vehicle_name : existing.vehicle_name,
+    vehicle_price: data.vehicle_price !== undefined ? data.vehicle_price : existing.vehicle_price,
+    financial_institution: data.financial_institution !== undefined ? data.financial_institution : existing.financial_institution,
+    down_payment: data.down_payment !== undefined ? data.down_payment : existing.down_payment,
+    financed_amount: data.financed_amount !== undefined ? data.financed_amount : existing.financed_amount,
+    term_months: data.term_months !== undefined ? parseInt(data.term_months, 10) : existing.term_months,
+    monthly_payment: data.monthly_payment !== undefined ? data.monthly_payment : existing.monthly_payment,
+    sales_rep: data.sales_rep !== undefined ? data.sales_rep : existing.sales_rep,
+    status: data.status !== undefined ? data.status.toLowerCase() : existing.status,
+    notes: data.notes !== undefined ? data.notes : existing.notes,
+    updated_at: now
+  };
+
+  if (useSupabase && supabase) {
+    try {
+      const { data: updated, error } = await supabase.from('credit_applications').update(updates).eq('id', id).select().single();
+      if (!error && updated) return formatCredit(updated);
+    } catch (e) {}
+  }
+
+  try {
+    await runQuery(`
+      UPDATE credit_applications SET
+        client_name = ?, client_phone = ?, client_email = ?, vehicle_id = ?, vehicle_name = ?, vehicle_price = ?,
+        financial_institution = ?, down_payment = ?, financed_amount = ?, term_months = ?, monthly_payment = ?,
+        sales_rep = ?, status = ?, notes = ?, updated_at = ?
+      WHERE id = ?
+    `, [
+      updates.client_name, updates.client_phone, updates.client_email, updates.vehicle_id, updates.vehicle_name, updates.vehicle_price,
+      updates.financial_institution, updates.down_payment, updates.financed_amount, updates.term_months, updates.monthly_payment,
+      updates.sales_rep, updates.status, updates.notes, now, id
+    ]);
+  } catch (e) {}
+
+  // Sync to local credits.json
+  const jsonPath = path.join(__dirname, 'assets/data/credits.json');
+  try {
+    if (fs.existsSync(jsonPath)) {
+      let currentList = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      const idx = currentList.findIndex(c => c.id === id);
+      if (idx !== -1) {
+        currentList[idx] = { ...currentList[idx], ...updates };
+        fs.writeFileSync(jsonPath, JSON.stringify(currentList, null, 2), 'utf8');
+      }
+    }
+  } catch (e) {}
+
+  return { ...existing, ...updates };
+}
+
+async function deleteCredit(id) {
+  const existing = await getCreditById(id);
+  if (!existing) return null;
+
+  if (useSupabase && supabase) {
+    try {
+      await supabase.from('credit_applications').delete().eq('id', id);
+    } catch (e) {}
+  }
+
+  try {
+    await runQuery('DELETE FROM credit_applications WHERE id = ?', [id]);
+  } catch (e) {}
+
+  // Sync to local credits.json
+  const jsonPath = path.join(__dirname, 'assets/data/credits.json');
+  try {
+    if (fs.existsSync(jsonPath)) {
+      let currentList = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      currentList = currentList.filter(c => c.id !== id);
+      fs.writeFileSync(jsonPath, JSON.stringify(currentList, null, 2), 'utf8');
+    }
+  } catch (e) {}
+
+  return existing;
+}
+
+async function getCreditStats() {
+  const credits = await getCredits();
+  let total = credits.length;
+  let enProceso = 0;
+  let aprobados = 0;
+  let rechazados = 0;
+  let entregados = 0;
+
+  const byInstitution = {};
+
+  credits.forEach(c => {
+    const st = (c.status || 'en_proceso').toLowerCase();
+    if (st === 'aprobado') aprobados++;
+    else if (st === 'rechazado') rechazados++;
+    else if (st === 'entregado') entregados++;
+    else enProceso++;
+
+    const inst = c.financial_institution || 'Otras';
+    byInstitution[inst] = (byInstitution[inst] || 0) + 1;
+  });
+
+  return {
+    total,
+    enProceso,
+    aprobados,
+    rechazados,
+    entregados,
+    byInstitution,
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+// ==========================================
 // STATS
 // ==========================================
 
@@ -1058,6 +1358,12 @@ module.exports = {
   createLead,
   updateLead,
   deleteLead,
+  getCredits,
+  getCreditById,
+  createCredit,
+  updateCredit,
+  deleteCredit,
+  getCreditStats,
   getStats,
   getSupabaseClient: () => (useSupabase ? supabase : null),
   CATEGORY_ORDER,

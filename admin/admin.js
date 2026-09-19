@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     filteredVehicles: [],
     leads: [],
     filteredLeads: [],
+    credits: [],
+    filteredCredits: [],
     activeTab: 'tabInventory',
     lastKnownNewLeadsCount: 0,
     inventoryFilters: {
@@ -29,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
       search: '',
       sales: 'all',
       status: 'all'
+    },
+    creditsFilters: {
+      search: '',
+      institution: 'all',
+      status: 'all',
+      sales: 'all'
     }
   };
 
@@ -72,11 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tabs
   const tabBtnInventory = document.getElementById('tabBtnInventory');
   const tabBtnLeads = document.getElementById('tabBtnLeads');
+  const tabBtnCredits = document.getElementById('tabBtnCredits');
   const tabPaneInventory = document.getElementById('tabInventory');
   const tabPaneLeads = document.getElementById('tabLeads');
+  const tabPaneCredits = document.getElementById('tabCredits');
   const tabCountInventory = document.getElementById('tabCountInventory');
   const tabCountLeads = document.getElementById('tabCountLeads');
+  const tabCountCredits = document.getElementById('tabCountCredits');
   const tabLeadsTitle = document.getElementById('tabLeadsTitle');
+  const tabCreditsTitle = document.getElementById('tabCreditsTitle');
 
   // Stats Elements
   const statTotalVehicles = document.getElementById('statTotalVehicles');
@@ -99,6 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const leadsTableBody = document.getElementById('leadsTableBody');
   const openCreateLeadModalBtn = document.getElementById('openCreateLeadModalBtn');
 
+  // Credits & Financing Elements (FNA)
+  const creditSearchInput = document.getElementById('creditSearchInput');
+  const creditInstitutionFilter = document.getElementById('creditInstitutionFilter');
+  const creditStatusFilter = document.getElementById('creditStatusFilter');
+  const creditSalesFilter = document.getElementById('creditSalesFilter');
+  const creditsTableBody = document.getElementById('creditsTableBody');
+  const openCreateCreditModalBtn = document.getElementById('openCreateCreditModalBtn');
+
   // Modal 1: Vehicle Form
   const vehicleFormModal = document.getElementById('vehicleFormModal');
   const closeVehicleModalBtn = document.getElementById('closeVehicleModalBtn');
@@ -120,6 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const editLeadId = document.getElementById('editLeadId');
   const leadVehicleSelect = document.getElementById('leadVehicleSelect');
   const leadAssignedSelect = document.getElementById('leadAssignedSelect');
+
+  // Modal 3: Credit Form (FNA)
+  const creditFormModal = document.getElementById('creditFormModal');
+  const closeCreditModalBtn = document.getElementById('closeCreditModalBtn');
+  const cancelCreditBtn = document.getElementById('cancelCreditBtn');
+  const creditForm = document.getElementById('creditForm');
+  const creditModalTitle = document.getElementById('creditModalTitle');
+  const editCreditId = document.getElementById('editCreditId');
+  const creditVehicleSelect = document.getElementById('creditVehicleSelect');
+  const creditInstitutionSelect = document.getElementById('creditInstitutionSelect');
+  const creditVehiclePrice = document.getElementById('creditVehiclePrice');
+  const creditDownPayment = document.getElementById('creditDownPayment');
+  const creditFinancedAmount = document.getElementById('creditFinancedAmount');
+  const creditTermMonths = document.getElementById('creditTermMonths');
+  const creditMonthlyPayment = document.getElementById('creditMonthlyPayment');
+  const creditSalesRepSelect = document.getElementById('creditSalesRepSelect');
+  const creditStatusSelect = document.getElementById('creditStatusSelect');
+  const creditNotes = document.getElementById('creditNotes');
 
   // Toast
   const toastContainer = document.getElementById('toastContainer');
@@ -193,6 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         tabLeadsTitle.textContent = 'Solicitudes de Crédito & Leads (CRM)';
         statLeadsLabel.textContent = 'Total Solicitudes & Leads';
+        // Auto-switch to Credits Dashboard for FNA!
+        switchTab('tabCredits');
         // Hide Vehicle Create/Delete buttons for finance (View & Credit Focus)
         if (openCreateModalBtn) openCreateModalBtn.style.display = 'none';
         if (openCreateLeadModalBtn) openCreateLeadModalBtn.style.display = 'none';
@@ -280,6 +320,47 @@ document.addEventListener('DOMContentLoaded', () => {
           applyLeadsFilters();
         }
       }
+
+      // 4. Credits & Financing (Always Live from Database)
+      const resCredits = await fetch(`/api/credits?_t=${timestamp}`, {
+        cache: 'no-store',
+        headers: { 
+          'Authorization': `Bearer ${state.token}`,
+          ...noCacheHeaders
+        }
+      });
+      const dataCredits = await resCredits.json();
+      if (dataCredits.success) {
+        state.credits = dataCredits.data;
+        if (tabCountCredits) tabCountCredits.textContent = state.credits.length;
+        applyCreditsFilters();
+      }
+
+      // 5. If user is FNA / Finance, customize KPI Dashboard cards
+      if (state.user && (state.user.role === 'finance' || state.user.role === 'credit')) {
+        const resCreditStats = await fetch(`/api/credits/stats?_t=${timestamp}`, {
+          cache: 'no-store',
+          headers: {
+            'Authorization': `Bearer ${state.token}`,
+            ...noCacheHeaders
+          }
+        });
+        const dataCreditStats = await resCreditStats.json();
+        if (dataCreditStats.success) {
+          const card1Label = document.getElementById('statCard1Label');
+          const card2Label = document.getElementById('statCard2Label');
+          const card3Label = document.getElementById('statCard3Label');
+          if (card1Label) card1Label.textContent = 'Total Créditos Ingresados';
+          if (card2Label) card2Label.textContent = 'En Proceso / Revisión';
+          if (card3Label) card3Label.textContent = 'Aprobados / Aceptados';
+          if (statLeadsLabel) statLeadsLabel.textContent = 'Rechazados / Entregados';
+
+          if (statTotalVehicles) statTotalVehicles.textContent = dataCreditStats.total;
+          if (statDisponibles) statDisponibles.textContent = dataCreditStats.enProceso;
+          if (statApartadosVendidos) statApartadosVendidos.textContent = dataCreditStats.aprobados;
+          if (statLeadsValue) statLeadsValue.textContent = `${dataCreditStats.rechazados} / ${dataCreditStats.entregados}`;
+        }
+      }
     } catch (err) {
       console.error('Error loading dashboard from DB:', err);
     }
@@ -343,23 +424,40 @@ document.addEventListener('DOMContentLoaded', () => {
     state.lastKnownNewLeadsCount = newCount;
   }
 
-  // Populate Vehicle Dropdown inside Lead Modal
+  // Populate Vehicle Dropdown inside Lead & Credit Modals
   function populateVehicleSelect(vehicles) {
-    if (!leadVehicleSelect) return;
-    leadVehicleSelect.innerHTML = '<option value="">-- Seleccionar Vehículo del Inventario --</option>';
-    vehicles.forEach(v => {
-      const opt = document.createElement('option');
-      opt.value = v.page;
-      opt.textContent = `Pág. ${v.page} | ${v.brand} ${v.model} (${v.year}) - ${v.price_contado}`;
-      leadVehicleSelect.appendChild(opt);
-    });
+    if (leadVehicleSelect) {
+      leadVehicleSelect.innerHTML = '<option value="">-- Seleccionar Vehículo del Inventario --</option>';
+      vehicles.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.page;
+        opt.textContent = `Pág. ${v.page} | ${v.brand} ${v.model} (${v.year}) - ${v.price_contado}`;
+        leadVehicleSelect.appendChild(opt);
+      });
+    }
+
+    if (creditVehicleSelect) {
+      creditVehicleSelect.innerHTML = '<option value="">-- Seleccionar Vehículo del Inventario --</option>';
+      vehicles.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.id || `autohaus-p${v.page}`;
+        opt.dataset.brand = v.brand || '';
+        opt.dataset.model = v.model || '';
+        opt.dataset.year = v.year || '';
+        opt.dataset.price = v.price_contado || '$0';
+        opt.dataset.priceNum = v.price_num || 0;
+        opt.textContent = `Pág. ${v.page} | ${v.brand} ${v.model} (${v.year}) - ${v.price_contado}`;
+        creditVehicleSelect.appendChild(opt);
+      });
+    }
   }
 
   // 4. Event Listeners
   function setupEventListeners() {
     // Tabs Navigation
-    tabBtnInventory.addEventListener('click', () => switchTab('tabInventory'));
-    tabBtnLeads.addEventListener('click', () => switchTab('tabLeads'));
+    if (tabBtnInventory) tabBtnInventory.addEventListener('click', () => switchTab('tabInventory'));
+    if (tabBtnLeads) tabBtnLeads.addEventListener('click', () => switchTab('tabLeads'));
+    if (tabBtnCredits) tabBtnCredits.addEventListener('click', () => switchTab('tabCredits'));
 
     // Notification Bell & Alert Banner Action
     if (notificationBellBtn) {
@@ -525,6 +623,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Credits Search & Filters (FNA)
+    if (creditSearchInput) {
+      creditSearchInput.addEventListener('input', (e) => {
+        state.creditsFilters.search = e.target.value.toLowerCase().trim();
+        applyCreditsFilters();
+      });
+    }
+
+    if (creditInstitutionFilter) {
+      creditInstitutionFilter.addEventListener('change', (e) => {
+        state.creditsFilters.institution = e.target.value;
+        applyCreditsFilters();
+      });
+    }
+
+    if (creditStatusFilter) {
+      creditStatusFilter.addEventListener('change', (e) => {
+        state.creditsFilters.status = e.target.value;
+        applyCreditsFilters();
+      });
+    }
+
+    if (creditSalesFilter) {
+      creditSalesFilter.addEventListener('change', (e) => {
+        state.creditsFilters.sales = e.target.value;
+        applyCreditsFilters();
+      });
+    }
+
     // Modals: Vehicle
     if (openCreateModalBtn) {
       openCreateModalBtn.addEventListener('click', () => openVehicleModal());
@@ -551,6 +678,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (leadForm) {
       leadForm.addEventListener('submit', handleLeadFormSubmit);
+    }
+
+    // Modals: Credit (FNA)
+    if (openCreateCreditModalBtn) {
+      openCreateCreditModalBtn.addEventListener('click', () => openCreditModal());
+    }
+    if (closeCreditModalBtn) {
+      closeCreditModalBtn.addEventListener('click', () => closeCreditModal());
+    }
+    if (cancelCreditBtn) {
+      cancelCreditBtn.addEventListener('click', () => closeCreditModal());
+    }
+    if (creditForm) {
+      creditForm.addEventListener('submit', handleCreditFormSubmit);
+    }
+
+    if (creditVehicleSelect) {
+      creditVehicleSelect.addEventListener('change', () => {
+        const selected = creditVehicleSelect.options[creditVehicleSelect.selectedIndex];
+        if (selected && selected.value) {
+          const price = selected.dataset.price || '$0';
+          const priceNum = parseInt(selected.dataset.priceNum, 10) || 0;
+          if (creditVehiclePrice) creditVehiclePrice.value = price;
+          if (creditDownPayment && (!creditDownPayment.value || creditDownPayment.value === '$0') && priceNum > 0) {
+            const down = Math.round(priceNum * 0.25);
+            creditDownPayment.value = `$${down.toLocaleString('es-MX')}`;
+            const financed = priceNum - down;
+            if (creditFinancedAmount) creditFinancedAmount.value = `$${financed.toLocaleString('es-MX')}`;
+            // Estimate monthly payment at 48 months (approx 14% APR)
+            const approxMonthly = Math.round((financed * 1.35) / 48);
+            if (creditMonthlyPayment) creditMonthlyPayment.value = `$${approxMonthly.toLocaleString('es-MX')}`;
+          }
+        }
+      });
     }
 
     // Image Upload Previews & Dropzones
@@ -613,10 +774,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Switch Tab
   function switchTab(tabId) {
     state.activeTab = tabId;
-    tabBtnInventory.classList.toggle('active', tabId === 'tabInventory');
-    tabBtnLeads.classList.toggle('active', tabId === 'tabLeads');
-    tabPaneInventory.classList.toggle('active', tabId === 'tabInventory');
-    tabPaneLeads.classList.toggle('active', tabId === 'tabLeads');
+    if (tabBtnInventory) tabBtnInventory.classList.toggle('active', tabId === 'tabInventory');
+    if (tabBtnLeads) tabBtnLeads.classList.toggle('active', tabId === 'tabLeads');
+    if (tabBtnCredits) tabBtnCredits.classList.toggle('active', tabId === 'tabCredits');
+    if (tabPaneInventory) tabPaneInventory.classList.toggle('active', tabId === 'tabInventory');
+    if (tabPaneLeads) tabPaneLeads.classList.toggle('active', tabId === 'tabLeads');
+    if (tabPaneCredits) tabPaneCredits.classList.toggle('active', tabId === 'tabCredits');
   }
 
   // ==========================================
@@ -1445,6 +1608,344 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {
       showToast('Error al eliminar lead', 'error');
+    }
+  };
+
+  // ==========================================
+  // CREDITS & FINANCING TABLE & ACTIONS (FNA)
+  // ==========================================
+
+  function applyCreditsFilters() {
+    state.filteredCredits = state.credits.filter(c => {
+      const q = state.creditsFilters.search;
+      const matchSearch = !q ||
+        (c.client_name && c.client_name.toLowerCase().includes(q)) ||
+        (c.client_phone && c.client_phone.includes(q)) ||
+        (c.client_email && c.client_email.toLowerCase().includes(q)) ||
+        (c.vehicle_name && c.vehicle_name.toLowerCase().includes(q)) ||
+        (c.financial_institution && c.financial_institution.toLowerCase().includes(q)) ||
+        (c.id && c.id.toLowerCase().includes(q)) ||
+        (c.notes && c.notes.toLowerCase().includes(q));
+
+      const matchInst = state.creditsFilters.institution === 'all' || c.financial_institution === state.creditsFilters.institution;
+      const cStatus = (c.status || 'en_proceso').toLowerCase();
+      const matchStatus = state.creditsFilters.status === 'all' || cStatus === state.creditsFilters.status;
+      const matchSales = state.creditsFilters.sales === 'all' || c.sales_rep === state.creditsFilters.sales;
+
+      return matchSearch && matchInst && matchStatus && matchSales;
+    });
+
+    renderCreditsTable();
+  }
+
+  function getInstitutionClass(inst) {
+    if (!inst) return 'inst-other';
+    const lower = inst.toLowerCase();
+    if (lower.includes('bbva')) return 'inst-bbva';
+    if (lower.includes('banorte')) return 'inst-banorte';
+    if (lower.includes('scotia')) return 'inst-scotiabank';
+    if (lower.includes('santander')) return 'inst-santander';
+    if (lower.includes('hey')) return 'inst-hey';
+    if (lower.includes('autohaus')) return 'inst-autohaus';
+    return '';
+  }
+
+  function renderCreditsTable() {
+    if (!creditsTableBody) return;
+    creditsTableBody.innerHTML = '';
+    const creditsMobileCards = document.getElementById('creditsMobileCards');
+    if (creditsMobileCards) creditsMobileCards.innerHTML = '';
+
+    if (!state.filteredCredits.length) {
+      creditsTableBody.innerHTML = `
+        <tr>
+          <td colspan="10" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+            No se encontraron solicitudes de crédito registradas con los filtros seleccionados.
+          </td>
+        </tr>
+      `;
+      if (creditsMobileCards) {
+        creditsMobileCards.innerHTML = `
+          <div class="mobile-empty-state" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8; background: rgba(15, 39, 82, 0.5); border-radius: 16px;">
+            No se encontraron solicitudes de crédito registradas.
+          </div>
+        `;
+      }
+      return;
+    }
+
+    const isAdmin = (state.user && state.user.role === 'admin') || (!state.user && !!state.token);
+    let mobileCreditsHtml = '';
+
+    state.filteredCredits.forEach(credit => {
+      const tr = document.createElement('tr');
+      const creditStatus = (credit.status || 'en_proceso').toLowerCase();
+
+      // Direct WhatsApp link
+      const cleanPhone = (credit.client_phone || '').replace(/[^0-9]/g, '');
+      const phoneFormatted = cleanPhone.length === 10 ? `52${cleanPhone}` : cleanPhone;
+      const waMsg = encodeURIComponent(`Hola ${credit.client_name}, te saluda ${credit.created_by ? 'el área de Créditos' : 'tu asesor'} de Autohaus Chihuahua respecto a tu trámite de financiamiento con ${credit.financial_institution} para el ${credit.vehicle_name}. ¿Cómo estás?`);
+      const waUrl = `https://wa.me/${phoneFormatted}?text=${waMsg}`;
+
+      // Status selector for quick follow-up
+      const statusSelector = `
+        <select class="status-pill-select credit-status-${creditStatus}" onchange="window.updateCreditStatus('${credit.id}', this.value)">
+          <option value="en_proceso" ${creditStatus === 'en_proceso' ? 'selected' : ''}>🟡 En Proceso</option>
+          <option value="aprobado" ${creditStatus === 'aprobado' ? 'selected' : ''}>🟢 Aprobado</option>
+          <option value="condicionado" ${creditStatus === 'condicionado' ? 'selected' : ''}>🟠 Condicionado</option>
+          <option value="entregado" ${creditStatus === 'entregado' ? 'selected' : ''}>🏆 Entregado</option>
+          <option value="rechazado" ${creditStatus === 'rechazado' ? 'selected' : ''}>🔴 Rechazado</option>
+          <option value="cancelado" ${creditStatus === 'cancelado' ? 'selected' : ''}>❌ Cancelado</option>
+        </select>
+      `;
+
+      let actionsHtml = `
+        <div class="table-actions">
+          <!-- WhatsApp Client -->
+          <a href="${waUrl}" target="_blank" class="btn-action-icon btn-whatsapp-lead" title="Chatear con el cliente sobre su crédito por WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+          </a>
+          <!-- Edit Credit -->
+          <button class="btn-action-icon" title="Editar trámite de crédito" onclick="window.editCredit('${credit.id}')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+      `;
+
+      if (isAdmin) {
+        actionsHtml += `
+          <!-- Delete Credit -->
+          <button class="btn-action-icon btn-delete" title="Eliminar solicitud" onclick="window.deleteCredit('${credit.id}', '${credit.client_name}')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        `;
+      }
+      actionsHtml += `</div>`;
+
+      const instClass = getInstitutionClass(credit.financial_institution);
+
+      // Desktop Row
+      tr.innerHTML = `
+        <td><span class="credit-folio-badge">${credit.id.replace('cred-', '#')}</span></td>
+        <td>
+          <div style="font-weight: 800; color: #ffffff;">${credit.client_name}</div>
+          <div style="font-size: 0.74rem; color: #94a3b8;">${credit.client_email || 'Sin correo'}</div>
+          <a href="${waUrl}" target="_blank" style="color: var(--brand-yellow); font-size: 0.78rem; font-weight: 700; text-decoration: none;">📱 ${credit.client_phone}</a>
+        </td>
+        <td>
+          <div style="font-weight: 800; color: #cbd5e1;">${credit.vehicle_name}</div>
+          <div style="font-size: 0.74rem; color: #94a3b8;">Valor: <strong style="color: #ffffff;">${credit.vehicle_price}</strong></div>
+        </td>
+        <td>
+          <span class="badge-institution ${instClass}">${credit.financial_institution}</span>
+        </td>
+        <td>
+          <div class="credit-amount-highlight">${credit.financed_amount}</div>
+          <div class="credit-sub-amount">Enganche: ${credit.down_payment}</div>
+        </td>
+        <td>
+          <div style="font-weight: 800; color: #38bdf8;">${credit.term_months} Meses</div>
+          <div class="credit-sub-amount">Mensualidad: <strong style="color: #ffffff;">${credit.monthly_payment}</strong></div>
+        </td>
+        <td>
+          <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 700; font-size: 0.72rem;">
+            👤 ${credit.sales_rep || 'Sin asignar'}
+          </span>
+        </td>
+        <td>${statusSelector}</td>
+        <td style="max-width: 220px; font-size: 0.76rem; color: #cbd5e1; line-height: 1.4;">
+          ${credit.notes ? `"${credit.notes}"` : '<span style="color: #64748b;">Sin notas</span>'}
+        </td>
+        <td style="text-align: center;">${actionsHtml}</td>
+      `;
+
+      creditsTableBody.appendChild(tr);
+
+      // Mobile Card
+      mobileCreditsHtml += `
+        <div class="credit-mobile-card ${creditStatus === 'aprobado' ? 'is-approved' : ''}" onclick="window.editCredit('${credit.id}')">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <span class="credit-folio-badge">${credit.id.replace('cred-', '#')}</span>
+              <h4 style="margin: 0.3rem 0 0.1rem; color: #ffffff; font-size: 1.05rem; font-weight: 800;">${credit.client_name}</h4>
+              <span class="badge-institution ${instClass}" style="margin-top: 4px;">${credit.financial_institution}</span>
+            </div>
+            <div onclick="event.stopPropagation()">
+              ${statusSelector}
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 0, 0, 0.25); border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.82rem;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #94a3b8;">Auto:</span>
+              <strong style="color: #ffffff;">${credit.vehicle_name}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #94a3b8;">Financiado:</span>
+              <strong style="color: #38bdf8;">${credit.financed_amount} (${credit.term_months} meses)</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #94a3b8;">Enganche / Mensualidad:</span>
+              <span style="color: #ffffff;">${credit.down_payment} / ${credit.monthly_payment}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #94a3b8;">Asesor:</span>
+              <span style="color: #93c5fd;">👤 ${credit.sales_rep}</span>
+            </div>
+          </div>
+
+          ${credit.notes ? `<div style="font-size: 0.78rem; color: #cbd5e1; font-style: italic; background: rgba(255,255,255,0.04); padding: 0.5rem 0.75rem; border-radius: 8px;">"${credit.notes}"</div>` : ''}
+
+          <div class="mobile-card-touch-actions" onclick="event.stopPropagation()" style="display: flex; gap: 0.5rem;">
+            <a href="${waUrl}" target="_blank" class="btn-lead-touch-whatsapp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.002.589 1.99.9 3.036.9 3.182 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.782-5.999-5.782zm0 10.366c-.927 0-1.802-.276-2.571-.78l-.184-.11-1.905.5 5.09-1.859-.12-.191c-.553-.879-.884-1.854-.883-2.826.001-2.534 2.062-4.594 4.597-4.594 2.536 0 4.597 2.061 4.597 4.596-.001 2.535-2.062 4.594-4.597 4.594z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+            <button class="btn-lead-touch-edit" onclick="window.editCredit('${credit.id}')">
+              <span>Editar</span>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    if (creditsMobileCards) {
+      creditsMobileCards.innerHTML = mobileCreditsHtml;
+    }
+  }
+
+  // Open Credit Modal
+  function openCreditModal(creditData = null) {
+    if (!creditFormModal) return;
+    creditForm.reset();
+    if (creditData) {
+      creditModalTitle.textContent = `Editar Solicitud: ${creditData.client_name}`;
+      editCreditId.value = creditData.id;
+      document.getElementById('creditClientName').value = creditData.client_name || '';
+      document.getElementById('creditClientPhone').value = creditData.client_phone || '';
+      document.getElementById('creditClientEmail').value = creditData.client_email || '';
+      if (creditVehicleSelect) creditVehicleSelect.value = creditData.vehicle_id || '';
+      document.getElementById('creditInstitutionSelect').value = creditData.financial_institution || 'BBVA Bancomer';
+      document.getElementById('creditVehiclePrice').value = creditData.vehicle_price || '';
+      document.getElementById('creditDownPayment').value = creditData.down_payment || '';
+      document.getElementById('creditFinancedAmount').value = creditData.financed_amount || '';
+      document.getElementById('creditTermMonths').value = creditData.term_months || 48;
+      document.getElementById('creditMonthlyPayment').value = creditData.monthly_payment || '';
+      document.getElementById('creditSalesRepSelect').value = creditData.sales_rep || 'Napo';
+      document.getElementById('creditStatusSelect').value = creditData.status || 'en_proceso';
+      document.getElementById('creditNotes').value = creditData.notes || '';
+    } else {
+      creditModalTitle.textContent = 'Nueva Solicitud de Crédito & Financiamiento';
+      editCreditId.value = '';
+      document.getElementById('creditTermMonths').value = '48';
+      document.getElementById('creditStatusSelect').value = 'en_proceso';
+      document.getElementById('creditInstitutionSelect').value = 'BBVA Bancomer';
+    }
+    creditFormModal.classList.add('active');
+  }
+
+  function closeCreditModal() {
+    if (creditFormModal) creditFormModal.classList.remove('active');
+  }
+
+  async function handleCreditFormSubmit(e) {
+    e.preventDefault();
+    const saveBtn = document.getElementById('saveCreditBtn');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Guardando...';
+
+    try {
+      const isEdit = !!editCreditId.value;
+      const url = isEdit ? `/api/credits/${editCreditId.value}` : '/api/credits';
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const vSelect = document.getElementById('creditVehicleSelect');
+      const vName = vSelect.value ? vSelect.options[vSelect.selectedIndex].text.replace(/Pág\. \d+ \| /, '').replace(/ - \$\S+/, '') : 'Vehículo';
+
+      const payload = {
+        client_name: document.getElementById('creditClientName').value,
+        client_phone: document.getElementById('creditClientPhone').value,
+        client_email: document.getElementById('creditClientEmail').value,
+        vehicle_id: vSelect.value || null,
+        vehicle_name: vName,
+        vehicle_price: document.getElementById('creditVehiclePrice').value,
+        financial_institution: document.getElementById('creditInstitutionSelect').value,
+        down_payment: document.getElementById('creditDownPayment').value,
+        financed_amount: document.getElementById('creditFinancedAmount').value,
+        term_months: parseInt(document.getElementById('creditTermMonths').value, 10),
+        monthly_payment: document.getElementById('creditMonthlyPayment').value,
+        sales_rep: document.getElementById('creditSalesRepSelect').value,
+        status: document.getElementById('creditStatusSelect').value,
+        notes: document.getElementById('creditNotes').value
+      };
+
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${state.token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        showToast(data.message, 'success');
+        closeCreditModal();
+        await loadDashboardData();
+      } else {
+        showToast(data.message || 'Error al guardar solicitud de crédito', 'error');
+      }
+    } catch (e) {
+      showToast('Error de conexión', 'error');
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Guardar Solicitud de Crédito';
+    }
+  }
+
+  window.editCredit = function(creditId) {
+    const credit = state.credits.find(c => c.id === creditId);
+    if (credit) openCreditModal(credit);
+  };
+
+  window.updateCreditStatus = async function(creditId, newStatus) {
+    try {
+      const res = await fetch(`/api/credits/${creditId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${state.token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(`Estatus de crédito actualizado: ${newStatus.toUpperCase()}`, 'success');
+        await loadDashboardData();
+      } else {
+        showToast(data.message, 'error');
+      }
+    } catch (e) {
+      showToast('Error al actualizar estatus de crédito', 'error');
+    }
+  };
+
+  window.deleteCredit = async function(creditId, clientName) {
+    if (!confirm(`¿Eliminar la solicitud de crédito de ${clientName}?`)) return;
+    try {
+      const res = await fetch(`/api/credits/${creditId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${state.token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(data.message, 'success');
+        await loadDashboardData();
+      } else {
+        showToast(data.message, 'error');
+      }
+    } catch (e) {
+      showToast('Error al eliminar solicitud', 'error');
     }
   };
 

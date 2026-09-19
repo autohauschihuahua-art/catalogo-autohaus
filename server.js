@@ -994,6 +994,153 @@ app.delete('/api/leads/:id', authenticateToken, requireAdmin, async (req, res) =
   }
 });
 
+// ==========================================
+// CREDITS & FINANCING API ROUTES (FNA & ADMIN)
+// ==========================================
+
+// 1. GET ALL CREDITS
+app.get('/api/credits', authenticateToken, async (req, res) => {
+  try {
+    const credits = await db.getCredits();
+    res.json({ success: true, count: credits.length, data: credits });
+  } catch (err) {
+    console.error('Error fetching credits:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener solicitudes de crédito.' });
+  }
+});
+
+// 2. GET CREDITS STATS
+app.get('/api/credits/stats', authenticateToken, async (req, res) => {
+  try {
+    const stats = await db.getCreditStats();
+    res.json({ success: true, ...stats });
+  } catch (err) {
+    console.error('Error fetching credit stats:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener estadísticas de crédito.' });
+  }
+});
+
+// 3. GET SINGLE CREDIT
+app.get('/api/credits/:id', authenticateToken, async (req, res) => {
+  try {
+    const credit = await db.getCreditById(req.params.id);
+    if (!credit) {
+      return res.status(404).json({ success: false, message: 'Solicitud de crédito no encontrada.' });
+    }
+    res.json({ success: true, data: credit });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al consultar solicitud de crédito.' });
+  }
+});
+
+// 4. CREATE NEW CREDIT APPLICATION
+app.post('/api/credits', authenticateToken, async (req, res) => {
+  try {
+    const {
+      client_name,
+      client_phone,
+      client_email,
+      vehicle_id,
+      vehicle_name,
+      vehicle_price,
+      financial_institution,
+      down_payment,
+      financed_amount,
+      term_months,
+      monthly_payment,
+      sales_rep,
+      status,
+      notes
+    } = req.body;
+
+    if (!client_name || !client_phone) {
+      return res.status(400).json({ success: false, message: 'Nombre del cliente y teléfono son obligatorios.' });
+    }
+
+    const newCredit = await db.createCredit({
+      client_name: sanitizeInput(client_name),
+      client_phone: sanitizeInput(client_phone),
+      client_email: sanitizeInput(client_email),
+      vehicle_id: sanitizeInput(vehicle_id),
+      vehicle_name: sanitizeInput(vehicle_name || req.body.vehicle_title || 'Vehículo'),
+      vehicle_price: sanitizeInput(vehicle_price),
+      financial_institution: sanitizeInput(financial_institution) || 'BBVA Bancomer',
+      down_payment: sanitizeInput(down_payment) || '$0',
+      financed_amount: sanitizeInput(financed_amount) || '$0',
+      term_months: parseInt(term_months, 10) || 48,
+      monthly_payment: sanitizeInput(monthly_payment) || '$0',
+      sales_rep: sanitizeInput(sales_rep) || 'Napo',
+      status: sanitizeInput(status) || 'en_proceso',
+      notes: sanitizeInput(notes) || '',
+      created_by: req.user.email || 'fna@autohaus.mx'
+    });
+
+    res.status(201).json({
+      success: true,
+      message: `Solicitud de crédito para ${newCredit.client_name} registrada con éxito.`,
+      data: newCredit
+    });
+  } catch (err) {
+    console.error('Error creating credit application:', err);
+    res.status(500).json({ success: false, message: 'Error al registrar solicitud de crédito.' });
+  }
+});
+
+// 5. UPDATE CREDIT APPLICATION
+app.put('/api/credits/:id', authenticateToken, async (req, res) => {
+  try {
+    const creditId = req.params.id;
+    const existing = await db.getCreditById(creditId);
+    if (!existing) {
+      return res.status(404).json({ success: false, message: 'Solicitud de crédito no encontrada.' });
+    }
+
+    const updates = {};
+    if (req.body.client_name !== undefined) updates.client_name = sanitizeInput(req.body.client_name);
+    if (req.body.client_phone !== undefined) updates.client_phone = sanitizeInput(req.body.client_phone);
+    if (req.body.client_email !== undefined) updates.client_email = sanitizeInput(req.body.client_email);
+    if (req.body.vehicle_id !== undefined) updates.vehicle_id = sanitizeInput(req.body.vehicle_id);
+    if (req.body.vehicle_name !== undefined) updates.vehicle_name = sanitizeInput(req.body.vehicle_name);
+    if (req.body.vehicle_price !== undefined) updates.vehicle_price = sanitizeInput(req.body.vehicle_price);
+    if (req.body.financial_institution !== undefined) updates.financial_institution = sanitizeInput(req.body.financial_institution);
+    if (req.body.down_payment !== undefined) updates.down_payment = sanitizeInput(req.body.down_payment);
+    if (req.body.financed_amount !== undefined) updates.financed_amount = sanitizeInput(req.body.financed_amount);
+    if (req.body.term_months !== undefined) updates.term_months = parseInt(req.body.term_months, 10);
+    if (req.body.monthly_payment !== undefined) updates.monthly_payment = sanitizeInput(req.body.monthly_payment);
+    if (req.body.sales_rep !== undefined) updates.sales_rep = sanitizeInput(req.body.sales_rep);
+    if (req.body.status !== undefined) updates.status = sanitizeInput(req.body.status);
+    if (req.body.notes !== undefined) updates.notes = sanitizeInput(req.body.notes);
+
+    const updated = await db.updateCredit(creditId, updates);
+    res.json({
+      success: true,
+      message: 'Solicitud de crédito actualizada correctamente.',
+      data: updated
+    });
+  } catch (err) {
+    console.error('Error updating credit:', err);
+    res.status(500).json({ success: false, message: 'Error al actualizar solicitud de crédito.' });
+  }
+});
+
+// 6. DELETE CREDIT APPLICATION (Admin only)
+app.delete('/api/credits/:id', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const creditId = req.params.id;
+    const removed = await db.deleteCredit(creditId);
+    if (!removed) {
+      return res.status(404).json({ success: false, message: 'Solicitud de crédito no encontrada.' });
+    }
+    res.json({
+      success: true,
+      message: `Solicitud de crédito de ${removed.client_name} eliminada con éxito.`,
+      data: removed
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Error al eliminar solicitud de crédito.' });
+  }
+});
+
 // 7. DOWNLOAD EDITORIAL PDF CATALOG (Live from SQL DB & no-cache)
 app.get('/api/catalog/download-pdf', async (req, res) => {
   const pdfPath = path.join(__dirname, 'assets', 'docs', 'Catalogo_Autohaus_Editorial_2026.pdf');
