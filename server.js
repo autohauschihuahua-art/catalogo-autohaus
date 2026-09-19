@@ -427,35 +427,6 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
-// 4. CREATE NEW VEHICLE (Admin & Secretaria)
-app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fields([
-  { name: 'cover_photo', maxCount: 1 },
-  { name: 'gallery_photos', maxCount: 10 }
-]), async (req, res) => {
-  try {
-    const brand = (req.body.brand || '').toUpperCase().trim();
-    const model = (req.body.model || '').toUpperCase().trim();
-    const year = parseInt(req.body.year, 10) || new Date().getFullYear();
-    const category = req.body.category || 'SEDAN & HATCHBACK';
-    const price_contado = req.body.price_contado || '$0';
-    const rawFin = (req.body.price_financiado || '').trim();
-    const price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
-    const rawStatus = (req.body.status || 'disponible').toLowerCase().trim();
-    const status = ['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(rawStatus) ? rawStatus : 'disponible';
-    const vin = (req.body.vin || '').toUpperCase().trim() || null;
-    const branch_id = parseInt(req.body.branch_id, 10) || 1;
-
-    let specs = [];
-    if (typeof req.body.specs === 'string') {
-      try {
-        specs = JSON.parse(req.body.specs);
-      } catch (e) {
-        specs = req.body.specs.split('\n').map(s => s.trim()).filter(Boolean);
-      }
-    } else if (Array.isArray(req.body.specs)) {
-      specs = req.body.specs;
-    }
-
 // Storage Helper: Upload to Supabase Storage with local disk fallback
 async function uploadImageToSupabaseStorage(file) {
   if (!file) return null;
