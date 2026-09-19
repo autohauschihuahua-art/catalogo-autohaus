@@ -1059,6 +1059,7 @@ module.exports = {
   updateLead,
   deleteLead,
   getStats,
+  getSupabaseClient: () => (useSupabase ? supabase : null),
   CATEGORY_ORDER,
   sortVehicles
 };

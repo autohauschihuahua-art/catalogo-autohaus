@@ -456,23 +456,83 @@ app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fie
       specs = req.body.specs;
     }
 
+// Storage Helper: Upload to Supabase Storage with local disk fallback
+async function uploadImageToSupabaseStorage(file) {
+  if (!file) return null;
+  const ext = (path.extname(file.originalname) || '.jpeg').toLowerCase();
+  const safeExt = ALLOWED_EXTENSIONS.includes(ext) ? ext : '.jpeg';
+  const fileName = `car_${Date.now()}_${Math.round(Math.random() * 1e6)}${safeExt}`;
+
+  const supabaseClient = db.getSupabaseClient ? db.getSupabaseClient() : null;
+  if (supabaseClient) {
+    try {
+      const fileBuffer = fs.readFileSync(file.path);
+      const mime = file.mimetype || (safeExt === '.png' ? 'image/png' : safeExt === '.webp' ? 'image/webp' : 'image/jpeg');
+      const { data, error } = await supabaseClient.storage.from('vehicle-photos').upload(fileName, fileBuffer, {
+        contentType: mime,
+        upsert: true
+      });
+      if (!error) {
+        const { data: { publicUrl } } = supabaseClient.storage.from('vehicle-photos').getPublicUrl(fileName);
+        if (publicUrl) return publicUrl;
+      } else {
+        console.warn('Advertencia al subir a Supabase Storage:', error.message);
+      }
+    } catch (e) {
+      console.warn('Error en subida a Supabase Storage:', e.message);
+    }
+  }
+
+  return `assets/cars/${file.filename}`;
+}
+
+// 4. CREATE NEW VEHICLE (Admin & Secretaria)
+app.post('/api/vehicles', authenticateToken, requireAdminOrSecretary, upload.fields([
+  { name: 'cover_photo', maxCount: 1 },
+  { name: 'gallery_photos', maxCount: 10 }
+]), async (req, res) => {
+  try {
+    const brand = (req.body.brand || '').toUpperCase().trim();
+    const model = (req.body.model || '').toUpperCase().trim();
+    const year = parseInt(req.body.year, 10) || new Date().getFullYear();
+    const category = req.body.category || 'SEDAN & HATCHBACK';
+    const price_contado = req.body.price_contado || '$0';
+    const rawFin = (req.body.price_financiado || '').trim();
+    const price_financiado = (!rawFin || rawFin === '$0' || rawFin === '0' || rawFin === '-' || rawFin.toLowerCase() === 'no aplica' || rawFin.toLowerCase() === 'n/a' || rawFin.toLowerCase() === 'consultar') ? 'No Aplica' : rawFin;
+    const rawStatus = (req.body.status || 'disponible').toLowerCase().trim();
+    const status = ['disponible', 'apartado', 'en_preparacion', 'vendido', 'baja'].includes(rawStatus) ? rawStatus : 'disponible';
+    const vin = (req.body.vin || '').toUpperCase().trim() || null;
+    const branch_id = parseInt(req.body.branch_id, 10) || 1;
+
+    let specs = [];
+    if (typeof req.body.specs === 'string') {
+      try {
+        specs = JSON.parse(req.body.specs);
+      } catch (e) {
+        specs = req.body.specs.split('\n').map(s => s.trim()).filter(Boolean);
+      }
+    } else if (Array.isArray(req.body.specs)) {
+      specs = req.body.specs;
+    }
+
     const priceClean = parseInt(price_contado.replace(/[^0-9]/g, ''), 10) || 0;
     
     let coverPhotoPath = 'assets/svg/autohaus-tag.svg';
     if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
-      coverPhotoPath = `assets/cars/${req.files['cover_photo'][0].filename}`;
+      coverPhotoPath = await uploadImageToSupabaseStorage(req.files['cover_photo'][0]);
     } else if (req.body.cover_photo_url) {
       coverPhotoPath = req.body.cover_photo_url;
     }
 
     let realPhotos = [];
-    if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
+    if (coverPhotoPath && coverPhotoPath !== 'assets/svg/autohaus-tag.svg') {
       realPhotos.push(coverPhotoPath);
     }
     if (req.files && req.files['gallery_photos']) {
-      req.files['gallery_photos'].forEach(f => {
-        realPhotos.push(`assets/cars/${f.filename}`);
-      });
+      for (const f of req.files['gallery_photos']) {
+        const cloudUrl = await uploadImageToSupabaseStorage(f);
+        if (cloudUrl) realPhotos.push(cloudUrl);
+      }
     }
 
     if (coverPhotoPath === 'assets/svg/autohaus-tag.svg' && realPhotos.length > 0) {
@@ -568,7 +628,7 @@ app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary,
     }
 
     if (req.files && req.files['cover_photo'] && req.files['cover_photo'][0]) {
-      updates.cover_photo = `assets/cars/${req.files['cover_photo'][0].filename}`;
+      updates.cover_photo = await uploadImageToSupabaseStorage(req.files['cover_photo'][0]);
       updates.main_photo = updates.cover_photo;
       updates.cutout_photo = updates.cover_photo;
     } else if (req.body.cover_photo_url) {
@@ -589,9 +649,10 @@ app.put('/api/vehicles/:identifier', authenticateToken, requireAdminOrSecretary,
     }
 
     if (req.files && req.files['gallery_photos'] && req.files['gallery_photos'].length > 0) {
-      req.files['gallery_photos'].forEach(f => {
-        finalRealPhotos.push(`assets/cars/${f.filename}`);
-      });
+      for (const f of req.files['gallery_photos']) {
+        const cloudUrl = await uploadImageToSupabaseStorage(f);
+        if (cloudUrl) finalRealPhotos.push(cloudUrl);
+      }
     }
 
     if (!finalRealPhotos.length) {

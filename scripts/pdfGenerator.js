@@ -42,22 +42,33 @@ function sortCatalogByCategory(vehicles) {
 }
 
 /**
- * Convierte un archivo local a Base64
+ * Convierte un archivo local o URL remota a Base64
  */
-function imageToBase64(relOrAbsPath) {
+async function imageToBase64(relOrAbsOrUrl) {
+  if (!relOrAbsOrUrl) return '';
   try {
-    const absPath = path.isAbsolute(relOrAbsPath)
-      ? relOrAbsPath
-      : path.join(__dirname, '..', relOrAbsPath);
+    if (relOrAbsOrUrl.startsWith('http://') || relOrAbsOrUrl.startsWith('https://')) {
+      const response = await fetch(relOrAbsOrUrl);
+      if (response.ok) {
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const contentType = response.headers.get('content-type') || 'image/jpeg';
+        return `data:${contentType};base64,${buffer.toString('base64')}`;
+      }
+    } else {
+      const absPath = path.isAbsolute(relOrAbsOrUrl)
+        ? relOrAbsOrUrl
+        : path.join(__dirname, '..', relOrAbsOrUrl);
 
-    if (fs.existsSync(absPath)) {
-      const ext = path.extname(absPath).replace('.', '').toLowerCase();
-      const mime = ext === 'png' ? 'image/png' : ext === 'svg' ? 'image/svg+xml' : 'image/jpeg';
-      const b64 = fs.readFileSync(absPath).toString('base64');
-      return `data:${mime};base64,${b64}`;
+      if (fs.existsSync(absPath)) {
+        const ext = path.extname(absPath).replace('.', '').toLowerCase();
+        const mime = ext === 'png' ? 'image/png' : ext === 'svg' ? 'image/svg+xml' : 'image/jpeg';
+        const b64 = fs.readFileSync(absPath).toString('base64');
+        return `data:${mime};base64,${b64}`;
+      }
     }
   } catch (e) {
-    console.error('Error convirtiendo imagen a base64:', relOrAbsPath, e.message);
+    console.warn('Error convirtiendo imagen a base64:', relOrAbsOrUrl, e.message);
   }
   return '';
 }
@@ -77,9 +88,9 @@ function formatPriceFinanciado(val) {
 /**
  * Genera el documento HTML completo para el PDF
  */
-function buildCatalogHtml(vehicles) {
-  const logoInlineB64 = imageToBase64('assets/images/autohaus_logo_white.png');
-  const tagLogoB64 = imageToBase64('assets/images/autohaus_tag_original.png');
+async function buildCatalogHtml(vehicles) {
+  const logoInlineB64 = await imageToBase64('assets/images/autohaus_logo_white.png');
+  const tagLogoB64 = await imageToBase64('assets/images/autohaus_tag_original.png');
 
   const CATEGORY_TITLES = {
     'SEDAN & HATCHBACK': 'SEDÁN & HATCHBACK',
@@ -139,9 +150,9 @@ function buildCatalogHtml(vehicles) {
   const orderedCategories = ['SEDAN & HATCHBACK', "SUV'S", 'PICK UPS', 'DEPORTIVOS'];
   let bodyContentHtml = '';
 
-  orderedCategories.forEach(catKey => {
+  for (const catKey of orderedCategories) {
     const categoryCars = vehicles.filter(v => normCat(v.category) === catKey);
-    if (!categoryCars.length) return;
+    if (!categoryCars.length) continue;
 
     const displayTitle = CATEGORY_TITLES[catKey] || catKey;
 
@@ -176,9 +187,9 @@ function buildCatalogHtml(vehicles) {
     `;
 
     // Páginas individuales de los vehículos de esta categoría
-    categoryCars.forEach(car => {
+    for (const car of categoryCars) {
       const photoPath = car.cover_photo || car.main_photo || (car.photos && car.photos[0]) || `assets/cars/page_${car.page}_img_2.jpeg`;
-      const photoB64 = imageToBase64(photoPath) || tagLogoB64;
+      const photoB64 = (await imageToBase64(photoPath)) || tagLogoB64;
       const specs = (car.specs && car.specs.length) ? car.specs.slice(0, 6) : [
         'Transmisión Automática',
         'Eléctrico',
@@ -263,8 +274,8 @@ function buildCatalogHtml(vehicles) {
 
         </div>
       `;
-    });
-  });
+    }
+  }
 
   return `
     <!DOCTYPE html>
@@ -835,7 +846,7 @@ async function generateFullCatalogPDF(targetPath = null, customVehicles = null) 
       const sortedCars = sortCatalogByCategory(rawCars);
 
       // Construir HTML
-      const html = buildCatalogHtml(sortedCars);
+      const html = await buildCatalogHtml(sortedCars);
 
       const chromePath = getChromeExecutablePath();
       const launchOptions = {
