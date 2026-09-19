@@ -184,6 +184,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         tabBtnLeads.style.display = 'none';
         tabLeadsTitle.textContent = 'Leads (Oculto)';
+      } else if (data.user.role === 'finance' || data.user.role === 'credit') {
+        userRoleBadge.textContent = 'CRÉDITOS / FNA';
+        userRoleBadge.className = 'badge-role role-finance';
+        if (drawerUserRole) {
+          drawerUserRole.textContent = 'CRÉDITOS & FINANCIAMIENTO (FNA)';
+          drawerUserRole.className = 'badge-role role-finance';
+        }
+        tabLeadsTitle.textContent = 'Solicitudes de Crédito & Leads (CRM)';
+        statLeadsLabel.textContent = 'Total Solicitudes & Leads';
+        // Hide Vehicle Create/Delete buttons for finance (View & Credit Focus)
+        if (openCreateModalBtn) openCreateModalBtn.style.display = 'none';
+        if (openCreateLeadModalBtn) openCreateLeadModalBtn.style.display = 'none';
       } else if (data.user.role === 'sales') {
         userRoleBadge.textContent = `VENDEDOR: ${data.user.name.split(' ')[0]}`;
         userRoleBadge.className = 'badge-role role-sales';
@@ -657,6 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userRole = (state.user && state.user.role) || (state.token ? 'admin' : 'sales');
     const isSales = userRole === 'sales';
+    const isFinance = userRole === 'finance' || userRole === 'credit';
     const canManage = userRole === 'admin' || userRole === 'secretary';
 
     let mobileCardsHtml = '';
@@ -711,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
           </div>
         `;
-      } else if (isSales) {
+      } else if (isSales || isFinance) {
         const shareText = encodeURIComponent(`Hola! Te comparto los detalles del ${car.brand} ${car.model} (${car.year}) en Autohaus Chihuahua. Precio de contado: ${car.price_contado}.`);
         actionsHtml = `
           <div class="table-actions">

@@ -308,6 +308,7 @@ body {
 .role-admin { background: #ef4444; color: #ffffff; }
 .role-secretary { background: #a855f7; color: #ffffff; }
 .role-sales { background: #3b82f6; color: #ffffff; }
+.role-finance, .role-credit { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
 
 .btn-secondary {
   background: rgba(255, 255, 255, 0.12);

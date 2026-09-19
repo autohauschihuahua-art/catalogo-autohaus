@@ -42,6 +42,13 @@
     "role": "admin"
   },
   {
+    "id": 7,
+    "name": "FNA (Créditos)",
+    "email": "fna@autohaus.mx",
+    "password": "$2a$10$OB4WzGnJHBOCusvK23p1hOENoZWk9BUX.S7bGC0qxOmmSaG6uvWzq",
+    "role": "finance"
+  },
+  {
     "id": 1788220562093,
     "name": "Carlos Mendoza",
     "email": "cliente_test_1788220562010@ejemplo.com",

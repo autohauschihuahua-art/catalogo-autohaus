@@ -182,6 +182,13 @@ function requireAdminOrSecretary(req, res, next) {
   return res.status(403).json({ success: false, message: 'Permiso denegado. Tu perfil es de solo lectura.' });
 }
 
+function requireAdminOrSecretaryOrFinance(req, res, next) {
+  if (req.user && (req.user.role === 'admin' || req.user.role === 'secretary' || req.user.role === 'finance' || req.user.role === 'credit')) {
+    return next();
+  }
+  return res.status(403).json({ success: false, message: 'Permiso denegado.' });
+}
+
 // ==========================================
 // AUTHENTICATION API ROUTES
 // ==========================================
@@ -762,7 +769,7 @@ app.get('/api/sales-reps', async (req, res) => {
 });
 
 // GET ALL CLIENTS
-app.get('/api/clients', authenticateToken, requireAdminOrSecretary, async (req, res) => {
+app.get('/api/clients', authenticateToken, requireAdminOrSecretaryOrFinance, async (req, res) => {
   try {
     const clients = await db.getClients();
     res.json({ success: true, count: clients.length, data: clients });
@@ -801,11 +808,11 @@ async function getNextAssignedSalesperson() {
 // LEADS & CRM API ROUTES (ASIGNACIÓN DE LEADS)
 // ==========================================
 
-// 1. GET LEADS (Admin sees all; Sales sees only assigned)
+// 1. GET LEADS (Admin & Finance see all; Sales sees only assigned)
 app.get('/api/leads', authenticateToken, async (req, res) => {
   try {
     const leads = await db.getLeads();
-    if (req.user.role === 'admin') {
+    if (req.user.role === 'admin' || req.user.role === 'finance' || req.user.role === 'credit') {
       return res.json({ success: true, count: leads.length, data: leads });
     } else if (req.user.role === 'sales') {
       const myLeads = leads.filter(l => (l.assigned_to || '').toLowerCase() === req.user.email.toLowerCase());
@@ -938,7 +945,7 @@ app.put('/api/leads/:id', authenticateToken, async (req, res) => {
       }
       if (req.body.status) updates.status = req.body.status;
       if (req.body.notes) updates.notes = req.body.notes;
-    } else if (req.user.role === 'admin') {
+    } else if (req.user.role === 'admin' || req.user.role === 'finance' || req.user.role === 'credit') {
       if (req.body.client_name) updates.client_name = req.body.client_name;
       if (req.body.client_phone) updates.client_phone = req.body.client_phone;
       if (req.body.client_email) updates.client_email = req.body.client_email;
@@ -1033,8 +1040,8 @@ app.get('/api/catalog/download-pdf', async (req, res) => {
   }
 });
 
-// 8. REGENERATE PDF ON DEMAND (Admin & Secretaria)
-app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecretary, async (req, res) => {
+// 8. REGENERATE PDF ON DEMAND (Admin & Secretaria & Finance)
+app.post('/api/catalog/regenerate-pdf', authenticateToken, requireAdminOrSecretaryOrFinance, async (req, res) => {
   try {
     const vehicles = await db.getVehicles();
     const result = await generateFullCatalogPDF(null, vehicles);
